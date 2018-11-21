@@ -2,9 +2,7 @@ import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core'
 import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { MatFileUploadQueue } from 'angular-material-fileupload';
 import { Input } from '@angular/compiler/src/core';
-import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-document-checklist-form-modal',

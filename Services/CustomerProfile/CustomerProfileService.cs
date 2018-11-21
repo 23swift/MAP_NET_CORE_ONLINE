@@ -20,13 +20,14 @@ namespace MAP_Web.Services
         {
             Request request = new Request();
             request.Status = 1;
+            
             request.NewAffiliation = new NewAffiliation();
             request.NewAffiliation.CustomerProfile = customerProfile;
 
             for (int i = 0; i < 5; i++)
             {
                 request.NewAffiliation.DocumentChecklists.Add(new DocumentChecklist {
-                    documentName = "1"
+                    documentName = (i + 1).ToString()
                 });
             }
             

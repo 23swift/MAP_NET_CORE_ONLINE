@@ -10,7 +10,7 @@
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="PosTrackingNumber">
       <th mat-header-cell *matHeaderCellDef> POS Tracking Number </th>
-      <td mat-cell *matCellDef="let element"> {{element.posTrackingNumber}} </td>
+      <td mat-cell *matCellDef="let element"> {{ '000' + element.id }} </td>
     </ng-container>
     <ng-container matColumnDef="NatureOfRequest">
       <th mat-header-cell *matHeaderCellDef> Nature of Request </th>
@@ -18,11 +18,11 @@
     </ng-container>
     <ng-container matColumnDef="DateRequested">
       <th mat-header-cell *matHeaderCellDef> Date Requested </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateRequested | date: 'ddMMMyy'}} </td>
+      <td mat-cell *matCellDef="let element"> {{ dateRequested | date: 'ddMMMyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="RequestedBy">
       <th mat-header-cell *matHeaderCellDef> Requested By </th>
-      <td mat-cell *matCellDef="let element"> {{element.requestedBy}} </td>
+      <td mat-cell *matCellDef="let element"> {{ 'Test User' }} </td>
     </ng-container>
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>

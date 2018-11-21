@@ -59,7 +59,6 @@ export class BranchListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.newAffiliationId);
     this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
       this.dataSource = data.items;
       this._changeDetectRef.detectChanges();

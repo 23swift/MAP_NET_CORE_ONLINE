@@ -48,4 +48,7 @@ export class BranchListAttachmentPOSComponent implements OnInit, AfterContentIni
     this.router.navigate([{ outlets: { primary: '', branchPOS: 'POS' } }]);
   }
 
+  backToList() {
+    this.showBranchList = true;
+  }
 }

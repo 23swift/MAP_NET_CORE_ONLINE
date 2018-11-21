@@ -12,6 +12,8 @@ namespace MAP_Web.Models
         {
             Approvals = new HashSet<RequestApproval>();
             RequiredApprovals = new HashSet<RequiredApproval>();
+            MQRRequestApprovals = new HashSet<MQRRequestApproval>();
+            MQRRequiredApprovals = new HashSet<MQRRequiredApproval>();
             CreatedDate = DateTime.Now;
         }
 

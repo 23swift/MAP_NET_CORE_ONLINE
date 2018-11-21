@@ -84,6 +84,10 @@ export class PosListComponent implements OnInit {
     });
   }
 
+  get dateRequested() {
+    return new Date();
+  }
+
   getNatureOfRequest(value) {
     return this._posService.getNatureOfRequest().find(n => n.value === value).label;
   }

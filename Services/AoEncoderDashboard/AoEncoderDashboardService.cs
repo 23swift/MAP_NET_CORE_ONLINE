@@ -22,14 +22,15 @@ namespace MAP_Web.Services
             var dashboardContainer = new List<DashboardViewModel>();
             var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation), orderBy: x => x.OrderByDescending(y => y.Id));
 
-            int count = 0;
             foreach (var item in requests.Items)
             {
                 dashboardContainer.Add(new DashboardViewModel
                 {
                     RequestId = item.Id,
-                    requestedDate = DateTime.Now,
-                    referenceNo = "0000000" + ++count
+                    requestedDate = item.CreatedDate.Value,
+                    referenceNo = item.Id.ToString().PadLeft(7, '0'),
+                    requestedBy = "Test User",
+                    tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });
             }
 

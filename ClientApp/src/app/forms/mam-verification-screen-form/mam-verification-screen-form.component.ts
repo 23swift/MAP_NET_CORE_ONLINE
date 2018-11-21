@@ -51,5 +51,7 @@ export class MamVerificationScreenFormComponent extends AppBaseComponent impleme
   public getFields() {
     this.fields = this._mamVerificationScreenFormService.getMamVerFields();
   }
-
+  submit() {
+    
+  }
 }

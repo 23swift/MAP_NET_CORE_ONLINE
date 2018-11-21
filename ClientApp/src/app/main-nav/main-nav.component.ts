@@ -11,7 +11,7 @@ import { formatDate } from '@angular/common';
 })
 export class MainNavComponent implements OnInit {
   isHidden: boolean;
-  
+  over: any;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)

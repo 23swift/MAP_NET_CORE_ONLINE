@@ -14,6 +14,8 @@ export class ApproveWithReqReasonFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
+  options = {};
+  
   constructor(private _modalRef: MatDialogRef<ApproveWithReqReasonFormModalComponent>, private _service: ApproveWithReqReasonFormModalService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {

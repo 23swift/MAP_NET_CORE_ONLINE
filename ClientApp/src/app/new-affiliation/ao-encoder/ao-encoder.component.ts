@@ -21,7 +21,6 @@ export class AoEncoderComponent implements OnInit {
   mode: string;
   status = 'done';
   newAffiliationId = 0;
-  branchCount = 0;
   isBranch = false;
   isOif = false;
   isPos = false;
@@ -81,9 +80,5 @@ export class AoEncoderComponent implements OnInit {
     snackBarSub.afterDismissed().subscribe(() => {
       this._router.navigateByUrl('/');
     });
-  }
-
-  getBranchCount(count) {
-    this.branchCount = count;
   }
 }

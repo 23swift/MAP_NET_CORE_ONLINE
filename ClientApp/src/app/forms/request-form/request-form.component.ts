@@ -11,6 +11,8 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 })
 export class RequestFormComponent implements OnInit {
   form = new FormGroup({});
+  model = {};
+  options: {};
   fields: FormlyFieldConfig[] = [{
     fieldGroupClassName: 'display-flex',
     fieldGroup: [
@@ -132,6 +134,9 @@ export class RequestFormComponent implements OnInit {
   Cancel() { }
   Get() { }
   GetById() { }
-  Save() { }
+  Submit() { }
   Update() { }
+  Save() {
+
+  }
 }

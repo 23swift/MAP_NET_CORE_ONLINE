@@ -31,5 +31,7 @@ export class BuMaintenanceFormComponent implements OnInit {
   cancel() {
     this._matDialogRef.close();
   }
-
+  submit() {
+    
+  }
 }

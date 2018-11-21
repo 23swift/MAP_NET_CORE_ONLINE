@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl } from '@angular/forms';
 import { RemarksModalService } from './remarks-modal.service';
 
 export interface RemModal {
@@ -30,6 +30,8 @@ export class RemarksModalComponent implements OnInit {
     this._modalRef.close(this.form.value);
   }
   save() {
+  }
+  getItem() {
 
   }
 }

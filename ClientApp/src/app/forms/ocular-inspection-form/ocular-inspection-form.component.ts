@@ -25,6 +25,10 @@ export class OcularInspectionFormComponent extends AppBaseComponent implements O
 
   }
 
+  submit() {
+
+  }
+
   public cancel() {
     const parentRoute = this._router.url.split('/(')[0];
     this._router.navigateByUrl(`${parentRoute}`);

@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatRadioModule, MatDialogModule, MatPaginator,
-  MatPaginatorModule, MatSortModule, MatSortHeader
+  MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
@@ -145,18 +145,26 @@ import { OwnersListComponent } from './owners-list/owners-list.component';
 import { PosListContainerComponent } from './pos-list-container/pos-list-container.component';
 import { PosListComponent } from './pos-list/pos-list.component';
 import { PosFormModalComponent } from './modal/pos-form-modal/pos-form-modal.component';
-import { HttpClient } from 'selenium-webdriver/http';
 import { BranchFormModalComponent } from './modal/branch-form-modal/branch-form-modal.component';
 import { MidListModalComponent } from './modal/mid-list-modal/mid-list-modal.component';
 import { OifFormModalComponent } from './modal/oif-form-modal/oif-form-modal.component';
 import { PosTerminalBrandListModalComponent } from './modal/pos-terminal-brand-list-modal/pos-terminal-brand-list-modal.component';
 import { DocumentChecklistFormModalComponent } from './modal/document-checklist-form-modal/document-checklist-form-modal.component';
-import { FileSelectDirective } from 'ng2-file-upload';
-import { MatFileUploadModule, FileUploadInputFor } from 'angular-material-fileupload';
 import { DocumentPerRequestFormModalComponent } from './modal/document-per-request-form-modal/document-per-request-form-modal.component';
 import { ApproveWithReqReasonListComponent } from './approve-with-req-reason-list/approve-with-req-reason-list.component';
 import { ApproveWithReqReasonFormModalComponent } from './modal/approve-with-req-reason-form-modal/approve-with-req-reason-form-modal.component';
 import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-with-except-reason-details-modal/approve-with-except-reason-details-modal.component';
+import { BranchListPosComponent } from './branch-list-pos/branch-list-pos.component';
+import { CounterComponent } from './counter/counter.component';
+import { DetailsForMdcsComponent } from './details-for-mdcs/details-for-mdcs.component';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { EmployeeCreateComponent } from './employee/employee-create/employee-create.component';
+import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
+import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { MapWebHttpClientComponent } from './map-web-http-client/map-web-http-client.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -279,13 +287,24 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
     OifFormModalComponent,
     PosTerminalBrandListModalComponent,
     DocumentChecklistFormModalComponent,
-    FileSelectDirective,
     DocumentPerRequestFormModalComponent,
     VerificationScreenComponent,
     ApproveWithReqReasonListComponent,
     ApproveWithReqReasonFormModalComponent,
     ApproveWithExceptReasonDetailsModalComponent,
-    ApproveWithExceptReasonDetailsListComponent
+    ApproveWithExceptReasonDetailsListComponent,
+    BranchListPosComponent,
+    CounterComponent,
+    DetailsForMdcsComponent,
+    SnackBarComponent,
+    LoadingSpinnerComponent,
+    EmployeeCreateComponent,
+    EmployeeListComponent,
+    FetchDataComponent,
+    HomeScreenComponent,
+    MapWebHttpClientComponent,
+    NavMenuComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -360,9 +379,9 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
     MatRadioModule,
     MatPaginatorModule,
     MatSortModule,
-    MatFileUploadModule,
     MatCheckboxModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [RemarksModalComponent, HistoryModalComponent,
     AoListModalComponent, MidFormModalComponent,

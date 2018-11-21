@@ -34,4 +34,8 @@ export class ParameterMaintenanceFormComponent implements OnInit {
   cancel() {
       this._matDialogRef.close();
   }
+
+  submit() {
+    
+  }
 }

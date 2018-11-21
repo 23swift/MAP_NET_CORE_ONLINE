@@ -14,6 +14,8 @@ export class ApproveWithExceptReasonDetailsModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
+  options = {};
+  
   constructor(private _modalRef: MatDialogRef<ApproveWithExceptReasonDetailsModalComponent>, private _service: ApproveWithExceptReasonDetailsModalService, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {

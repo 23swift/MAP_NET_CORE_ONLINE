@@ -1,5 +1,5 @@
 <div class="m-lr-20px">
-    <form [formGroup]="form" style="margin-top: 10px;" (ngSubmit)="submit()" *ngIf="!readOnly">
+    <form [formGroup]="form" style="margin-top: 10px;" (ngSubmit)="submit()">
         <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
             <div *ngIf="!displayMode" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
                 <button *ngIf="!isSaved" type="submit" color="primary" mat-raised-button>Save</button>

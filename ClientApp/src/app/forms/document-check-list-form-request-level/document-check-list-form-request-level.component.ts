@@ -23,7 +23,7 @@ export class DocumentCheckListFormRequestLevelComponent implements OnInit {
     this.documentList = this._service.GetDocumentList();
   }
 
-  onSubmit() {
+  submit() {
     console.log(this.documentForm.value);
   }
 

@@ -14,7 +14,8 @@ export class SignatoriesFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
-
+  options = {};
+  
   constructor(private _modalRef: MatDialogRef<SignatoriesFormModalComponent>, private _service: SignatoriesFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar) {

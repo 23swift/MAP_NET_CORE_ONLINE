@@ -850,7 +850,7 @@ export class PosFormModalService {
   constructor(private _http: HttpClient) { }
 
   getPosFields(userGroup): FormlyFieldConfig[] {
-    return this.veriScreenFields;
+    return this.fields;
   }
 
   get(id): Observable<any> {

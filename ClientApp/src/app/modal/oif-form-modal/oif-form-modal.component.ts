@@ -14,6 +14,8 @@ export class OifFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
+  options = {};
+  displayMode = false;
 
   constructor(private _oifService: OifFormModalService,
     private _modalRef: MatDialogRef<OifFormModalComponent>,

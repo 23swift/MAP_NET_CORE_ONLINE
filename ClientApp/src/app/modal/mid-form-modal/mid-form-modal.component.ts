@@ -16,7 +16,8 @@ export class MidFormModalComponent implements OnInit {
   model: Object;
   form: FormGroup;
   fields: FormlyFieldConfig[];
-
+  options = {};
+  
   constructor(private _route: ActivatedRoute, private _router: Router, private _midService: MidFormModalService,
   private _modalRef: MatDialogRef<MidFormModalComponent>,
   @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {

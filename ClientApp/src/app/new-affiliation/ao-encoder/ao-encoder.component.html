@@ -2,17 +2,10 @@
 <!-- <app-request-header></app-request-header> -->
 <span class="mat-headline">Please follow the steps:</span>
 <mat-vertical-stepper [linear]="true" #stepper>
-  <!-- <ng-template  [matStepperIcon]="'edit'">
-        <mat-icon>check</mat-icon>
-    </ng-template>
-    <ng-template  matStepperIcon="done">
-        <mat-icon>done_outline</mat-icon>
-    </ng-template> -->
   <mat-step [completed]="false">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Create Customer Profile</span>
     </ng-template>
-    <!-- <mat-step-header state="done">Complete</mat-step-header> -->
     <span class="mat-headline">Customer Profile</span>
     <app-customer-profile [displayMode]="false" [userGroup]="'ao'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 
@@ -39,10 +32,6 @@
     <div *ngIf="isOif">
       <app-branch-list-attachment [newAffiliationId]="newAffiliationId"></app-branch-list-attachment>
     </div>
-    <!-- <router-outlet name="branchOIF"></router-outlet> -->
-    <!-- <app-branch-list></app-branch-list> -->
-
-
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'pos');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
@@ -51,50 +40,35 @@
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Create POS Request for Branches</span>
     </ng-template>
-
-    <!-- <app-branch-list></app-branch-list> -->
     <div *ngIf="isPos">
       <app-branch-list-attachment-pos [newAffiliationId]="newAffiliationId"></app-branch-list-attachment-pos>
     </div>
-    <!-- <app-branch-list-attachment [name]="branchPOS"></app-branch-list-attachment> -->
-    <!-- <router-outlet name="branchPOS"></router-outlet> -->
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'docs');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
-
   </mat-step>
   <mat-step [completed]="false">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Requirements</span>
     </ng-template>
-    <!-- <router-outlet name="documentCheckList"></router-outlet> -->
     <div *ngIf="isDocumentChecklist">
       <app-document-check-list [newAffiliationId]="newAffiliationId"></app-document-check-list>
     </div>
 
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper);">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, '');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
 
   </mat-step>
   <mat-step state="done">
     <ng-template matStepLabel>
-
       <span class="mat-subheading-1">Done!</span>
-
     </ng-template>
 
     <span class="mat-subheading-1">You are now done. Would you like to submit the Request?</span>
     <div xLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="3px">
-      <!-- <button style="margin-top:3px" mat-stroked-button matStepperPrevious color="primary" (click)="Submit()">Yes</button> -->
       <button style="margin-top:3px" mat-stroked-button color="primary" (click)="Submit()">Yes</button>
       <a mat-stroked-button routerLink="/newAffSum" color="accent">No</a>
     </div>
   </mat-step>
-
-
-  <!-- Stepper steps go here -->
-  <!-- <mat-step label="step 1">step 1 content</mat-step>
-    <mat-step label="step 2">step 2 content</mat-stngep>
-    <mat-step label="step 3">step 3 content</mat-step> -->
 </mat-vertical-stepper>

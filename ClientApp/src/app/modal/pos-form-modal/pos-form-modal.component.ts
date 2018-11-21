@@ -17,6 +17,8 @@ export class PosFormModalComponent implements OnInit {
   userGroup: string;
   model: Object;
   branchId: number;
+  options = {};
+
   constructor(private _posService: PosFormModalService, private _modalRef: MatDialogRef<PosFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public _dialogData: any,
     private _snackBar: MatSnackBar) {

@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alert-message.component.css']
 })
 export class AlertMessageComponent implements OnInit {
-
+  model = {
+    errField: ''
+  };
   constructor() { }
 
   ngOnInit() {

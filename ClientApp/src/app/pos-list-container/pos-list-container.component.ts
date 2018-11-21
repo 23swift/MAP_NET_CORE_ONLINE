@@ -16,6 +16,7 @@ export class PosListContainerComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
+  options = {};
 
   constructor(private _service: PosListContainerService, private _router: Router) { }
 
@@ -23,5 +24,9 @@ export class PosListContainerComponent implements OnInit {
     this.form = new FormGroup({});
     this.fields = this._service.getFormlyFields();
     this.model = {};
+  }
+
+  submit() {
+    
   }
 }

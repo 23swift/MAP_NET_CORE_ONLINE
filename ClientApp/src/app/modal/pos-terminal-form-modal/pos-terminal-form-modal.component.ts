@@ -14,6 +14,8 @@ export class PosTerminalFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
+  options = {};
+
   constructor(private _terminalService: PosTerminalFormModalService, private _modalRef: MatDialogRef<PosTerminalFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
     if (dialogData['posTerminal']) {

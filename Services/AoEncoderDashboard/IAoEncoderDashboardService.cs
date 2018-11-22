@@ -7,6 +7,6 @@ namespace MAP_Web.Services
 {
     public interface IAoEncoderDashboardService
     {
-         Task<List<DashboardViewModel>> FindAsync();
+        Task<List<DashboardViewModel>> FindAsync();
     }
 }

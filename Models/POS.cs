@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MAP_Web.Models
 {
@@ -32,7 +33,7 @@ namespace MAP_Web.Models
         public string numberOfPrintedSlips { get; set; }
         public string reasonForThreeSlipsPrinting { get; set; }
         public Nullable<DateTime> requiredDateAndTimeOfDispatch { get; set; }
-        public bool isInstallationTerm { get; set; }
+        public Nullable<bool> isInstallationTerm { get; set; }
         public Nullable<DateTime> requiredPullOutDateForTempPOSTerminals { get; set; }
         public string reasonForPermanentGPRSInstallation { get; set; }
         public string otherRequiredProfilingFacility { get; set; }
@@ -88,5 +89,6 @@ namespace MAP_Web.Models
         public bool isShared { get; set; }
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
+        public virtual ICollection<TerminalDetails> TerminalDetails {get;set;}
     }
 }

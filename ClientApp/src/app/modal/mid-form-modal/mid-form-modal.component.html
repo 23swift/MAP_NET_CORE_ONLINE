@@ -1,12 +1,13 @@
 <div class="mat-typography">
   <div class="mat-headline" color="primary">MID Details</div>
 </div>
-<form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
-  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
-    <div *ngIf="!displayMode" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
-      <button (click)="submit()" color="primary" mat-raised-button *ngIf="!isSaved">Save</button>
-      <button (click)="submit()" color="primary" mat-raised-button *ngIf="isSaved">Update</button>
-      <button (click)="cancel()" type="button" color="accent" mat-raised-button>Cancel</button>
-    </div>
-  </formly-form>
-</form>
+<div style="overflow-y: auto; overflow-x: hidden;">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
+    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+      <div *ngIf="!displayMode" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+        <button color="primary" mat-raised-button [disabled]="form.invalid">Save</button>
+        <button (click)="cancel()" type="button" color="accent" mat-raised-button>Cancel</button>
+      </div>
+    </formly-form>
+  </form>
+</div>

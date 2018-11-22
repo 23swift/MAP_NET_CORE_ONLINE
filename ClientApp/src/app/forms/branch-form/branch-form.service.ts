@@ -1151,7 +1151,7 @@ export class BranchFormService {
         {
           className: 'flex-1', //dropdown
           type: 'select',
-          key: 'mcc',
+          key: 'MCC_Id',
           expressionProperties: {
 
           },
@@ -1743,7 +1743,7 @@ export class BranchFormService {
         {
           className: 'flex-1',
           type: 'select',
-          key: 'mcc',
+          key: 'MCC_Id',
           expressionProperties: {
 
           },
@@ -3878,7 +3878,7 @@ export class BranchFormService {
         {
           className: 'flex-1', //dropdown
           type: 'select',
-          key: 'mcc',
+          key: 'MCC_Id',
           expressionProperties: {
 
           },
@@ -5243,7 +5243,7 @@ export class BranchFormService {
         {
           className: 'flex-1', //dropdown
           type: 'select',
-          key: 'mcc',
+          key: 'MCC_Id',
           expressionProperties: {
 
           },
@@ -6583,6 +6583,14 @@ export class BranchFormService {
 
   getBranchFields(): FormlyFieldConfig[] {
     return this.veriScreen;
+  }
+
+  get(branchId): Observable<any> {
+    return this._http.get(ApiConstants.branchApi + '/' + branchId);
+  }
+
+  getByNewAffiliationId(id): Observable<any> {
+    return this._http.get(ApiConstants.branchApi + '/newAffiliation/' + id);
   }
 
   create(branch): Observable<any> {

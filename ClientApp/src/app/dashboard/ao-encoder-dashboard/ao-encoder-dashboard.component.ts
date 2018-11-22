@@ -11,7 +11,7 @@ import { Router } from 'node_modules/@angular/router';
 })
 export class AoEncoderDashboardComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: IRequestDisplay[];
+  dataSource = [];
 
   mode: string;
   title: string;
@@ -20,14 +20,20 @@ export class AoEncoderDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this.dataSource = this._service.get(0);
+    this._service.getRequests().subscribe(data => {
+      this.dataSource = data;
+    });
 
     this.mode = 'create';
     this.title = 'New Affiliation';
     this.subTitle = 'AO Encoder';
   }
 
-  getItem() {
-    this._router.navigateByUrl('na/aoEncoder/update')
+  getItem(id) {
+    this._router.navigateByUrl('na/aoEncoder/' + id);
+  }
+
+  getStatus() {
+    return 'DRAFT';
   }
 }

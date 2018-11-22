@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class DocumentCheckListFormService {
 
   constructor() { }
-  GetDocumentList(): Object[] {
+  getDocumentList(): Object[] {
     return [{ Id: 1, Description: 'BDO\'s Merchant Information Sheet (MIS)'},
     { Id: 2, Description: 'BDO\'s Ocular Inspection Form'},
     { Id: 3, Description: 'BDO\'s Merchant Accreditation Evaluation Form'},

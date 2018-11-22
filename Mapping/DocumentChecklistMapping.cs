@@ -9,7 +9,10 @@ namespace MAP_Web.Mapping
         public DocumentChecklistMapping()
         {
             CreateMap<DocumentChecklistViewModel, DocumentChecklist>()
-                .ForMember(cp => cp.Id, opt => opt.Ignore());
+                .ForMember(cp => cp.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.fileUpload, opt => opt.Condition((src, dst) => {
+                        return !(src.fileUpload == null && dst.fileUpload != null);
+                }));
         }
     }
 }

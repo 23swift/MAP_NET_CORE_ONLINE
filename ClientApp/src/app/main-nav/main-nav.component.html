@@ -15,51 +15,56 @@
             <button mat-flat-button color="accent">Logout</button>
         </div>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content style="overflow: hidden;">
+
         <mat-toolbar color="primary" class="mat-elevation-z5">
             <a routerLink="/home" mat-icon-button>
                 <mat-icon>home</mat-icon>
             </a>
             <span>Merchant Acquiring Process</span>
             <span fxFlex></span>
-            <div [hidden]="isHidden">
-                <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Request">
-                    <mat-icon>description</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <a routerLink="na/aoEncoder/create" mat-menu-item>New Affiliation</a>
-                    <a routerLink="/ba/create" mat-menu-item>Branch Affiliation</a>
-                    <!-- <a routerLink="/maef" mat-menu-item>MAEF</a> -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Request">
+                <mat-icon>description</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <a routerLink="na/aoEncoder/new" mat-menu-item>New Affiliation</a>
+                <a routerLink="/ba/create" mat-menu-item>Branch Affiliation</a>
+                <!-- <a routerLink="/maef" mat-menu-item>MAEF</a> -->
 
-                    <a routerLink="/posStep/create" mat-menu-item>POS Request</a>
-                    <a routerLink="/additionalFacility/create" mat-menu-item>Additional Facility</a>
-                    <a routerLink="/fileMaintenance" mat-menu-item>File Maintenance</a>
-                </mat-menu>
-                <button mat-icon-button [matMenuTriggerFor]="admin" matTooltip="Administration">
-                    <mat-icon>settings</mat-icon>
-                </button>
-                <mat-menu #admin="matMenu">
-                    <a routerLink="/paramMaintenance" mat-menu-item>Parameter Maintenance</a>
-                    <a routerLink="/aoMaintenance" mat-menu-item>AO Maintenance</a>
-                    <a routerLink="/sfcc" mat-menu-item>Service Fee Contract</a>
-                    <a mat-menu-item [matMenuTriggerFor]="docu">Document Checklist</a>
-                    <a routerLink="/buMaintenance" mat-menu-item>BU Maintenance</a>
-                    <a routerLink="/defaultMIDMaintenance" mat-menu-item>Default MID Maintenance</a>
-                </mat-menu>
-                <mat-menu #docu="matMenu">
-                    <a routerLink="/dclMaintenance" mat-menu-item>Maintenance</a>
-                    <a routerLink="/dclConfiguration" mat-menu-item>Configuration</a>
-                </mat-menu>
-                <button mat-icon-button matTooltip="Reports">
-                    <mat-icon>assignment</mat-icon>
-                </button>
-                <button type="submit" mat-icon-button matTooltip="Search">
-                    <mat-icon>search</mat-icon>
-                </button>
-                <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" matTooltip="Account">
-                    <mat-icon aria-label="Side nav toggle icon">face</mat-icon>
-                </button>
-            </div>
+                <a routerLink="/posStep/create" mat-menu-item>POS Request</a>
+                <a routerLink="/additionalFacility/create" mat-menu-item>Additional Facility</a>
+                <a routerLink="/fileMaintenance" mat-menu-item>File Maintenance</a>
+            </mat-menu>
+            <button mat-icon-button [matMenuTriggerFor]="admin" matTooltip="Administration">
+                <mat-icon>settings</mat-icon>
+            </button>
+            <mat-menu #admin="matMenu">
+                <a routerLink="/paramMaintenance" mat-menu-item>Parameter Maintenance</a>
+                <a routerLink="/aoMaintenance" mat-menu-item>AO Maintenance</a>
+                <a routerLink="/sfcc" mat-menu-item>Service Fee Contract</a>
+                <a mat-menu-item [matMenuTriggerFor]="docu">Document Checklist</a>
+                <a routerLink="/buMaintenance" mat-menu-item>BU Maintenance</a>
+                <a routerLink="/defaultMIDMaintenance" mat-menu-item>Default MID Maintenance</a>
+            </mat-menu>
+            <mat-menu #docu="matMenu">
+                <a routerLink="/dclMaintenance" mat-menu-item>Maintenance</a>
+                <a routerLink="/dclConfiguration" mat-menu-item>Configuration</a>  
+            </mat-menu>
+
+            <button mat-icon-button matTooltip="Reports">
+                <mat-icon>assignment</mat-icon>
+            </button>
+
+
+            <button type="submit" mat-icon-button matTooltip="Search">
+                <mat-icon>search</mat-icon>
+            </button>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" matTooltip="Account">
+                <mat-icon aria-label="Side nav toggle icon">face</mat-icon>
+            </button>
+
+
+
         </mat-toolbar>
         <ng-content></ng-content>
         <!-- Add Content Here -->

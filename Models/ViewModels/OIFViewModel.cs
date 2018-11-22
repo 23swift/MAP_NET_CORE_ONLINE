@@ -4,6 +4,14 @@ namespace MAP_Web.Models.ViewModels
 {
     public class OIFViewModel
     {
+        public OIFViewModel()
+        {
+            this.adverseFindings = false;
+            this.dbaCity = 0;
+            this.incompleteReportDueTo = false;
+            this.outskirt = false;
+            this.typeOfEvent = 0;
+        }
         public int Id { get; set; }
         public string dbaTradeName { get; set; }
         public string dbaOutletAddress1 { get; set; }
@@ -22,7 +30,7 @@ namespace MAP_Web.Models.ViewModels
         public string businessHours { get; set; }
         public string noOfFulltimeEmployees { get; set; }
         public string contractual { get; set; }
-        public bool premiseStatus { get; set; }
+        public string premiseStatus { get; set; }
         public string monthlyRent { get; set; }
         public string lengthOfStay { get; set; }
         public int location { get; set; }

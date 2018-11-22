@@ -12,7 +12,7 @@ namespace MAP_Web.Models.ViewModels
         public bool tipAdjust { get; set; }
         public bool hotelSetupFacility { get; set; }
         public bool manualKeyInFacility { get; set; }
-        public int BranchId { get; set; }
-        public BranchViewModel Branch { get; set; }
+        public int POSId { get; set; }
+        public POS POS { get; set; }
     }
 }

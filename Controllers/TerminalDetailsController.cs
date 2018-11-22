@@ -31,6 +31,17 @@ namespace MAP_Web.Controllers
             return Ok(terminal);
         }
 
+        [HttpGet("pos/{id}")]
+        public async Task<IActionResult> GetTerminalDetailsByPos(int id)
+        {
+            var terminal = await terminalDetailsService.FindByPosAsync(id);
+
+            if (terminal == null)
+                return Ok();
+
+            return Ok(terminal);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateTerminalDetails([FromBody] TerminalDetails terminal)
         {

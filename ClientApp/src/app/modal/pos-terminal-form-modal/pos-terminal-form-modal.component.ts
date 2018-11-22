@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { PosTerminalFormModalService } from './pos-terminal-form-modal.service';
 import { FormlyFieldConfig } from '../../../../node_modules/@ngx-formly/core';
-import { MatDialogRef } from '../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '../../../../node_modules/@angular/material';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-pos-terminal-form-modal',
@@ -10,14 +11,49 @@ import { MatDialogRef } from '../../../../node_modules/@angular/material';
   providers: [PosTerminalFormModalService]
 })
 export class PosTerminalFormModalComponent implements OnInit {
+  form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
-  constructor(private _service: PosTerminalFormModalService, private _dialogRef: MatDialogRef<PosTerminalFormModalComponent>) { }
+  options = {};
+
+  constructor(private _terminalService: PosTerminalFormModalService, private _modalRef: MatDialogRef<PosTerminalFormModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
+    if (dialogData['posTerminal']) {
+      this.model = Object.assign({}, dialogData['posTerminal']);
+    } else {
+      this.model = {
+        posId: this.dialogData['posId']
+      };
+    }
+
+    console.log(this.model);
+   }
 
   ngOnInit() {
-    this.fields = this._service.getPosTerminalFields();
-    this.model = {};
+    this.form = new FormGroup({});
+    this.fields = this._terminalService.getPosTerminalFields();
   }
 
 
+  submit() {
+    if (this.model['id']) {
+      this._terminalService.update(this.model['id'], this.model).subscribe(data => {
+        this._snackBar.open('Terminal Details', 'Updated', {
+          duration: 1500
+        });
+        this._modalRef.close(data);
+      });
+    } else {
+      this._terminalService.create(this.model).subscribe(data => {
+        this._snackBar.open('Terminal Details', 'Saved', {
+          duration: 1500
+        });
+        this._modalRef.close(data);
+      });
+    }
+  }
+
+  cancel() {
+    this._modalRef.close();
+  }
 }

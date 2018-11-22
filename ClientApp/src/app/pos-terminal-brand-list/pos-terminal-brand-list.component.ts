@@ -16,7 +16,7 @@ export class PosTerminalBrandListComponent implements OnInit {
   dataSource;
   @Input() showAdd: boolean;
   showAddTerminal: boolean;
-  
+
   constructor(private _service: PosTerminalBrandListService, private _dialog: MatDialog, private _route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class PosTerminalBrandListComponent implements OnInit {
     this.dataSource = this._service.get();
 
     this._route.data.subscribe(data => {
-      if (data['showAddTerminal'] != undefined) {
+      if (data['showAddTerminal'] !== undefined) {
         this.showAddTerminal = data['showAddTerminal'];
       } else {
         this.showAddTerminal = this.showAdd;
@@ -35,6 +35,6 @@ export class PosTerminalBrandListComponent implements OnInit {
   addTerminal() {
     this._dialog.open(PosTerminalFormModalComponent, {
       width: '50%'
-    })
+    });
   }
 }

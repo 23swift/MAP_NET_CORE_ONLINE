@@ -20,6 +20,12 @@ export class AoEncoderComponent implements OnInit {
   subTitle = 'DRAFT';
   mode: string;
   status = 'done';
+  newAffiliationId = 0;
+  isBranch = false;
+  isOif = false;
+  isPos = false;
+  isDocumentChecklist = false;
+
   //  completed:boolean=false;
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
     private _router: Router, private _snackBar: MatSnackBar
@@ -36,12 +42,27 @@ export class AoEncoderComponent implements OnInit {
     });
   }
 
-  public completed(stepper: MatStepper) {
+  public completed(stepper: MatStepper, form: string) {
     this.clearUrl();
+
+    if (form === 'oif') {
+      this.isOif = true;
+    } else if (form === 'pos') {
+      this.isPos = true;
+    } else if (form === 'docs') {
+      this.isDocumentChecklist = true;
+    } else if (form === 'branch') {
+      this.isBranch = true;
+    }
 
     stepper.selected.completed = true;
     stepper.next();
+
     return true;
+  }
+
+  getNewAffiliationId(id) {
+    this.newAffiliationId = id;
   }
 
   clearUrl() {

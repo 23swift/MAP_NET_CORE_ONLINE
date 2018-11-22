@@ -8,7 +8,7 @@ namespace MAP_Web.Services
     {
          Task InsertAsync(TerminalDetails terminalDetails);
          Task<TerminalDetails> FindAsync(int id);
-         Task<IPagedList<TerminalDetails>> FindByBranchAsync(int id);
+         Task<IPagedList<TerminalDetails>> FindByPosAsync(int id);
          Task SaveChangesAsync();
          void Update(TerminalDetails terminalDetails);
          void Delete(TerminalDetails terminalDetails);

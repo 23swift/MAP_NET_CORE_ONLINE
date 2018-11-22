@@ -21,8 +21,8 @@ export class AoMaintenanceFormComponent implements OnInit {
   fields: FormlyFieldConfig[];
 
   constructor(private _service: AoMaintenanceFormService,
-              private _matDialogRef: MatDialogRef<AoMaintenanceFormComponent>) {
-      this.fields = _service.getAoMaintenanceFormFields();        
+    private _matDialogRef: MatDialogRef<AoMaintenanceFormComponent>) {
+    this.fields = _service.getAoMaintenanceFormFields();
   }
 
   ngOnInit() {
@@ -32,4 +32,7 @@ export class AoMaintenanceFormComponent implements OnInit {
     this._matDialogRef.close();
   }
 
+  submit() {
+
+  }
 }

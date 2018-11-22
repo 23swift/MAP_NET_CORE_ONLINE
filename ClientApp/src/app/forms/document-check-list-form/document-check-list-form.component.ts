@@ -23,8 +23,8 @@ export class DocumentCheckListFormComponent implements OnInit {
       targetDateOfSubmission: new FormControl(''),
       fileUpload: new FormControl('')
     });
-    
-    this.documentList = this._service.GetDocumentList();
+
+    this.documentList = this._service.getDocumentList();
   }
 
   OnSubmit() {

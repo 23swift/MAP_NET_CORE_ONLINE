@@ -1,0 +1,60 @@
+<div class="flex-branch-list-header">
+  <span class="mat-headline">Terminal Details</span>
+  <a (click)="addTerminal()" mat-mini-fab>
+    <mat-icon>playlist_add</mat-icon>
+  </a>
+</div>
+
+<div fxLayout="row" style="overflow: hidden;">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="TerminalBrand">
+      <th mat-header-cell *matHeaderCellDef> Terminal Brand </th>
+      <td mat-cell *matCellDef="let element"> {{ getTerminalBrand(element.terminalBrand) }} </td>
+    </ng-container>
+    <ng-container matColumnDef="TerminalType">
+      <th mat-header-cell *matHeaderCellDef> Terminal Type </th>
+      <td mat-cell *matCellDef="let element"> {{ getTerminalType(element.terminalType) }} </td>
+    </ng-container>
+    <ng-container matColumnDef="TerminalModel">
+      <th mat-header-cell *matHeaderCellDef> Terminal Model </th>
+      <td mat-cell *matCellDef="let element"> {{ getTerminalModel(element.terminalModelRequested) }} </td>
+    </ng-container>
+    <ng-container matColumnDef="NumberOfTerminalsRequested">
+      <th mat-header-cell *matHeaderCellDef> Number of Terminal/s Requested </th>
+      <td mat-cell *matCellDef="let element"> {{element.numberOfTerminalsRequested}} </td>
+    </ng-container>
+    <ng-container matColumnDef="TelcoProvider">
+      <th mat-header-cell *matHeaderCellDef> Telco Provider (for Dial-Up) </th>
+      <td mat-cell *matCellDef="let element"> {{element.telcoProvider}} </td>
+    </ng-container>
+    <ng-container matColumnDef="SimType">
+      <th mat-header-cell *matHeaderCellDef> Sim Type (for GPRS) </th>
+      <td mat-cell *matCellDef="let element"> {{element.simType}} </td>
+    </ng-container>
+    <ng-container matColumnDef="TipAdjust">
+      <th mat-header-cell *matHeaderCellDef> Tip Adjust </th>
+      <td mat-cell *matCellDef="let element"> {{element.tipAdjust}} </td>
+    </ng-container>
+    <ng-container matColumnDef="HotelSetupFacility">
+      <th mat-header-cell *matHeaderCellDef> Hotel Setup Facility (Pre-Auth, Off-Line) </th>
+      <td mat-cell *matCellDef="let element"> {{element.hotelSetupFacility}} </td>
+    </ng-container>
+    <ng-container matColumnDef="ManualKeyInFacility">
+      <th mat-header-cell *matHeaderCellDef> Manual Key-In Facility </th>
+      <td mat-cell *matCellDef="let element"> {{element.manualKeyInFacility}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Action">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <a (click)="updateTerminal(element)" mat-mini-fab color="primary">
+          <mat-icon style="color:white;">edit</mat-icon>
+        </a>
+        <a (click)="delete(element.id)" mat-mini-fab color="primary">
+          <mat-icon style="color:white;">delete_outline</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

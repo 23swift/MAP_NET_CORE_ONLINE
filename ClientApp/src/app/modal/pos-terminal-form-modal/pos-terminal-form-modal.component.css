@@ -1,3 +1,13 @@
 table {
     width: 100%;
 }
+
+.mat-headline {
+    font-size: 18px;
+}
+
+.flex-branch-list-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

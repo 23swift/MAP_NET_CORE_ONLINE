@@ -21,4 +21,7 @@ export class MdcsUserComponent implements OnInit {
     this.showOif = false;
   }
 
+  Submit() {
+    
+  }
 }

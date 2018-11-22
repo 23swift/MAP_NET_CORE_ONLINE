@@ -37,4 +37,7 @@ export class PosFormComponent extends AppBaseComponent implements OnInit {
     this._router.navigateByUrl(`${parentRoute}`);
   }
 
+  submit() {
+    
+  }
 }

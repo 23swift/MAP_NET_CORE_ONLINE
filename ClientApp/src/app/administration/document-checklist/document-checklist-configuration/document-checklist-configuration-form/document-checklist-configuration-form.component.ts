@@ -63,5 +63,7 @@ export class DocumentChecklistConfigurationFormComponent implements OnInit {
   cancel() {
     this._matDialogRef.close();
   }
-
+  submit() {
+    
+  }
 }

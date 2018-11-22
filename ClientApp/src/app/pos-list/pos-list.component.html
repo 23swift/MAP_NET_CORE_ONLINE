@@ -10,27 +10,27 @@
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="PosTrackingNumber">
       <th mat-header-cell *matHeaderCellDef> POS Tracking Number </th>
-      <td mat-cell *matCellDef="let element"> {{element.PosTrackingNumber}} </td>
+      <td mat-cell *matCellDef="let element"> {{ '000' + element.id }} </td>
     </ng-container>
     <ng-container matColumnDef="NatureOfRequest">
       <th mat-header-cell *matHeaderCellDef> Nature of Request </th>
-      <td mat-cell *matCellDef="let element"> {{element.NatureOfRequest}} </td>
+      <td mat-cell *matCellDef="let element"> {{ getNatureOfRequest(element.natureOfRequest) }} </td>
     </ng-container>
     <ng-container matColumnDef="DateRequested">
       <th mat-header-cell *matHeaderCellDef> Date Requested </th>
-      <td mat-cell *matCellDef="let element"> {{element.DateRequested}} </td>
+      <td mat-cell *matCellDef="let element"> {{ dateRequested | date: 'ddMMMyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="RequestedBy">
       <th mat-header-cell *matHeaderCellDef> Requested By </th>
-      <td mat-cell *matCellDef="let element"> {{element.RequestedBy}} </td>
+      <td mat-cell *matCellDef="let element"> {{ 'Test User' }} </td>
     </ng-container>
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <a (click)="addPos()" mat-mini-fab color="primary">
+        <a (click)="updatePos(element)" mat-mini-fab color="primary" matTooltip="Update POS">
           <mat-icon style="color:white;">edit</mat-icon>
         </a>
-        <a (click)="deleteItem(element.Id)" mat-mini-fab color="primary">
+        <a (click)="deleteItem(element.id)" mat-mini-fab color="primary" matTooltip="Delete POS">
           <mat-icon style="color:white;">delete_outline</mat-icon>
         </a>
       </td>

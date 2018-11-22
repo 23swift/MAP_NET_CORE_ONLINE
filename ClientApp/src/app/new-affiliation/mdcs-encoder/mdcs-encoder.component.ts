@@ -18,4 +18,8 @@ export class MdcsEncoderComponent implements OnInit {
     this.subTitle = 'FOR ENCODING';
     this.mode = 'forMdcsChecking';
   }
+
+  Submit() {
+    
+  }
 }

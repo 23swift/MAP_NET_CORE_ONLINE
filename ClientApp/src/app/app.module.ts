@@ -4,13 +4,13 @@ import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormlyModule } from '@ngx-formly/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatRadioModule, MatDialogModule, MatPaginator,
-  MatPaginatorModule, MatSortModule, MatSortHeader
+  MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
@@ -145,13 +145,26 @@ import { OwnersListComponent } from './owners-list/owners-list.component';
 import { PosListContainerComponent } from './pos-list-container/pos-list-container.component';
 import { PosListComponent } from './pos-list/pos-list.component';
 import { PosFormModalComponent } from './modal/pos-form-modal/pos-form-modal.component';
-import { HttpClient } from 'selenium-webdriver/http';
+import { BranchFormModalComponent } from './modal/branch-form-modal/branch-form-modal.component';
+import { MidListModalComponent } from './modal/mid-list-modal/mid-list-modal.component';
+import { OifFormModalComponent } from './modal/oif-form-modal/oif-form-modal.component';
+import { PosTerminalBrandListModalComponent } from './modal/pos-terminal-brand-list-modal/pos-terminal-brand-list-modal.component';
+import { DocumentChecklistFormModalComponent } from './modal/document-checklist-form-modal/document-checklist-form-modal.component';
+import { DocumentPerRequestFormModalComponent } from './modal/document-per-request-form-modal/document-per-request-form-modal.component';
 import { ApproveWithReqReasonListComponent } from './approve-with-req-reason-list/approve-with-req-reason-list.component';
 import { ApproveWithReqReasonFormModalComponent } from './modal/approve-with-req-reason-form-modal/approve-with-req-reason-form-modal.component';
 import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-with-except-reason-details-modal/approve-with-except-reason-details-modal.component';
-
-
-
+import { BranchListPosComponent } from './branch-list-pos/branch-list-pos.component';
+import { CounterComponent } from './counter/counter.component';
+import { DetailsForMdcsComponent } from './details-for-mdcs/details-for-mdcs.component';
+import { SnackBarComponent } from './snack-bar/snack-bar.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { EmployeeCreateComponent } from './employee/employee-create/employee-create.component';
+import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
+import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { MapWebHttpClientComponent } from './map-web-http-client/map-web-http-client.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -268,16 +281,35 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
     PosListContainerComponent,
     PosListComponent,
     PosFormModalComponent,
+    BranchFormModalComponent,
+    MidListModalComponent,
+    OifFormModalComponent,
+    PosTerminalBrandListModalComponent,
+    DocumentChecklistFormModalComponent,
+    DocumentPerRequestFormModalComponent,
     VerificationScreenComponent,
     ApproveWithReqReasonListComponent,
     ApproveWithReqReasonFormModalComponent,
     ApproveWithExceptReasonDetailsModalComponent,
     ApproveWithExceptReasonDetailsListComponent,
+    BranchListPosComponent,
+    CounterComponent,
+    DetailsForMdcsComponent,
+    SnackBarComponent,
+    LoadingSpinnerComponent,
+    EmployeeCreateComponent,
+    EmployeeListComponent,
+    FetchDataComponent,
+    HomeScreenComponent,
+    MapWebHttpClientComponent,
+    NavMenuComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     FormlyModule.forRoot(
       {
         types: [{
@@ -308,7 +340,7 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
           {
             name: 'approveWithExcept',
             component: ApproveWithExceptReasonDetailsListComponent
-          }  
+          }
         ////////////////////////////////////////////////////////
       ]
       }
@@ -346,20 +378,28 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
     MatRadioModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [RemarksModalComponent, HistoryModalComponent,
     AoListModalComponent, MidFormModalComponent,
     DocumentChecklistMaintenanceFormComponent, ServiceFeeContractFormComponent,
     DocumentChecklistConfigurationFormComponent, ParameterMaintenanceFormComponent,
-    ParameterMaintenanceDetailsComponent, AoMaintenanceFormComponent, BuMaintenanceFormComponent, 
-    DefaultMidMaintenanceFormComponent, MidFormComponent, MidModalComponent, DeleteModalComponent, 
+    ParameterMaintenanceDetailsComponent, AoMaintenanceFormComponent, BuMaintenanceFormComponent,
+    DefaultMidMaintenanceFormComponent, MidFormComponent, MidModalComponent, DeleteModalComponent,
     SearchModalComponent, PosTerminalFormModalComponent, OwnersFormModalComponent, SignatoriesFormModalComponent,
-    PosFormModalComponent],
+    PosFormModalComponent,
+    BranchFormModalComponent,
+    MidListModalComponent,
+    OifFormModalComponent,
+    PosTerminalBrandListModalComponent,
+    DocumentChecklistFormModalComponent,
+    DocumentPerRequestFormModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor() {
     // console.log('asd');
   }

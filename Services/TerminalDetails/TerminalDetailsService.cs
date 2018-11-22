@@ -38,9 +38,9 @@ namespace MAP_Web.Services
             terminalRepo.Delete(terminalDetails);
         }
 
-        public async Task<IPagedList<TerminalDetails>> FindByBranchAsync(int id)
+        public async Task<IPagedList<TerminalDetails>> FindByPosAsync(int id)
         {
-            return await terminalRepo.GetPagedListAsync(predicate: x => x.BranchId == id);
+            return await terminalRepo.GetPagedListAsync(predicate: x => x.POSId == id);
         }
     }
 }

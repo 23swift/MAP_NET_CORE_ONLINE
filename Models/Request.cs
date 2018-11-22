@@ -12,6 +12,8 @@ namespace MAP_Web.Models
         {
             Approvals = new HashSet<RequestApproval>();
             RequiredApprovals = new HashSet<RequiredApproval>();
+            MQRRequestApprovals = new HashSet<MQRRequestApproval>();
+            MQRRequiredApprovals = new HashSet<MQRRequiredApproval>();
             CreatedDate = DateTime.Now;
         }
 
@@ -26,13 +28,10 @@ namespace MAP_Web.Models
         public bool Insuff { get; set; }
         public Int32 MQRStatus { get; set; }
         public string Owner { get; set; }
-        public int CustomerProfileId { get; set; }
         public ICollection<RequiredApproval> RequiredApprovals { get; set; }
         public ICollection<RequestApproval> Approvals { get; set; }
         public ICollection<MQRRequiredApproval> MQRRequiredApprovals { get; set; }
         public ICollection<MQRRequestApproval> MQRRequestApprovals { get; set; }
-        public ICollection<Branch> Branch { get; set; }
-
         public virtual NewAffiliation NewAffiliation { get; set; }
         public virtual FileMaintenance FileMaintenance { get; set; }
         public virtual POSRequest POSRequest { get; set; }
@@ -40,7 +39,6 @@ namespace MAP_Web.Models
         public virtual BranchAffiliation BranchAffiliation { get; set; }
         public virtual MAEF MAEF { get; set; }
         public virtual History History { get; set; }
-        public virtual CustomerProfile CustomerProfile { get; set; }
     }
 
 }

@@ -18,6 +18,16 @@ namespace MAP_Web.Services
             await documentRepo.InsertAsync(documentChecklist);
         }
 
+        public async Task InsertToRequestAsync(int id, int documentId)
+        {
+            var document = new DocumentChecklist {
+                NewAffiliationId = id,
+                documentName = documentId.ToString()
+            };
+
+            await documentRepo.InsertAsync(document);
+        }
+
         public async Task<DocumentChecklist> FindAsync(int id)
         {
             return await documentRepo.FindAsync(id);
@@ -38,7 +48,7 @@ namespace MAP_Web.Services
             documentRepo.Delete(documentChecklist);
         }
 
-        public async Task<IPagedList<DocumentChecklist>> FindByRequestAsync(int id)
+        public async Task<IPagedList<DocumentChecklist>> FindByNewAffiliationAsync(int id)
         {
             return await documentRepo.GetPagedListAsync(predicate: x => x.NewAffiliationId == id);
         }

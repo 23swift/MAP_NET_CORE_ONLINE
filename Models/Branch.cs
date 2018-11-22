@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MAP_Web.Models
 {
-   public class Branch
+    public class Branch
     {
         public Branch()
         {
@@ -17,9 +18,11 @@ namespace MAP_Web.Models
             this.withAcquirer = true;
             this.withDependency = true;
             this.withTax = true;
+
+            this.MIDs = new Collection<MID>();
         }
         public int Id { get; set; }
-       // public Business Business { get; set; }
+        // public Business Business { get; set; }
         public string dbaAddress1 { get; set; }
 
         public string dbaAddress2 { get; set; }
@@ -337,17 +340,18 @@ namespace MAP_Web.Models
         public bool isSingleProp { get; set; }
 
         public bool isPartnershipCorp { get; set; }
-        public int CustomerProfileId { get; set; }
 
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         public string legalName { get; set; }
 
         public virtual POSRequest POSRequest { get; set; }
-        public virtual OcularInspectionForm OcularInspectionForm { get; set; }
+        public virtual OIF OIF { get; set; }
+        public virtual ICollection<POS> POS { get; set; }
 
-        public virtual Request Request {get; set;} 
-        public virtual CustomerProfile CustomerProfile { get; set; }
-        
+        public virtual Request Request { get; set; }
+        public int NewAffiliationId { get; set; }
+        public virtual NewAffiliation NewAffiliation { get; set; }
+        public virtual ICollection<MID> MIDs { get; set; }
     }
 }

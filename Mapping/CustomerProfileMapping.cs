@@ -9,7 +9,8 @@ namespace MAP_Web.Mapping
         public CustomerProfileMapping()
         {
             CreateMap<CustomerProfileViewModel, CustomerProfile>()
-                .ForMember(cp => cp.Id, opt => opt.Ignore());
+                .ForMember(cp => cp.Id, opt => opt.Ignore())
+                .ForMember(cp => cp.NewAffiliationId, opt => opt.Ignore());
         }
     }
 }

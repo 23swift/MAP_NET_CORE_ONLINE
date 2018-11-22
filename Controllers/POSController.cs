@@ -30,6 +30,17 @@ namespace MAP_Web.Controllers
             return Ok(pos);
         }
 
+        [HttpGet("branch/{id}")]
+        public async Task<IActionResult> GetPOSByBranch(int id)
+        {
+            var pos = await posService.FindByBranchAsync(id);
+
+            if (pos == null)
+                return Ok();
+
+            return Ok(pos);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePOS([FromBody] POS pos)
         {

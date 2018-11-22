@@ -18,5 +18,7 @@ export class RequestComponent extends AppBaseComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  Submit() {
+    
+  }
 }

@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,18 @@ namespace MAP_Web.Services
 
         public async Task InsertAsync(Branch branch)
         {
+            branch.MIDs = new Collection<MID>();
+            for (int i = 0; i < 5; i++)
+            {
+                branch.MIDs.Add(new MID
+                {
+                    currencyPhp = true,
+                    monitorCode = 1,
+                    cardPlans = 1,
+                    status = 1
+                });
+            }
+
             await branchRepo.InsertAsync(branch);
         }
 
@@ -39,9 +52,9 @@ namespace MAP_Web.Services
             branchRepo.Delete(branch);
         }
 
-        public async Task<IPagedList<Branch>> FindByCustomerAsync(int id)
+        public async Task<IPagedList<Branch>> FindByNewAffiliationAsync(int id)
         {
-            return await branchRepo.GetPagedListAsync(predicate: x => x.CustomerProfileId == id);
+            return await branchRepo.GetPagedListAsync(predicate: x => x.NewAffiliationId == id);
         }
     }
 }

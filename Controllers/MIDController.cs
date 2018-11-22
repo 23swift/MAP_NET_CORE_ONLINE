@@ -31,6 +31,17 @@ namespace MAP_Web.Controllers
             return Ok(mid);
         }
 
+        [HttpGet("branch/{id}")]
+        public async Task<IActionResult> GetMidByBranch(int id)
+        {
+            var mid = await midService.FindByBranchAsync(id);
+
+            if (mid == null)
+                return NotFound();
+
+            return Ok(mid);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateMID([FromBody] MID mid)
         {

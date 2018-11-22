@@ -22,6 +22,20 @@ export class OwnersListService {
     ];
   }
 
+  getByCustomerId(id): Observable<any> {
+    return this._http.get(ApiConstants.ownersApi + '/customer/' + id);
+  }
 
+  delete(id): Observable<any> {
+    return this._http.delete(ApiConstants.ownersApi + '/' + id);
+  }
 
+  getTypeOfRelatedParty() {
+    return [
+      { label: 'DOSRI', value: 1 },
+      { label: 'Subsidiary', value: 2 },
+      { label: 'Affiliate', value: 3 },
+      { label: 'Other Related Party', value: 4 }
+    ];
+  }
 }

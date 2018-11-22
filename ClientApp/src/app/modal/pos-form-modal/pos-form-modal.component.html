@@ -1,8 +1,8 @@
 <div fxLayout="row" fxLayoutAlign="space-between">
   <h2 mat-dialog-title class="mat-headline">POS Form</h2>
   <div>
-      <mat-checkbox style="margin-right: 10px;">Waive POS</mat-checkbox>
-      <mat-checkbox>Shared</mat-checkbox>
+    <mat-checkbox style="margin-right: 10px;">Waive POS</mat-checkbox>
+    <mat-checkbox>Shared</mat-checkbox>
   </div>
 </div>
 
@@ -10,17 +10,21 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
     <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
     </formly-form>
-  </form>
-  <div fxLayoutAlign="end center" *ngIf="showAction">
-    <button type="submit" color="primary" mat-raised-button>Create </button>
-    <button type="button" (click)="cancel();" color="accent" mat-raised-button>Cancel</button>
-  </div>
 
-  <div style="margin: 20px 0px">
+    <div fxLayoutAlign="end center">
+      <button type="submit" color="primary" mat-raised-button>Save </button>
+      <button type="button" (click)="cancel()" color="accent" mat-raised-button>Cancel</button>
+    </div>
+  </form>
+
+  <!-- <div style="margin: 20px 0px">
     <app-pos-terminal-brand-list [showAdd]="showAction"></app-pos-terminal-brand-list>
-  </div>
-<!--
-  <div style="margin-top: 20px;">
-    <app-mid [action]="false"></app-mid>
   </div> -->
+
+  <div style="margin-top: 20px;">
+    <app-mid-list-modal [branchId]="branchId" [showAdd]="false" [showUpdate]="false"></app-mid-list-modal>
+  </div>
+  <div style="margin-top: 20px;" *ngIf="model['id']">
+    <app-pos-terminal-brand-list-modal></app-pos-terminal-brand-list-modal>
+  </div>
 </mat-dialog-content>

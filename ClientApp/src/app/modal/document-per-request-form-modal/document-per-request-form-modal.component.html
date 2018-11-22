@@ -1,0 +1,19 @@
+<div class="flex-branch-list-header">
+  <span class="mat-headline">Document Checklist</span>
+</div>
+
+<div style="padding: 0px 10px">
+  <form (ngSubmit)="submit()" [formGroup]="documentForm" class="docs-form-container">
+      <mat-form-field>
+          <mat-select placeholder="Document Name" formControlName="documentName">
+              <mat-option *ngFor="let docs of documentList" [value]="docs.id">
+                  {{ docs.description }}
+              </mat-option>
+          </mat-select>
+      </mat-form-field>
+      <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+          <button type="submit" color="primary" mat-raised-button>Save </button>
+          <button type="button" color="accent" (click)="cancel()" mat-raised-button>Cancel</button>
+      </div>
+  </form>
+</div>

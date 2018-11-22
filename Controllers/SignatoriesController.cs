@@ -30,6 +30,17 @@ namespace MAP_Web.Controllers
             return Ok(signatory);
         }
 
+        [HttpGet("customer/{id}")]
+        public async Task<IActionResult> GetSignatoriePerCustomer(int id)
+        {
+            var signatory = await signatoriesService.FindByCustomerAsync(id);
+
+            if (signatory == null)
+                return NotFound();
+
+            return Ok(signatory);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateSignatories([FromBody] Signatories signatories)
         {
@@ -58,7 +69,7 @@ namespace MAP_Web.Controllers
             await signatoriesService.SaveChangesAsync();
 
 
-            return Ok(signatories);
+            return Ok(currentSigna);
         }
 
         [HttpDelete("{id}")]

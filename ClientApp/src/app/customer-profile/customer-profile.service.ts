@@ -169,5 +169,9 @@ export class CustomerProfileService {
   delete(id): Observable<any> {
     return this._http.delete(ApiConstants.customerProfileApi + '/' + id);
   }
+
+  get(id): Observable<any> {
+    return this._http.get(ApiConstants.customerProfileApi + '/' + id);
+  }
 }
 

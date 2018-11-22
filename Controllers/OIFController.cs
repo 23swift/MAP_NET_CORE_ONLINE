@@ -30,6 +30,17 @@ namespace MAP_Web.Controllers
             return Ok(oif);
         }
 
+        [HttpGet("branch/{id}")]
+        public async Task<IActionResult> GetOifByBranch(int id)
+        {
+            var oif = await oifService.FindByBranchAsync(id);
+
+            if (oif == null)
+                return Ok();
+
+            return Ok(oif);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateOIF([FromBody] OIF oif)
         {

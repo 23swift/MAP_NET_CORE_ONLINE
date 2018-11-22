@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   providers: [MidModalService]
 })
 export class MidModalComponent implements OnInit {
-  form: FormGroup
+  form: FormGroup;
   constructor(private _dialogRef: MatDialogRef<MidModalComponent>) { }
 
   ngOnInit() {

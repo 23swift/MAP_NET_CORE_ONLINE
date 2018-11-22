@@ -55,6 +55,8 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
     this.fields = this._maefFormService.getMaefFields();
   }
 
-
+  submit() {
+    
+  }
 
 }

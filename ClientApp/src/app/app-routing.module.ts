@@ -138,6 +138,9 @@ const routes: Routes = [
   { path: 'branch/:mode', component: BranchFormComponent },
   { path: 'branchinfo', component: BranchInfoComponent },
   { path: 'branchOIF', component: OcularInspectionFormComponent },
+  { path: 'na/aoEncoder/new', component: AoEncoderComponent },
+  { path: 'na/aoEncoder/:id', component: AoEncoderComponent },
+  { path: 'na/aoChecker/:id', component: AoCheckerComponent },
   {
     path: 'na/aoEncoder/:mode', component: AoEncoderComponent,
     children: [

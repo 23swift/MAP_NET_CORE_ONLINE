@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 @Injectable()
 export class PosTerminalFormModalService {
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
   getPosTerminalFields(): FormlyFieldConfig[] {
     return [
@@ -20,7 +23,7 @@ export class PosTerminalFormModalService {
               options: [
                 {
                   label: 'VERIFONE',
-                  value: '1'
+                  value: 1
                 }
               ]
             }
@@ -30,7 +33,9 @@ export class PosTerminalFormModalService {
             type: 'select',
             key: 'terminalType',
             templateOptions: {
-              label: 'Terminal Type'
+              label: 'Terminal Type',
+              options: [
+              ]
             }
           },
           {
@@ -38,7 +43,9 @@ export class PosTerminalFormModalService {
             type: 'select',
             key: 'terminalModelRequested',
             templateOptions: {
-              label: 'Terminal Model Requested'
+              label: 'Terminal Model Requested',
+              options: [
+              ]
             }
           }
         ]
@@ -128,5 +135,13 @@ export class PosTerminalFormModalService {
         ]
       }
     ];
+  }
+
+  update(id, terminal): Observable<any> {
+    return this._http.put(ApiConstants.terminalDetailsApi + '/' + id, terminal);
+  }
+
+  create(terminal): Observable<any> {
+    return this._http.post(ApiConstants.terminalDetailsApi, terminal);
   }
 }

@@ -50,7 +50,7 @@ namespace MAP_Web.Controllers
             await ownersService.InsertAsync(owner);
             await ownersService.SaveChangesAsync();
 
-            return Ok();
+            return Ok(owner);
         }
 
         [HttpPut("{id}")]
@@ -68,7 +68,7 @@ namespace MAP_Web.Controllers
 
             await ownersService.SaveChangesAsync();
 
-            return Ok(owners);
+            return Ok(currentOwner);
         }
 
         [HttpDelete("{id}")]

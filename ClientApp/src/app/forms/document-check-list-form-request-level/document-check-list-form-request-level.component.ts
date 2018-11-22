@@ -19,14 +19,15 @@ export class DocumentCheckListFormRequestLevelComponent implements OnInit {
     this.documentForm = new FormGroup({
       documentName: new FormControl('')
     });
-    
+
     this.documentList = this._service.GetDocumentList();
   }
 
-  OnSubmit() {
+  submit() {
     console.log(this.documentForm.value);
   }
-  Cancel() {
+
+  cancel() {
     const parentRoute = this._router.url.split('/(')[0];
     console.log(parentRoute);
     this._router.navigateByUrl(`${parentRoute}`);

@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { CustomerProfileService } from './customer-profile.service';
 import { AppBaseComponent } from '../app-base/app-base.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormlyFieldConfigService } from '../services/formly-field-config.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-customer-profile',
@@ -15,6 +16,7 @@ import { FormlyFieldConfigService } from '../services/formly-field-config.servic
 export class CustomerProfileComponent extends AppBaseComponent implements OnInit {
   @Input() displayMode = false;
   @Input() userGroup: string;
+  @Output() newAffiliationId = new EventEmitter<number>();
 
   isSaved = false;
   customerProfileId = 0;
@@ -30,14 +32,28 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
   constructor(public route: ActivatedRoute,
     public router: Router,
     private _customerProfileService: CustomerProfileService,
-    private _formlyFieldConfigService: FormlyFieldConfigService
+    private _formlyFieldConfigService: FormlyFieldConfigService,
+    private _snackBar: MatSnackBar
   ) {
-
     super(route, router);
+
+    this.route.params.subscribe(data => {
+      if (data['id']) {
+        this._customerProfileService.get(data['id']).subscribe(cpData => {
+          this.model = cpData;
+          this.newAffiliationId.emit(cpData['newAffiliationId']);
+          this.customerProfileId = this.model['id'];
+          this.newAffiliationId = this.model['newAffiliationId'];
+          this.isSaved = true;
+        });
+      } else {
+        console.log('NO ID');
+      }
+    });
   }
 
   ngOnInit() {
-    this.initialize();
+    // this.initialize();
     this.fields = this._customerProfileService.getCustomerProfileFields(this.userGroup);
     // apply expressionProperty for disabled based on formState to all fields
     if (this.displayMode === true) {
@@ -49,16 +65,23 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
 
   submit() {
     if (this.model['id']) {
+      console.log(this.model);
       this._customerProfileService.update(this.model['id'], this.model).subscribe(data => {
-        this.model = data;
-        console.log('UPDATE');
+        this._snackBar.open('Customer Profile', 'Updated', {
+          duration: 1500
+        });
       });
     } else {
       this._customerProfileService.create(this.model).subscribe(data => {
-        console.log('SUCCESS');
-        this.model = data;
+        this.model['id'] = data['id'];
+        this.newAffiliationId.emit(data['newAffiliationId']);
         this.customerProfileId = this.model['id'];
+        this.newAffiliationId = this.model['newAffiliationId'];
         this.isSaved = true;
+
+        this._snackBar.open('Customer Profile', 'Saved', {
+          duration: 1500
+        });
       });
     }
   }

@@ -14,6 +14,7 @@ namespace MAP_Web.DataAccess
         public virtual DbSet<Models.Request> Request { get; set; }
         public virtual DbSet<Models.POSRequest> POSRequest { get; set; }
         public virtual DbSet<Models.MAEF> MAEF { get; set; }
+        public virtual DbSet<Models.OIF> OIF { get; set; }
         public virtual DbSet<Models.Branch> Branch { get; set; }
         public virtual DbSet<Models.ApprovalSetup> ApprovalSetup { get; set; }
         public virtual DbSet<Models.MerchantGroup> MerchantGroup { get; set; }
@@ -32,10 +33,15 @@ namespace MAP_Web.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Models.Request>()
-            .HasOne(r => r.CustomerProfile)
-            .WithOne(c => c.Request)
-            .HasForeignKey<Models.Request>(r => r.CustomerProfileId);
+            modelBuilder.Entity<Models.NewAffiliation>()
+                .HasOne(n => n.CustomerProfile)
+                .WithOne(c => c.NewAffiliation)
+                .HasForeignKey<Models.CustomerProfile>(c => c.NewAffiliationId);
+
+            modelBuilder.Entity<Models.Branch>()
+                .HasOne(n => n.OIF)
+                .WithOne(c => c.Branch)
+                .HasForeignKey<Models.OIF>(c => c.BranchId);
         }
     }
 }

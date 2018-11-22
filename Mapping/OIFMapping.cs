@@ -9,7 +9,8 @@ namespace MAP_Web.Mapping
         public OIFMapping()
         {
             CreateMap<OIFViewModel, OIF>()
-                .ForMember(cp => cp.Id, opt => opt.Ignore());   
+                .ForMember(cp => cp.Id, opt => opt.Ignore())
+                .ForMember(cp => cp.BranchId, opt => opt.Ignore());
         }
     }
 }

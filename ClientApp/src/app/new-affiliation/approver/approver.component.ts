@@ -19,5 +19,8 @@ export class ApproverComponent extends AppBaseComponent implements OnInit {
   ngOnInit() {
     this.mode = this.route.snapshot.params.mode;
   }
+  
+  Submit() {
 
+  }
 }

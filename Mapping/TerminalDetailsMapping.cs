@@ -9,7 +9,8 @@ namespace MAP_Web.Mapping
         public TerminalDetailsMapping()
         {
             CreateMap<TerminalDetailsViewModel, TerminalDetails>()
-                .ForMember(cp => cp.Id, opt => opt.Ignore());
+                .ForMember(cp => cp.Id, opt => opt.Ignore())
+                .ForMember(cp => cp.POSId, opt => opt.Ignore());
         }
     }
 }

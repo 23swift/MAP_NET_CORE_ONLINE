@@ -1,0 +1,31 @@
+.docs-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.docs-form-container>* {
+    width: 100%;
+}
+
+.mat-checkbox > .mat-checkbox-layout {
+    padding-top: 14px;
+}
+
+.flex-branch-list-header {
+    display: flex;
+    flex-direction: row;
+    /* border:4px blue solid; */
+    justify-content: space-between;
+}
+
+.mat-subheading-1 {
+    font-size: 20px;
+}
+
+.mat-subheading-1 {
+    color: #0d47a1;
+}
+
+.mat-headline {
+    font-size: 18px;
+}

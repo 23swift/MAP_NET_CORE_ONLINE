@@ -10,7 +10,7 @@ export class MidFormService {
   //   ];
   // }
 
-  GetMonitorCodeList() {
+  getMonitorCodeList() {
     return [
       { Id: 1, Description: 'OTC' },
       { Id: 2, Description: 'Installment Reg' }
@@ -35,6 +35,13 @@ export class MidFormService {
     return [
       { Id: 1, Description: 'SFR1' },
       { Id: 2, Description: 'SFR2' }
+    ];
+  }
+
+  getCardPlans() {
+    return [
+      { value: 1, label: 'OTC' },
+      { value: 2, label: 'Installment Reg' }
     ];
   }
 

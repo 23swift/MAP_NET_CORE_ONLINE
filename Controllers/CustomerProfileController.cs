@@ -39,7 +39,7 @@ namespace MAP_Web.Controllers
             await customerProfileService.InsertAsync(customer);
             await customerProfileService.SaveChangesAsync();
 
-            return Ok(customer);
+            return Ok(new { id = customer.Id, newAffiliationId = customer.NewAffiliationId});
         }
 
         [HttpPut("{id}")]
@@ -55,9 +55,10 @@ namespace MAP_Web.Controllers
 
             mapper.Map<CustomerProfileViewModel, CustomerProfile>(customer, cust);
 
+            customerProfileService.Update(cust);
             await customerProfileService.SaveChangesAsync();
 
-            return Ok(cust);
+            return Ok();
         }
     }
 }

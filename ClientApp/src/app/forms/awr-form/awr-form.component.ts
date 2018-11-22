@@ -14,6 +14,8 @@ export class AwrFormComponent implements OnInit {
 
   form: FormGroup;
   fields: FormlyFieldConfig[];
+  model = {};
+  options: {};
 
   constructor(private awrService: AwrFormService) { }
 

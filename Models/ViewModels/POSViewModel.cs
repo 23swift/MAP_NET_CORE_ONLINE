@@ -32,7 +32,7 @@ namespace MAP_Web.Models.ViewModels
         public string numberOfPrintedSlips { get; set; }
         public string reasonForThreeSlipsPrinting { get; set; }
         public Nullable<DateTime> requiredDateAndTimeOfDispatch { get; set; }
-        public bool isInstallationTerm { get; set; }
+        public Nullable<bool> isInstallationTerm { get; set; }
         public Nullable<DateTime> requiredPullOutDateForTempPOSTerminals { get; set; }
         public string reasonForPermanentGPRSInstallation { get; set; }
         public string otherRequiredProfilingFacility { get; set; }

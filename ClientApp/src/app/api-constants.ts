@@ -8,4 +8,5 @@ export namespace ApiConstants {
     export const oifApi = '/api/oif';
     export const posApi = '/api/pos';
     export const terminalDetailsApi = '/api/terminalDetails';
+    export const aoEncoderDashboardApi = '/api/aoEncoderDashboard';
 }

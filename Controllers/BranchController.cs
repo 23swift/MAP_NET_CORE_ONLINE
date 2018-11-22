@@ -31,8 +31,19 @@ namespace MAP_Web.Controllers
             return Ok(branch);
         }
 
+        [HttpGet("newAffiliation/{id}")]
+        public async Task<IActionResult> GetBranchByNewAffiliation(int id)
+        {
+            var branch = await branchService.FindByNewAffiliationAsync(id);
+
+            if (branch == null)
+                return NotFound();
+
+            return Ok(branch);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateTerminalDetails([FromBody] Branch branch)
+        public async Task<IActionResult> CreateBranch([FromBody] Branch branch)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -40,7 +51,7 @@ namespace MAP_Web.Controllers
             await branchService.InsertAsync(branch);
             await branchService.SaveChangesAsync();
 
-            return Ok(branch);
+            return Ok();
         }
 
         [HttpPut("{id}")]

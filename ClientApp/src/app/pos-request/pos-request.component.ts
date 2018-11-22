@@ -24,18 +24,14 @@ export class PosRequestComponent extends AppBaseComponent implements OnInit {
     public router: Router) { 
     super(route,router);
      this.fields=posFieldService.getPosFields();
-     
   }
 
-  ngOnInit() {
-   
+  ngOnInit() {   
       this.initialize();
   }
 
-  
-  
-  submit(model) {
-    console.log(model);
+  submit() {
+    console.log(this.model);
   }
 
 }

@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AoCheckingComponent implements OnInit {
   title: string = 'New Affiliation';
   subTitle: string = 'Account Officer Checking';
+  mode: string;
   constructor() { }
 
   ngOnInit() {

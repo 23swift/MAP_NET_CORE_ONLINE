@@ -12,13 +12,13 @@ import { AppBaseComponent } from '../../../app/app-base/app-base.component';
   providers: [MidFormService]
 })
 export class MidFormComponent extends AppBaseComponent implements OnInit {
-  @Input()displayMode:boolean=false;
+  @Input()displayMode = false;
   model: Object;
   form: FormGroup;
   fields: FormlyFieldConfig[];
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _service: MidFormService) {
-    super(_route,_router);
+    super(_route, _router);
 
    }
 
@@ -43,7 +43,6 @@ export class MidFormComponent extends AppBaseComponent implements OnInit {
     // const currentUrl = this._router.url.split('/(');
     // const parentRoute = currentUrl[0] + '/(' + currentUrl[1] + ')';
     // this._router.navigateByUrl(`${parentRoute}`);
-    
   }
   // mode: string;
   // midForm: FormGroup;

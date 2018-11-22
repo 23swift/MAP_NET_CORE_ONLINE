@@ -1,0 +1,50 @@
+table {
+    width: 100%;
+    background-color: #fafafa;
+}
+
+.flex-branch-list-header {
+    display: flex;
+    flex-direction: row;
+    /* border:4px blue solid; */
+    justify-content: space-between;
+}
+
+.mat-subheading-1 {
+    font-size: 20px;
+}
+
+.mat-subheading-1 {
+    color: #0d47a1;
+}
+
+.mat-headline {
+    font-size: 18px;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mat-button {
+    min-width: 0px;
+}
+
+.mat-icon.save-button, .mat-icon.cancel-button {
+    color: #043673;
+}
+
+.cancel-button:hover, .save-button:hover {
+    color: #FDB913;
+    cursor: pointer;
+}
+
+.action-container {
+    display: flex; 
+    align-items: center; 
+    justify-content: flex-start;
+}

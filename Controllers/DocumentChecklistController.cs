@@ -31,6 +31,28 @@ namespace MAP_Web.Controllers
             return Ok(document);
         }
 
+        [HttpGet("newAffiliation/{id}")]
+        public async Task<IActionResult> GetDocumentChecklistByNewAffiliation(int id)
+        {
+            var document = await documentChecklistService.FindByNewAffiliationAsync(id);
+
+            if (document == null)
+                return NotFound();
+
+            return Ok(document);
+        }
+
+        [HttpGet("download/{id}")]
+        public async Task<IActionResult> GetFileToDownload(int id)
+        {
+            var document = await documentChecklistService.FindAsync(id);
+
+            if (document == null)
+                return NotFound();
+
+            return Ok(document.fileUpload);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateDocumentChecklist([FromBody] DocumentChecklist document)
         {
@@ -59,6 +81,32 @@ namespace MAP_Web.Controllers
             await documentChecklistService.SaveChangesAsync();
 
             return Ok(document);
+        }
+
+        [HttpPut("{id}/{documentId}")]
+        public async Task<IActionResult> AddDocumentToRequest(int id, int documentId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await documentChecklistService.InsertToRequestAsync(id, documentId);
+            await documentChecklistService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDocument(int id)
+        {
+            var currentDocument = await documentChecklistService.FindAsync(id);
+
+            if (currentDocument == null)
+                return NotFound();
+
+            documentChecklistService.Delete(currentDocument);
+            await documentChecklistService.SaveChangesAsync();
+
+            return Ok();
         }
     }
 }

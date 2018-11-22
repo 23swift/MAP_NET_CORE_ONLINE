@@ -154,7 +154,6 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -273,7 +272,7 @@ import { ApproveWithExceptReasonDetailsModalComponent } from './modal/approve-wi
     ApproveWithReqReasonListComponent,
     ApproveWithReqReasonFormModalComponent,
     ApproveWithExceptReasonDetailsModalComponent,
-    ApproveWithExceptReasonDetailsListComponent
+    ApproveWithExceptReasonDetailsListComponent,
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,7 @@ namespace MAP_Web.Controllers
         {
             try
             {
-                var result = await _aoMaintenanceService.Get();
+                var result = await _aoMaintenanceService.GetAOMaintenanceList();
                 return Ok(result);
             }
             catch (Exception)

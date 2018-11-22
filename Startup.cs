@@ -79,6 +79,9 @@ namespace MAP_Web
             services.AddScoped<IPOSService, POSService>();
             services.AddScoped<ITerminalDetailsService, TerminalDetailsService>();
             services.AddScoped<IOIFService, OIFService>();
+            services.AddScoped<IParameterMaintenanceService, ParameterMaintenanceService>();
+            services.AddScoped<IBUMaintenanceService, BUMaintenanceService>();
+            services.AddScoped<IServiceFeeContractService, ServiceFeeContractService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -136,13 +139,9 @@ namespace MAP_Web
                         if (env.IsDevelopment())
                         {
                             // spa.UseAngularCliServer(npmScript: "build");
-                             spa.UseAngularCliServer(npmScript: "start");
+                             //spa.UseAngularCliServer(npmScript: "start");
                             // spa.UseAngularCliServer( "ng serve");
-<<<<<<< HEAD
-                           // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-=======
                             spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
->>>>>>> da8c869455b7a8e364a926ed39e44724c6281bf3
 
 
                             

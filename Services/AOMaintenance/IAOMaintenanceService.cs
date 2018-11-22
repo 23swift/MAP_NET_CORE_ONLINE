@@ -8,7 +8,7 @@ namespace MAP_Web.Services
 {
     public interface IAOMaintenanceService
     {
-        Task<IEnumerable<AOMaintenance>> Get();
+        Task<IEnumerable<AOMaintenance>> GetAOMaintenanceList();
         Task<AOMaintenance> GetByUserName(string UserName);
     }
 }

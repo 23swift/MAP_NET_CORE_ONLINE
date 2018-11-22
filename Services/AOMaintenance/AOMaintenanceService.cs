@@ -18,7 +18,7 @@ namespace MAP_Web.Services
             _aoMaintenanceRepository = _unitOfWork.GetRepository<AOMaintenance>();
         }
 
-        public async Task<IEnumerable<AOMaintenance>> Get()
+        public async Task<IEnumerable<AOMaintenance>> GetAOMaintenanceList()
         {
             var result = _aoMaintenanceRepository.GetPagedList();
             return await result.Items.ToAsyncEnumerable().ToList();

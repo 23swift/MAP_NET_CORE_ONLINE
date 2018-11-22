@@ -28,6 +28,8 @@ namespace MAP_Web.DataAccess
         public virtual DbSet<Models.MaintenanceDetails> MaintenanceDetails { get; set; }
         public virtual DbSet<Models.AuditLog> AuditLog { get; set; }
         public virtual DbSet<Models.AOMaintenance> AOMaintenance { get; set; }
+        public virtual DbSet<Models.BUMaintenance> BUMaintenance { get; set; }
+        public virtual DbSet<Models.ServiceFeeContract> ServiceFeeContract { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

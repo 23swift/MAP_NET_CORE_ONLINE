@@ -20,6 +20,6 @@ export class MainNavComponent implements OnInit {
   constructor(private breakpointObserver: BreakpointObserver) { }
   
   ngOnInit() {
-    this.isHidden = true;
+    this.isHidden = false;
   }
 }

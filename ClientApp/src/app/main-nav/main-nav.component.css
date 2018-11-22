@@ -33,3 +33,8 @@
 	margin-left: 7px;
 	margin-top: 7px;
 }
+
+.home-icon:hover,
+.home-icon:active {
+  color: #FDB913;
+}

@@ -5,6 +5,7 @@ import { FormControl } from '../../../../node_modules/@angular/forms';
 import { Observable } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-ao-list-modal',
   templateUrl: './ao-list-modal.component.html',
@@ -13,7 +14,6 @@ import { Observable } from 'rxjs';
 })
 
 export class AoListModalComponent implements OnInit {
-
   dataSource: any;
   passedData: any;
   aoList: any;

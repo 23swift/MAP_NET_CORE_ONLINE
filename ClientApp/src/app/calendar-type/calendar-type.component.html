@@ -1,6 +1,10 @@
 <mat-form-field class='{{className}} mat-body-1'>
-
-    <input matInput [matDatepicker]="picker" placeholder="{{to.label}}" [required]="to.required" [formControl]="formControl" [formlyAttributes]="field">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
+  <input matInput [matDatepicker]="picker" placeholder="{{to.label}}" [required]="to.required" [formControl]="formControl"
+    [formlyAttributes]="field">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+  <mat-error *ngIf="formControl.errors ? formControl.errors.required && formControl.touched : false" class="mat-error" role="alert">This field is
+    required</mat-error>
+  <mat-error *ngIf="formControl.errors ? formControl.errors.matDatepickerParse && formControl.touched : false" class="mat-error" role="alert">This
+    field has invalid date</mat-error>
 </mat-form-field>

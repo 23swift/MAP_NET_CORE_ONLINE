@@ -51,7 +51,7 @@ namespace MAP_Web.Controllers
                         RequestedDate = item.Request.CreatedDate ?? System.DateTime.Now,
                         RequestType = item.Request.RequestDescription,
                         BusinessName = item.legalName,
-                        DBAName =  item.DBAName,
+                        DBAName =  item.dbaName,
                         RequestedBy = requestedBy.firstName + " " + requestedBy.lastName,
                         UserName = item.Request.Owner,
                         Status = item.Request.Owner == null ? "For Evaluation" : "For Re-Evaluation", //For Testing Purposes Only

@@ -1,12 +1,6 @@
-<!-- <div style="padding-bottom: 10px">
-    <mat-card-title>
-      <mat-icon style="color:#0d47a1;" title="Assign To">face</mat-icon>
-      <b class="mat-headline">  </b>
-    </mat-card-title>
-  </div> -->
 <div class="mat-headline" style="margin: 0px;" fxLayout="row" fxLayoutAlign="space-between">
   <mat-label fxLayoutAlign="start center">
-    <mat-icon>face</mat-icon>      
+    <mat-icon>face</mat-icon>
     <span *ngIf="!isAssignedRequest"> Assign Request</span>
     <span *ngIf="isAssignedRequest"> Re-Assign Request</span>
   </mat-label>
@@ -22,7 +16,7 @@
     </p>
   </div>
   <div class="mat-expansion-panel-header" color="primary" style="padding-bottom: 10px;">
-    <p style="padding-right: 10px">     
+    <p style="padding-right: 10px">
       <span *ngIf="!isAssignedRequest"> Assign Request to: </span>
       <span *ngIf="isAssignedRequest"> Re-Assign Request to: </span>
       <mat-form-field>
@@ -35,7 +29,6 @@
     </p>
   </div>
 </div>
-
 <div style="text-align: right" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
   <button style="margin-top:3px" mat-flat-button color="primary" (click)="Save()">Save</button>
   &nbsp;

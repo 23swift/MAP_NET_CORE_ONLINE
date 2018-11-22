@@ -18,7 +18,7 @@
     <mat-sidenav-content style="overflow: hidden;">
 
         <mat-toolbar color="primary" class="mat-elevation-z5">
-            <a routerLink="/home" mat-icon-button>
+            <a routerLink="/home" mat-icon-button class="home-icon">
                 <mat-icon>home</mat-icon>
             </a>
             <span>Merchant Acquiring Process</span>
@@ -35,10 +35,10 @@
                 <a routerLink="/additionalFacility/create" mat-menu-item>Additional Facility</a>
                 <a routerLink="/fileMaintenance" mat-menu-item>File Maintenance</a>
             </mat-menu>
-            <button mat-icon-button [matMenuTriggerFor]="admin" matTooltip="Administration">
+            <!-- <button mat-icon-button [matMenuTriggerFor]="admin" matTooltip="Administration" *ngIf="isHidden">
                 <mat-icon>settings</mat-icon>
             </button>
-            <mat-menu #admin="matMenu">
+            <mat-menu #admin="matMenu" *ngIf="isHidden">
                 <a routerLink="/paramMaintenance" mat-menu-item>Parameter Maintenance</a>
                 <a routerLink="/aoMaintenance" mat-menu-item>AO Maintenance</a>
                 <a routerLink="/sfcc" mat-menu-item>Service Fee Contract</a>
@@ -46,22 +46,22 @@
                 <a routerLink="/buMaintenance" mat-menu-item>BU Maintenance</a>
                 <a routerLink="/defaultMIDMaintenance" mat-menu-item>Default MID Maintenance</a>
             </mat-menu>
-            <mat-menu #docu="matMenu">
+            <mat-menu #docu="matMenu" *ngIf="isHidden">
                 <a routerLink="/dclMaintenance" mat-menu-item>Maintenance</a>
                 <a routerLink="/dclConfiguration" mat-menu-item>Configuration</a>  
             </mat-menu>
 
-            <button mat-icon-button matTooltip="Reports">
+            <button mat-icon-button matTooltip="Reports" *ngIf="isHidden">
                 <mat-icon>assignment</mat-icon>
             </button>
 
 
-            <button type="submit" mat-icon-button matTooltip="Search">
+            <button type="submit" mat-icon-button matTooltip="Search" *ngIf="isHidden">
                 <mat-icon>search</mat-icon>
             </button>
-            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" matTooltip="Account">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" matTooltip="Account" *ngIf="isHidden">
                 <mat-icon aria-label="Side nav toggle icon">face</mat-icon>
-            </button>
+            </button> -->
 
 
 

@@ -17,12 +17,12 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'cardPlans',
             type: 'select',
+            defaultValue: 1,
             templateOptions: {
               label: 'Card Plans / Styles',
               required: true,
               options: [
-                { value: 1, label: 'OTC' },
-                { value: 2, label: 'Installment Reg' }
+                { value: 1, label: 'MCVCJCACCCDC (CAPTURE ALL)' }
               ]
             }
           }
@@ -39,10 +39,22 @@ export class MidFormModalService {
               label: 'Monitor Code',
               required: true,
               options: [
-                { value: 1, label: 'OTC' },
-                { value: 2, label: 'Installment Reg' },
-                { value: 3, label: 'CNP' }
+                { value: 1, label: 'OTC for Straight' },
+                { value: 2, label: '0% Installment' },
+                { value: 3, label: 'Regular Installment' },
+                { value: 4, label: 'BNPL 0%' },
+                { value: 5, label: 'BNPL Regular' },
+                { value: 6, label: 'MOTO' }
               ]
+            },
+            lifecycle: {
+              onInit: (form, field) => {
+                field.formControl.valueChanges.subscribe(v => {
+                  if (v === 3 || v === 5) {
+                    field.model['merchantGroupCode'].setValue(4);
+                  }
+                });
+              }
             }
           },
           {
@@ -56,6 +68,7 @@ export class MidFormModalService {
             },
             templateOptions: {
               label: 'Default Transaction Source',
+              required: true,
               options: [
                 { value: 1, label: 'ECOM' },
                 { value: 2, label: 'MOTO' },
@@ -80,6 +93,7 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'currencyPhp',
             type: 'checkbox',
+            defaultValue: true,
             templateOptions: {
               label: 'PHP',
             }
@@ -96,7 +110,11 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'majorPurchase',
             type: 'checkbox',
-            defaultValue: true,
+            expressionProperties: {
+              'templateOptions.required': (model: any, formState: any) => {
+                return model['monitorCode'] === 3;
+              }
+            },
             templateOptions: {
               label: 'Major Purchase'
             }
@@ -118,7 +136,11 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'status',
             type: 'select',
-            defaultValue: 1,
+            expressionProperties: {
+              'defaultValue': (model: any, formState: any) => {
+                return model['monitorCode'] !== 5 ? 1 : 0;
+              }
+            },
             templateOptions: {
               label: 'Status',
               required: true,
@@ -160,7 +182,7 @@ export class MidFormModalService {
                 return model['majorPurchase'];
               },
               'templateOptions.required': (model: any, formState: any) => {
-                return !model['majorPurchase'];
+                return model['serviceFeeRate'] === undefined;
               }
             },
             templateOptions: {
@@ -176,21 +198,17 @@ export class MidFormModalService {
             key: 'merchantGroupCode',
             type: 'select',
             expressionProperties: {
-              'templateOptions.disabled': (model: any, formState: any) => {
-                if (!model['majorPurchase']) {
-                  model['merchantGroupCode'] = undefined;
-                }
-                return !model['majorPurchase'];
-              },
               'templateOptions.required': (model: any, formState: any) => {
-                return model['majorPurchase'];
+                return model['monitorCode'] === 3;
               }
             },
             templateOptions: {
               label: 'Merchant Group Code (Installment)',
               options: [
                 { value: 1, label: 'DM01 - Diners' },
-                { value: 2, label: 'MerchGrp24' }
+                { value: 2, label: 'MerchGrp24' },
+                { value: 3, label: '1Z' },
+                { value: 4, label: '4' }
               ]
             }
           },
@@ -200,12 +218,12 @@ export class MidFormModalService {
             type: 'input',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['merchantGroupCode'] === undefined && model['serviceFeeStraight'] === undefined;
+                return model['merchantGroupCode'] === undefined || model['serviceFeeStraight'] === undefined;
               }
             },
             templateOptions: {
               label: 'Service Fee Rate',
-              pattern: '^(\\d{2})\.\\1$',
+              pattern: '^(\\d{1,2})\.\\d{2}$',
             }
           }
         ]
@@ -215,9 +233,8 @@ export class MidFormModalService {
         fieldGroup: [
           {
             className: 'flex-1',
-            key: 'merchantMpPromotionGroup',
+            key: 'amexMna',
             type: 'checkbox',
-            defaultValue: 1,
             templateOptions: {
               label: 'Amex MNA'
             }
@@ -248,12 +265,18 @@ export class MidFormModalService {
         fieldGroup: [
           {
             className: 'flex-1',
-            key: 'merchantMpPromotionGroup',
+            key: 'merchantPromotionGroup',
             type: 'select',
-            defaultValue: 1,
+            expressionProperties: {
+              'templateOptions.required': (model: any, formState: any) => {
+                return model['monitorCode'] === 4 || model['monitorCode'] === 5;
+              },
+              'defaultValue': (model: any, formState: any) => {
+                return model['monitorCode'] === 4 ? 1 : 0;
+              }
+            },
             templateOptions: {
               label: 'Merchant Promotions Group',
-              required: true,
               options: [
                 { value: 1, label: 'BNPL Flagship' },
                 { value: 2, label: 'Installament Reg' }

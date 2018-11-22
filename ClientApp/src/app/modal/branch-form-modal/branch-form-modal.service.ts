@@ -141,14 +141,14 @@ export class BranchFormModalService {
           label: 'DBA City',
           required: true,
           options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
+            { label: 'PASIG', value: 1 },
+            { label: 'MAKATI CITY', value: 2 },
+            { label: 'MANDALUYONG', value: 3 },
+            { label: 'PASAY CITY', value: 4 },
+            { label: 'SAN JUAN', value: 5 },
+            { label: 'VALENZUELA', value: 6 },
+            { label: 'QUEZON CITY', value: 7 },
+            { label: 'MANILA', value: 8 }
           ],
         },
       },
@@ -163,14 +163,14 @@ export class BranchFormModalService {
           label: 'Zipcode',
           required: true,
           options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
+            { label: '0400', value: 1 },
+            { label: '0401', value: 2 },
+            { label: '0410', value: 3 },
+            { label: '0420', value: 4 },
+            { label: '0550', value: 5 },
+            { label: '0560', value: 6 },
+            { label: '0700', value: 7 },
+            { label: '0701', value: 8 }
           ],
         }
       }
@@ -1549,14 +1549,14 @@ export class BranchFormModalService {
             label: 'DBA City',
             required: true,
             options: [
-              { label: 'PASIG', value: '1' },
-              { label: 'MAKATI CITY', value: '2' },
-              { label: 'MANDALUYONG', value: '3' },
-              { label: 'PASAY CITY', value: '4' },
-              { label: 'SAN JUAN', value: '5' },
-              { label: 'VALENZUELA', value: '6' },
-              { label: 'QUEZON CITY', value: '7' },
-              { label: 'MANILA', value: '8' }
+              { label: 'PASIG', value: 1 },
+              { label: 'MAKATI CITY', value: 2 },
+              { label: 'MANDALUYONG', value: 3 },
+              { label: 'PASAY CITY', value: 4 },
+              { label: 'SAN JUAN', value: 5 },
+              { label: 'VALENZUELA', value: 6 },
+              { label: 'QUEZON CITY', value: 7 },
+              { label: 'MANILA', value: 8 }
             ],
           },
         },
@@ -1614,7 +1614,9 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          type: 'number',
+          max: 999
         }
       },
       {
@@ -1714,7 +1716,9 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          type: 'number',
+          max: 999
         }
       },
       {
@@ -1741,7 +1745,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'select',
-          key: 'mcc',
+          key: 'mccId',
           expressionProperties: {
 
           },
@@ -1749,25 +1753,25 @@ export class BranchFormModalService {
             label: 'MCC',
             required: true,
             options: [
-              { label: '5421-Department Store', value: '1' },
-              { label: '5422-Food Store', value: '2' },
-              { label: '5423-Gaming', value: '3' },
-              { label: '5424-Software Industry', value: '4' },
-              { label: '5425-Apparel Industry', value: '5' }
+              { label: '5421-Department Store', value: 1 },
+              { label: '5422-Food Store', value: 2 },
+              { label: '5423-Gaming', value: 3 },
+              { label: '5424-Software Industry', value: 4 },
+              { label: '5425-Apparel Industry', value: 5 }
             ]
           }
         },
         {
           className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
-          key: 'INTES Code for Diners',
+          key: 'intesCodeForDiners',
           expressionProperties: {
 
           },
           templateOptions: {
             type: 'number',
             label: 'INTES Code for Diners',
-            maxLength: 4
+            max: 9999
           }
         }
       ]
@@ -1803,7 +1807,7 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'Strategic Merchant',
             options: [
-              { label: '1', value: '1' }
+              { label: '1', value: 1 }
             ]
           },
         }
@@ -1835,9 +1839,9 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'Area Mall Code',
             options: [
-              { label: 'AREA MALL CODE 1', value: '1' },
-              { label: 'AREA MALL CODE 2', value: '2' },
-              { label: 'AREA MALL CODE 3', value: '3' }
+              { label: 'AREA MALL CODE 1', value: 1 },
+              { label: 'AREA MALL CODE 2', value: 2 },
+              { label: 'AREA MALL CODE 3', value: 3 }
             ]
           }
         }
@@ -1943,7 +1947,8 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Total Number Of Manual Imprinters',
           placeholder: 'Total Number Of Manual Imprinters',
-          maxLength: 2
+          type: 'number',
+          max: 99
         }
       },
       {
@@ -1969,7 +1974,7 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Hold-out Amount',
           placeholder: 'Hold-out Amount',
-          maxLength: 19
+          pattern: '^\\d{,19}$'
         }
       }
       ]
@@ -1991,15 +1996,15 @@ export class BranchFormModalService {
       {
         className: 'flex-1',
         type: 'select',
-        key: 'fraudToolProvider',
+        key: 'fraudToolProviderId',
         expressionProperties: {
 
         },
         templateOptions: {
           options: [
-            { label: 'Asiapay', value: '1' },
-            { label: 'Paynamics', value: '2' },
-            { label: 'IPay88', value: '3' }
+            { label: 'Asiapay', value: 1 },
+            { label: 'Paynamics', value: 2 },
+            { label: 'IPay88', value: 3 }
           ],
           label: 'Fraud Tool Provider'
         }
@@ -2013,12 +2018,12 @@ export class BranchFormModalService {
         },
         templateOptions: {
           options: [
-            { label: 'Asiapay 3-Party', value: '1' },
-            { label: 'Asiapay 2.5-Party', value: '2' },
-            { label: 'Asiapay 2-Party', value: '3' },
-            { label: 'MIGS 3-Party', value: '4' },
-            { label: 'MIGS 2.5-Party', value: '5' },
-            { label: 'MIGS 2-Party', value: '6' }
+            { label: 'Asiapay 3-Party', value: 1 },
+            { label: 'Asiapay 2.5-Party', value: 2 },
+            { label: 'Asiapay 2-Party', value: 3 },
+            { label: 'MIGS 3-Party', value: 4 },
+            { label: 'MIGS 2.5-Party', value: 5 },
+            { label: 'MIGS 2-Party', value: 6 }
           ],
           label: 'Gateway Integration Type'
         }
@@ -2062,14 +2067,14 @@ export class BranchFormModalService {
             label: 'Zipcode',
             required: true,
             options: [
-              { label: '0400', value: '1' },
-              { label: '0401', value: '2' },
-              { label: '0410', value: '3' },
-              { label: '0420', value: '4' },
-              { label: '0550', value: '5' },
-              { label: '0560', value: '6' },
-              { label: '0700', value: '7' },
-              { label: '0701', value: '8' }
+              { label: '0400', value: 1 },
+              { label: '0401', value: 2 },
+              { label: '0410', value: 3 },
+              { label: '0420', value: 4 },
+              { label: '0550', value: 5 },
+              { label: '0560', value: 6 },
+              { label: '0700', value: 7 },
+              { label: '0701', value: 8 }
             ],
           }
         }
@@ -4008,6 +4013,7 @@ export class BranchFormModalService {
       {
         className: 'flex-1',
         type: 'input',
+        defaultValue: 'R',
         key: 'imprinterNumber',
         expressionProperties: {
 
@@ -4251,7 +4257,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'fraudToolProvider',
+          key: 'fraudToolProviderId',
           templateOptions: {
             label: 'Fraud Tool Provider',
             placeholder: 'Fraud Tool Provider',
@@ -5568,7 +5574,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'fraudToolProvider',
+          key: 'fraudToolProviderId',
           templateOptions: {
             label: 'Fraud Tool Provider',
             placeholder: 'Fraud Tool Provider',

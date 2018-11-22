@@ -167,6 +167,28 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 
 
+//// VALIDATION MESSAGES FOR FORMLY ////
+
+export function minLengthValidationMessage(err, field) {
+  return `This field should have atleast ${field.templateOptions.minLength} characters`;
+}
+export function minValidationMessage(err, field) {
+  return `The value of this field should be ${field.templateOptions.min} or more`;
+}
+export function maxValidationMessage(err, field) {
+  return `The value of this field should be ${field.templateOptions.max} or less`;
+}
+export function maxLengthValidationMessage(err, field) {
+  return `This field should be ${field.templateOptions.maxLength} characters or less`;
+}
+export function patternValidationMessage(err, field) {
+  return `Invalid input characters`;
+}
+
+
+
+////////////////////////////////////////
+
 
 @NgModule({
   declarations: [
@@ -343,6 +365,26 @@ import { HomeComponent } from './home/home.component';
             component: ApproveWithExceptReasonDetailsListComponent
           }
         ////////////////////////////////////////////////////////
+      ],
+      validationMessages: [
+        {
+          name: 'required', message: 'This field is required'
+        },
+        {
+          name: 'maxlength', message: maxLengthValidationMessage
+        },
+        {
+          name: 'minlength', message: minLengthValidationMessage
+        },
+        {
+          name: 'min', message: minValidationMessage
+        },
+        {
+          name: 'max', message: maxValidationMessage
+        },
+        {
+          name: 'pattern', message: patternValidationMessage
+        }
       ]
       }
     ),

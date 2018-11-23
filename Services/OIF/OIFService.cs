@@ -8,6 +8,9 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<OIF> oifRepo;
+
+        private readonly IRepository<Branch> branchRepo;
+
         public OIFService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;

@@ -276,7 +276,7 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Number of Years Operating',
             maxLength: 30
           },
@@ -313,7 +313,7 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'No. of Fulltime Employees',
             maxLength: 5
           },
@@ -330,7 +330,7 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Contractual',
             maxLength: 5
           },
@@ -620,7 +620,7 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Average No. of Transaction/Month',
             maxLength: 20
           },
@@ -701,7 +701,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Expected No. of Buyers',
             maxLength: 10
           },
@@ -754,7 +754,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Expected No. of Participants',
             maxLength: 20
           },
@@ -770,7 +770,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Average Registration / Membership Fee',
             maxLength: 20
           },
@@ -854,7 +854,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Total Sales Volume of Last Event',
             maxLength: 20
           },
@@ -892,13 +892,13 @@ export class OifFormModalService {
           key: 'overAllRating',
           type: 'radio',
           className: 'flex-1',
-          defaultValue: 'true',
+          defaultValue: true,
           templateOptions: {
             required: true,
             label: 'OverAll Rating',
             options: [
-              { value: 'acceptable', label: 'ACCEPTABLE' },
-              { value: 'notacceptable', label: 'NOT ACCEPTABLE' }
+              { value: true, label: 'ACCEPTABLE' },
+              { value: false, label: 'NOT ACCEPTABLE' }
             ]
           },
           expressionProperties: {

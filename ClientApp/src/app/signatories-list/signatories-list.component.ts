@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
 import { SignatoriesListService } from './signatories-list.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { SignatoriesFormModalComponent } from '../modal/signatories-form-modal/signatories-form-modal.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -17,15 +17,15 @@ export class SignatoriesListComponent implements OnInit {
   @Input() customerProfileId: number;
 
   constructor(private _signatoriesService: SignatoriesListService, private _dialog: MatDialog,
-    private _changeDetectRef: ChangeDetectorRef, private _route: ActivatedRoute) {
-      this._route.params.subscribe(params => {
-        if (params['id']) {
-          this._signatoriesService.getByCustomerId(params['id']).subscribe(data => {
-            this.dataSource = data.items;
-          });
-        }
-      });
-    }
+    private _changeDetectRef: ChangeDetectorRef, private _route: ActivatedRoute, private _snackBar: MatSnackBar) {
+    this._route.params.subscribe(params => {
+      if (params['id']) {
+        this._signatoriesService.getByCustomerId(params['id']).subscribe(data => {
+          this.dataSource = data.items;
+        });
+      }
+    });
+  }
 
   ngOnInit() {
     this.displayedColumns = this._signatoriesService.getTableFields();
@@ -54,16 +54,22 @@ export class SignatoriesListComponent implements OnInit {
   }
 
   addSignatory() {
-    const dialog = this._dialog.open(SignatoriesFormModalComponent, {
-      width: '60%',
-      data: {
-        customerProfileId: this.customerProfileId
-      }
-    });
+    if (this.customerProfileId) {
+      const dialog = this._dialog.open(SignatoriesFormModalComponent, {
+        width: '60%',
+        data: {
+          customerProfileId: this.customerProfileId
+        }
+      });
 
-    dialog.afterClosed().subscribe(data => {
-      this.refresh();
-    });
+      dialog.afterClosed().subscribe(data => {
+        this.refresh();
+      });
+    } else {
+      this._snackBar.open('Signatory\'s Details', 'Customer Profile Must Be Saved First', {
+        duration: 2000
+      });
+    }
   }
 
   getApplicableTo(value) {

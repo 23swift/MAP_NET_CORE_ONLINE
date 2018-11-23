@@ -1600,6 +1600,16 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'ATM/Debit',
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('numberOfDebitTidAtm').patchValue('');
+                form.get('mdrAtm').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         key: 'numberOfDebitTidAtm',
@@ -1646,6 +1656,15 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'SM Gift Card',
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('mdrSmGiftCard').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         key: 'mdrSmGiftCard',
@@ -1674,6 +1693,15 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'SM Shop Card',
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('mdrSmShopCard').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         key: 'mdrSmShopCard',
@@ -1702,6 +1730,16 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Cash Agad',
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('numberOfDebitTidCashAgad').patchValue('');
+                form.get('mdrCashAgad').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         className: 'flex-3',
@@ -1973,8 +2011,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
+          type: 'number',
           placeholder: 'Hold-out Amount',
-          pattern: '^\\d{,19}$'
+          pattern: '^\\d{1,19}$'
         }
       }
       ]
@@ -2255,7 +2294,7 @@ export class BranchFormModalService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
+          pattern: '^\\d{15}$',
           maxLength: 15
         }
       },

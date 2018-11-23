@@ -91,4 +91,8 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   getTerminalModel(tm) {
     return this._terminalService.getTerminalModel().find(t => t.value === tm).label;
   }
+
+  getSimType(st) {
+    return this._terminalService.getSimType().find(t => t.value === st).label;
+  }
 }

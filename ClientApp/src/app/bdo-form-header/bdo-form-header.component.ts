@@ -26,6 +26,7 @@ export class BdoFormHeaderComponent implements OnInit {
   @Input() text: string;
   @Input() sub_text: string;
   @Input() submit: Function;
+  @Input() disabled: boolean;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
 
@@ -77,6 +78,16 @@ export class BdoFormHeaderComponent implements OnInit {
       if (this.mode.match(/mauOfficer/i)) {
         this.showRequestFlowOptions = false;
       }
+    }
+  }
+
+  submitToChecker() {
+    if (this.disabled) {
+      this._snackBar.open('Submit to Request', 'FAILED: Incomplete Request Details!', {
+        duration: 2000
+      });
+    } else {
+      this.submit();
     }
   }
 

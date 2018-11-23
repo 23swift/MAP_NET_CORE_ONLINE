@@ -17,11 +17,23 @@ export class PosFormModalService {
           key: 'natureOfRequest',
           templateOptions: {
             label: 'Nature Of Request',
+            required: true,
             options: [
               { value: 1, label: 'Installation' },
               { value: 2, label: 'Reprogramming' },
               { value: 3, label: 'TID Issuance' }
             ]
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === 3) {
+                  form.get('numberOfPrintedSlips').patchValue('2');
+                } else {
+                  form.get('numberOfPrintedSlips').patchValue('');
+                }
+              });
+            }
           }
         },
         {
@@ -32,6 +44,9 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 2;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 2;
             }
           },
           templateOptions: {
@@ -41,23 +56,23 @@ export class PosFormModalService {
             ]
           }
         },
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'tidIssuanceType',
-          defaultValue: 0,
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 3;
+        /*  {
+            className: 'flex-1',
+            type: 'select',
+            key: 'tidIssuanceType',
+            defaultValue: 0,
+            expressionProperties: {
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['natureOfRequest'] !== 3;
+              }
+            },
+            templateOptions: {
+              label: 'TID Issuance Type',
+              options: [
+                { value: 0, label: 'Select TID Issuance Type' }
+              ]
             }
-          },
-          templateOptions: {
-            label: 'TID Issuance Type',
-            options: [
-              { value: 0, label: 'Select TID Issuance Type' }
-            ]
-          }
-        }
+          } */
       ]
     },
     {
@@ -68,7 +83,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'requestersName',
           templateOptions: {
-            label: 'Requester\'s Name'
+            label: 'Requester\'s Name',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -76,7 +93,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'requestersBusinessUnit',
           templateOptions: {
-            label: 'Requester\'s Business Unit'
+            label: 'Requester\'s Business Unit',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -84,7 +103,10 @@ export class PosFormModalService {
           type: 'input',
           key: 'requestersContactNumber',
           templateOptions: {
-            label: 'Requester\'s Contact Number / Cellphone Number'
+            label: 'Requester\'s Contact Number / Cellphone Number',
+            pattern: '^(\\d{2})-\\d{3}-\\d{2}-\\d{2}$',
+            type: 'number',
+            maxLength: 50,
           }
         }
       ]
@@ -100,12 +122,15 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1;
             }
           },
           templateOptions: {
             label: 'Business Unit / Area (where POS will be charged)',
             options: [
-              { value: 0, label: 'Select Account Officer Handler'}
+              { value: 0, label: 'Select Business Unit / Area' }
             ]
           }
         },
@@ -117,12 +142,15 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1;
             }
           },
           templateOptions: {
             label: 'Account Officer / Handler',
             options: [
-              { value: 0, label: 'Select Account Officer Handler'}
+              { value: 0, label: 'Select Account Officer Handler' }
             ]
           }
         },
@@ -137,6 +165,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Business Type Of Account (AO / RM / HO)',
+            required: true,
             valueProp: 'BusinessTypeOfAcccount_Id',
             labelProp: 'Description',
             options: [
@@ -156,13 +185,20 @@ export class PosFormModalService {
           className: 'flex-1',
           type: 'select',
           key: 'businessUnitAO',
+          defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 1 || model['natureOfRequest'] !== 2;
+              return model['natureOfRequest'] !== 1 && model['natureOfRequest'] !== 2;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1 || model['natureOfRequest'] === 2;
             }
           },
           templateOptions: {
-            label: 'Business Unit (AO\'s Business Unit)'
+            label: 'Business Unit (AO\'s Business Unit)',
+            options: [
+              {label: 'Select Business Unit', value: 0}
+            ]
           }
         },
         {
@@ -171,11 +207,15 @@ export class PosFormModalService {
           key: 'segment',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 1 || model['natureOfRequest'] !== 2;
+              return model['natureOfRequest'] !== 1 && model['natureOfRequest'] !== 2;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1 || model['natureOfRequest'] === 2;
             }
           },
           templateOptions: {
-            label: 'Segment'
+            label: 'Segment',
+            maxLength: 50,
           }
         }
       ]
@@ -190,10 +230,14 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1;
             }
           },
           templateOptions: {
-            label: 'Approved By (Business Unit Head)'
+            label: 'Approved By (Business Unit Head)',
+            maxLength: 50,
           }
         },
         {
@@ -201,7 +245,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'merchantLegalName',
           templateOptions: {
-            label: 'Merchant\'s Legal Name'
+            label: 'Merchant\'s Legal Name',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -209,7 +255,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'merchantDBAName',
           templateOptions: {
-            label: 'Merchant\'s DBA Name'
+            label: 'Merchant\'s DBA Name',
+            required: true,
+            maxLength: 50,
           }
         }
       ]
@@ -227,7 +275,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Merchant\'s Name on Signage'
+            label: 'Merchant\'s Name on Signage',
+            maxLength: 50,
           }
         },
         {
@@ -235,7 +284,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'merchantDbaAddress',
           templateOptions: {
-            label: 'Merchant\'s DBA Address'
+            label: 'Merchant\'s DBA Address',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -243,7 +294,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'merchantDbaAddressOld',
           templateOptions: {
-            label: 'Merchant\'s DBA Address (old)'
+            label: 'Merchant\'s DBA Address (old)',
+            required: true,
+            maxLength: 150,
           }
         }
       ]
@@ -256,14 +309,16 @@ export class PosFormModalService {
           type: 'input',
           key: 'merchantDbaCity',
           templateOptions: {
-            label: 'Merchant\'s DBA City'
+            label: 'Merchant\'s DBA City',
+            required: true,
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           key: 'isContactlessMerchant',
           type: 'radio',
-          defaultValue: false,
+          defaultValue: true,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1 && model['natureOfRequest'] !== 2;
@@ -271,6 +326,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Contactless Merchant?',
+            required: true,
             options: [
               { value: true, label: 'Yes' },
               { value: false, label: 'No' }
@@ -281,6 +337,7 @@ export class PosFormModalService {
           className: 'flex-1',
           key: 'isMultiMerchant',
           type: 'radio',
+          defaultValue: false,
           templateOptions: {
             label: 'Multi-Merchant?',
             options: [
@@ -299,7 +356,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'merchantCategoryCode',
           templateOptions: {
-            label: 'Merchant Category Code (MCC)'
+            label: 'Merchant Category Code (MCC)',
+            required: true,
+            type: 'number'
           }
         },
         {
@@ -307,7 +366,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'nsp',
           templateOptions: {
-            label: 'NSP'
+            label: 'NSP',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -320,7 +381,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Contact Person (Outlet / Branch) Name / Email Address)'
+            label: 'Contact Person (Outlet / Branch) Name / Email Address)',
+            maxLength: 50,
           }
         }
       ]
@@ -338,7 +400,10 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Contact Number (Outlet / Branch) Name / Email Address)'
+            label: 'Contact Number (Outlet / Branch) Landline / Mobile Phone)',
+            pattern: '^(\\d{2})-\\d{3}-\\d{2}-\\d{2}$|^[\\d\\d\\d|\\d\\d\\d\\d]-\\d{8}$',
+            type: 'number',
+            maxLength: 50,
           }
         },
         {
@@ -348,10 +413,15 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1 && model['natureOfRequest'] !== 2;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1 || model['natureOfRequest'] === 2;
             }
           },
           templateOptions: {
-            label: 'Number of Printed Slips'
+            label: 'Number of Printed Slips',
+            maxLength: 10,
+            type: 'number'
           }
         },
         {
@@ -359,7 +429,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'reasonForThreeSlipsPrinting',
           templateOptions: {
-            label: 'Reason For 3 Slips Printing'
+            label: 'Reason For 3 Slips Printing',
+            required: true,
+            maxLength: 50,
           }
         }
       ]
@@ -377,7 +449,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Required Date and Time of Dispatch'
+            label: 'Required Date and Time of Dispatch',
+            required: true,
           }
         },
         {
@@ -391,6 +464,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Installation Term',
+            required: true,
             options: [
               { value: true, label: 'Permanent' },
               { value: false, label: 'Temporary' },
@@ -407,7 +481,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Required Pull Out Date For Temporary POS Terminals'
+            label: 'Required Pull Out Date For Temporary POS Terminals',
+            required: true,
           }
         }
       ]
@@ -422,10 +497,14 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1;
             }
           },
           templateOptions: {
-            label: 'Reason For Permanent GPRS Installation'
+            label: 'Reason For Permanent GPRS Installation',
+            maxLength: 50,
           }
         },
         {
@@ -435,10 +514,14 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1 && model['natureOfRequest'] !== 2;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1 || model['natureOfRequest'] === 2;
             }
           },
           templateOptions: {
-            label: 'Other Required Profiling Facility (tip adjust, binver, BDO Pay, etc)'
+            label: 'Other Required Profiling Facility (tip adjust, binver, BDO Pay, etc)',
+            maxLength: 100,
           }
         },
         {
@@ -449,12 +532,15 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 1 && model['natureOfRequest'] !== 2;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 1 || model['natureOfRequest'] === 2;
             }
           },
           templateOptions: {
             label: 'Must Settle (No. of Days Required)',
             options: [
-              { value: 0, label: 'Select No. of Days Required'}
+              { value: 0, label: 'Select No. of Days Required' }
             ]
           }
         }
@@ -473,7 +559,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Remarks / Special Instructions (Dispatch-Related Only)'
+            label: 'Remarks / Special Instructions (Dispatch-Related Only)',
+            maxLength: 300,
           }
         },
         {
@@ -494,7 +581,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'creditStraightTidNew',
           templateOptions: {
-            label: 'Credit Straight TID (new)'
+            label: 'Credit Straight TID (new)',
+            required: true,
+            maxLength: 50,
           }
         }
       ]
@@ -504,10 +593,11 @@ export class PosFormModalService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'calendar',
           key: 'dateAndTimeEndorsedToMAU',
           templateOptions: {
-            label: 'Date and Time Endorsed To MAU'
+            label: 'Date and Time Endorsed To MAU',
+            required: true,
           }
         },
         {
@@ -515,7 +605,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'creditStraightMidVmjaVmjacd',
           templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJACD'
+            label: 'Credit Straight MID-VMJA/VMJACD',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -523,7 +615,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'creditStraightMidVmj',
           templateOptions: {
-            label: 'Credit Straight MID-VMJ'
+            label: 'Credit Straight MID-VMJ',
+            required: true,
+            maxLength: 50,
           }
         }
       ]
@@ -536,7 +630,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'creditStraightMidAmex',
           templateOptions: {
-            label: 'Credit Straight MID-AMEX (If with VMJ)'
+            label: 'Credit Straight MID-AMEX (If with VMJ)',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -544,7 +640,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'dinersMID',
           templateOptions: {
-            label: 'Credit Straight MID-Diners (If with VMJ)'
+            label: 'Credit Straight MID-Diners (If with VMJ)',
+            required: true,
+            maxLength: 50,
           }
         },
         {
@@ -552,7 +650,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'cupAcceptorId',
           templateOptions: {
-            label: 'CUP Acceptor ID'
+            label: 'CUP Acceptor ID',
+            required: true,
+            maxLength: 50,
           }
         }
       ]
@@ -570,7 +670,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Merchant Loyalty'
+            label: 'Merchant Loyalty',
+            maxLength: 50,
           }
         },
         {
@@ -583,7 +684,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Merchant Prepaid'
+            label: 'Merchant Prepaid',
+            maxLength: 50,
           }
         },
         {
@@ -591,7 +693,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'creditStraightMidVmjaVmjacVmjacd',
           templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD'
+            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD',
+            required: true,
+            maxLength: 50,
           }
         }
       ]
@@ -606,10 +710,14 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 2 && model['natureOfRequest'] !== 3;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 2 || model['natureOfRequest'] === 3;
             }
           },
           templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (New)'
+            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (New)',
+            maxLength: 50,
           }
         },
         {
@@ -619,10 +727,14 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 2 && model['natureOfRequest'] !== 3;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 2 || model['natureOfRequest'] === 3;
             }
           },
           templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (Off Us)'
+            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (Off Us)',
+            maxLength: 50,
           }
         },
         {
@@ -635,7 +747,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'Email Subject'
+            label: 'Email Subject',
+            maxLength: 50,
           }
         }
       ]
@@ -645,10 +758,11 @@ export class PosFormModalService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'calendar',
           key: 'dateTimeEndorsedPaymentSolutionsOperations',
           templateOptions: {
-            label: 'Date and Time Endorsed to Payment Solutions Operations'
+            label: 'Date and Time Endorsed to Payment Solutions Operations',
+            required: true,
           }
         },
         {
@@ -661,7 +775,9 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Number of Terminals (Count)'
+            label: 'BDO Pay Mobile – Number of Terminals (Count)',
+            maxLength: 10,
+            type: 'number',
           }
         },
         {
@@ -674,7 +790,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Business Group (If applicable)'
+            label: 'BDO Pay Mobile – Business Group (If applicable)',
+            maxLength: 50,
           }
         }
       ]
@@ -692,7 +809,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Merchant Portal User\'s Email Address'
+            label: 'BDO Pay Mobile – Merchant Portal User\'s Email Address',
+            maxLength: 50,
           }
         },
         {
@@ -705,7 +823,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Merchant Portal Nominated Username'
+            label: 'BDO Pay Mobile – Merchant Portal Nominated Username',
+            maxLength: 50,
           }
         },
         {
@@ -718,7 +837,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Internet Connection'
+            label: 'BDO Pay Mobile – Internet Connection',
+            maxLength: 50,
           }
         }
       ]
@@ -736,7 +856,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Internet Provider'
+            label: 'BDO Pay Mobile – Internet Provider',
+            maxLength: 50,
           }
         },
         {
@@ -749,7 +870,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – Reference Field'
+            label: 'BDO Pay Mobile – Reference Field',
+            maxLength: 50,
           }
         },
         {
@@ -762,7 +884,8 @@ export class PosFormModalService {
             }
           },
           templateOptions: {
-            label: 'BDO Pay Mobile – If RF is Customized, pls Include RF Name (Max 10 Characters)'
+            label: 'BDO Pay Mobile – If RF is Customized, pls Include RF Name (Max 10 Characters)',
+            maxLength: 50,
           }
         }
       ]
@@ -785,7 +908,7 @@ export class PosFormModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'calendar',
           key: 'dateAndTimeTidIssued',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -796,14 +919,14 @@ export class PosFormModalService {
             label: 'Date and Time TID Issued'
           }
         },
-        {
+        /*{
           className: 'flex-1',
           type: 'input',
           key: 'dateAndTimeEndorsedToMAU',
           templateOptions: {
             label: 'Date and Time Endorsed To MAU'
           }
-        }
+        } */
       ]
     },
     {
@@ -811,13 +934,14 @@ export class PosFormModalService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'calendar',
           key: 'dateTimeAssignedPSProfiling',
           templateOptions: {
-            label: 'Date and Time Assigned to PS Profiling'
+            label: 'Date and Time Assigned to PS Profiling',
+            required: true,
           }
         },
-        {className: 'flex-2'}
+        { className: 'flex-2' }
       ]
     },
   ];

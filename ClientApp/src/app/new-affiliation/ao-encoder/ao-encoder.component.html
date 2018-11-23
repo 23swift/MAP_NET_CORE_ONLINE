@@ -1,4 +1,5 @@
-<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit"></app-bdo-form-header>
+<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="true" *ngIf="!isDone"></app-bdo-form-header>
+<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false" *ngIf="isDone"></app-bdo-form-header>
 <!-- <app-request-header></app-request-header> -->
 <span class="mat-headline">Please follow the steps:</span>
 <mat-vertical-stepper [linear]="true" #stepper>
@@ -55,7 +56,7 @@
       <app-document-check-list [newAffiliationId]="newAffiliationId"></app-document-check-list>
     </div>
 
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, '');">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'done');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
 

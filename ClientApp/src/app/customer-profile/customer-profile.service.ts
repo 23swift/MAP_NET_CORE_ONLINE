@@ -16,7 +16,9 @@ export class CustomerProfileService {
           key: 'legalName',
           templateOptions: {
             label: 'Business/Legal Name',
-            placeholder: 'Business Name'
+            placeholder: 'Business Name',
+            required: true,
+            maxLength: 50
           },
         },
         {
@@ -25,6 +27,7 @@ export class CustomerProfileService {
           key: 'ownership',
           templateOptions: {
             label: 'Ownership',
+            required: true,
             options: [
               { label: 'Single Proprietorship', value: 1 },
               { label: 'Partnership', value: 2 },
@@ -44,7 +47,8 @@ export class CustomerProfileService {
           type: 'calendar',
           key: 'dtiRegDate',
           templateOptions: {
-            label: 'Sec/DTI Registration Date'
+            label: 'Sec/DTI Registration Date',
+            required: true
           }
         }
       ],

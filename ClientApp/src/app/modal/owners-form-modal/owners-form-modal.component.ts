@@ -4,12 +4,13 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 
 import { OwnersFormModalService } from './owners-form-modal.service';
+import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
 
 @Component({
   selector: 'app-owners-form-modal',
   templateUrl: './owners-form-modal.component.html',
   styleUrls: ['./owners-form-modal.component.css'],
-  providers: [OwnersFormModalService]
+  providers: [OwnersFormModalService, CustomerProfileService]
 })
 export class OwnersFormModalComponent implements OnInit {
   form: FormGroup;
@@ -19,19 +20,31 @@ export class OwnersFormModalComponent implements OnInit {
 
   constructor(private _modalRef: MatDialogRef<OwnersFormModalComponent>, private _ownersService: OwnersFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar) {
-      if (data['owner']) {
-        this.model = Object.assign({}, data['owner']);
-      } else {
-        this.model = {
-          customerProfileId: this.data['customerProfileId']
-        };
-      }
+    private _snackBar: MatSnackBar,
+    private _customerProfileService: CustomerProfileService) {
+    if (data['owner']) {
+      this.model = Object.assign({}, data['owner']);
+    } else {
+      this.model = {
+        customerProfileId: this.data['customerProfileId']
+      };
+    }
+
+    if (this.model['customerProfileId']) {
+      this._customerProfileService.get(this.model['customerProfileId']).subscribe(cpData => {
+        if (cpData['ownership'] === 9) {
+          this.model['name'] = cpData['legalName'];
+          this.model['percentOfOwnership'] = 100;
+        }
+        this.fields = this._ownersService.getFormlyFields();
+      });
+    } else {
+      this.fields = this._ownersService.getFormlyFields();
+    }
   }
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.fields = this._ownersService.getFormlyFields();
   }
 
   submit() {
@@ -43,12 +56,19 @@ export class OwnersFormModalComponent implements OnInit {
         this._modalRef.close(data);
       });
     } else {
-      this._ownersService.create(this.model).subscribe(data => {
-        this._snackBar.open('Owner\'s Details', 'Saved', {
-          duration: 1500
+      if (this.model['customerProfileId']) {
+        this._ownersService.create(this.model).subscribe(data => {
+          this._snackBar.open('Owner\'s Details', 'Saved', {
+            duration: 1500
+          });
+          this._modalRef.close(data);
         });
-        this._modalRef.close(data);
-      });
+      } else {
+        this._snackBar.open('Owner\'s Details', 'Customer Profile Must Be Saved First', {
+          duration: 2000
+        });
+        this._modalRef.close();
+      }
     }
   }
 

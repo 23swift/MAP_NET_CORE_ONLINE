@@ -16,7 +16,7 @@
         <th mat-header-cell *matHeaderCellDef>
         </th>
         <td mat-cell *matCellDef="let element">
-          <button (click)="getPos(element.id)" mat-mini-fab color="primary" matTooltip="Update OIF">
+          <button (click)="getPos(element.id)" mat-mini-fab color="primary" matTooltip="POS Details">
             <mat-icon style="color:white;">attachment</mat-icon>
           </button>
         </td>
@@ -29,7 +29,7 @@
 
 <div *ngIf="!showBranchList">
   <button type="button" color="primary" mat-raised-button style="float: right" (click)="backToList()">
-    <mat-icon style="color:white;">arrow_back_ios</mat-icon>
+    <mat-icon style="color: #FDB913">arrow_back_ios</mat-icon>
     Return to Branch List
   </button>
   <app-pos-list-container [branchId]="branchId"></app-pos-list-container>

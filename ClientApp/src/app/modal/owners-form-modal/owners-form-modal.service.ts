@@ -28,7 +28,9 @@ export class OwnersFormModalService {
             type: 'input',
             key: 'percentOfOwnership',
             templateOptions: {
-              label: '% of Ownership'
+              type: 'number',
+              label: '% of Ownership',
+              max: 100
             }
           }
         ]
@@ -40,9 +42,11 @@ export class OwnersFormModalService {
             className: 'flex-1',
             type: 'select',
             key: 'typeOfRelatedParty',
+            defaultValue: 0,
             templateOptions: {
               label: 'Type of Related Party',
               options: [
+                { label: 'N/A', value: 0 },
                 { label: 'DOSRI', value: 1 },
                 { label: 'Subsidiary', value: 2 },
                 { label: 'Affiliate', value: 3 },
@@ -56,7 +60,7 @@ export class OwnersFormModalService {
             key: 'remarks',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['typeOfRelatedParty'] !== undefined;
+                return model['typeOfRelatedParty'] !== undefined && model['typeOfRelatedParty'] !== 0;
               }
             },
             templateOptions: {

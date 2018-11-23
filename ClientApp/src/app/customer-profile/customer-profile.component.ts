@@ -46,8 +46,6 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
           this.newAffiliationId = this.model['newAffiliationId'];
           this.isSaved = true;
         });
-      } else {
-        console.log('NO ID');
       }
     });
   }
@@ -65,7 +63,6 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
 
   submit() {
     if (this.model['id']) {
-      console.log(this.model);
       this._customerProfileService.update(this.model['id'], this.model).subscribe(data => {
         this._snackBar.open('Customer Profile', 'Updated', {
           duration: 1500
@@ -84,6 +81,10 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
         });
       });
     }
+  }
+
+  backToHome() {
+    this.router.navigateByUrl('["/"]');
   }
 }
 

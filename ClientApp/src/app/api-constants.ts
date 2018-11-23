@@ -9,4 +9,6 @@ export namespace ApiConstants {
     export const posApi = '/api/pos';
     export const terminalDetailsApi = '/api/terminalDetails';
     export const aoEncoderDashboardApi = '/api/aoEncoderDashboard';
+    export const mauOfficerDashboardApi = '/api/MauOfficerDashboard';
+    export const aoListModalApi = '/api/aoListModal';
 }

@@ -28,8 +28,8 @@ namespace MAP_Web.Services
 
         public async Task<AOMaintenance> GetByUserName(string UserName)
         {
-            var result = _aoMaintenanceRepo.GetFirstOrDefaultAsync(x => x.userId.Equals(UserName), null, null, true).ToAsyncEnumerable();
-            return await result.FirstOrDefault();
+            var result = await _aoMaintenanceRepo.GetFirstOrDefaultAsync(predicate: x => x.userId == UserName);
+            return result;
         }
 
         public void OwnRequest(int Id, string userId)

@@ -29,19 +29,19 @@
     </ng-container>
     <ng-container matColumnDef="SimType">
       <th mat-header-cell *matHeaderCellDef> Sim Type (for GPRS) </th>
-      <td mat-cell *matCellDef="let element"> {{element.simType}} </td>
+      <td mat-cell *matCellDef="let element"> {{ getSimType(element.simType) }} </td>
     </ng-container>
     <ng-container matColumnDef="TipAdjust">
       <th mat-header-cell *matHeaderCellDef> Tip Adjust </th>
-      <td mat-cell *matCellDef="let element"> {{element.tipAdjust}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.tipAdjust ? 'Yes' : 'No' }} </td>
     </ng-container>
     <ng-container matColumnDef="HotelSetupFacility">
       <th mat-header-cell *matHeaderCellDef> Hotel Setup Facility (Pre-Auth, Off-Line) </th>
-      <td mat-cell *matCellDef="let element"> {{element.hotelSetupFacility}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.hotelSetupFacility ? 'Yes' : 'No' }} </td>
     </ng-container>
     <ng-container matColumnDef="ManualKeyInFacility">
       <th mat-header-cell *matHeaderCellDef> Manual Key-In Facility </th>
-      <td mat-cell *matCellDef="let element"> {{element.manualKeyInFacility}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.manualKeyInFacility ? 'Yes' : 'No' }} </td>
     </ng-container>
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>

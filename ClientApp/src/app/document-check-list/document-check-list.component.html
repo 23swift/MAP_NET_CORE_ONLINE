@@ -14,7 +14,7 @@
     <ng-container matColumnDef="Submitted">
       <th mat-header-cell *matHeaderCellDef> Submitted </th>
       <td mat-cell *matCellDef="let element" style="width: 10%">
-        <mat-checkbox [checked]="element.submitted"></mat-checkbox>
+        <mat-checkbox [checked]="element.submitted" [disabled]="true"></mat-checkbox>
       </td>
     </ng-container>
     <ng-container matColumnDef="Remarks">

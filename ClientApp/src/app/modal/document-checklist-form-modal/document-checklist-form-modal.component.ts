@@ -14,6 +14,7 @@ export class DocumentChecklistFormModalComponent implements OnInit {
   documentForm: FormGroup;
   documentList: Object[];
   file: string | ArrayBuffer;
+  isSubmitted = false;
 
   constructor(private _docuService: DocumentCheckListService, private _modalRef: MatDialogRef<DocumentChecklistFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
@@ -49,7 +50,7 @@ export class DocumentChecklistFormModalComponent implements OnInit {
       remarks: this.documentForm.value['remarks'],
       targetDateOfSubmission: this.documentForm.value['targetDateOfSubmission'],
       fileUpload: base64file,
-      submitted: this.documentForm.value['submitted'],
+      submitted: this.documentForm.value['submitted'] || base64file ? true : false,
       newAffiliationId: this.documentForm.value['newAffiliationId'],
       id: this.documentForm.value['id']
     };
@@ -64,6 +65,10 @@ export class DocumentChecklistFormModalComponent implements OnInit {
 
   changeListener($event) {
     this.readThis($event.target);
+  }
+
+  onClickSubmitted($event) {
+    this.isSubmitted = $event.checked;
   }
 
   readThis(inputValue: any) {

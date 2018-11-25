@@ -6,21 +6,21 @@
   <div style="padding: 0px 10px">
     <form (ngSubmit)="submit()" [formGroup]="documentForm" class="docs-form-container">
       <mat-form-field>
-        <mat-select placeholder="Document Name" formControlName="documentName">
+        <mat-select placeholder="Document Name" formControlName="documentName" required>
           <mat-option *ngFor="let docs of documentList" [value]="docs.id">
             {{ docs.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Remarks" formControlName="remarks">
+        <input matInput placeholder="Remarks" formControlName="remarks" [required]="!isSubmitted">
       </mat-form-field>
       <div style="display: flex">
         <div class="flex-1">
           <div style="display: flex">
-            <mat-checkbox class="flex-1 mat-form-field-infix" formControlName="submitted"> Submitted</mat-checkbox>
+            <mat-checkbox class="flex-1 mat-form-field-infix" formControlName="submitted" (change)="onClickSubmitted($event)"> Submitted</mat-checkbox>
             <mat-form-field class="flex-1">
-              <input matInput [matDatepicker]="picker" placeholder="Target Date of Submission" formControlName="targetDateOfSubmission">
+              <input matInput [matDatepicker]="picker" placeholder="Target Date of Submission" formControlName="targetDateOfSubmission"  [required]="!isSubmitted">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

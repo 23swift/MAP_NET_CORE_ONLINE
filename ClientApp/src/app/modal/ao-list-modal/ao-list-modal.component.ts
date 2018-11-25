@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject,Injectable } from '@angular/core';
+import { Component, OnInit, Inject, Injectable } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { AoListModalService } from './ao-list-modal.service';
 import { FormControl } from '../../../../node_modules/@angular/forms';
@@ -31,9 +31,10 @@ export class AoListModalComponent implements OnInit {
     });
     this.passedData = this._passedData;
     this._service.getByUserName(this.passedData.UserName).subscribe(x => {
-        this.aoList = x;
-        this.currentOwner = this.aoList == undefined ? 'Not Yet Assigned' : this.aoList.firstName + ' ' + this.aoList.lastName;
-        this.isAssignedRequest = this.aoList == undefined ? false : true;
+      this.aoList = x;
+      // console.log(this.aoList);
+      this.currentOwner = this.aoList == undefined ? 'Not Yet Assigned' : this.aoList.firstName + ' ' + this.aoList.lastName;
+      this.isAssignedRequest = this.aoList == undefined ? false : true;
     });
     this.aoSelectFrmControl = new FormControl();
   }
@@ -44,7 +45,8 @@ export class AoListModalComponent implements OnInit {
 
   Save() {
     this.selectedItem = this.aoSelectFrmControl.value;
-    this._service.setOwnerofRequest(this.passedData.Id,this.selectedItem.userId).subscribe(x => {
+    // console.log(this.passedData.Id + ' ' + this.selectedItem.userId)
+    this._service.setOwnerofRequest(this.passedData.Id, this.selectedItem.userId).subscribe(x => {
       this._matDialogRef.close(this.selectedItem);
     });
   }

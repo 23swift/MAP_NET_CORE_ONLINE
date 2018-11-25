@@ -25,6 +25,7 @@ export class AoEncoderComponent implements OnInit {
   isOif = false;
   isPos = false;
   isDocumentChecklist = false;
+  isDone = false;
 
   //  completed:boolean=false;
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
@@ -53,6 +54,8 @@ export class AoEncoderComponent implements OnInit {
       this.isDocumentChecklist = true;
     } else if (form === 'branch') {
       this.isBranch = true;
+    } else if (form === 'done') {
+      this.isDone = true;
     }
 
     stepper.selected.completed = true;

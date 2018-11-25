@@ -31,7 +31,7 @@ namespace MAP_Web.Models
         public Nullable<int> dbaCity { get; set; }
         public string branchPhoneNumber { get; set; }
         public string branchMobileNumber { get; set; }
-        public Nullable<int> isAtmDebit { get; set; }
+        public Nullable<bool> isAtmDebit { get; set; }
         public Nullable<int> numberOfDebitTidAtm { get; set; }
         public string mdrAtm { get; set; }
         public Nullable<bool> isSmGiftCard { get; set; }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiConstants } from 'src/app/api-constants';
 import { Observable } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 const apiUrl = '';
 @Injectable()
@@ -44,14 +45,31 @@ export class MidFormModalService {
                 { value: 3, label: 'Regular Installment' },
                 { value: 4, label: 'BNPL 0%' },
                 { value: 5, label: 'BNPL Regular' },
-                { value: 6, label: 'MOTO' }
+                { value: 6, label: 'BNPL Installment' },
+                { value: 7, label: 'MOTO' }
               ]
             },
             lifecycle: {
               onInit: (form, field) => {
                 field.formControl.valueChanges.subscribe(v => {
                   if (v === 3 || v === 5) {
-                    field.model['merchantGroupCode'].setValue(4);
+                    form.get('merchantGroupCode').patchValue(4);
+                  } else if (v === 2 || v === 4) {
+                    form.get('merchantGroupCode').patchValue(3);
+                  }
+
+                  if (v === 2 || v === 3 || v === 6) {
+                    form.get('serviceFeeRate').patchValue('99.99');
+                    form.get('majorPurchase').patchValue(true);
+                  }
+
+                  if (v === 6) {
+                    form.get('merchantPromotionsGroup').patchValue(1);
+                    form.get('defaultMpPromotion').patchValue(1);
+                  }
+
+                  if (v !== 5) {
+                    form.get('status').patchValue(1);
                   }
                 });
               }
@@ -112,7 +130,7 @@ export class MidFormModalService {
             type: 'checkbox',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 3;
+                return model['monitorCode'] === 2 || model['monitorCode'] === 3;
               }
             },
             templateOptions: {
@@ -137,9 +155,6 @@ export class MidFormModalService {
             key: 'status',
             type: 'select',
             expressionProperties: {
-              'defaultValue': (model: any, formState: any) => {
-                return model['monitorCode'] !== 5 ? 1 : 0;
-              }
             },
             templateOptions: {
               label: 'Status',
@@ -241,17 +256,16 @@ export class MidFormModalService {
           },
           {
             className: 'flex-1',
-            key: 'defaultMpPromotion',
-            type: 'checkbox',
+            key: 'intesCode',
+            type: 'input',
             templateOptions: {
-              label: 'Diners ISE',
+              label: 'INTES Code',
             }
           },
           {
             className: 'flex-1',
-            key: 'defaultMpPromotion',
+            key: 'payDelayDays',
             type: 'input',
-            defaultValue: 1,
             templateOptions: {
               label: 'Pay Delay Days',
               pattern: '^\\d+$',
@@ -265,14 +279,11 @@ export class MidFormModalService {
         fieldGroup: [
           {
             className: 'flex-1',
-            key: 'merchantPromotionGroup',
+            key: 'merchantPromotionsGroup',
             type: 'select',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
                 return model['monitorCode'] === 4 || model['monitorCode'] === 5;
-              },
-              'defaultValue': (model: any, formState: any) => {
-                return model['monitorCode'] === 4 ? 1 : 0;
               }
             },
             templateOptions: {
@@ -322,7 +333,10 @@ export class MidFormModalService {
             type: 'input',
             defaultValue: 1,
             templateOptions: {
-              label: 'DCC Mark-up Rate'
+              label: 'DCC Mark-up Rate',
+              placeholder: '0.00',
+              type: 'number',
+              pattern: '^\\d{1,8}\.\\d{2}$'
             }
           },
           {
@@ -330,7 +344,10 @@ export class MidFormModalService {
             key: 'dccMerchantRebate',
             type: 'input',
             templateOptions: {
-              label: 'DCC Merchant Rebate'
+              label: 'DCC Merchant Rebate',
+              placeholder: '0.00',
+              type: 'number',
+              pattern: '^\\d{1,8}\.\\d{2}$'
             }
           }
         ]

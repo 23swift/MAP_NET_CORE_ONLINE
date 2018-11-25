@@ -1,20 +1,21 @@
 using System;
+using System.Collections.Generic;
 
 namespace MAP_Web.Models.ViewModels
 {
     public class POSViewModel
     {
         public int Id { get; set; }
-        public int natureOfRequest { get; set; }
-        public int reprogrammingType { get; set; }
-        public int tidIssuanceType { get; set; }
+        public Nullable<int> natureOfRequest { get; set; }
+        public Nullable<int> reprogrammingType { get; set; }
+        public Nullable<int> tidIssuanceType { get; set; }
         public string requestersName { get; set; }
         public string requestersBusinessUnit { get; set; }
         public string requestersContactNumber { get; set; }
-        public int area { get; set; }
-        public int accountOfficerHandler { get; set; }
-        public int businessTypeOfAccount { get; set; }
-        public int businessUnitAO { get; set; }
+        public Nullable<int> area { get; set; }
+        public Nullable<int> accountOfficerHandler { get; set; }
+        public Nullable<int> businessTypeOfAccount { get; set; }
+        public Nullable<int> businessUnitAO { get; set; }
         public string segment { get; set; }
         public string approvedBy { get; set; }
         public string merchantLegalName { get; set; }
@@ -23,8 +24,8 @@ namespace MAP_Web.Models.ViewModels
         public string merchantDbaAddress { get; set; }
         public string merchantDbaAddressOld { get; set; }
         public string merchantDbaCity { get; set; }
-        public bool isContactlessMerchant { get; set; }
-        public bool isMultiMerchant { get; set; }
+        public Nullable<bool> isContactlessMerchant { get; set; }
+        public Nullable<bool> isMultiMerchant { get; set; }
         public string merchantCategoryCode { get; set; }
         public string nsp { get; set; }
         public string contactPerson { get; set; }
@@ -36,14 +37,14 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<DateTime> requiredPullOutDateForTempPOSTerminals { get; set; }
         public string reasonForPermanentGPRSInstallation { get; set; }
         public string otherRequiredProfilingFacility { get; set; }
-        public bool isTipAdjust { get; set; }
-        public int mustSettle { get; set; }
-        public bool isHotelSetupFacility { get; set; }
-        public bool isManualKeyInFacility { get; set; }
+        public Nullable<bool> isTipAdjust { get; set; }
+        public Nullable<int> mustSettle { get; set; }
+        public Nullable<bool> isHotelSetupFacility { get; set; }
+        public Nullable<bool> isManualKeyInFacility { get; set; }
         public string remarksSpecialInstructions { get; set; }
         public string creditStraightTidExisting { get; set; }
         public string creditStraightTidNew { get; set; }
-        public string dateAndTimeEndorsedToMAU { get; set; }
+        public Nullable<DateTime> dateAndTimeEndorsedToMAU { get; set; }
         public string creditStraightMidVmjaVmjacd { get; set; }
         public string creditStraightMidVmj { get; set; }
         public string creditStraightMidAmex { get; set; }
@@ -72,8 +73,8 @@ namespace MAP_Web.Models.ViewModels
         public string debitTid { get; set; }
         public string dccMarkup { get; set; }
         public string emailSubject { get; set; }
-        public string dateTimeAssignedPSProfiling { get; set; }
-        public string dateTimeEndorsedPaymentSolutionsOperations { get; set; }
+        public Nullable<DateTime> dateTimeAssignedPSProfiling { get; set; }
+        public Nullable<DateTime> dateTimeEndorsedPaymentSolutionsOperations { get; set; }
         public string bdoPayMobileNumberOfTerminals { get; set; }
         public string bdoPayMobileBusinessGroup { get; set; }
         public string bdoPayMobileMerchantPortalUserEmailAddress { get; set; }
@@ -83,10 +84,11 @@ namespace MAP_Web.Models.ViewModels
         public string bdoPayMobileReferenceField { get; set; }
         public string bdoPayMobileRfName { get; set; }
         public string tidIssuedBy { get; set; }
-        public string dateAndTimeTidIssued { get; set; }
-        public bool isWaved { get; set; }
-        public bool isShared { get; set; }
+        public Nullable<DateTime> dateAndTimeTidIssued { get; set; }
+        public Nullable<bool> isWaved { get; set; }
+        public Nullable<bool> isShared { get; set; }
         public int BranchId { get; set; }
         public BranchViewModel Branch { get; set; }
+        public virtual ICollection<TerminalDetails> TerminalDetails {get;set;}
     }
 }

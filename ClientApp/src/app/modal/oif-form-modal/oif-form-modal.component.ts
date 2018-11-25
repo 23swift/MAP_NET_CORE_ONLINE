@@ -22,10 +22,22 @@ export class OifFormModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, private _snackBar: MatSnackBar) {
     this.fields = this._oifService.getOIFFields();
     this._oifService.getByBranch(this.data['branchId']).subscribe(oifData => {
-      this.model = oifData || {
-        branchId: this.data['branchId']
-      };
+      this._oifService.getBranchDetails(this.data['branchId']).subscribe(branchData => {
+        this.model = oifData || {
+          branchId: this.data['branchId']
+        };
+        this.model['dbaTradeName'] = oifData.dbaTradeName || branchData.dbaName;
+        this.model['dbaOutletAddress1'] = oifData.dbaOutletAddress1 || branchData.dbaAddress1;
+        this.model['dbaOutletAddress2'] = oifData.dbaOutletAddress2 || branchData.dbaAddress2;
+        this.model['dbaOutletAddress3'] = oifData.dbaOutletAddress3 || branchData.dbaAddress3;
+        this.model['dbaOutletAddress4'] = oifData.dbaOutletAddress4 || branchData.dbaAddress4;
+        this.model['dbaCity'] = oifData.dbaCity || branchData.dbaCity;
+        this.model['contactPerson'] = oifData.contactPerson || branchData.adminContactPerson;
+        this.model['phoneNo'] = oifData.phoneNo || branchData.branchPhoneNumber;
+        this.model['mobileNo'] = oifData.mobileNo || branchData.branchMobileNumber;
+      });
     });
+
   }
 
   ngOnInit() {

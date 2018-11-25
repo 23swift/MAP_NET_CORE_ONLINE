@@ -28,6 +28,14 @@ export class PosTerminalBrandListModalService {
       {
         label: 'VERIFONE',
         value: 1
+      },
+      {
+        label: 'CASTLES',
+        value: 2
+      },
+      {
+        label: 'INGENICO',
+        value: 3
       }
     ];
   }
@@ -35,8 +43,16 @@ export class PosTerminalBrandListModalService {
   getTerminalType() {
     return [
       {
-        label: '',
-        value: 0
+        label: 'IP - DIAL UP',
+        value: 1
+      },
+      {
+        label: 'TRI-MODE COUNTERTOP',
+        value: 2
+      },
+      {
+        label: 'WIRED GPRS',
+        value: 3
       }
     ];
   }
@@ -44,8 +60,29 @@ export class PosTerminalBrandListModalService {
   getTerminalModel() {
     return [
       {
-        label: '',
-        value: 0
+        label: 'VX520 COMBO',
+        value: 1
+      },
+      {
+        label: 'V50005',
+        value: 2
+      },
+      {
+        label: 'ICT250 GEM CL',
+        value: 3
+      }
+    ];
+  }
+
+  getSimType() {
+    return [
+      {
+        label: 'GLOBE',
+        value: 1
+      },
+      {
+        label: 'SMART',
+        value: 2
       }
     ];
   }

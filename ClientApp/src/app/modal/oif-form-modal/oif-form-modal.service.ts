@@ -28,7 +28,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'DBA (Branch / Trade Name)'
+            label: 'DBA (Branch / Trade Name)',
+            maxLength: 22
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -49,7 +50,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            placeholder: 'Address 1'
+            placeholder: 'Address 1',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -67,7 +69,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            placeholder: 'Address 2'
+            placeholder: 'Address 2',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -85,7 +88,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            placeholder: 'Address 3'
+            placeholder: 'Address 3',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -104,7 +108,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            placeholder: 'Address 4'
+            placeholder: 'Address 4',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -123,7 +128,18 @@ export class OifFormModalService {
           className: 'flex-1',
           defaultValue: 0,
           templateOptions: {
-            placeholder: 'DBA City'
+            label: 'DBA City',
+            required: true,
+            options: [
+              { label: 'PASIG', value: 1 },
+              { label: 'MAKATI CITY', value: 2 },
+              { label: 'MANDALUYONG', value: 3 },
+              { label: 'PASAY CITY', value: 4 },
+              { label: 'SAN JUAN', value: 5 },
+              { label: 'VALENZUELA', value: 6 },
+              { label: 'QUEZON CITY', value: 7 },
+              { label: 'MANILA', value: 8 }
+            ],
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -150,7 +166,7 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
-            }
+            },
           }
         },
         {
@@ -159,7 +175,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Admin Contact person'
+            label: 'Admin Contact person',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -173,7 +190,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Position'
+            label: 'Position',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -192,7 +210,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Branch / Outlet Phone Number'
+            label: 'Branch / Outlet Phone Number',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -206,7 +225,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Mobile Number'
+            label: 'Mobile Number',
+            maxLength: 15
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -220,7 +240,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Nature of Business'
+            label: 'Nature of Business',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -239,7 +260,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Brand Names Or Products Offered/Sold'
+            label: 'Brand Names Or Products Offered/Sold',
+            maxLength: 100
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -254,8 +276,9 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Number of Years Operating'
+            type: 'number',
+            label: 'Number of Years Operating',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -269,7 +292,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Business Hours'
+            label: 'Business Hours',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -289,8 +313,9 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'No. of Fulltime Employees'
+            type: 'number',
+            label: 'No. of Fulltime Employees',
+            maxLength: 5
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -305,8 +330,9 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Contractual'
+            type: 'number',
+            label: 'Contractual',
+            maxLength: 5
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -345,7 +371,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Monthly Rent (If Rented / Leased)'
+            label: 'Monthly Rent (If Rented / Leased)',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -359,7 +386,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Length of Stay at the Address Above'
+            label: 'Length of Stay at the Address Above',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -396,7 +424,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Business Signage'
+            label: 'Business Signage',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -433,7 +462,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Floor Area in Sqm. (Please Specify)'
+            label: 'Floor Area in Sqm. (Please Specify)',
+            maxLength: 10
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -551,7 +581,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Surrounding Establishments Namely'
+            label: 'Surrounding Establishments Namely',
+            maxLength: 150
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -573,7 +604,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Other Marketing / Channel Source'
+            label: 'Other Marketing / Channel Source',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -588,8 +620,9 @@ export class OifFormModalService {
           templateOptions: {
             required: true,
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Average No. of Transaction/Month'
+            type: 'number',
+            label: 'Average No. of Transaction/Month',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -611,7 +644,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Name of Event'
+            label: 'Name of Event',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -624,7 +658,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Venue'
+            label: 'Venue',
+            maxLength: 120
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -640,9 +675,9 @@ export class OifFormModalService {
           templateOptions: {
             label: 'Type Of Event',
             options: [
-              {
-                value: 0, label: 'Select Type of Event'
-              }
+              { value: 0, label: 'Select Type of Event' },
+              { value: 1, label: 'EXHIBIT' },
+              { value: 2, label: 'CONFERENCE / SYMPOSIUM / ANNUAL MEETING' }
             ]
           },
           expressionProperties: {
@@ -666,12 +701,13 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Expected No. of Buyers'
+            type: 'number',
+            label: 'Expected No. of Buyers',
+            maxLength: 10
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['typeOfEvent'] !== 1;
             }
           }
         },
@@ -680,11 +716,12 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Products/Services Sold/Offered'
+            label: 'Products/Services Sold/Offered',
+            maxLength: 100
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['typeOfEvent'] !== 1;
             }
           }
         },
@@ -693,11 +730,12 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Price Range of Products/Services'
+            label: 'Price Range of Products/Services',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['typeOfEvent'] !== 1;
             }
           }
         }
@@ -716,12 +754,13 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Expected No. of Participants'
+            type: 'number',
+            label: 'Expected No. of Participants',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['typeOfEvent'] !== 2;
             }
           }
         },
@@ -731,12 +770,13 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Average Registration / Membership Fee'
+            type: 'number',
+            label: 'Average Registration / Membership Fee',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['typeOfEvent'] !== 2;
             }
           }
         },
@@ -749,7 +789,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['typeOfEvent'] !== 2;
             }
           }
         }
@@ -767,7 +807,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Name of Last Event'
+            label: 'Name of Last Event',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -780,7 +821,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Venue of the Last Event'
+            label: 'Venue of the Last Event',
+            maxLength: 120
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -812,8 +854,9 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
-            label: 'Total Sales Volume of Last Event'
+            type: 'number',
+            label: 'Total Sales Volume of Last Event',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -826,7 +869,8 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            label: 'Name of the Last Acquirer'
+            label: 'Name of the Last Acquirer',
+            maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -848,13 +892,13 @@ export class OifFormModalService {
           key: 'overAllRating',
           type: 'radio',
           className: 'flex-1',
-          defaultValue: 'true',
+          defaultValue: true,
           templateOptions: {
             required: true,
             label: 'OverAll Rating',
             options: [
-              { value: 'acceptable', label: 'ACCEPTABLE' },
-              { value: 'notacceptable', label: 'NOT ACCEPTABLE' }
+              { value: true, label: 'ACCEPTABLE' },
+              { value: false, label: 'NOT ACCEPTABLE' }
             ]
           },
           expressionProperties: {
@@ -925,7 +969,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Informants Name'
+            label: 'Informants Name',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -939,7 +984,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Informants Position'
+            label: 'Informants Position',
+            maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -958,7 +1004,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Inspected By'
+            label: 'Inspected By',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -986,7 +1033,8 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             required: true,
-            label: 'Reviewed By'
+            label: 'Reviewed By',
+            maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -1033,5 +1081,9 @@ export class OifFormModalService {
 
   update(id, oif): Observable<any> {
     return this._http.put(ApiConstants.oifApi + '/' + id, oif);
+  }
+
+  getBranchDetails(id): Observable<any> { 
+    return this._http.get(ApiConstants.branchApi + '/' + id);
   }
 }

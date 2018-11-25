@@ -101,14 +101,14 @@ export class PosListContainerService {
               label: 'DBA City',
               required: true,
               options: [
-                { label: 'PASIG', value: '1' },
-                { label: 'MAKATI CITY', value: '2' },
-                { label: 'MANDALUYONG', value: '3' },
-                { label: 'PASAY CITY', value: '4' },
-                { label: 'SAN JUAN', value: '5' },
-                { label: 'VALENZUELA', value: '6' },
-                { label: 'QUEZON CITY', value: '7' },
-                { label: 'MANILA', value: '8' }
+                { label: 'PASIG', value: 1 },
+                { label: 'MAKATI CITY', value: 2 },
+                { label: 'MANDALUYONG', value: 3 },
+                { label: 'PASAY CITY', value: 4 },
+                { label: 'SAN JUAN', value: 5 },
+                { label: 'VALENZUELA', value: 6 },
+                { label: 'QUEZON CITY', value: 7 },
+                { label: 'MANILA', value: 8 }
               ]
             }
           },

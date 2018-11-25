@@ -165,6 +165,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { MapWebHttpClientComponent } from './map-web-http-client/map-web-http-client.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
+import { OutskirtReminderModalComponent } from './modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -331,7 +332,8 @@ export function showErrorOption(field) {
     HomeScreenComponent,
     MapWebHttpClientComponent,
     NavMenuComponent,
-    HomeComponent
+    HomeComponent,
+    OutskirtReminderModalComponent
   ],
   imports: [
     BrowserModule,
@@ -365,33 +367,37 @@ export function showErrorOption(field) {
         {
           name: 'approveWithReq',
           component: ApproveWithReqReasonListComponent
+        },
+        {
+          name: 'approveWithExcept',
+          component: ApproveWithExceptReasonDetailsListComponent
+        },
+        {
+          name: 'radioOutskirt',
+          component: OutskirtReminderModalComponent
+        },
+          ////////////////////////////////////////////////////////
+        ],
+        validationMessages: [
+          {
+            name: 'required', message: 'This field is required'
           },
           {
-            name: 'approveWithExcept',
-            component: ApproveWithExceptReasonDetailsListComponent
+            name: 'maxlength', message: maxLengthValidationMessage
+          },
+          {
+            name: 'minlength', message: minLengthValidationMessage
+          },
+          {
+            name: 'min', message: minValidationMessage
+          },
+          {
+            name: 'max', message: maxValidationMessage
+          },
+          {
+            name: 'pattern', message: patternValidationMessage
           }
-        ////////////////////////////////////////////////////////
-      ],
-      validationMessages: [
-        {
-          name: 'required', message: 'This field is required'
-        },
-        {
-          name: 'maxlength', message: maxLengthValidationMessage
-        },
-        {
-          name: 'minlength', message: minLengthValidationMessage
-        },
-        {
-          name: 'min', message: minValidationMessage
-        },
-        {
-          name: 'max', message: maxValidationMessage
-        },
-        {
-          name: 'pattern', message: patternValidationMessage
-        }
-      ]
+        ]
       }
     ),
     BrowserAnimationsModule,

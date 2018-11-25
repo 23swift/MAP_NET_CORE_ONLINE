@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MAP_Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/aoListModal")]
     public class AOListModalController : Controller
     {
         IAOListModalService _aoListModalservice;
@@ -37,7 +37,7 @@ namespace MAP_Web.Controllers
         }
 
         [HttpGet("GetByUserName/{userName}")]
-        public async Task<ActionResult> GetByUserName(string userName)
+        public async Task<IActionResult> GetByUserName(string userName)
         {
             try
             {

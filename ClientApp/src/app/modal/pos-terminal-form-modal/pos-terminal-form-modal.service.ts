@@ -20,10 +20,19 @@ export class PosTerminalFormModalService {
             key: 'terminalBrand',
             templateOptions: {
               label: 'Terminal Brand',
+              required: true,
               options: [
                 {
                   label: 'VERIFONE',
                   value: 1
+                },
+                {
+                  label: 'CASTLES',
+                  value: 2
+                },
+                {
+                  label: 'INGENICO',
+                  value: 3
                 }
               ]
             }
@@ -34,7 +43,20 @@ export class PosTerminalFormModalService {
             key: 'terminalType',
             templateOptions: {
               label: 'Terminal Type',
+              required: true,
               options: [
+                {
+                  label: 'IP - DIAL UP',
+                  value: 1
+                },
+                {
+                  label: 'TRI-MODE COUNTERTOP',
+                  value: 2
+                },
+                {
+                  label: 'WIRED GPRS',
+                  value: 3
+                }
               ]
             }
           },
@@ -44,7 +66,20 @@ export class PosTerminalFormModalService {
             key: 'terminalModelRequested',
             templateOptions: {
               label: 'Terminal Model Requested',
+              required: true,
               options: [
+                {
+                  label: 'VX520 COMBO',
+                  value: 1
+                },
+                {
+                  label: 'V50005',
+                  value: 2
+                },
+                {
+                  label: 'ICT250 GEM CL',
+                  value: 3
+                }
               ]
             }
           }
@@ -58,7 +93,10 @@ export class PosTerminalFormModalService {
             type: 'input',
             key: 'numberOfTerminalsRequested',
             templateOptions: {
-              label: 'Number of Terminal/s Requested'
+              label: 'Number of Terminal/s Requested',
+              required: true,
+              type: 'number',
+              maxLength: 10,
             }
           },
           {
@@ -66,15 +104,28 @@ export class PosTerminalFormModalService {
             type: 'input',
             key: 'telcoProvider',
             templateOptions: {
-              label: 'Telco Provider (for Dial-up)'
+              label: 'Telco Provider (for Dial-up)',
+              required: true,
+              maxLength: 50
             }
           },
           {
             className: 'flex-1',
-            type: 'input',
+            type: 'select',
             key: 'simType',
             templateOptions: {
-              label: 'Sim Type (for GPRS)'
+              label: 'Sim Type (for GPRS)',
+              required: true,
+              options: [
+                {
+                  label: 'GLOBE',
+                  value: 1
+                },
+                {
+                  label: 'SMART',
+                  value: 2
+                }
+              ]
             }
           }
         ]
@@ -86,8 +137,10 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             key: 'tipAdjust',
             type: 'radio',
+            defaultValue: false,
             templateOptions: {
               label: 'TIP ADJUST',
+              required: true,
               options: [
                 { value: true, label: 'Yes' },
                 { value: false, label: 'No' }
@@ -98,8 +151,10 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             key: 'hotelSetupFacility',
             type: 'radio',
+            defaultValue: false,
             templateOptions: {
               label: 'HOTEL SET-UP FACILITY (PRE-AUTH, OFF-LINE)?',
+              required: true,
               options: [
                 { value: true, label: 'Yes' },
                 { value: false, label: 'No' }
@@ -110,8 +165,10 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             key: 'manualKeyInFacility',
             type: 'radio',
+            defaultValue: false,
             templateOptions: {
               label: 'MANUAL KEY-IN FACILITY?',
+              required: true,
               options: [
                 { value: true, label: 'Yes' },
                 { value: false, label: 'No' }

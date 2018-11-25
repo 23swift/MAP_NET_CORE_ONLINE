@@ -64,7 +64,7 @@ export class SignatoriesFormModalComponent implements OnInit {
           const snackBarRef = this._snackBar.open('Signatory\'s Details', 'Saved', {
             duration: 1500
           });
-          
+
           snackBarRef.afterDismissed().subscribe(s => {
             this._modalRef.close(data);
           });
@@ -73,7 +73,7 @@ export class SignatoriesFormModalComponent implements OnInit {
         const snackBarRef = this._snackBar.open('Signatory\'s Details', 'No Inputted Value', {
           duration: 1500
         });
-        
+
         snackBarRef.afterDismissed().subscribe(s => {
           this._modalRef.close();
         });

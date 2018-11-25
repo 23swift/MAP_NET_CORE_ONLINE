@@ -66,7 +66,7 @@ export class SignatoriesListComponent implements OnInit {
         this.refresh();
       });
     } else {
-      this._snackBar.open('Signatory\'s Details', 'Customer Profile Must Be Saved First', {
+      this._snackBar.open('Signatory\'s Details', 'FAILED: No Customer Profile Provided', {
         duration: 2000
       });
     }

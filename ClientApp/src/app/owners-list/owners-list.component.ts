@@ -74,7 +74,7 @@ export class OwnersListComponent implements OnInit {
         this.refresh();
       });
     } else {
-      this._snackBar.open('Owner\'s Details', 'Customer Profile Must Be Saved First', {
+      this._snackBar.open('Owner\'s Details', 'FAILED: No Customer Profile Provided', {
         duration: 2000
       });
     }

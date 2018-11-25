@@ -17,6 +17,7 @@ namespace MAP_Web.Models
         public Nullable<DateTime> dtiRegDate { get; set; }
         public string registeredBusinessNumber { get; set; }
         public string customerNumber { get; set; }
+        public string dbaName { get; set; }
         public int NewAffiliationId { get; set; }
         public NewAffiliation NewAffiliation { get; set; }
         public ICollection<Owners> Owners { get; set; }

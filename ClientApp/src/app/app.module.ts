@@ -185,6 +185,11 @@ export function patternValidationMessage(err, field) {
   return `Invalid input characters`;
 }
 
+export function showErrorOption(field) {
+  return (field.formState.submitted || field.formControl.touched ||
+    (field.field.validation && field.field.validation.show)) && !field.formControl.valid;
+}
+
 
 
 ////////////////////////////////////////
@@ -335,6 +340,7 @@ export function patternValidationMessage(err, field) {
     FormsModule,
     FormlyModule.forRoot(
       {
+        extras: { showError: showErrorOption },
         types: [{
           name: 'calendar',
           component: CalendarTypeComponent

@@ -4,6 +4,7 @@ import { DocumentCheckListService, DocumentDisplayInfo } from './document-check-
 import { MatDialog } from '@angular/material';
 import { DocumentChecklistFormModalComponent } from '../modal/document-checklist-form-modal/document-checklist-form-modal.component';
 import { DocumentPerRequestFormModalComponent } from '../modal/document-per-request-form-modal/document-per-request-form-modal.component';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-document-check-list',
@@ -58,11 +59,16 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._docService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._docService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   downloadFile(id, documentName) {

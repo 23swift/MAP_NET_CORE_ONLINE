@@ -4,6 +4,7 @@ import { MatDialog, MatSnackBar } from '../../../node_modules/@angular/material'
 import { OwnersFormModalComponent } from '../modal/owners-form-modal/owners-form-modal.component';
 import { config } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-owners-list',
@@ -30,14 +31,6 @@ export class OwnersListComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._ownerService.getTableFields();
-
-    // if (this.customerProfileId === 0) {
-    //   this.dataSource = [];
-    // } else {
-    //   this._ownerService.get(this.customerProfileId).subscribe(data => {
-    //     this.dataSource = data.items;
-    //   });
-    // }
   }
 
   update(owner) {
@@ -54,11 +47,16 @@ export class OwnersListComponent implements OnInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._ownerService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._ownerService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   addOwner() {

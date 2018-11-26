@@ -51,7 +51,7 @@ export class OwnersFormModalComponent implements OnInit {
     if (this.model['id']) {
       this._ownersService.update(this.model['id'], this.model).subscribe(data => {
         const snackBarRef = this._snackBar.open('Owner\'s Details', 'Updated', {
-          duration: 1500
+          duration: 1000
         });
 
         snackBarRef.afterDismissed().subscribe(s => {
@@ -62,7 +62,7 @@ export class OwnersFormModalComponent implements OnInit {
       if (this.model['name'] || this.model['percentOfOwnership'] || this.model['remarks']) {
         this._ownersService.create(this.model).subscribe(data => {
           const snackBarRef = this._snackBar.open('Owner\'s Details', 'Saved', {
-            duration: 1500
+            duration: 1000
           });
 
           snackBarRef.afterDismissed().subscribe(s => {
@@ -71,7 +71,7 @@ export class OwnersFormModalComponent implements OnInit {
         });
       }  else {
         const snackBarRef = this._snackBar.open('Owner\'s Details', 'No Inputted Value', {
-          duration: 1500
+          duration: 1000
         });
         
         snackBarRef.afterDismissed().subscribe(s => {

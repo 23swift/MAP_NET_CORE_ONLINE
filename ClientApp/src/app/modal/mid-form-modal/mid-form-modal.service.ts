@@ -36,10 +36,12 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'monitorCode',
             type: 'select',
+            defaultValue: 0,
             templateOptions: {
               label: 'Monitor Code',
               required: true,
               options: [
+                { value: 0, label: 'Select Monitor Code' },
                 { value: 1, label: 'OTC for Straight' },
                 { value: 2, label: '0% Installment' },
                 { value: 3, label: 'Regular Installment' },
@@ -135,6 +137,15 @@ export class MidFormModalService {
             },
             templateOptions: {
               label: 'Major Purchase'
+            },
+            lifecycle: {
+              onInit: (form, field) => {
+                field.formControl.valueChanges.subscribe(v => {
+                  if (v) {
+                    form.get('serviceFeeStraight').patchValue(0);
+                  }
+                });
+              }
             }
           },
           {
@@ -176,7 +187,7 @@ export class MidFormModalService {
             type: 'input',
             templateOptions: {
               label: 'CUP Acceptor ID',
-              required: true,
+              // required: true,
               disabled: true
             }
           }
@@ -189,20 +200,19 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'serviceFeeStraight',
             type: 'select',
+            defaultValue: 0,
             expressionProperties: {
               'templateOptions.disabled': (model: any, formState: any) => {
-                if (model['majorPurchase']) {
-                  model['serviceFeeStraight'] = undefined;
-                }
                 return model['majorPurchase'];
               },
               'templateOptions.required': (model: any, formState: any) => {
-                return model['serviceFeeRate'] === undefined;
+                return model['serviceFeeRate'] === 0;
               }
             },
             templateOptions: {
               label: 'Service Fee Contract (Straight)',
               options: [
+                { value: 0, label: 'Select Service Fee Contract' },
                 { value: 1, label: 'SFR1' },
                 { value: 2, label: 'SFR2' }
               ]
@@ -212,6 +222,7 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'merchantGroupCode',
             type: 'select',
+            defaultValue: 0,
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
                 return model['monitorCode'] === 3;
@@ -220,6 +231,7 @@ export class MidFormModalService {
             templateOptions: {
               label: 'Merchant Group Code (Installment)',
               options: [
+                { value: 0, label: 'Select Merchant Group Code' },
                 { value: 1, label: 'DM01 - Diners' },
                 { value: 2, label: 'MerchGrp24' },
                 { value: 3, label: '1Z' },
@@ -233,12 +245,12 @@ export class MidFormModalService {
             type: 'input',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['merchantGroupCode'] === undefined || model['serviceFeeStraight'] === undefined;
+                return model['merchantGroupCode'] === 0 || model['serviceFeeStraight'] === 0;
               }
             },
             templateOptions: {
               label: 'Service Fee Rate',
-              pattern: '^(\\d{1,2})\.\\d{2}$',
+              pattern: '^\\d{1,2}\.\\d{2}$',
             }
           }
         ]
@@ -281,14 +293,16 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'merchantPromotionsGroup',
             type: 'select',
+            defaultValue: 0,
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 4 || model['monitorCode'] === 5;
+                return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
               }
             },
             templateOptions: {
               label: 'Merchant Promotions Group',
               options: [
+                { value: 0, label: 'Select Promotions Group' },
                 { value: 1, label: 'BNPL Flagship' },
                 { value: 2, label: 'Installament Reg' }
               ]
@@ -331,7 +345,6 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'dccMarkupRate',
             type: 'input',
-            defaultValue: 1,
             templateOptions: {
               label: 'DCC Mark-up Rate',
               placeholder: '0.00',

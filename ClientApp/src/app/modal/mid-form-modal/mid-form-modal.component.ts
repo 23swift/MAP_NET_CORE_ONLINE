@@ -17,7 +17,7 @@ export class MidFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   options = {};
-  
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _midService: MidFormModalService,
   private _modalRef: MatDialogRef<MidFormModalComponent>,
   @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
@@ -38,17 +38,21 @@ export class MidFormModalComponent implements OnInit {
   submit() {
     if (this.model['id']) {
       this._midService.update(this.model['id'], this.model).subscribe(data => {
-        this._snackBar.open('MID Details', 'Updated', {
-          duration: 1500
+        const snackBarRef = this._snackBar.open('MID Details', 'Updated', {
+          duration: 1000
         });
-        this._modalRef.close(data);
+        snackBarRef.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     } else {
       this._midService.create(this.model).subscribe(data => {
-        this._snackBar.open('MID Details', 'Saved', {
-          duration: 1500
+        const snackBarRef = this._snackBar.open('MID Details', 'Saved', {
+          duration: 1000
         });
-        this._modalRef.close(data);
+        snackBarRef.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     }
   }

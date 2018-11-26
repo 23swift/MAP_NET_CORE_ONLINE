@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { BranchFormModalComponent } from '../modal/branch-form-modal/branch-form-modal.component';
 import { BranchFormService } from '../forms/branch-form/branch-form.service';
 import { MidListModalComponent } from '../modal/mid-list-modal/mid-list-modal.component';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 
 export interface BranchDisplayInfo {
   Id: number;
@@ -102,11 +103,16 @@ export class BranchListComponent implements OnInit, AfterViewInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._branchService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._branchService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   updateMid(id) {

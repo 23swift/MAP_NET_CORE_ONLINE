@@ -1,12 +1,12 @@
 <div class="remarks-container">
   <mat-card-title>
-    <a mat-mini-fab style="background-color: red">
-      <mat-icon style="color:white;" title="Assign To">warning</mat-icon>
-    </a>
-    <b class="mat-headline"> Are you sure you want to delete this item? </b>
+      <button mat-mini-fab style="background-color: red">
+          <mat-icon style="color:white;">warning</mat-icon>
+      </button>
+    <b class="mat-headline" style="vertical-align: middle"> Are you sure you want to delete this item? </b>
   </mat-card-title>
 </div>
 <div style="text-align: right;">
-  <button style="margin-top:3px" mat-stroked-button color="primary" (click)="Submit()">Yes</button>
-  <button style="margin-top:3px" mat-stroked-button color="accent" (click)="Submit()">No</button>
+    <button type="button" color="primary" mat-raised-button (click)="submit()">Yes</button>
+    <button type="button" color="accent" mat-raised-button (click)="cancel()">No</button>
 </div>

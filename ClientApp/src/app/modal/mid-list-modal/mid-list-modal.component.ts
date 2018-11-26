@@ -3,6 +3,7 @@ import { MidListModalService } from './mid-list-modal.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MidFormModalComponent } from '../mid-form-modal/mid-form-modal.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-mid-list-modal',
@@ -133,11 +134,16 @@ export class MidListModalComponent implements OnInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._midService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._midService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   getMonitorCode(mc) {

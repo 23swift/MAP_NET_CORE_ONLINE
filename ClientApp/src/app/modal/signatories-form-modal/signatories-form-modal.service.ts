@@ -66,6 +66,7 @@ export class SignatoriesFormModalService {
             hideExpression: 'model.applicableTo !== 2',
             templateOptions: {
               label: 'DBA Name',
+              maxLength: 50
             }
           }
         ]

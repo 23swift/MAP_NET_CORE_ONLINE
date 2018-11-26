@@ -20,6 +20,8 @@ export class BranchFormModalComponent implements OnInit {
   constructor(private _modalRef: MatDialogRef<BranchFormModalComponent>, private _branchService: BranchFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar, private _customerProfileService: CustomerProfileService) {
+      this.model = {};
+      this.model['id'] = 0;
       if (this.data['newAffiliationId']) {
         this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
             this.model = {
@@ -47,17 +49,21 @@ export class BranchFormModalComponent implements OnInit {
   submit() {
     if (this.model['id']) {
       this._branchService.update(this.model['id'], this.model).subscribe(data => {
-        this._snackBar.open('Branch Details', 'Updated', {
-          duration: 1500
+        const snackBarRef = this._snackBar.open('Branch Details', 'Updated', {
+          duration: 1000
         });
-        this._modalRef.close(data);
+        snackBarRef.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     } else {
       this._branchService.create(this.model).subscribe(data => {
-        this._snackBar.open('Branch Details', 'Saved', {
-          duration: 1500
+        const snackBarRef = this._snackBar.open('Branch Details', 'Saved', {
+          duration: 1000
         });
-        this._modalRef.close(data);
+        snackBarRef.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     }
   }

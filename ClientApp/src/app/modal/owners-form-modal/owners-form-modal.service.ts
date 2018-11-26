@@ -28,9 +28,8 @@ export class OwnersFormModalService {
             type: 'input',
             key: 'percentOfOwnership',
             templateOptions: {
-              type: 'number',
               label: '% of Ownership',
-              max: 100
+              pattern: '^\\d{1,2}$|100'
             }
           }
         ]

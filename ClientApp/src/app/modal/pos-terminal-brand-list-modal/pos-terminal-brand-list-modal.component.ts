@@ -3,6 +3,7 @@ import { PosTerminalBrandListModalService } from './pos-terminal-brand-list-moda
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { PosTerminalFormModalComponent } from '../pos-terminal-form-modal/pos-terminal-form-modal.component';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-pos-terminal-brand-list-modal',
@@ -73,11 +74,16 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._terminalService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._terminalService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   getTerminalBrand(tb) {

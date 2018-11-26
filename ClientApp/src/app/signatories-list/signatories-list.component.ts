@@ -3,6 +3,7 @@ import { SignatoriesListService } from './signatories-list.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { SignatoriesFormModalComponent } from '../modal/signatories-form-modal/signatories-form-modal.component';
 import { ActivatedRoute } from '@angular/router';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-signatories-list',
@@ -46,11 +47,16 @@ export class SignatoriesListComponent implements OnInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._signatoriesService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._signatoriesService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   addSignatory() {

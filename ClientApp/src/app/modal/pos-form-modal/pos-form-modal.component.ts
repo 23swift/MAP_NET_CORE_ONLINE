@@ -22,6 +22,8 @@ export class PosFormModalComponent implements OnInit {
   constructor(private _posService: PosFormModalService, private _modalRef: MatDialogRef<PosFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public _dialogData: any,
     private _snackBar: MatSnackBar) {
+    this.model = {};
+    this.model['id'] = 0;
     this.fields = this._posService.getPosFields('ao');
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL

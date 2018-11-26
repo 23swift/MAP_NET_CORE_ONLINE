@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { BranchFormModalService } from './branch-form-modal.service';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
 
 @Component({
@@ -15,7 +15,11 @@ export class BranchFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
-  options: Object;
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _modalRef: MatDialogRef<BranchFormModalComponent>, private _branchService: BranchFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -24,21 +28,12 @@ export class BranchFormModalComponent implements OnInit {
       this.model['id'] = 0;
       if (this.data['newAffiliationId']) {
         this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
-            this.model = {
-              newAffiliationId: this.data['newAffiliationId'],
-              registeredBusinessNo: cpData['registeredBusinessNumber']
-            };
+            this.model = data;
+            this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
         });
       } else {
         this.model = Object.assign({}, data['branch']);
       }
-      // if (data['branch']) {
-      //   this.model = Object.assign({}, data['branch']);
-      // } else {
-      //   this.model = {
-      //     newAffiliationId: this.data['newAffiliationId']
-      //   };
-      // }
   }
 
   ngOnInit() {

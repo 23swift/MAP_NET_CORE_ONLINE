@@ -13,17 +13,17 @@ namespace MAP_Web.Models
             this.typeOfEvent = 0;
         }
         public int Id { get; set; }
-        public string dbaTradeName { get; set; }
-        public string dbaOutletAddress1 { get; set; }
-        public string dbaOutletAddress2 { get; set; }
-        public string dbaOutletAddress3 { get; set; }
-        public string dbaOutletAddress4 { get; set; }
-        public int dbaCity { get; set; }
+        public string dbaName { get; set; }
+        public string dbaAddress1 { get; set; }
+        public string dbaAddress2 { get; set; }
+        public string dbaAddress3 { get; set; }
+        public string dbaAddress4 { get; set; }
+        public Nullable<int> dbaCity { get; set; }
         public bool outskirt { get; set; }
-        public string contactPerson { get; set; }
+        public string adminContactPerson { get; set; }
         public string position { get; set; }
-        public string phoneNo { get; set; }
-        public string mobileNo { get; set; }
+        public string branchPhoneNumber { get; set; }
+        public string branchMobileNumber { get; set; }
         public string natureOfBusiness { get; set; }
         public string productsOfferedSold { get; set; }
         public string numberOfYearsOperating { get; set; }

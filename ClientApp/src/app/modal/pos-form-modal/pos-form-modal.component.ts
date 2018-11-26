@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { PosFormModalService } from './pos-form-modal.service';
 import { FormGroup } from '@angular/forms';
@@ -17,7 +17,11 @@ export class PosFormModalComponent implements OnInit {
   userGroup: string;
   model: Object;
   branchId: number;
-  options = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _posService: PosFormModalService, private _modalRef: MatDialogRef<PosFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public _dialogData: any,

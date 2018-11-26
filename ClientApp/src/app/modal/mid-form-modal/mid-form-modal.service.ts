@@ -116,6 +116,7 @@ export class MidFormModalService {
             defaultValue: true,
             templateOptions: {
               label: 'PHP',
+              indeterminate: false
             }
           },
           {
@@ -124,6 +125,7 @@ export class MidFormModalService {
             type: 'checkbox',
             templateOptions: {
               label: 'USD',
+              indeterminate: false
             }
           },
           {
@@ -136,7 +138,8 @@ export class MidFormModalService {
               }
             },
             templateOptions: {
-              label: 'Major Purchase'
+              label: 'Major Purchase',
+              indeterminate: false
             },
             lifecycle: {
               onInit: (form, field) => {
@@ -153,7 +156,8 @@ export class MidFormModalService {
             key: 'offUs',
             type: 'checkbox',
             templateOptions: {
-              label: 'Off US'
+              label: 'Off US',
+              indeterminate: false
             }
           }
         ]
@@ -263,7 +267,8 @@ export class MidFormModalService {
             key: 'amexMna',
             type: 'checkbox',
             templateOptions: {
-              label: 'Amex MNA'
+              label: 'Amex MNA',
+              indeterminate: false
             }
           },
           {

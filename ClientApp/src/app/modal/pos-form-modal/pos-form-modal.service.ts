@@ -431,7 +431,7 @@ export class PosFormModalService {
           templateOptions: {
             label: 'Reason For 3 Slips Printing',
             required: true,
-            maxLength: 50,
+            maxLength: 50
           }
         }
       ]

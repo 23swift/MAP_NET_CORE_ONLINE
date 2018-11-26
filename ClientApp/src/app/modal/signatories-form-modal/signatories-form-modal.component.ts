@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '../../../../node_modules/@angular/forms';
-import { FormlyFieldConfig } from '../../../../node_modules/@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '../../../../node_modules/@ngx-formly/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { SignatoriesFormModalService } from './signatories-form-modal.service';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
@@ -15,7 +15,11 @@ export class SignatoriesFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
-  options = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _modalRef: MatDialogRef<SignatoriesFormModalComponent>, private _signatoriesService: SignatoriesFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,

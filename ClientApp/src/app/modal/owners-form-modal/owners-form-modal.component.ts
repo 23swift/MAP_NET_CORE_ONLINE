@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { OwnersFormModalService } from './owners-form-modal.service';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
@@ -16,7 +16,11 @@ export class OwnersFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
-  options: Object;
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _modalRef: MatDialogRef<OwnersFormModalComponent>, private _ownersService: OwnersFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,

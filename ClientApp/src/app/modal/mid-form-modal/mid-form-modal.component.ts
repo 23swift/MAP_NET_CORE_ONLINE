@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject, OnChanges, SimpleChanges } from '@ang
 import { MidFormModalService } from './mid-form-modal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 
 @Component({
@@ -16,7 +16,11 @@ export class MidFormModalComponent implements OnInit {
   model: Object;
   form: FormGroup;
   fields: FormlyFieldConfig[];
-  options = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _midService: MidFormModalService,
   private _modalRef: MatDialogRef<MidFormModalComponent>,

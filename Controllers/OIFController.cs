@@ -13,8 +13,10 @@ namespace MAP_Web.Controllers
     {
         private readonly IOIFService oifService;
         private readonly IMapper mapper;
-        public OIFController(IOIFService oifService, IMapper mapper)
+        private readonly IBranchService branchService;
+        public OIFController(IOIFService oifService, IMapper mapper, IBranchService branchService)
         {
+            this.branchService = branchService;
             this.mapper = mapper;
             this.oifService = oifService;
         }
@@ -40,6 +42,20 @@ namespace MAP_Web.Controllers
 
             return Ok(oif);
         }
+
+        [HttpGet("oifAutoPopulate/{id}")]
+        public async Task<IActionResult> GetOifAutoPopulate(int id)
+        {
+            var branch = await branchService.FindAsync(id);
+
+            if (branch == null)
+                return Ok();
+
+            var mapped = mapper.Map<Branch, OIFAutoPopulateFields>(branch);
+
+            return Ok(mapped);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateOIF([FromBody] OIF oif)

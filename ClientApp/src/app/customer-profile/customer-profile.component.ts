@@ -24,8 +24,8 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
   title = 'New Affiliation';
 
   options: FormlyFormOptions = {
-    formState: {
-      disabled: true
+    showError: () => {
+      return true;
     }
   };
 

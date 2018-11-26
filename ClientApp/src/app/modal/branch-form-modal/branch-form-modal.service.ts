@@ -1454,6 +1454,19 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
+          key: 'registeredBusinessNo',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Registered Business No.',
+            placeholder: 'Registered Business No.',
+            maxLength: 11
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
           key: 'adminContactPerson',
           expressionProperties: {
 
@@ -1463,19 +1476,6 @@ export class BranchFormModalService {
             placeholder: 'Administrator(Contact Person)',
             required: true,
             maxLength: 30
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'registeredBusinessNo',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Registered Business No.',
-            placeholder: 'Registered Business No.',
-            maxLength: 11
           }
         }
       ]

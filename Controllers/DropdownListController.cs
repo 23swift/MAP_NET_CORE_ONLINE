@@ -14,10 +14,10 @@ namespace MAP_Web.Controllers
             this._service = _service;
         }
 
-        [HttpGet("dropdown/{code}")]
+        [HttpGet("{code}")]
         public async Task<IActionResult> GetDropdown(string code)
         {
-            var dropdownvalue = await DropdownService.GetDropdown(code);
+            var dropdownvalue = await _service.GetDropdown(code);
 
             if (dropdownvalue == null)
                 return NotFound();

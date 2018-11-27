@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConstants } from 'src/app/api-constants';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 const apiUrl = '';
 @Injectable()
 export class MidFormModalService {
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
   getFormlyFields() {
     return [
@@ -22,9 +23,9 @@ export class MidFormModalService {
             templateOptions: {
               label: 'Card Plans / Styles',
               required: true,
-              options: [
-                { value: 1, label: 'MCVCJCACCCDC (CAPTURE ALL)' }
-              ]
+              options: this._dropDownService.getDropdown('CP'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           }
         ]
@@ -39,15 +40,9 @@ export class MidFormModalService {
             templateOptions: {
               label: 'Monitor Code',
               required: true,
-              options: [
-                { value: 1, label: 'OTC for Straight' },
-                { value: 2, label: '0% Installment' },
-                { value: 3, label: 'Regular Installment' },
-                { value: 4, label: 'BNPL 0%' },
-                { value: 5, label: 'BNPL Regular' },
-                { value: 6, label: 'BNPL Installment' },
-                { value: 7, label: 'MOTO' }
-              ]
+              options: this._dropDownService.getDropdown('MC'),
+              labelProp: 'value',
+              valueProp: 'code',
             },
             lifecycle: {
               onInit: (form, field) => {
@@ -87,16 +82,9 @@ export class MidFormModalService {
             templateOptions: {
               label: 'Default Transaction Source',
               required: true,
-              options: [
-                { value: 1, label: 'ECOM' },
-                { value: 2, label: 'MOTO' },
-                { value: 3, label: 'RPS' },
-                { value: 4, label: 'TPP' },
-                { value: 5, label: 'Master Merchant' },
-                { value: 6, label: 'EMOTO' },
-                { value: 7, label: 'ERPS' },
-                { value: 8, label: 'N.A.' }
-              ]
+              options: this._dropDownService.getDropdown('MTSRC'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           }
         ]
@@ -213,11 +201,9 @@ export class MidFormModalService {
             },
             templateOptions: {
               label: 'Service Fee Contract (Straight)',
-              options: [
-                { value: 0, label: 'Select Service Fee Contract' },
-                { value: 1, label: 'SFR1' },
-                { value: 2, label: 'SFR2' }
-              ]
+              options: this._dropDownService.getDropdown('SFS'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {
@@ -232,13 +218,9 @@ export class MidFormModalService {
             },
             templateOptions: {
               label: 'Merchant Group Code (Installment)',
-              options: [
-                { value: 0, label: 'Select Merchant Group Code' },
-                { value: 1, label: 'DM01 - Diners' },
-                { value: 2, label: 'MerchGrp24' },
-                { value: 3, label: '1Z' },
-                { value: 4, label: '4' }
-              ]
+            options: this._dropDownService.getDropdown('MGC'),
+            labelProp: 'value',
+            valueProp: 'code',
             }
           },
           {
@@ -304,11 +286,9 @@ export class MidFormModalService {
             },
             templateOptions: {
               label: 'Merchant Promotions Group',
-              options: [
-                { value: 0, label: 'Select Promotions Group' },
-                { value: 1, label: 'BNPL Flagship' },
-                { value: 2, label: 'Installament Reg' }
-              ]
+              options: this._dropDownService.getDropdown('MGPRO'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {
@@ -319,10 +299,9 @@ export class MidFormModalService {
             templateOptions: {
               label: 'Default MP Promotion',
               required: true,
-              options: [
-                { value: 1, label: 'BNPL Flagship' },
-                { value: 2, label: 'Installament Reg' }
-              ]
+              options: this._dropDownService.getDropdown('DMPP'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {

@@ -3,11 +3,12 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable()
 export class PosTerminalFormModalService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
   getPosTerminalFields(): FormlyFieldConfig[] {
     return [
@@ -21,20 +22,9 @@ export class PosTerminalFormModalService {
             templateOptions: {
               label: 'Terminal Brand',
               required: true,
-              options: [
-                {
-                  label: 'VERIFONE',
-                  value: 1
-                },
-                {
-                  label: 'CASTLES',
-                  value: 2
-                },
-                {
-                  label: 'INGENICO',
-                  value: 3
-                }
-              ]
+              options: this._dropDownService.getDropdown('POSTB'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {
@@ -44,20 +34,9 @@ export class PosTerminalFormModalService {
             templateOptions: {
               label: 'Terminal Type',
               required: true,
-              options: [
-                {
-                  label: 'IP - DIAL UP',
-                  value: 1
-                },
-                {
-                  label: 'TRI-MODE COUNTERTOP',
-                  value: 2
-                },
-                {
-                  label: 'WIRED GPRS',
-                  value: 3
-                }
-              ]
+              options: this._dropDownService.getDropdown('POSTT'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {
@@ -67,20 +46,9 @@ export class PosTerminalFormModalService {
             templateOptions: {
               label: 'Terminal Model Requested',
               required: true,
-              options: [
-                {
-                  label: 'VX520 COMBO',
-                  value: 1
-                },
-                {
-                  label: 'V50005',
-                  value: 2
-                },
-                {
-                  label: 'ICT250 GEM CL',
-                  value: 3
-                }
-              ]
+              options: this._dropDownService.getDropdown('TBTM'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           }
         ]
@@ -116,16 +84,9 @@ export class PosTerminalFormModalService {
             templateOptions: {
               label: 'Sim Type (for GPRS)',
               required: true,
-              options: [
-                {
-                  label: 'GLOBE',
-                  value: 1
-                },
-                {
-                  label: 'SMART',
-                  value: 2
-                }
-              ]
+              options: this._dropDownService.getDropdown('POSST'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           }
         ]

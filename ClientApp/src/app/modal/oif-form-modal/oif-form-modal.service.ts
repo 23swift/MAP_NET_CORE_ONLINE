@@ -3,6 +3,7 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 import { HttpClient } from '@angular/common/http';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable()
 export class OifFormModalService {
@@ -136,16 +137,9 @@ export class OifFormModalService {
           defaultValue: 0,
           templateOptions: {
             label: 'DBA City',
-            options: [
-              { label: 'PASIG', value: 1 },
-              { label: 'MAKATI CITY', value: 2 },
-              { label: 'MANDALUYONG', value: 3 },
-              { label: 'PASAY CITY', value: 4 },
-              { label: 'SAN JUAN', value: 5 },
-              { label: 'VALENZUELA', value: 6 },
-              { label: 'QUEZON CITY', value: 7 },
-              { label: 'MANILA', value: 8 }
-            ],
+            options: this._dropDownService.getDropdown('CY'),
+            labelProp: 'value',
+            valueProp: 'code',
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -437,9 +431,9 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             label: 'Location',
-            labelProp: 'Description',
-            valueProp: 'Location_Id',
-            options: [{ Description: 'Please provide', Location_Id: 0 }]
+            options: this._dropDownService.getDropdown('LOC'),
+            labelProp: 'value',
+            valueProp: 'code',
           },
           defaultValue: 0,
           expressionProperties: {
@@ -474,9 +468,9 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             label: 'Type of Premise',
-            labelProp: 'Description',
-            valueProp: 'TypeOfPremise_Id',
-            options: [{ Description: 'Please provide', TypeOfPremise_Id: 0 }]
+            options: this._dropDownService.getDropdown('TP'),
+            labelProp: 'value',
+            valueProp: 'code',
           },
           defaultValue: 0,
           expressionProperties: {
@@ -717,11 +711,9 @@ export class OifFormModalService {
           defaultValue: 0,
           templateOptions: {
             label: 'Type Of Event',
-            options: [
-              { value: 0, label: 'Select Type of Event' },
-              { value: 1, label: 'EXHIBIT' },
-              { value: 2, label: 'CONFERENCE / SYMPOSIUM / ANNUAL MEETING' }
-            ]
+            options: this._dropDownService.getDropdown('TE'),
+            labelProp: 'value',
+            valueProp: 'code',
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -1122,7 +1114,7 @@ export class OifFormModalService {
     }
   ];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
   getOIFFields(): FormlyFieldConfig[] {
     return this.fields;

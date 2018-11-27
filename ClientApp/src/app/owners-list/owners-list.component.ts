@@ -5,6 +5,7 @@ import { OwnersFormModalComponent } from '../modal/owners-form-modal/owners-form
 import { config } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
+import { DropDownService } from '../services/drop-down.service';
 
 @Component({
   selector: 'app-owners-list',
@@ -15,17 +16,23 @@ import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.compone
 export class OwnersListComponent implements OnInit {
   displayedColumns: string[];
   dataSource: Object[];
+  torp: any[];
   @Input() displayMode: boolean;
   @Input() customerProfileId: number;
 
   constructor(private _ownerService: OwnersListService, private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef,
-    private _route: ActivatedRoute, private _snackBar: MatSnackBar) {
-    this._route.params.subscribe(params => {
-      if (params['id']) {
-        this._ownerService.getByCustomerId(params['id']).subscribe(data => {
-          this.dataSource = data.items;
-        });
-      }
+    private _route: ActivatedRoute, private _snackBar: MatSnackBar,
+    private _dropDownService: DropDownService) {
+    this._dropDownService.getDropdown('TORP').subscribe((torp) => {
+      this.torp = torp;
+
+      this._route.params.subscribe(params => {
+        if (params['id']) {
+          this._ownerService.getByCustomerId(params['id']).subscribe(data => {
+            this.dataSource = data.items;
+          });
+        }
+      });
     });
   }
 
@@ -79,7 +86,7 @@ export class OwnersListComponent implements OnInit {
   }
 
   getTypeOfRelatedParty(value) {
-    return this._ownerService.getTypeOfRelatedParty().find(r => r.value === value).label;
+    return this.torp.find(t => t.code === value).value;
   }
 
   private refresh() {

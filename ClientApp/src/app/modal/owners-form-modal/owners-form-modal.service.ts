@@ -3,11 +3,12 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiConstants } from 'src/app/api-constants';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable()
 export class OwnersFormModalService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
   getFormlyFields(): FormlyFieldConfig[] {
     return [
@@ -41,16 +42,12 @@ export class OwnersFormModalService {
             className: 'flex-1',
             type: 'select',
             key: 'typeOfRelatedParty',
-            defaultValue: 0,
+            defaultValue: 'N/A',
             templateOptions: {
               label: 'Type of Related Party',
-              options: [
-                { label: 'N/A', value: 0 },
-                { label: 'DOSRI', value: 1 },
-                { label: 'Subsidiary', value: 2 },
-                { label: 'Affiliate', value: 3 },
-                { label: 'Other Related Party', value: 4 }
-              ]
+              options: this._dropDownService.getDropdown('TORP'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {
@@ -59,7 +56,7 @@ export class OwnersFormModalService {
             key: 'remarks',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['typeOfRelatedParty'] !== undefined && model['typeOfRelatedParty'] !== 0;
+                return model['typeOfRelatedParty'] !== 'N/A';
               }
             },
             templateOptions: {

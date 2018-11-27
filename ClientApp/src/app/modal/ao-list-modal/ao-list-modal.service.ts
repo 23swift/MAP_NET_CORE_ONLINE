@@ -6,7 +6,11 @@ import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 
 
-@Injectable()
+@Injectable(
+  {
+    providedIn: 'root'
+  }
+)
 export class AoListModalService {
   private _baseUrl: string;
 

@@ -3,7 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstants } from '../api-constants';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class DropDownService {
 
   constructor(private _http: HttpClient) { }

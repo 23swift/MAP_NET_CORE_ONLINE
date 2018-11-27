@@ -4,6 +4,8 @@ import { FormlyFieldConfig, FormlyFormOptions } from '../../../../node_modules/@
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { SignatoriesFormModalService } from './signatories-form-modal.service';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
+import { forkJoin } from 'rxjs';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Component({
   selector: 'app-signatories-form-modal',
@@ -24,7 +26,8 @@ export class SignatoriesFormModalComponent implements OnInit {
   constructor(private _modalRef: MatDialogRef<SignatoriesFormModalComponent>, private _signatoriesService: SignatoriesFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar,
-    private _customerProfileService: CustomerProfileService) {
+    private _customerProfileService: CustomerProfileService,
+    private _dropDown: DropDownService) {
     if (data['signatory']) {
       this.model = Object.assign({}, data['signatory']);
     } else {
@@ -34,9 +37,14 @@ export class SignatoriesFormModalComponent implements OnInit {
     }
 
     if (this.model['customerProfileId']) {
-      this._customerProfileService.get(this.model['customerProfileId']).subscribe(cpData => {
-        if (cpData['ownership'] === 9) {
-          this.model['name'] = cpData['legalName'];
+      forkJoin([
+        this._customerProfileService.get(this.model['customerProfileId']),
+        this._dropDown.getDropdown('OW')
+      ]).subscribe(fjData => {
+        const singleAndForeign = fjData[1].find(w => w['code'] === 'FISP');
+
+        if (fjData[0]['ownership'] === singleAndForeign['code']) {
+          this.model['name'] = fjData[0]['legalName'];
           this.model['signingAuthority'] = 'Singly';
           this.model['position'] = 'Proprietor';
         }

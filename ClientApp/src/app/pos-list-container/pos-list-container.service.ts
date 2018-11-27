@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DropDownService } from '../services/drop-down.service';
 
 @Injectable()
 export class PosListContainerService {
 
-  constructor() { }
+  constructor(private _dropDownService: DropDownService) { }
 
   getFormlyFields(): FormlyFieldConfig[] {
     return [
@@ -100,16 +101,14 @@ export class PosListContainerService {
             templateOptions: {
               label: 'DBA City',
               required: true,
-              options: [
-                { label: 'PASIG', value: 1 },
-                { label: 'MAKATI CITY', value: 2 },
-                { label: 'MANDALUYONG', value: 3 },
-                { label: 'PASAY CITY', value: 4 },
-                { label: 'SAN JUAN', value: 5 },
-                { label: 'VALENZUELA', value: 6 },
-                { label: 'QUEZON CITY', value: 7 },
-                { label: 'MANILA', value: 8 }
-              ]
+              options: [],
+              labelProp: 'value',
+              valueProp: 'code'
+            },
+            lifecycle: {
+              onInit: (form, field) => {
+                field.templateOptions.options = this._dropDownService.getDropdown('CY');
+              }
             }
           },
           {

@@ -5,6 +5,8 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { OwnersFormModalService } from './owners-form-modal.service';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
+import { DropDownService } from 'src/app/services/drop-down.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-owners-form-modal',
@@ -25,7 +27,8 @@ export class OwnersFormModalComponent implements OnInit {
   constructor(private _modalRef: MatDialogRef<OwnersFormModalComponent>, private _ownersService: OwnersFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar,
-    private _customerProfileService: CustomerProfileService) {
+    private _customerProfileService: CustomerProfileService,
+    private _dropDown: DropDownService) {
     if (data['owner']) {
       this.model = Object.assign({}, data['owner']);
     } else {
@@ -35,11 +38,16 @@ export class OwnersFormModalComponent implements OnInit {
     }
 
     if (this.model['customerProfileId']) {
-      this._customerProfileService.get(this.model['customerProfileId']).subscribe(cpData => {
-        if (cpData['ownership'] === 9) {
-          this.model['name'] = cpData['legalName'];
+      forkJoin([
+        this._customerProfileService.get(this.model['customerProfileId']),
+        this._dropDown.getDropdown('OW')
+      ]).subscribe(fjData => {
+        const singleAndForeign = fjData[1].find(w => w['code'] === 'FISP');
+        if (fjData[0]['ownership'] === singleAndForeign['code']) {
+          this.model['name'] = fjData[0]['legalName'];
           this.model['percentOfOwnership'] = 100;
         }
+
         this.fields = this._ownersService.getFormlyFields();
       });
     } else {

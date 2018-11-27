@@ -24,21 +24,24 @@ export class BranchFormModalComponent implements OnInit {
   constructor(private _modalRef: MatDialogRef<BranchFormModalComponent>, private _branchService: BranchFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar, private _customerProfileService: CustomerProfileService) {
-      this.model = {};
-      this.model['id'] = 0;
-      if (this.data['newAffiliationId']) {
-        this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
-            this.model = data;
-            this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
-        });
-      } else {
-        this.model = Object.assign({}, data['branch']);
-      }
+    this.model = {};
+    this.model['id'] = 0;
+    if (this.data['newAffiliationId']) {
+      this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
+        this.model = data;
+        console.log(data);
+        this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
+
+        this.fields = this._branchService.getBranchFields();
+      });
+    } else {
+      this.model = data['branch'];
+      this.fields = this._branchService.getBranchFields();
+    }
   }
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.fields = this._branchService.getBranchFields();
   }
 
   submit() {

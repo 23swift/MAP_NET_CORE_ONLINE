@@ -33,7 +33,6 @@ export class OifFormModalComponent implements OnInit {
       this._oifService.getOifAutoPopulate(this.dialogData['branchId'])
     ]).subscribe(data => {
       if (data[0]) {
-        console.log(data[0]);
         this.model = data[0];
       } else {
         this.model = data[1];

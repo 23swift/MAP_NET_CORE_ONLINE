@@ -4,6 +4,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MidFormModalComponent } from '../mid-form-modal/mid-form-modal.component';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { DropDownService } from 'src/app/services/drop-down.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-mid-list-modal',
@@ -27,12 +29,26 @@ export class MidListModalComponent implements OnInit {
   @Input() showAdd = true;
   @Input() showUpdate = true;
   @Input() branchId = 0;
+
+
+
+  monitorCodeList = [];
+  cardPlansList = [];
+
   constructor(private _midService: MidListModalService,
     private _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public modalData: any,
-    private _changeDetectRef: ChangeDetectorRef) {
-    this._midService.getByBranchId(this.modalData['branchId']).subscribe(midList => {
-      this.dataSource = midList.items;
+    private _changeDetectRef: ChangeDetectorRef,
+    private _dropDownService: DropDownService) {
+
+    forkJoin([
+      this._midService.getByBranchId(this.modalData['branchId']),
+      this._dropDownService.getDropdown('MC'),
+      this._dropDownService.getDropdown('CP')
+    ]).subscribe(fjData => {
+      this.dataSource = fjData[0].items;
+      this.monitorCodeList = fjData[1];
+      this.cardPlansList = fjData[2];
     });
   }
 
@@ -147,11 +163,11 @@ export class MidListModalComponent implements OnInit {
   }
 
   getMonitorCode(mc) {
-    return this._midService.getMonitorCode().find(m => m.value === mc).label;
+    return this.monitorCodeList.find(m => m.code === mc).value;
   }
 
   getCardPlans(cp) {
-    return this._midService.getCardPlans().find(m => m.value === cp).label;
+    return this.cardPlansList.find(m => m.code === cp).value;
   }
 
   getStatus(s) {

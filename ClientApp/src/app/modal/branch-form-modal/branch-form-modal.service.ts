@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 import { HttpClient } from '@angular/common/http';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable()
 export class BranchFormModalService {
@@ -140,17 +141,15 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'DBA City',
           required: true,
-          options: [
-            { label: 'PASIG', value: 1 },
-            { label: 'MAKATI CITY', value: 2 },
-            { label: 'MANDALUYONG', value: 3 },
-            { label: 'PASAY CITY', value: 4 },
-            { label: 'SAN JUAN', value: 5 },
-            { label: 'VALENZUELA', value: 6 },
-            { label: 'QUEZON CITY', value: 7 },
-            { label: 'MANILA', value: 8 }
-          ],
+          options: [],
+          labelProp: 'value',
+          valueProp: 'code',
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.templateOptions.options = this._dropDownService.getDropdown('CY');
+          }
+        }
       },
       {
         className: 'flex-1',
@@ -162,16 +161,14 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Zipcode',
           required: true,
-          options: [
-            { label: '0400', value: 1 },
-            { label: '0401', value: 2 },
-            { label: '0410', value: 3 },
-            { label: '0420', value: 4 },
-            { label: '0550', value: 5 },
-            { label: '0560', value: 6 },
-            { label: '0700', value: 7 },
-            { label: '0701', value: 8 }
-          ],
+          options: [],
+          labelProp: 'value',
+          valueProp: 'code',
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.templateOptions.options = this._dropDownService.getDropdown('ZC');
+          }
         }
       }
       ]
@@ -285,10 +282,14 @@ export class BranchFormModalService {
           templateOptions: {
             required: true,
             label: 'Tax Code',
-            options: [
-              { label: 'With Tax', value: '1' },
-              { label: 'No Tax Type Required', value: '2' }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('TC');
+            }
           }
         }
       ]
@@ -724,17 +725,15 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address City',
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ],
+          options: [],
+          labelProp: 'value',
+          valueProp: 'code',
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.templateOptions.options = this._dropDownService.getDropdown('CY');
+          }
+        }
       },
       {
         className: 'flex-1',
@@ -745,16 +744,14 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ],
+          options: [],
+          labelProp: 'value',
+          valueProp: 'code'
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.templateOptions.options = this._dropDownService.getDropdown('ZC');
+          }
         }
       }
       ]
@@ -830,11 +827,9 @@ export class BranchFormModalService {
         },
       ]
     },
-
     {
       template: '<span class="mat-subheading-1">If No, Please Select If For Installation (Yes or No) ?*</span>',
     },
-
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -849,8 +844,7 @@ export class BranchFormModalService {
               { value: true, label: 'Yes' },
               { value: false, label: 'No' }
             ],
-          },
-
+          }
         },
       ]
     },
@@ -1156,13 +1150,14 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'MCC',
-            options: [
-              { label: '5421-Department Store', value: '1' },
-              { label: '5422-Food Store', value: '2' },
-              { label: '5423-Gaming', value: '3' },
-              { label: '5424-Software Industry', value: '4' },
-              { label: '5425-Apparel Industry', value: '5' }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('MCC');
+            }
           }
         },
         {
@@ -1212,9 +1207,14 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Strategic Merchant',
-            options: [
-              { label: '1', value: '1' }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code'
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('SM');
+            }
           }
         }
       ]
@@ -1230,9 +1230,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Default Transaction Source',
-          options: [
-            { label: ' ', value: '1' }
-          ]
+          options: this._dropDownService.getDropdown('MTSRC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       },
       {
@@ -1257,11 +1257,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Area Mall Code',
-          options: [
-            { label: 'AREA MALL CODE 1', value: '1' },
-            { label: 'AREA MALL CODE 2', value: '2' },
-            { label: 'AREA MALL CODE 3', value: '3' }
-          ]
+          options: this._dropDownService.getDropdown('MALLS'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }
       ]
@@ -1564,17 +1562,15 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'DBA City',
             required: true,
-            options: [
-              { label: 'PASIG', value: 1 },
-              { label: 'MAKATI CITY', value: 2 },
-              { label: 'MANDALUYONG', value: 3 },
-              { label: 'PASAY CITY', value: 4 },
-              { label: 'SAN JUAN', value: 5 },
-              { label: 'VALENZUELA', value: 6 },
-              { label: 'QUEZON CITY', value: 7 },
-              { label: 'MANILA', value: 8 }
-            ],
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
           },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('CY');
+            }
+          }
         },
         {
           className: 'flex-1',
@@ -1807,20 +1803,21 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'select',
-          key: 'mccId',
+          key: 'mcc',
           expressionProperties: {
 
           },
           templateOptions: {
             label: 'MCC',
             required: true,
-            options: [
-              { label: '5421-Department Store', value: 1 },
-              { label: '5422-Food Store', value: 2 },
-              { label: '5423-Gaming', value: 3 },
-              { label: '5424-Software Industry', value: 4 },
-              { label: '5425-Apparel Industry', value: 5 }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('MCC');
+            }
           }
         },
         {
@@ -1868,10 +1865,15 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Strategic Merchant',
-            options: [
-              { label: '1', value: 1 }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
           },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('SM');
+            }
+          }
         }
       ]
     },
@@ -1900,11 +1902,14 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Area Mall Code',
-            options: [
-              { label: 'AREA MALL CODE 1', value: 1 },
-              { label: 'AREA MALL CODE 2', value: 2 },
-              { label: 'AREA MALL CODE 3', value: 3 }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('MALLS');
+            }
           }
         }
       ]
@@ -2065,12 +2070,15 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          options: [
-            { label: 'Asiapay', value: 1 },
-            { label: 'Paynamics', value: 2 },
-            { label: 'IPay88', value: 3 }
-          ],
-          label: 'Fraud Tool Provider'
+          label: 'Fraud Tool Provider',
+          options: [],
+          labelProp: 'value',
+          valueProp: 'code',
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
+          }
         }
       },
       {
@@ -2081,15 +2089,15 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          options: [
-            { label: 'Asiapay 3-Party', value: 1 },
-            { label: 'Asiapay 2.5-Party', value: 2 },
-            { label: 'Asiapay 2-Party', value: 3 },
-            { label: 'MIGS 3-Party', value: 4 },
-            { label: 'MIGS 2.5-Party', value: 5 },
-            { label: 'MIGS 2-Party', value: 6 }
-          ],
-          label: 'Gateway Integration Type'
+          label: 'Gateway Integration Type',
+          options: [],
+          labelProp: 'value',
+          valueProp: 'code',
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.templateOptions.options = this._dropDownService.getDropdown('GIT');
+          }
         }
       }
       ]
@@ -2113,7 +2121,7 @@ export class BranchFormModalService {
       ]
     },
   ];
-  //#endregion 
+  //#endregion
 
   //#region mmu field
   mmu: FormlyFieldConfig[] = [
@@ -2130,16 +2138,14 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'Zipcode',
             required: true,
-            options: [
-              { label: '0400', value: 1 },
-              { label: '0401', value: 2 },
-              { label: '0410', value: 3 },
-              { label: '0420', value: 4 },
-              { label: '0550', value: 5 },
-              { label: '0560', value: 6 },
-              { label: '0700', value: 7 },
-              { label: '0701', value: 8 }
-            ],
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('ZC');
+            }
           }
         }
       ]
@@ -2220,11 +2226,15 @@ export class BranchFormModalService {
           templateOptions: {
             required: true,
             label: 'Tax Code',
-            options: [
-              { label: 'With Tax', value: '1' },
-              { label: 'No Tax Type Required', value: '2' }
-            ]
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
           },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('TC');
+            }
+          }
         },
       ]
     },
@@ -2659,16 +2669,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address City',
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
       {
@@ -2680,16 +2683,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }
       ]
@@ -3140,16 +3136,9 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'DBA City',
           disabled: true,
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ]
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       },
       {
@@ -3158,16 +3147,9 @@ export class BranchFormModalService {
         key: 'dbaZipCode',
         templateOptions: {
           label: 'Zipcode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ]
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }]
     },
@@ -3250,10 +3232,9 @@ export class BranchFormModalService {
           key: 'taxCode',
           templateOptions: {
             label: 'Tax Code',
-            options: [
-              { label: 'With Tax', value: '1' },
-              { label: 'No Tax Type Required', value: '2' }
-            ]
+            options: this._dropDownService.getDropdown('TC'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {
@@ -3263,10 +3244,9 @@ export class BranchFormModalService {
           templateOptions: {
             required: true,
             label: 'Tax Type',
-            options: [
-              { label: 'Tax Type 1', value: '1' },
-              { label: 'Tax Type 2', value: '2' }
-            ]
+            options: this._dropDownService.getDropdown('TT'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         }
       ]
@@ -3429,16 +3409,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address City',
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
       {
@@ -3450,16 +3423,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }
       ]
@@ -3959,13 +3925,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'MCC',
-            options: [
-              { label: '5421-Department Store', value: '1' },
-              { label: '5422-Food Store', value: '2' },
-              { label: '5423-Gaming', value: '3' },
-              { label: '5424-Software Industry', value: '4' },
-              { label: '5425-Apparel Industry', value: '5' }
-            ],
+            options: this._dropDownService.getDropdown('MCC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -4010,9 +3972,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Strategic Merchant',
-            options: [
-              { label: '1', value: '1' }
-            ],
+            options: this._dropDownService.getDropdown('SM'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           },
         }
@@ -4029,10 +3991,9 @@ export class BranchFormModalService {
 
           },
           templateOptions: {
-            label: 'Default Transaction Source',
-            options: [
-              { label: ' ', value: '1' }
-            ],
+            options: this._dropDownService.getDropdown('MTSRC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -4058,11 +4019,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Area Mall Code',
-            options: [
-              { label: 'AREA MALL CODE 1', value: '1' },
-              { label: 'AREA MALL CODE 2', value: '2' },
-              { label: 'AREA MALL CODE 3', value: '3' }
-            ],
+            options: this._dropDownService.getDropdown('AMC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -4543,16 +4502,9 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'DBA City',
           disabled: true,
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ]
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       },
       {
@@ -4561,16 +4513,9 @@ export class BranchFormModalService {
         key: 'dbaZipCode',
         templateOptions: {
           label: 'Zipcode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ]
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }]
     },
@@ -4653,10 +4598,9 @@ export class BranchFormModalService {
           key: 'taxCode',
           templateOptions: {
             label: 'Tax Code',
-            options: [
-              { label: 'With Tax', value: '1' },
-              { label: 'No Tax Type Required', value: '2' }
-            ]
+            options: this._dropDownService.getDropdown('TC'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {
@@ -4666,10 +4610,9 @@ export class BranchFormModalService {
           templateOptions: {
             required: true,
             label: 'Tax Type',
-            options: [
-              { label: 'Tax Type 1', value: '1' },
-              { label: 'Tax Type 2', value: '2' }
-            ]
+            options: this._dropDownService.getDropdown('TT'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         }
       ]
@@ -4832,16 +4775,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address City',
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
       {
@@ -4853,16 +4789,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }
       ]
@@ -5286,13 +5215,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'MCC',
-            options: [
-              { label: '5421-Department Store', value: '1' },
-              { label: '5422-Food Store', value: '2' },
-              { label: '5423-Gaming', value: '3' },
-              { label: '5424-Software Industry', value: '4' },
-              { label: '5425-Apparel Industry', value: '5' }
-            ],
+            options: this._dropDownService.getDropdown('MCC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -5343,9 +5268,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Strategic Merchant',
-            options: [
-              { label: '1', value: '1' }
-            ],
+            options: this._dropDownService.getDropdown('SM'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           },
         },
@@ -5358,9 +5283,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Default Transaction Source',
-            options: [
-              { label: ' ', value: '1' }
-            ],
+            options: this._dropDownService.getDropdown('MTSRC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -5386,11 +5311,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Area Mall Code',
-            options: [
-              { label: 'AREA MALL CODE 1', value: '1' },
-              { label: 'AREA MALL CODE 2', value: '2' },
-              { label: 'AREA MALL CODE 3', value: '3' }
-            ],
+            options: this._dropDownService.getDropdown('MALLS'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -5758,7 +5681,7 @@ export class BranchFormModalService {
   ];
   //#endregion
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
   getBranchFields(): FormlyFieldConfig[] {
     return this.ao;
@@ -5770,6 +5693,14 @@ export class BranchFormModalService {
 
   create(branch): Observable<any> {
     return this._http.post(ApiConstants.branchApi, branch);
+  }
+
+  get(id): Observable<any> {
+    return this._http.get(ApiConstants.branchApi + '/' + id);
+  }
+
+  getMappedBranch(id): Observable<any> {
+    return this._http.get(ApiConstants.branchApi + '/mappedBranch/' + id);
   }
 
   update(id, branch): Observable<any> {

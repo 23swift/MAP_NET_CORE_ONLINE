@@ -4,6 +4,8 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { PosTerminalFormModalComponent } from '../pos-terminal-form-modal/pos-terminal-form-modal.component';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { DropDownService } from 'src/app/services/drop-down.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-pos-terminal-brand-list-modal',
@@ -16,13 +18,30 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   posId: number;
   @Input() showAdd?: boolean;
   showAddTerminal: boolean;
+  terminalBrandList = [];
+  terminalTypeList = [];
+  terminalModelList = [];
+  simTypeList = [];
 
   constructor(private _terminalService: PosTerminalBrandListModalService, private _dialog: MatDialog,
     private _route: ActivatedRoute, @Inject(MAT_DIALOG_DATA) public dialogData: any,
-    private _changeDetectRef: ChangeDetectorRef) {
+    private _changeDetectRef: ChangeDetectorRef,
+    private _dropDownService: DropDownService) {
       this.posId = this.dialogData['posId'];
-      this._terminalService.getByPos(this.posId).subscribe(data => {
-        this.dataSource = data.items;
+
+
+      forkJoin([
+        this._dropDownService.getDropdown('POSTB'),
+        this._dropDownService.getDropdown('POSTT'),
+        this._dropDownService.getDropdown('TBTM'),
+        this._dropDownService.getDropdown('POSST'),
+        this._terminalService.getByPos(this.posId)
+      ]).subscribe(fjData => {
+        this.terminalBrandList = fjData[0];
+        this.terminalTypeList = fjData[1];
+        this.terminalModelList = fjData[2];
+        this.simTypeList = fjData[3];
+        this.dataSource = fjData[4];
       });
     }
 
@@ -87,18 +106,18 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   }
 
   getTerminalBrand(tb) {
-    return this._terminalService.getTerminalBrand().find(t => t.value === tb).label;
+    return this.terminalBrandList.find(m => m.code === tb).value;
   }
 
   getTerminalType(tt) {
-    return this._terminalService.getTerminalType().find(t => t.value === tt).label;
+    return this.terminalTypeList.find(m => m.code === tt).value;
   }
 
   getTerminalModel(tm) {
-    return this._terminalService.getTerminalModel().find(t => t.value === tm).label;
+    return this.terminalModelList.find(m => m.code === tm).value;
   }
 
   getSimType(st) {
-    return this._terminalService.getSimType().find(t => t.value === st).label;
+    return this.simTypeList.find(m => m.code === st).value;
   }
 }

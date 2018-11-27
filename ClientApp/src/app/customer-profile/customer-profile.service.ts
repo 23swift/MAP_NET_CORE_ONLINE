@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiConstants } from '../api-constants';
 import { DropDownService } from '../services/drop-down.service';
 
 @Injectable()
 export class CustomerProfileService {
+  ownershipList = [];
   aoFields: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
@@ -29,19 +30,9 @@ export class CustomerProfileService {
           templateOptions: {
             label: 'Ownership',
             required: true,
-            options: this._dropDownService.
-            // [
-            //   { label: 'Single Proprietorship', value: 1 },
-            //   { label: 'Partnership', value: 2 },
-            //   { label: 'Corporation', value: 3 },
-            //   { label: 'Registered Association, Cooperative & Organization', value: 4 },
-            //   { label: 'GOCC', value: 5 },
-            //   { label: 'Resident Foreign Corporation', value: 6 },
-            //   { label: 'Resident Foreign Partnership', value: 7 },
-            //   { label: 'Branch or Representative Office of Foreign Corporation/Company', value: 8 },
-            //   { label: 'Foreign Individual/Single Proprietorship', value: 9 },
-            //   { label: 'Others', value: 10 }
-            // ]
+            options: this._dropDownService.getDropdown('OW'),
+            labelProp: 'value',
+            valueProp: 'code'
           }
         },
         {
@@ -101,7 +92,11 @@ export class CustomerProfileService {
           templateOptions: {
             label: 'Ownership',
             options: this._dropDownService.getDropdown('OW'),
-            // [
+            labelProp: 'value',
+            valueProp: 'code',
+            // labelProp: 'value',
+            // valueProp: 'id'
+            // options: [
             //   { label: 'Single Proprietorship', value: 1 },
             //   { label: 'Partnership', value: 2 },
             //   { label: 'Corporation', value: 3 },
@@ -152,7 +147,12 @@ export class CustomerProfileService {
     }
   ];
 
-  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) {
+      // this._dropDownService.getDropdown('OW').subscribe(data => {
+      //   this.ownershipList = data;
+      //   console.log(data);
+      // });
+  }
 
   getCustomerProfileFields(userGroup): FormlyFieldConfig[] {
     let fields;

@@ -18,14 +18,13 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
   @Input() userGroup: string;
   @Output() newAffiliationId = new EventEmitter<number>();
 
-  isSaved = false;
   customerProfileId = 0;
   model: CutomerProfile;
   title = 'New Affiliation';
 
   options: FormlyFormOptions = {
-    formState: {
-      disabled: true
+    showError: () => {
+      return true;
     }
   };
 
@@ -44,7 +43,6 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
           this.newAffiliationId.emit(cpData['newAffiliationId']);
           this.customerProfileId = this.model['id'];
           this.newAffiliationId = this.model['newAffiliationId'];
-          this.isSaved = true;
         });
       }
     });
@@ -74,7 +72,6 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
         this.newAffiliationId.emit(data['newAffiliationId']);
         this.customerProfileId = this.model['id'];
         this.newAffiliationId = this.model['newAffiliationId'];
-        this.isSaved = true;
 
         this._snackBar.open('Customer Profile', 'Saved', {
           duration: 1500

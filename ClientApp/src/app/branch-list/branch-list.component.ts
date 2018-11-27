@@ -2,26 +2,14 @@ import { Component, OnInit, Input, ChangeDetectorRef, Output, EventEmitter, Afte
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { BranchFormModalComponent } from '../modal/branch-form-modal/branch-form-modal.component';
-import { BranchFormService } from '../forms/branch-form/branch-form.service';
-import { MidListModalComponent } from '../modal/mid-list-modal/mid-list-modal.component';
-
-export interface BranchDisplayInfo {
-  Id: number;
-  // BranchName: String;
-  DBAAddress: String;
-  DBAName: String;
-
-
-}
-const ELEMENT_DATA: BranchDisplayInfo[] = [
-  { Id: 1, DBAName: 'AldoMegamall', DBAAddress: 'Mandaluyong' },
-  { Id: 2, DBAName: 'Bench', DBAAddress: 'Mandaluyong' }
-];
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
+import { BranchListService } from './branch-list.service';
 
 @Component({
   selector: 'app-branch-list',
   templateUrl: './branch-list.component.html',
-  styleUrls: ['./branch-list.component.css']
+  styleUrls: ['./branch-list.component.css'],
+  providers: [BranchListService]
 })
 export class BranchListComponent implements OnInit, AfterViewInit {
   @Input() detailsRoute: string;
@@ -29,6 +17,7 @@ export class BranchListComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['DBAName', 'DBAAddress', 'Attachment'];
   dataSource: Object[];
+  branchAddModel: Object;
 
   mode: string;
 
@@ -37,7 +26,7 @@ export class BranchListComponent implements OnInit, AfterViewInit {
     public route: ActivatedRoute,
     public router: Router,
     private _dialog: MatDialog,
-    private _branchService: BranchFormService,
+    private _branchService: BranchListService,
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.route.data
@@ -59,15 +48,24 @@ export class BranchListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
-      this.dataSource = data.items;
-      this._changeDetectRef.detectChanges();
-    });
+    this.refresh();
   }
 
   private refresh() {
     this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
       this.dataSource = data.items;
+
+      if (this.dataSource.length > 0) {
+        this._branchService.getBranchAutoPopulateFields(this.dataSource[0]['id']).subscribe(branchData => {
+          this.branchAddModel = branchData;
+          this.branchAddModel['newAffiliationId'] = this.newAffiliationId;
+        });
+      } else {
+        this.branchAddModel = {
+          newAffiliationId: this.newAffiliationId
+        };
+      }
+
       this._changeDetectRef.detectChanges();
     });
   }
@@ -76,9 +74,7 @@ export class BranchListComponent implements OnInit, AfterViewInit {
     const dialog = this._dialog.open(BranchFormModalComponent, {
       width: '98%',
       height: 'auto',
-      data: {
-        newAffiliationId: this.newAffiliationId
-      }
+      data: this.branchAddModel
     });
 
     dialog.afterClosed().subscribe(data => {
@@ -102,20 +98,15 @@ export class BranchListComponent implements OnInit, AfterViewInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._branchService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
-  }
-
-  updateMid(id) {
-    const dialog = this._dialog.open(MidListModalComponent, {
-      width: '90%',
-      height: 'auto',
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
       data: {
-        branchId: id
+        delete: this._branchService.delete(id)
       }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
     });
   }
 }

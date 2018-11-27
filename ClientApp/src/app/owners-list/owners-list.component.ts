@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, ChangeDetectorRef, AfterContentInit } from '@angular/core';
 import { OwnersListService } from './owners-list.service';
-import { MatDialog } from '../../../node_modules/@angular/material';
+import { MatDialog, MatSnackBar } from '../../../node_modules/@angular/material';
 import { OwnersFormModalComponent } from '../modal/owners-form-modal/owners-form-modal.component';
 import { config } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-owners-list',
@@ -18,7 +19,7 @@ export class OwnersListComponent implements OnInit {
   @Input() customerProfileId: number;
 
   constructor(private _ownerService: OwnersListService, private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef,
-    private _route: ActivatedRoute) {
+    private _route: ActivatedRoute, private _snackBar: MatSnackBar) {
     this._route.params.subscribe(params => {
       if (params['id']) {
         this._ownerService.getByCustomerId(params['id']).subscribe(data => {
@@ -30,14 +31,6 @@ export class OwnersListComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._ownerService.getTableFields();
-
-    // if (this.customerProfileId === 0) {
-    //   this.dataSource = [];
-    // } else {
-    //   this._ownerService.get(this.customerProfileId).subscribe(data => {
-    //     this.dataSource = data.items;
-    //   });
-    // }
   }
 
   update(owner) {
@@ -54,24 +47,35 @@ export class OwnersListComponent implements OnInit {
   }
 
   delete(id) {
-    if (confirm('Are you sure?')) {
-      this._ownerService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
-  }
-
-  addOwner() {
-    const dialog = this._dialog.open(OwnersFormModalComponent, {
+    const dialog = this._dialog.open(DeleteModalComponent, {
       width: '60%',
       data: {
-        customerProfileId: this.customerProfileId
+        delete: this._ownerService.delete(id)
       }
     });
 
     dialog.afterClosed().subscribe(data => {
       this.refresh();
     });
+  }
+
+  addOwner() {
+    if (this.customerProfileId) {
+      const dialog = this._dialog.open(OwnersFormModalComponent, {
+        width: '60%',
+        data: {
+          customerProfileId: this.customerProfileId
+        }
+      });
+
+      dialog.afterClosed().subscribe(data => {
+        this.refresh();
+      });
+    } else {
+      this._snackBar.open('Owner\'s Details', 'FAILED: No Customer Profile Provided', {
+        duration: 2000
+      });
+    }
   }
 
   getTypeOfRelatedParty(value) {

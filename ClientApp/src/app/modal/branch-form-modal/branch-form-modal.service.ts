@@ -770,7 +770,8 @@ export class BranchFormModalService {
         type: 'checkbox',
         key: 'withExistingAcquirer',
         templateOptions: {
-          label: 'Yes'
+          label: 'Yes',
+          indeterminate: false
         },
       },
       {
@@ -1454,6 +1455,19 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
+          key: 'registeredBusinessNo',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Registered Business No.',
+            placeholder: 'Registered Business No.',
+            maxLength: 11
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
           key: 'adminContactPerson',
           expressionProperties: {
 
@@ -1599,7 +1613,18 @@ export class BranchFormModalService {
         key: 'isAtmDebit',
         templateOptions: {
           label: 'ATM/Debit',
+          indeterminate: false
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('numberOfDebitTidAtm').patchValue('');
+                form.get('mdrAtm').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         key: 'numberOfDebitTidAtm',
@@ -1632,7 +1657,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -1645,7 +1671,17 @@ export class BranchFormModalService {
         key: 'isSmGiftCard',
         templateOptions: {
           label: 'SM Gift Card',
+          indeterminate: false
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('mdrSmGiftCard').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         key: 'mdrSmGiftCard',
@@ -1660,7 +1696,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -1673,7 +1710,17 @@ export class BranchFormModalService {
         key: 'isSmShopCard',
         templateOptions: {
           label: 'SM Shop Card',
+          indeterminate: false
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('mdrSmShopCard').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         key: 'mdrSmShopCard',
@@ -1688,7 +1735,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -1701,7 +1749,18 @@ export class BranchFormModalService {
         key: 'isCashAgad',
         templateOptions: {
           label: 'Cash Agad',
+          indeterminate: false
         },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('numberOfDebitTidCashAgad').patchValue('');
+                form.get('mdrCashAgad').patchValue('');
+              }
+            });
+          }
+        }
       },
       {
         className: 'flex-3',
@@ -1734,7 +1793,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -1973,8 +2033,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
+          type: 'number',
           placeholder: 'Hold-out Amount',
-          pattern: '^\\d{,19}$'
+          pattern: '^\\d{1,19}$'
         }
       }
       ]
@@ -1990,7 +2051,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: 'Direct Payment Link'
+          label: 'Direct Payment Link',
+          indeterminate: false
         }
       },
       {
@@ -2255,7 +2317,7 @@ export class BranchFormModalService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
+          pattern: '^\\d{15}$',
           maxLength: 15
         }
       },
@@ -2641,7 +2703,8 @@ export class BranchFormModalService {
         type: 'checkbox',
         key: 'withExistingAcquirer',
         templateOptions: {
-          label: 'Yes'
+          label: 'Yes',
+          indeterminate: false
         },
       },
       {
@@ -3410,7 +3473,8 @@ export class BranchFormModalService {
         type: 'checkbox',
         key: 'withExistingAcquirer',
         templateOptions: {
-          label: 'Yes'
+          label: 'Yes',
+          indeterminate: false
         },
       },
       {
@@ -3714,7 +3778,8 @@ export class BranchFormModalService {
         key: 'isAtmDebit',
         templateOptions: {
           label: 'ATM/Debit',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -3746,7 +3811,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3759,7 +3825,8 @@ export class BranchFormModalService {
         key: 'isSmGiftCard',
         templateOptions: {
           label: 'SM Gift Card',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         }
       },
       {
@@ -3775,7 +3842,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3788,7 +3856,8 @@ export class BranchFormModalService {
         key: 'isSmShopCard',
         templateOptions: {
           label: 'SM Shop Card',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -3804,7 +3873,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3817,7 +3887,8 @@ export class BranchFormModalService {
         key: 'isCashAgad',
         templateOptions: {
           label: 'Cash Agad',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -3849,7 +3920,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -4803,7 +4875,8 @@ export class BranchFormModalService {
         type: 'checkbox',
         key: 'withExistingAcquirer',
         templateOptions: {
-          label: 'Yes'
+          label: 'Yes',
+          indeterminate: false
         },
       },
       {
@@ -5031,7 +5104,8 @@ export class BranchFormModalService {
         key: 'isAtmDebit',
         templateOptions: {
           label: 'ATM/Debit',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -5063,7 +5137,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -5076,7 +5151,8 @@ export class BranchFormModalService {
         key: 'isSmGiftCard',
         templateOptions: {
           label: 'SM Gift Card',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -5092,7 +5168,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -5105,7 +5182,8 @@ export class BranchFormModalService {
         key: 'isSmShopCard',
         templateOptions: {
           label: 'SM Shop Card',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -5121,7 +5199,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -5134,7 +5213,8 @@ export class BranchFormModalService {
         key: 'isCashAgad',
         templateOptions: {
           label: 'Cash Agad',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -5166,7 +5246,8 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]

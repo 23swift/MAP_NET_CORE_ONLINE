@@ -4,23 +4,23 @@
 
 <mat-dialog-content style="overflow-y: auto; overflow-x: hidden;">
   <div style="padding: 0px 10px">
-    <form (ngSubmit)="submit()" [formGroup]="documentForm" class="docs-form-container">
+    <!-- <form (ngSubmit)="submit()" [formGroup]="documentForm" class="docs-form-container">
       <mat-form-field>
-        <mat-select placeholder="Document Name" formControlName="documentName">
+        <mat-select placeholder="Document Name" formControlName="documentName" required>
           <mat-option *ngFor="let docs of documentList" [value]="docs.id">
             {{ docs.description }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <input matInput placeholder="Remarks" formControlName="remarks">
+        <input matInput placeholder="Remarks" formControlName="remarks" [required]="!isSubmitted">
       </mat-form-field>
       <div style="display: flex">
         <div class="flex-1">
           <div style="display: flex">
-            <mat-checkbox class="flex-1 mat-form-field-infix" formControlName="submitted"> Submitted</mat-checkbox>
+            <mat-checkbox class="flex-1 mat-form-field-infix" formControlName="submitted" (change)="onClickSubmitted($event)"> Submitted</mat-checkbox>
             <mat-form-field class="flex-1">
-              <input matInput [matDatepicker]="picker" placeholder="Target Date of Submission" formControlName="targetDateOfSubmission">
+              <input matInput [matDatepicker]="picker" placeholder="Target Date of Submission" formControlName="targetDateOfSubmission"  [required]="!isSubmitted">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -39,6 +39,21 @@
       <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
         <button type="submit" color="primary" mat-raised-button [disabled]="documentForm.invalid">Save </button>
         <button type="button" color="accent" (click)="cancel()" mat-raised-button>Cancel</button>
+      </div>
+    </form>
+  </div> -->
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
+      <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+      </formly-form>
+        <div class="mat-form-field-wrapper">
+          <div class="mat-form-field-infix">
+            <input id="fileToUpload" type="file" (change)=changeListener($event)>
+          </div>
+        </div>
+      <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+        <button color="primary" mat-raised-button [disabled]="form.invalid">Save</button>
+        <button (click)="cancel()" type="button" color="accent" mat-raised-button>Cancel</button>
       </div>
     </form>
   </div>

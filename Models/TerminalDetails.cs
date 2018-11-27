@@ -1,18 +1,21 @@
+using System;
+
 namespace MAP_Web.Models
 {
     public class TerminalDetails
     {
         public int Id { get; set; }
-        public int terminalBrand { get; set; }
-        public int terminalType { get; set; }
-        public int terminalModelRequested { get; set; }
-        public string numberOfTerminalsRequested { get; set; }
+        public Nullable<int> terminalBrand { get; set; }
+        public Nullable<int> terminalType { get; set; }
+        public Nullable<int> terminalModelRequested { get; set; }
+        public Nullable<int> numberOfTerminalsRequested { get; set; }
         public string telcoProvider { get; set; }
-        public string simType { get; set; }
-        public bool tipAdjust { get; set; }
-        public bool hotelSetupFacility { get; set; }
-        public bool manualKeyInFacility { get; set; }
-        public int POSId { get; set; }
+        public Nullable<int> simType { get; set; }
+        public Nullable<bool> tipAdjust { get; set; }
+        public Nullable<bool> hotelSetupFacility { get; set; }
+        public Nullable<bool> manualKeyInFacility { get; set; }
+        public string creditStraightTid { get; set; }
+        public Nullable<int> POSId { get; set; }
         public POS POS { get; set; }
     }
 }

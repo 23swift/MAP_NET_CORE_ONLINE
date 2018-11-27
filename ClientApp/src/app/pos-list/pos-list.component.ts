@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { PosListService } from './pos-list.service';
 import { PosFormModalComponent } from '../modal/pos-form-modal/pos-form-modal.component';
 import { PosTerminalBrandListModalComponent } from '../modal/pos-terminal-brand-list-modal/pos-terminal-brand-list-modal.component';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 
 @Component({
   selector: 'app-pos-list',
@@ -67,11 +68,16 @@ export class PosListComponent implements OnInit {
   }
 
   deleteItem(id) {
-    if (confirm('Are you sure?')) {
-      this._posService.delete(id).subscribe(data => {
-        this.refresh();
-      });
-    }
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._posService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
   }
 
   updateTerminal(posId) {

@@ -32,6 +32,7 @@ export class OwnersListService {
 
   getTypeOfRelatedParty() {
     return [
+      { label: 'N/A', value: 0 },
       { label: 'DOSRI', value: 1 },
       { label: 'Subsidiary', value: 2 },
       { label: 'Affiliate', value: 3 },

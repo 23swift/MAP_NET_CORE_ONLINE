@@ -42,6 +42,19 @@ namespace MAP_Web.Controllers
             return Ok(branch);
         }
 
+        [HttpGet("branchAutoPopulate/{id}")]
+        public async Task<IActionResult> GetBranchAutoPopulate(int id)
+        {
+            var branch = await branchService.FindAsync(id);
+
+            if (branch == null)
+                return NotFound();
+            
+            var mappedFields = mapper.Map<Branch, BranchAutoPopulateFields>(branch);
+
+            return Ok(mappedFields);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateBranch([FromBody] Branch branch)
         {

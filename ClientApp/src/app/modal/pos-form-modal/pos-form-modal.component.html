@@ -12,7 +12,7 @@
     </formly-form>
 
     <div fxLayoutAlign="end center">
-      <button type="submit" color="primary" mat-raised-button>Save </button>
+      <button type="submit" color="primary" mat-raised-button [disabled]="form.invalid">Save </button>
       <button type="button" (click)="cancel()" color="accent" mat-raised-button>Cancel</button>
     </div>
   </form>

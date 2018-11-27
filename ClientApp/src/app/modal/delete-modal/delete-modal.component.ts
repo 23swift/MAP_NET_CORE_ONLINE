@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import { Component, OnInit, Inject, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -11,14 +10,26 @@ import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
 export class DeleteModalComponent implements OnInit {
 
   constructor(
-    private _modalRef: MatDialogRef<DeleteModalComponent>
+    private _modalRef: MatDialogRef<DeleteModalComponent>,
+    @Inject(MAT_DIALOG_DATA) private _dialogData: any,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
   }
 
-  Submit() {
-    this._modalRef.close();
+  submit() {
+    this._dialogData['delete'].subscribe(d => {
+      const snackBarRef = this._snackBar.open('DELETE ENTRY', 'SUCCESS', {
+        duration: 1000
+      });
+      snackBarRef.afterDismissed().subscribe(x => {
+        this._modalRef.close();
+      });
+    });
   }
 
+  cancel() {
+    this._modalRef.close();
+  }
 }

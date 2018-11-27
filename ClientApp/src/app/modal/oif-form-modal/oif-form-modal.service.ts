@@ -15,7 +15,8 @@ export class OifFormModalService {
           type: 'checkbox',
           className: 'flex-1',
           templateOptions: {
-            label: 'Waive OIF'
+            label: 'Waive OIF',
+            indeterminate: false
           }
         }
       ]
@@ -24,7 +25,7 @@ export class OifFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          key: 'dbaTradeName',
+          key: 'dbaName',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
@@ -46,7 +47,7 @@ export class OifFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          key: 'dbaOutletAddress1',
+          key: 'dbaAddress1',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
@@ -65,7 +66,7 @@ export class OifFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          key: 'dbaOutletAddress2',
+          key: 'dbaAddress2',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
@@ -84,7 +85,7 @@ export class OifFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          key: 'dbaOutletAddress3',
+          key: 'dbaAddress3',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
@@ -104,7 +105,7 @@ export class OifFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          key: 'dbaOutletAddress4',
+          key: 'dbaAddress4',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
@@ -129,7 +130,6 @@ export class OifFormModalService {
           defaultValue: 0,
           templateOptions: {
             label: 'DBA City',
-            required: true,
             options: [
               { label: 'PASIG', value: 1 },
               { label: 'MAKATI CITY', value: 2 },
@@ -144,6 +144,9 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -170,17 +173,19 @@ export class OifFormModalService {
           }
         },
         {
-          key: 'contactPerson',
+          key: 'adminContactPerson',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Admin Contact person',
             maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -189,13 +194,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Position',
             maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -205,32 +212,36 @@ export class OifFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          key: 'phoneNo',
+          key: 'branchPhoneNumber',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Branch / Outlet Phone Number',
             maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
         {
-          key: 'mobileNo',
+          key: 'branchMobileNumber',
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Mobile Number',
             maxLength: 15
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -239,13 +250,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Nature of Business',
             maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -259,13 +272,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Brand Names Or Products Offered/Sold',
             maxLength: 100
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -274,15 +289,17 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Number of Years Operating',
             maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -291,13 +308,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Business Hours',
             maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -311,15 +330,17 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'No. of Fulltime Employees',
             maxLength: 5
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -328,15 +349,17 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Contractual',
             maxLength: 5
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -385,13 +408,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Length of Stay at the Address Above',
             maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -405,7 +430,6 @@ export class OifFormModalService {
           type: 'select',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Location',
             labelProp: 'Description',
             valueProp: 'Location_Id',
@@ -415,6 +439,9 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -423,13 +450,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Business Signage',
             maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -438,7 +467,6 @@ export class OifFormModalService {
           type: 'select',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Type of Premise',
             labelProp: 'Description',
             valueProp: 'TypeOfPremise_Id',
@@ -448,6 +476,9 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -461,13 +492,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Floor Area in Sqm. (Please Specify)',
             maxLength: 10
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -580,13 +613,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Surrounding Establishments Namely',
             maxLength: 150
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -618,15 +653,17 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Average No. of Transaction/Month',
             maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -701,7 +738,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Expected No. of Buyers',
             maxLength: 10
           },
@@ -754,7 +791,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Expected No. of Participants',
             maxLength: 20
           },
@@ -770,7 +807,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Average Registration / Membership Fee',
             maxLength: 20
           },
@@ -854,7 +891,7 @@ export class OifFormModalService {
           className: 'flex-1',
           templateOptions: {
             pattern: '^\\d+$',
-            pd: 'number',
+            type: 'number',
             label: 'Total Sales Volume of Last Event',
             maxLength: 20
           },
@@ -892,18 +929,20 @@ export class OifFormModalService {
           key: 'overAllRating',
           type: 'radio',
           className: 'flex-1',
-          defaultValue: 'true',
+          defaultValue: true,
           templateOptions: {
-            required: true,
             label: 'OverAll Rating',
             options: [
-              { value: 'acceptable', label: 'ACCEPTABLE' },
-              { value: 'notacceptable', label: 'NOT ACCEPTABLE' }
+              { value: true, label: 'ACCEPTABLE' },
+              { value: false, label: 'NOT ACCEPTABLE' }
             ]
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -968,13 +1007,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Informants Name',
             maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -983,13 +1024,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Informants Position',
             maxLength: 30
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -1003,13 +1046,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Inspected By',
             maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -1018,12 +1063,14 @@ export class OifFormModalService {
           type: 'calendar',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Date Inspected'
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         },
@@ -1032,13 +1079,15 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Reviewed By',
             maxLength: 50
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -1052,12 +1101,14 @@ export class OifFormModalService {
           type: 'calendar',
           className: 'flex-1',
           templateOptions: {
-            required: true,
             label: 'Date Reviewed'
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -1083,7 +1134,15 @@ export class OifFormModalService {
     return this._http.put(ApiConstants.oifApi + '/' + id, oif);
   }
 
-  getBranchDetails(id): Observable<any> { 
+  getBranchDetails(id): Observable<any> {
     return this._http.get(ApiConstants.branchApi + '/' + id);
+  }
+
+  getOifAutoPopulate(id): Observable<any> {
+    return this._http.get(ApiConstants.oifApi + '/oifAutoPopulate/' + id);
+  }
+
+  validateByNewAffiliationId(id): Observable<any> {
+    return this._http.get(ApiConstants.oifApi + '/validate/' + id);
   }
 }

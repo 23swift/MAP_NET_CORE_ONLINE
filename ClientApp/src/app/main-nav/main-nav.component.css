@@ -34,7 +34,14 @@
 	margin-top: 7px;
 }
 
+/* .home-icon:link,
 .home-icon:hover,
-.home-icon:active {
+.home-icon:active
+{
   color: #FDB913;
+} */
+
+
+.home-icon:visited {
+  color: #fff;
 }

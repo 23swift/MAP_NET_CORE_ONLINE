@@ -9,6 +9,7 @@ namespace MAP_Web.Services
          Task InsertAsync(OIF oif);
          Task<OIF> FindAsync(int id);
          Task<OIF> FindByBranchAsync(int id);
+         bool ValidateOIF(int id);
          Task SaveChangesAsync();
          void Update(OIF oif);
          void Delete(OIF oif);

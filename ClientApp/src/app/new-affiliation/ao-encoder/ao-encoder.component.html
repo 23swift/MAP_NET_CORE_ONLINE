@@ -1,4 +1,5 @@
-<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit"></app-bdo-form-header>
+<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="true" *ngIf="!isDone"></app-bdo-form-header>
+<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false" *ngIf="isDone"></app-bdo-form-header>
 <!-- <app-request-header></app-request-header> -->
 <span class="mat-headline">Please follow the steps:</span>
 <mat-vertical-stepper [linear]="true" #stepper>
@@ -9,7 +10,7 @@
     <span class="mat-headline">Customer Profile</span>
     <app-customer-profile [displayMode]="false" [userGroup]="'ao'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'branch')">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'cust')">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
   </mat-step>
@@ -20,19 +21,19 @@
     <div *ngIf="isBranch">
       <app-branch-list [newAffiliationId]="newAffiliationId"></app-branch-list>
     </div>
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'oif')">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'branch')">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
 
   </mat-step>
   <mat-step [completed]="false">
     <ng-template matStepLabel>
-      <span class="mat-subheading-1">Attach Ocular Inspection Form to Branches</span>
+      <span class="mat-subheading-1">Fill Out Ocular Inspection Form to Branches</span>
     </ng-template>
     <div *ngIf="isOif">
       <app-branch-list-attachment [newAffiliationId]="newAffiliationId"></app-branch-list-attachment>
     </div>
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'pos');">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'oif');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
   </mat-step>
@@ -43,7 +44,7 @@
     <div *ngIf="isPos">
       <app-branch-list-attachment-pos [newAffiliationId]="newAffiliationId"></app-branch-list-attachment-pos>
     </div>
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'docs');">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'pos');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
   </mat-step>
@@ -55,7 +56,7 @@
       <app-document-check-list [newAffiliationId]="newAffiliationId"></app-document-check-list>
     </div>
 
-    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, '');">Next
+    <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'docs');">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
 
@@ -68,7 +69,7 @@
     <span class="mat-subheading-1">You are now done. Would you like to submit the Request?</span>
     <div xLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="3px">
       <button style="margin-top:3px" mat-stroked-button color="primary" (click)="Submit()">Yes</button>
-      <a mat-stroked-button routerLink="/newAffSum" color="accent">No</a>
+      <a mat-stroked-button routerLink="/" color="accent">No</a>
     </div>
   </mat-step>
 </mat-vertical-stepper>

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { OwnersFormModalService } from './owners-form-modal.service';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
@@ -16,7 +16,11 @@ export class OwnersFormModalComponent implements OnInit {
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
-  options: Object;
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _modalRef: MatDialogRef<OwnersFormModalComponent>, private _ownersService: OwnersFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -50,24 +54,33 @@ export class OwnersFormModalComponent implements OnInit {
   submit() {
     if (this.model['id']) {
       this._ownersService.update(this.model['id'], this.model).subscribe(data => {
-        this._snackBar.open('Owner\'s Details', 'Updated', {
-          duration: 1500
+        const snackBarRef = this._snackBar.open('Owner\'s Details', 'Updated', {
+          duration: 1000
         });
-        this._modalRef.close(data);
-      });
-    } else {
-      if (this.model['customerProfileId']) {
-        this._ownersService.create(this.model).subscribe(data => {
-          this._snackBar.open('Owner\'s Details', 'Saved', {
-            duration: 1500
-          });
+
+        snackBarRef.afterDismissed().subscribe(s => {
           this._modalRef.close(data);
         });
-      } else {
-        this._snackBar.open('Owner\'s Details', 'Customer Profile Must Be Saved First', {
-          duration: 2000
+      });
+    } else {
+      if (this.model['name'] || this.model['percentOfOwnership'] || this.model['remarks']) {
+        this._ownersService.create(this.model).subscribe(data => {
+          const snackBarRef = this._snackBar.open('Owner\'s Details', 'Saved', {
+            duration: 1000
+          });
+
+          snackBarRef.afterDismissed().subscribe(s => {
+            this._modalRef.close(data);
+          });
         });
-        this._modalRef.close();
+      }  else {
+        const snackBarRef = this._snackBar.open('Owner\'s Details', 'No Inputted Value', {
+          duration: 1000
+        });
+        
+        snackBarRef.afterDismissed().subscribe(s => {
+          this._modalRef.close();
+        });
       }
     }
   }

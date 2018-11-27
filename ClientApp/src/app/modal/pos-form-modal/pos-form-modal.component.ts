@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { PosFormModalService } from './pos-form-modal.service';
 import { FormGroup } from '@angular/forms';
@@ -17,11 +17,17 @@ export class PosFormModalComponent implements OnInit {
   userGroup: string;
   model: Object;
   branchId: number;
-  options = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
 
   constructor(private _posService: PosFormModalService, private _modalRef: MatDialogRef<PosFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public _dialogData: any,
     private _snackBar: MatSnackBar) {
+    this.model = {};
+    this.model['id'] = 0;
     this.fields = this._posService.getPosFields('ao');
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL
@@ -40,17 +46,23 @@ export class PosFormModalComponent implements OnInit {
   submit() {
     if (this.model['id']) {
       this._posService.update(this.model['id'], this.model).subscribe(data => {
-        this._snackBar.open('POS Details', 'Updated', {
+        const snackBar = this._snackBar.open('POS Details', 'Updated', {
           duration: 1500
         });
-        this._modalRef.close(data);
+
+        snackBar.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     } else {
       this._posService.create(this.model).subscribe(data => {
-        this._snackBar.open('POS Details', 'Saved', {
+        const snackBar = this._snackBar.open('POS Details', 'Saved', {
           duration: 1500
         });
-        this._modalRef.close(data);
+
+        snackBar.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     }
   }

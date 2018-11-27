@@ -14,7 +14,11 @@ export class BuMaintenanceFormComponent implements OnInit {
   @Input() displayMode: boolean = false;
   form = new FormGroup({});
   model: any = {};
-  options: FormlyFormOptions = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
   title: string = 'BU Maintenance Form';
   subTitle: string;
   mode: string;

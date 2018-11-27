@@ -3,7 +3,7 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiConstants } from '../api-constants';
-import { DropDownService } from '../services/drop-down-service.service';
+import { DropDownService } from '../services/drop-down.service';
 
 @Injectable()
 export class CustomerProfileService {
@@ -29,18 +29,19 @@ export class CustomerProfileService {
           templateOptions: {
             label: 'Ownership',
             required: true,
-            options: [
-              { label: 'Single Proprietorship', value: 1 },
-              { label: 'Partnership', value: 2 },
-              { label: 'Corporation', value: 3 },
-              { label: 'Registered Association, Cooperative & Organization', value: 4 },
-              { label: 'GOCC', value: 5 },
-              { label: 'Resident Foreign Corporation', value: 6 },
-              { label: 'Resident Foreign Partnership', value: 7 },
-              { label: 'Branch or Representative Office of Foreign Corporation/Company', value: 8 },
-              { label: 'Foreign Individual/Single Proprietorship', value: 9 },
-              { label: 'Others', value: 10 }
-            ]
+            options: this._dropDownService.
+            // [
+            //   { label: 'Single Proprietorship', value: 1 },
+            //   { label: 'Partnership', value: 2 },
+            //   { label: 'Corporation', value: 3 },
+            //   { label: 'Registered Association, Cooperative & Organization', value: 4 },
+            //   { label: 'GOCC', value: 5 },
+            //   { label: 'Resident Foreign Corporation', value: 6 },
+            //   { label: 'Resident Foreign Partnership', value: 7 },
+            //   { label: 'Branch or Representative Office of Foreign Corporation/Company', value: 8 },
+            //   { label: 'Foreign Individual/Single Proprietorship', value: 9 },
+            //   { label: 'Others', value: 10 }
+            // ]
           }
         },
         {
@@ -99,18 +100,19 @@ export class CustomerProfileService {
           key: 'ownership',
           templateOptions: {
             label: 'Ownership',
-            options: [
-              { label: 'Single Proprietorship', value: 1 },
-              { label: 'Partnership', value: 2 },
-              { label: 'Corporation', value: 3 },
-              { label: 'Registered Association, Cooperative & Organization', value: 4 },
-              { label: 'GOCC', value: 5 },
-              { label: 'Resident Foreign Corporation', value: 6 },
-              { label: 'Resident Foreign Partnership', value: 7 },
-              { label: 'Branch or Representative Office of Foreign Corporation/Company', value: 8 },
-              { label: 'Foreign Individual/Single Proprietorship', value: 9 },
-              { label: 'Others', value: 10 }
-            ],
+            options: this._dropDownService.getDropdown('OW'),
+            // [
+            //   { label: 'Single Proprietorship', value: 1 },
+            //   { label: 'Partnership', value: 2 },
+            //   { label: 'Corporation', value: 3 },
+            //   { label: 'Registered Association, Cooperative & Organization', value: 4 },
+            //   { label: 'GOCC', value: 5 },
+            //   { label: 'Resident Foreign Corporation', value: 6 },
+            //   { label: 'Resident Foreign Partnership', value: 7 },
+            //   { label: 'Branch or Representative Office of Foreign Corporation/Company', value: 8 },
+            //   { label: 'Foreign Individual/Single Proprietorship', value: 9 },
+            //   { label: 'Others', value: 10 }
+            // ],
             disabled: true
           }
         },

@@ -4,12 +4,15 @@ import { MatSnackBar } from '@angular/material';
 import { MatStepper } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AoEncoderService } from './ao-encoder.service';
+import { BranchListService } from 'src/app/branch-list/branch-list.service';
+import { OifFormModalService } from 'src/app/modal/oif-form-modal/oif-form-modal.service';
+import { PosFormModalService } from 'src/app/modal/pos-form-modal/pos-form-modal.service';
 
 @Component({
   selector: 'app-ao-encoder-step',
   templateUrl: './ao-encoder.component.html',
   styleUrls: ['./ao-encoder.component.css'],
-  providers: [AoEncoderService]
+  providers: [AoEncoderService, BranchListService, OifFormModalService, PosFormModalService]
 })
 export class AoEncoderComponent implements OnInit {
   isLinear = false;
@@ -29,7 +32,9 @@ export class AoEncoderComponent implements OnInit {
 
   //  completed:boolean=false;
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
-    private _router: Router, private _snackBar: MatSnackBar
+    private _router: Router, private _snackBar: MatSnackBar,
+    private _branchService: BranchListService, private _oifService: OifFormModalService,
+    private _posService: PosFormModalService
   ) { }
 
   ngOnInit() {
@@ -46,20 +51,71 @@ export class AoEncoderComponent implements OnInit {
   public completed(stepper: MatStepper, form: string) {
     this.clearUrl();
 
-    if (form === 'oif') {
-      this.isOif = true;
-    } else if (form === 'pos') {
-      this.isPos = true;
-    } else if (form === 'docs') {
-      this.isDocumentChecklist = true;
-    } else if (form === 'branch') {
-      this.isBranch = true;
-    } else if (form === 'done') {
-      this.isDone = true;
-    }
+    if (form === 'cust') {
+      // FOR FORM CUSTOMER PROFILE
+      if (this.newAffiliationId) {
+        this.isBranch = true;
 
-    stepper.selected.completed = true;
-    stepper.next();
+        stepper.selected.completed = true;
+        stepper.next();
+      } else {
+        this._snackBar.open('NEXT', 'FAILED: No Existing Customer Profile',
+          {
+            duration: 1000
+          });
+      }
+    } else if (form === 'branch') {
+      // FOR FORM BRANCH
+      this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
+        if (data.items.length) {
+          this.isOif = true;
+
+          stepper.selected.completed = true;
+          stepper.next();
+        } else {
+          this._snackBar.open('NEXT', 'FAILED: No Existing Branch',
+          {
+            duration: 1000
+          });
+        }
+      });
+    } else if (form === 'oif') {
+      this._oifService.validateByNewAffiliationId(this.newAffiliationId).subscribe(isValid => {
+        if (isValid) {
+          // FOR FORM OIF
+          this.isPos = true;
+
+          stepper.selected.completed = true;
+          stepper.next();
+        } else {
+          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no OIF',
+          {
+            duration: 1000
+          });
+        }
+      });
+    } else if (form === 'pos') {
+      this._posService.validateByNewAffiliationId(this.newAffiliationId).subscribe(isValid => {
+        if (isValid) {
+          // FOR FORM POS
+          this.isDocumentChecklist = true;
+
+          stepper.selected.completed = true;
+          stepper.next();
+        } else {
+          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no POS',
+          {
+            duration: 1000
+          });
+        }
+      });
+    } else if (form === 'docs') {
+      // FOR DOCUMENTS
+      this.isDone = true;
+
+      stepper.selected.completed = true;
+      stepper.next();
+    }
 
     return true;
   }

@@ -46,17 +46,23 @@ export class PosFormModalComponent implements OnInit {
   submit() {
     if (this.model['id']) {
       this._posService.update(this.model['id'], this.model).subscribe(data => {
-        this._snackBar.open('POS Details', 'Updated', {
+        const snackBar = this._snackBar.open('POS Details', 'Updated', {
           duration: 1500
         });
-        this._modalRef.close(data);
+
+        snackBar.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     } else {
       this._posService.create(this.model).subscribe(data => {
-        this._snackBar.open('POS Details', 'Saved', {
+        const snackBar = this._snackBar.open('POS Details', 'Saved', {
           duration: 1500
         });
-        this._modalRef.close(data);
+
+        snackBar.afterDismissed().subscribe(x => {
+          this._modalRef.close(data);
+        });
       });
     }
   }

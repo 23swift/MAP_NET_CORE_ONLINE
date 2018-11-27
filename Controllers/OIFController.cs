@@ -56,6 +56,13 @@ namespace MAP_Web.Controllers
             return Ok(mapped);
         }
 
+        [HttpGet("validate/{id}")]
+        public IActionResult ValidateOIF(int id)
+        {
+            var isValid = oifService.ValidateOIF(id);
+
+            return Ok(isValid);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateOIF([FromBody] OIF oif)

@@ -9,6 +9,7 @@ namespace MAP_Web.Services
          Task InsertAsync(POS pos);
          Task<POS> FindAsync(int id);
          Task<IPagedList<POS>> FindByBranchAsync(int id);
+         bool ValidatePOS(int id);
          Task SaveChangesAsync();
          void Update(POS pos);
          void Delete(POS pos);

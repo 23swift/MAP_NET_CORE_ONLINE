@@ -3,59 +3,47 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { Input } from '@angular/compiler/src/core';
+import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { DocumentChecklistFormModalService } from './document-checklist-form-modal.service';
 
 @Component({
   selector: 'app-document-checklist-form-modal',
   templateUrl: './document-checklist-form-modal.component.html',
   styleUrls: ['./document-checklist-form-modal.component.css'],
-  providers: [DocumentCheckListService]
+  providers: [DocumentCheckListService, DocumentChecklistFormModalService]
 })
 export class DocumentChecklistFormModalComponent implements OnInit {
-  documentForm: FormGroup;
-  documentList: Object[];
+  form: FormGroup;
+  fields: FormlyFieldConfig[];
+  model: Object;
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
+
   file: string | ArrayBuffer;
   isSubmitted = false;
 
   constructor(private _docuService: DocumentCheckListService, private _modalRef: MatDialogRef<DocumentChecklistFormModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
-    this.documentForm = new FormGroup({
-      documentName: new FormControl(''),
-      remarks: new FormControl(''),
-      targetDateOfSubmission: new FormControl(''),
-      submitted: new FormControl(''),
-      newAffiliationId: new FormControl(''),
-      id: new FormControl('')
-    });
-
-
-    this.documentForm.setValue({
-      documentName: +dialogData.document['documentName'],
-      remarks: dialogData.document['remarks'],
-      targetDateOfSubmission: dialogData.document['targetDateOfSubmission'],
-      submitted: dialogData.document['submitted'],
-      newAffiliationId: dialogData.document['newAffiliationId'],
-      id: dialogData.document['id']
-    });
+    @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar,
+    private _documentService: DocumentChecklistFormModalService) {
+      this.model = dialogData['document'];
+      this.model['documentName'] = +this.model['documentName'];
+      delete this.model['fileUpload'];
   }
 
   ngOnInit() {
-    this.documentList = this._docuService.getDocumentChecklist();
+    this.form = new FormGroup({});
+    this.fields = this._documentService.getFormlyFields();
   }
 
   submit() {
     const base64file = this.file ? this.file.toString().split(',')[1] : null;
+    this.model['fileUpload'] = base64file;
+    this.model['submitted'] = this.model['submitted'] || base64file ? true : false;
 
-    const model = {
-      documentName: this.documentForm.value['documentName'],
-      remarks: this.documentForm.value['remarks'],
-      targetDateOfSubmission: this.documentForm.value['targetDateOfSubmission'],
-      fileUpload: base64file,
-      submitted: this.documentForm.value['submitted'] || base64file ? true : false,
-      newAffiliationId: this.documentForm.value['newAffiliationId'],
-      id: this.documentForm.value['id']
-    };
-
-    this._docuService.update(model['id'], model).subscribe(data => {
+    this._docuService.update(this.model['id'], this.model).subscribe(data => {
       this._snackBar.open('Document Checklist Details', 'Updated', {
         duration: 1500
       });

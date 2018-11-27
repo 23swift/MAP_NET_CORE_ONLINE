@@ -44,7 +44,7 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  upload(document) {
+  update(document) {
     const dialog = this._dialog.open(DocumentChecklistFormModalComponent, {
       width: '90%',
       height: 'auto',

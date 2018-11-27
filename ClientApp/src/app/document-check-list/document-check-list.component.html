@@ -37,7 +37,7 @@
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element" style="width: 10%">
-        <a (click)="upload(element)" mat-mini-fab color="primary" matTooltip="Edit Document">
+        <a (click)="update(element)" mat-mini-fab color="primary" matTooltip="Edit Document">
           <mat-icon style="color:white;">edit</mat-icon>
         </a>
         <a (click)="delete(element.id)" mat-mini-fab color="primary" matTooltip="Delete Document">

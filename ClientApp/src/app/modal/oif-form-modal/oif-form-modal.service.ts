@@ -1141,4 +1141,8 @@ export class OifFormModalService {
   getOifAutoPopulate(id): Observable<any> {
     return this._http.get(ApiConstants.oifApi + '/oifAutoPopulate/' + id);
   }
+
+  validateByNewAffiliationId(id): Observable<any> {
+    return this._http.get(ApiConstants.oifApi + '/validate/' + id);
+  }
 }

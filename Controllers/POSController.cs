@@ -36,9 +36,17 @@ namespace MAP_Web.Controllers
             var pos = await posService.FindByBranchAsync(id);
 
             if (pos == null)
-                return Ok();
+                return NotFound();
 
             return Ok(pos);
+        }
+
+        [HttpGet("validate/{id}")]
+        public IActionResult ValidateOIF(int id)
+        {
+            var isValid = posService.ValidatePOS(id);
+
+            return Ok(isValid);
         }
 
         [HttpPost]

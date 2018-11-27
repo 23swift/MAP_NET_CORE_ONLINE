@@ -988,4 +988,8 @@ export class PosFormModalService {
   update(id, pos) {
     return this._http.put(ApiConstants.posApi + '/' + id, pos);
   }
+
+  validateByNewAffiliationId(id): Observable<any> {
+    return this._http.get(ApiConstants.posApi + '/validate/' + id);
+  }
 }

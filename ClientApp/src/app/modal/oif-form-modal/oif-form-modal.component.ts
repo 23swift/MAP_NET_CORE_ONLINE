@@ -4,6 +4,7 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { BranchListService } from 'src/app/branch-list/branch-list.service';
 
 @Component({
   selector: 'app-oif-form-modal',
@@ -29,20 +30,15 @@ export class OifFormModalComponent implements OnInit {
 
     forkJoin([
       this._oifService.getByBranch(this.dialogData['branchId']),
-      this._oifService.getBranchDetails(this.dialogData['branchId'])
+      this._oifService.getOifAutoPopulate(this.dialogData['branchId'])
     ]).subscribe(data => {
-      this.model = data[0] || {
-        branchId: this.dialogData['branchId']
-      };
-      this.model['dbaName'] = data[0].dbaName || data[1].dbaName;
-      this.model['dbaAddress1'] = data[0].dbaAddress1 || data[1].dbaAddress1;
-      this.model['dbaAddress2'] = data[0].dbaAddress2 || data[1].dbaAddress2;
-      this.model['dbaAddress3'] = data[0].dbaAddress3 || data[1].dbaAddress3;
-      this.model['dbaAddress4'] = data[0].dbaAddress4 || data[1].dbaAddress4;
-      this.model['dbaCity'] = data[0].dbaCity || data[1].dbaCity;
-      this.model['adminContactPerson'] = data[0].adminContactPerson || data[1].adminContactPerson;
-      this.model['branchPhoneNumber'] = data[0].branchPhoneNumber || data[1].branchPhoneNumber;
-      this.model['branchMobileNumber'] = data[0].branchMobileNumber || data[1].branchMobileNumber;
+      if (data[0]) {
+        console.log(data[0]);
+        this.model = data[0];
+      } else {
+        this.model = data[1];
+        this.model['branchId'] = this.dialogData['branchId'];
+      }
     });
   }
 

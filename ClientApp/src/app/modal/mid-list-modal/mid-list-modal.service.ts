@@ -12,15 +12,19 @@ export class MidListModalService {
 
   getCardPlans() {
     return [
-      { value: 1, label: 'OTC' },
-      { value: 2, label: 'Installment Reg' }
+      { value: 1, label: 'MCVCJCACCCDC (CAPTURE ALL)' }
     ];
   }
 
   getMonitorCode() {
     return [
-      { value: 1, label: 'OTC' },
-      { value: 2, label: 'Installment Reg' }
+      { value: 1, label: 'OTC for Straight' },
+      { value: 2, label: '0% Installment' },
+      { value: 3, label: 'Regular Installment' },
+      { value: 4, label: 'BNPL 0%' },
+      { value: 5, label: 'BNPL Regular' },
+      { value: 6, label: 'BNPL Installment' },
+      { value: 7, label: 'MOTO' }
     ];
   }
 

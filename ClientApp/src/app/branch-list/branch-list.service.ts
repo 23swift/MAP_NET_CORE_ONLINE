@@ -8,6 +8,10 @@ export class BranchListService {
 
   constructor(private _http: HttpClient) { }
 
+  get(id): Observable<any> {
+    return this._http.get(ApiConstants.branchApi + '/' + id);
+  }
+
   getByNewAffiliationId(id): Observable<any> {
     return this._http.get(ApiConstants.branchApi + '/newAffiliation/' + id);
   }

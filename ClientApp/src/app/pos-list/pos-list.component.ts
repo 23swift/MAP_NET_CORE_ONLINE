@@ -41,7 +41,7 @@ export class PosListComponent implements OnInit {
   addPos() {
     const dialog = this._dialog.open(PosFormModalComponent, {
       width: '98%',
-      height: '90%',
+      height: 'auto',
       data: {
         branchId: this.branchId
       }

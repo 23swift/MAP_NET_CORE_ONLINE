@@ -36,12 +36,10 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'monitorCode',
             type: 'select',
-            defaultValue: 0,
             templateOptions: {
               label: 'Monitor Code',
               required: true,
               options: [
-                { value: 0, label: 'Select Monitor Code' },
                 { value: 1, label: 'OTC for Straight' },
                 { value: 2, label: '0% Installment' },
                 { value: 3, label: 'Regular Installment' },

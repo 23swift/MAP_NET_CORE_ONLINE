@@ -35,6 +35,9 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -57,6 +60,9 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'];
             }
           }
         }
@@ -1132,10 +1138,6 @@ export class OifFormModalService {
 
   update(id, oif): Observable<any> {
     return this._http.put(ApiConstants.oifApi + '/' + id, oif);
-  }
-
-  getBranchDetails(id): Observable<any> {
-    return this._http.get(ApiConstants.branchApi + '/' + id);
   }
 
   getOifAutoPopulate(id): Observable<any> {

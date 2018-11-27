@@ -1286,6 +1286,7 @@ export class BranchFormModalService {
         className: 'flex-1',
         type: 'input',
         key: 'imprinterNumber',
+        defaultValue: 'R',
         expressionProperties: {
 
         },
@@ -1393,7 +1394,8 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: 'Hold-out Amount',
+          placeholder: '9999999999999999999',
+          pattern: '^\\d{1,19}$',
           maxLength: 19
         }
       }
@@ -1927,6 +1929,7 @@ export class BranchFormModalService {
         className: 'flex-1',
         type: 'input',
         key: 'imprinterNumber',
+        defaultValue: 'R',
         expressionProperties: {
 
         },
@@ -2033,8 +2036,7 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          type: 'number',
-          placeholder: 'Hold-out Amount',
+          placeholder: '9999999999999999999',
           pattern: '^\\d{1,19}$'
         }
       }
@@ -4085,8 +4087,8 @@ export class BranchFormModalService {
       {
         className: 'flex-1',
         type: 'input',
-        defaultValue: 'R',
         key: 'imprinterNumber',
+        defaultValue: 'R',
         expressionProperties: {
 
         },
@@ -4194,7 +4196,8 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: 'Hold-out Amount',
+          placeholder: '9999999999999999999',
+          pattern: '^\\d{1,19}$',
           disabled: true
         }
       }
@@ -5413,6 +5416,7 @@ export class BranchFormModalService {
         className: 'flex-1',
         type: 'input',
         key: 'imprinterNumber',
+        defaultValue: 'R',
         expressionProperties: {
 
         },
@@ -5520,7 +5524,8 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: 'Hold-out Amount',
+          placeholder: '9999999999999999999',
+          pattern: '^\\d{1,19}$',
           disabled: true
         }
       }

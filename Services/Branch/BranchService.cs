@@ -23,7 +23,7 @@ namespace MAP_Web.Services
                 branch.MIDs.Add(new MID
                 {
                     currencyPhp = true,
-                    monitorCode = 1,
+                    monitorCode = i + 1,
                     cardPlans = 1,
                     status = 1
                 });

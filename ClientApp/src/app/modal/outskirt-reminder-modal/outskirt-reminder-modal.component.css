@@ -1,0 +1,17 @@
+.mat-headline {
+    font-size: 18px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.close-button {
+    color: gray;
+    text-align: right
+}
+
+.close-button:hover {
+    cursor: pointer;
+    color: red;
+}

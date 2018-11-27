@@ -166,6 +166,7 @@ import { MapWebHttpClientComponent } from './map-web-http-client/map-web-http-cl
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { OutskirtReminderModalComponent } from './modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
+import { RadioOutskirtTypeComponent } from './radio-outskirt-type/radio-outskirt-type.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -328,6 +329,7 @@ export function patternValidationMessage(err, field) {
     MapWebHttpClientComponent,
     NavMenuComponent,
     HomeComponent,
+    RadioOutskirtTypeComponent,
     OutskirtReminderModalComponent
   ],
   imports: [
@@ -368,7 +370,7 @@ export function patternValidationMessage(err, field) {
         },
         {
           name: 'radioOutskirt',
-          component: OutskirtReminderModalComponent
+          component: RadioOutskirtTypeComponent
         },
           ////////////////////////////////////////////////////////
         ],
@@ -444,7 +446,8 @@ export function patternValidationMessage(err, field) {
     OifFormModalComponent,
     PosTerminalBrandListModalComponent,
     DocumentChecklistFormModalComponent,
-    DocumentPerRequestFormModalComponent],
+    DocumentPerRequestFormModalComponent,
+    OutskirtReminderModalComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiConstants } from "../api-constants";
 import { Observable } from 'rxjs';
+import { ApiConstants } from '../api-constants';
 
 @Injectable()
 export class DropDownService {
@@ -11,6 +11,4 @@ export class DropDownService {
   getDropdown(code): Observable<any> {
     return this._http.get(ApiConstants.dropdownlistApi + '/' + code);
   }
-
-  
 }

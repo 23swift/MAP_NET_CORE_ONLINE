@@ -22,7 +22,7 @@ namespace MAP_Web.Controllers
             if (dropdownvalue == null)
                 return NotFound();
 
-            return Ok(dropdownvalue);
+            return Ok(dropdownvalue.MaintenanceDetails);
         }
 
     }

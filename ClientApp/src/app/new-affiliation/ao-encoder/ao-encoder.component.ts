@@ -7,6 +7,7 @@ import { AoEncoderService } from './ao-encoder.service';
 import { BranchListService } from 'src/app/branch-list/branch-list.service';
 import { OifFormModalService } from 'src/app/modal/oif-form-modal/oif-form-modal.service';
 import { PosFormModalService } from 'src/app/modal/pos-form-modal/pos-form-modal.service';
+import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
 
 @Component({
   selector: 'app-ao-encoder-step',
@@ -34,7 +35,8 @@ export class AoEncoderComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
     private _router: Router, private _snackBar: MatSnackBar,
     private _branchService: BranchListService, private _oifService: OifFormModalService,
-    private _posService: PosFormModalService
+    private _posService: PosFormModalService,
+    private _newAffiliationService: NewAffiliationRequestService
   ) { }
 
   ngOnInit() {
@@ -132,12 +134,14 @@ export class AoEncoderComponent implements OnInit {
   }
 
   Submit() {
-    const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted', {
-      duration: 2000
-    });
+    this._newAffiliationService.updateRequestForAoEncoder(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted', {
+        duration: 2000
+      });
 
-    snackBarSub.afterDismissed().subscribe(() => {
-      this._router.navigateByUrl('/');
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/');
+      });
     });
   }
 }

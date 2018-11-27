@@ -3,6 +3,7 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ApiConstants } from '../api-constants';
+import { DropDownService } from '../services/drop-down-service.service';
 
 @Injectable()
 export class CustomerProfileService {
@@ -149,7 +150,7 @@ export class CustomerProfileService {
     }
   ];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
   getCustomerProfileFields(userGroup): FormlyFieldConfig[] {
     let fields;

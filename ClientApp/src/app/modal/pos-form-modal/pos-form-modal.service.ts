@@ -210,7 +210,7 @@ export class PosFormModalService {
           key: 'businessTypeOfAccount',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 1 || model['isWaved'];;
+              return model['natureOfRequest'] !== 1 || model['isWaved'];
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;

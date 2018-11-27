@@ -59,7 +59,5 @@ namespace MAP_Web.Services
         {
             await _unitOfWork.SaveChangesAsync();
         }
-
-
     }
 }

@@ -1,2 +1,3 @@
-<label>Outskirt: &nbsp;</label>
+<!-- <label>Outskirt: &nbsp;</label> -->
+<mat-form-field class="mat-body-1">Outskirt: </mat-form-field>
 <mat-radio-button *ngFor="let item of to.options" [formControl]="formControl" [value]="item.value" (change)="showInfo($event)" >{{item.label}}</mat-radio-button>

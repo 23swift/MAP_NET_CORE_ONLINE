@@ -11,6 +11,7 @@ export namespace ApiConstants {
     export const aoEncoderDashboardApi = '/api/aoEncoderDashboard';
     export const mauOfficerDashboardApi = '/api/MauOfficerDashboard';
     export const aoListModalApi = '/api/aoListModal';
+    export const dropdownlistApi = '/api/DropdownList';
 
 
     // REQUESTS

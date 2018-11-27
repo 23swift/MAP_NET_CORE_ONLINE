@@ -15,21 +15,21 @@ namespace MAP_Web.Services
             this.masterRepo = this.unitOfWork.GetRepository<MaintenanceMaster>();
         }
 
-        public async Task<MaintenanceMaster> GetOwnership() 
+        public async Task<MaintenanceMaster> GetOwnership()
         {
             var details = await masterRepo.GetFirstOrDefaultAsync(predicate: m => m.Code == "OW", include: m => m.Include(y => y.MaintenanceDetails));
 
             return details;
         }
 
-        public async Task<MaintenanceMaster> GetDbaCity() 
+        public async Task<MaintenanceMaster> GetDbaCity()
         {
             var details = await masterRepo.GetFirstOrDefaultAsync(predicate: m => m.Code == "CY", include: m => m.Include(y => y.MaintenanceDetails));
 
             return details;
         }
-        
-        public async Task<MaintenanceMaster> GetZipCode() 
+
+        public async Task<MaintenanceMaster> GetZipCode()
         {
             var ownership = await masterRepo.GetFirstOrDefaultAsync(predicate: m => m.Code == "ZC", include: m => m.Include(y => y.MaintenanceDetails));
 

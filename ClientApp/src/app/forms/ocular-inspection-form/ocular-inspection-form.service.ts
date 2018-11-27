@@ -95,14 +95,14 @@ export class OcularInspectionFormService {
             fieldGroup: [
                 {
                     key: 'outskirt',
-                    type: 'radio',
-                    templateOptions: {
-                        label: 'Outskirt',
-                        options: [
-                            { value: 'true', label: 'Yes' },
-                            { value: 'false', label: 'No' },
-                        ]
-                    }
+                    type: 'radioOutskirt',
+                    // templateOptions: {
+                    //     label: 'Outskirt',
+                    //     options: [
+                    //         { value: 'true', label: 'Yes' },
+                    //         { value: 'false', label: 'No' },
+                    //     ]
+                    // }
                 },
                 {
                     key: 'contactPerson',

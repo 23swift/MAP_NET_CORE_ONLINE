@@ -1,6 +1,31 @@
-<!-- <mat-form-field class='mat-body-1'>
-    <mat-radio-button *ngFor="let item of to.options" [formControl]="formControl" [value]="item.value">{{item.label}}</mat-radio-button>
-</mat-form-field> -->
-
-<label>Outskirt: &nbsp;</label>
-<mat-radio-button *ngFor="let item of to.options" [formControl]="formControl" [value]="item.value" >{{item.label}}</mat-radio-button>
+<div class="mat-headline" style="margin: 0px;" fxLayout="row" fxLayoutAlign="space-between">
+    <mat-label fxLayoutAlign="start center">
+        <mat-icon>info</mat-icon>Reminder
+    </mat-label>
+    <mat-icon class="close-button flex-1" (click)="closeDialog()">close</mat-icon>
+</div>
+<div class="display-flex mat-subheading-1">Submit photos of the following: </div>
+<mat-card class="display-flex">
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item>
+                1. Interior Appearance
+            </mat-list-item>
+            <mat-list-item>
+                2. Stock / Inventory
+            </mat-list-item>
+            <mat-list-item>
+                3. Cash Register Area
+            </mat-list-item>
+            <mat-list-item>
+                4. Exterior Appearance with signage
+            </mat-list-item>
+            <mat-list-item>
+                5. Far shots of exterior showing vicinity & Fronting Road
+            </mat-list-item>
+            <mat-list-item>
+                6. Left and Right Far shots of Exterior showing immediate neighbors.
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

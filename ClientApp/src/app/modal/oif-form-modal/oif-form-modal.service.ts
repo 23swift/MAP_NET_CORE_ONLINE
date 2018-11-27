@@ -163,7 +163,7 @@ export class OifFormModalService {
       fieldGroup: [
         {
           key: 'outskirt',
-          type: 'radio',
+          type: 'radioOutskirt',
           defaultValue: false,
           templateOptions: {
             label: 'Outskirt',

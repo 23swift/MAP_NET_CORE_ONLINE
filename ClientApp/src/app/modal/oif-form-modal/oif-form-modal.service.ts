@@ -379,7 +379,7 @@ export class OifFormModalService {
           templateOptions: {
             label: 'Premise Status',
             options: [
-              { value: true, label: 'OWNED' },
+              { value: 'OWNED', label: 'OWNED' },
               { value: 'RENTED', label: 'RENTED / LEASED' }
             ]
           },
@@ -589,8 +589,8 @@ export class OifFormModalService {
           templateOptions: {
             label: 'With High Card Traffic?',
             options: [
-              { value: 'true', label: 'Yes' },
-              { value: 'false', label: 'No' }
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' }
             ]
           },
           expressionProperties: {
@@ -742,7 +742,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['typeOfEvent'] !== 1;
+              return model['isWaved'] || model['typeOfEvent'] !== 'EXHIBIT';
             }
           }
         },
@@ -756,7 +756,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['typeOfEvent'] !== 1;
+              return model['isWaved'] || model['typeOfEvent'] !== 'EXHIBIT';
             }
           }
         },
@@ -770,7 +770,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['typeOfEvent'] !== 1;
+              return model['isWaved'] || model['typeOfEvent'] !== 'EXHIBIT';
             }
           }
         }
@@ -795,7 +795,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['typeOfEvent'] !== 2;
+              return model['isWaved'] || model['typeOfEvent'] !== 'CONFERENCE/SYMPOSIUM/ANNUAL MEETING';
             }
           }
         },
@@ -811,7 +811,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['typeOfEvent'] !== 2;
+              return model['isWaved'] || model['typeOfEvent'] !== 'CONFERENCE/SYMPOSIUM/ANNUAL MEETING';
             }
           }
         },
@@ -824,7 +824,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['typeOfEvent'] !== 2;
+              return model['isWaved'] || model['typeOfEvent'] !== 'CONFERENCE/SYMPOSIUM/ANNUAL MEETING';
             }
           }
         }

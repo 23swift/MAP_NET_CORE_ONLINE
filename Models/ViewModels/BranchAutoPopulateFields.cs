@@ -9,9 +9,9 @@ namespace MAP_Web.Models.ViewModels
         public string adminContactPerson { get; set; }
         public string branchPhoneNumber { get; set; }
         public string branchMobileNumber { get; set; }
-        public Nullable<int> mccId { get; set; }
+        public string mcc { get; set; }
         public Nullable<int> intesCodeForDiners { get; set; }
-        public Nullable<int> strategicMerchant { get; set; }
+        public string strategicMerchant { get; set; }
         public string imprinterName { get; set; }
         public string imprinterNumber { get; set; }
         public string imprinterAmex { get; set; }

@@ -41,9 +41,9 @@ namespace MAP_Web.Models.ViewModels
         public string mcc { get; set; }
         public Nullable<int> intesCodeForDiners { get; set; }
         public string tppOnly { get; set; }
-        public Nullable<int> strategicMerchant { get; set; }
+        public string strategicMerchant { get; set; }
         public string mcAssignedId { get; set; }
-        public Nullable<int> areaMallCode { get; set; }
+        public string areaMallCode { get; set; }
         public string imprinterName { get; set; }
         public string imprinterNumber { get; set; }
         public string imprinterAmex { get; set; }
@@ -56,6 +56,7 @@ namespace MAP_Web.Models.ViewModels
         public string fraudToolProvider { get; set; }
         public string gatewayIntegrationType { get; set; }
         public string principalDetailsRemarks { get; set; }
+        public string holdOutAmount { get; set; }
 
 
 

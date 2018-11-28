@@ -18,7 +18,9 @@ export class DocumentChecklistFormModalService {
             templateOptions: {
               label: 'Document Name',
               disabled: true,
-              options: this._documentListService.get()
+              options: this._documentListService.get(),
+              labelProp: 'description',
+              valueProp: 'id'
             }
           }
         ]

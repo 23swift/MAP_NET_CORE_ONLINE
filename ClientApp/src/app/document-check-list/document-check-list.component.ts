@@ -23,7 +23,8 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _docService: DocumentCheckListService,
     private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef, private _documentList: DocumentListService) { 
       this._documentList.get().subscribe(dl => {
-        this.documentList = dl;
+        console.log(dl)
+        // this.documentList = dl;
       });
     }
 
@@ -100,6 +101,8 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   }
 
   getDocumentName(docId) {
-    return this.documentList.find(dl => dl.id === docId).description;
+    // console.log(docId);
+    return '';
+    // return this.documentList.find(dl => dl.id === docId).description;
   }
 }

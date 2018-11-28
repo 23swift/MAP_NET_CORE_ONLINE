@@ -23,7 +23,7 @@ namespace MAP_Web.Services
 
         public async Task<IPagedList<DocumentList>> GetDocumentList()
         {
-            var result = await documentListRepo.GetPagedListAsync();
+            var result = await documentListRepo.GetPagedListAsync(pageSize: 100);
             return result;
         }
     }

@@ -730,11 +730,11 @@ export class OifFormModalService {
                 } else if (v === 'CONFERENCE/SYMPOSIUM/ANNUAL MEETING') {
                   form.get('expectedNoOfBuyers').patchValue('');
                   form.get('productsServicesSoldOffered').patchValue('');
-                  form.get('priceRangeOfProductsService').patchValue('');
+                  form.get('priceRangeOfProductsServices').patchValue('');
                 } else {
                   form.get('expectedNoOfBuyers').patchValue('');
                   form.get('productsServicesSoldOffered').patchValue('');
-                  form.get('priceRangeOfProductsService').patchValue('');
+                  form.get('priceRangeOfProductsServices').patchValue('');
                   form.get('expectedNoOfParticipants').patchValue('');
                   form.get('averageRegistration').patchValue('');
                   form.get('inclusiveDateOfEvent').patchValue('');

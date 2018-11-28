@@ -158,12 +158,12 @@ export class OifFormModalService {
         {
           key: 'outskirt',
           type: 'radioOutskirt',
-          defaultValue: false,
+          defaultValue: 'false',
           templateOptions: {
             label: 'Outskirt',
             options: [
-              { value: true, label: 'Yes' },
-              { value: false, label: 'No' },
+              { value: 'true', label: 'Yes' },
+              { value: 'false', label: 'No' },
             ]
           },
           expressionProperties: {
@@ -718,6 +718,28 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
+            }
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === 'EXHIBIT') {
+                  form.get('expectedNoOfParticipants').patchValue('');
+                  form.get('averageRegistration').patchValue('');
+                  form.get('inclusiveDateOfEvent').patchValue('');
+                } else if (v === 'CONFERENCE/SYMPOSIUM/ANNUAL MEETING') {
+                  form.get('expectedNoOfBuyers').patchValue('');
+                  form.get('productsServicesSoldOffered').patchValue('');
+                  form.get('priceRangeOfProductsService').patchValue('');
+                } else {
+                  form.get('expectedNoOfBuyers').patchValue('');
+                  form.get('productsServicesSoldOffered').patchValue('');
+                  form.get('priceRangeOfProductsService').patchValue('');
+                  form.get('expectedNoOfParticipants').patchValue('');
+                  form.get('averageRegistration').patchValue('');
+                  form.get('inclusiveDateOfEvent').patchValue('');
+                }
+              });
             }
           }
         }

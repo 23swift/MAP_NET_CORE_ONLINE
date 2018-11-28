@@ -7,8 +7,6 @@ namespace MAP_Web.Models
         public OIF()
         {
             this.adverseFindings = false;
-            this.incompleteReportDueTo = false;
-            this.outskirt = false;
         }
         public int Id { get; set; }
         public string dbaName { get; set; }
@@ -17,7 +15,7 @@ namespace MAP_Web.Models
         public string dbaAddress3 { get; set; }
         public string dbaAddress4 { get; set; }
         public string dbaCity { get; set; }
-        public bool outskirt { get; set; }
+        public string outskirt { get; set; }
         public string adminContactPerson { get; set; }
         public string position { get; set; }
         public string branchPhoneNumber { get; set; }
@@ -59,7 +57,7 @@ namespace MAP_Web.Models
         public string nameOfTheLastAcquirer { get; set; }
         public bool overAllRating { get; set; }
         public bool adverseFindings { get; set; }
-        public bool incompleteReportDueTo { get; set; }
+        public Nullable<int> incompleteReportDueTo { get; set; }
         public string remarks { get; set; }
         public string informantsName { get; set; }
         public string informantsPosition { get; set; }

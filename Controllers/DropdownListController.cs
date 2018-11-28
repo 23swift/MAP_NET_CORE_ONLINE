@@ -1,4 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using MAP_Web.Models;
+using MAP_Web.Models.ViewModels;
 using MAP_Web.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +12,11 @@ namespace MAP_Web.Controllers
     public class DropdownListController : Controller
     {
         private readonly IDropdownService _service;
+        private readonly IMapper mapper;
 
-        public DropdownListController(IDropdownService _service)
+        public DropdownListController(IDropdownService _service, IMapper mapper)
         {
+            this.mapper = mapper;
             this._service = _service;
         }
 
@@ -22,7 +28,19 @@ namespace MAP_Web.Controllers
             if (dropdownvalue == null)
                 return NotFound();
 
-            return Ok(dropdownvalue.MaintenanceDetails);
+            var detailsList = new List<DropdownViewModel>();
+            foreach (var item in dropdownvalue.MaintenanceDetails)
+            {
+                detailsList.Add(new DropdownViewModel
+                {
+                    Code = item.Code,
+                    Value = item.Value
+                }); 
+            }
+            // var mapped = mapper.Map<ICollection<MaintenanceDetails>, IEnumerable<DropdownViewModel>>(dropdownvalue.MaintenanceDetails);
+
+
+            return Ok(detailsList);
         }
 
     }

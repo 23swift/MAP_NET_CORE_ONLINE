@@ -7,7 +7,6 @@ namespace MAP_Web.Models.ViewModels
         public OIFViewModel()
         {
             this.adverseFindings = false;
-            this.dbaCity = 0;
             this.incompleteReportDueTo = false;
             this.outskirt = false;
             this.typeOfEvent = 0;
@@ -18,7 +17,7 @@ namespace MAP_Web.Models.ViewModels
         public string dbaOutletAddress2 { get; set; }
         public string dbaOutletAddress3 { get; set; }
         public string dbaOutletAddress4 { get; set; }
-        public int dbaCity { get; set; }
+        public string dbaCity { get; set; }
         public bool outskirt { get; set; }
         public string contactPerson { get; set; }
         public string position { get; set; }

@@ -21,14 +21,14 @@ namespace MAP_Web.Models
 
             this.MIDs = new Collection<MID>();
         }
-        public Nullable<int> Id { get; set; }
+        public int Id { get; set; }
         public string dbaName { get; set; }
         public string adminContactPerson { get; set; }
         public string dbaAddress1 { get; set; }
         public string dbaAddress2 { get; set; }
         public string dbaAddress3 { get; set; }
         public string dbaAddress4 { get; set; }
-        public Nullable<int> dbaCity { get; set; }
+        public string dbaCity { get; set; }
         public string branchPhoneNumber { get; set; }
         public string branchMobileNumber { get; set; }
         public Nullable<bool> isAtmDebit { get; set; }
@@ -41,7 +41,7 @@ namespace MAP_Web.Models
         public Nullable<bool> isCashAgad { get; set; }
         public Nullable<int> numberOfDebitTidCashAgad { get; set; }
         public string mdrCashAgad { get; set; }
-        public Nullable<int> mccId { get; set; }
+        public string mcc { get; set; }
         public Nullable<int> intesCodeForDiners { get; set; }
         public string tppOnly { get; set; }
         public Nullable<int> strategicMerchant { get; set; }
@@ -56,8 +56,8 @@ namespace MAP_Web.Models
         public Nullable<int> totalNumberOfManualImprinters { get; set; }
         public string holdOutAccountNumber { get; set; }
         public Nullable<bool> directPaymentLink { get; set; }
-        public Nullable<int> fraudToolProvider { get; set; }
-        public Nullable<int> gatewayIntegrationType { get; set; }
+        public string fraudToolProvider { get; set; }
+        public string gatewayIntegrationType { get; set; }
         public string principalDetailsRemarks { get; set; }
 
 

@@ -15,9 +15,15 @@ namespace MAP_Web.Services
             this.documentListRepo = this.unitOfWork.GetRepository<DocumentList>();
         }
 
-        public async Task<DocumentList> GetDocumentList(string code)
+        public async Task<DocumentList> GetDocumentListByCode(string code)
         {
             var result = await documentListRepo.GetFirstOrDefaultAsync(predicate: x => x.Code == code);
+            return result;
+        }
+
+        public async Task<IPagedList<DocumentList>> GetDocumentList()
+        {
+            var result = await documentListRepo.GetPagedListAsync();
             return result;
         }
     }

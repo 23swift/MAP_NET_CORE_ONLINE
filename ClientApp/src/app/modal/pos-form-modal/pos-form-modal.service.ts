@@ -202,8 +202,8 @@ export class PosFormModalService {
           templateOptions: {
             label: 'Account Officer / Handler',
             options: this._aoListService.getAoList(),
-            labelProp: 'value',
-            valueProp: 'code',
+            labelProp: 'lastName',
+            valueProp: 'lastName',
           }
         },
         {

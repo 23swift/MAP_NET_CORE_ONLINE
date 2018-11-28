@@ -55,6 +55,19 @@ namespace MAP_Web.Controllers
             return Ok(mappedFields);
         }
 
+        [HttpGet("mappedBranch/{id}")]
+        public async Task<IActionResult> GetMappedBranch(int id)
+        {
+            var branch = await branchService.FindAsync(id);
+
+            if (branch == null)
+                return NotFound();
+            
+            var mappedFields = mapper.Map<Branch, BranchViewModel>(branch);
+
+            return Ok(mappedFields);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateBranch([FromBody] Branch branch)
         {

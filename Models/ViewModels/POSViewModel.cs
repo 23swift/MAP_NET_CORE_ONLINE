@@ -6,16 +6,16 @@ namespace MAP_Web.Models.ViewModels
     public class POSViewModel
     {
         public int Id { get; set; }
-        public Nullable<int> natureOfRequest { get; set; }
-        public Nullable<int> reprogrammingType { get; set; }
+        public string natureOfRequest { get; set; }
+        public string reprogrammingType { get; set; }
         public Nullable<int> tidIssuanceType { get; set; }
         public string requestersName { get; set; }
         public string requestersBusinessUnit { get; set; }
         public string requestersContactNumber { get; set; }
-        public Nullable<int> area { get; set; }
-        public Nullable<int> accountOfficerHandler { get; set; }
-        public Nullable<int> businessTypeOfAccount { get; set; }
-        public Nullable<int> businessUnitAO { get; set; }
+        public string area { get; set; }
+        public string accountOfficerHandler { get; set; }
+        public string businessTypeOfAccount { get; set; }
+        public string businessUnitAO { get; set; }
         public string segment { get; set; }
         public string approvedBy { get; set; }
         public string merchantLegalName { get; set; }
@@ -38,7 +38,7 @@ namespace MAP_Web.Models.ViewModels
         public string reasonForPermanentGPRSInstallation { get; set; }
         public string otherRequiredProfilingFacility { get; set; }
         public Nullable<bool> isTipAdjust { get; set; }
-        public Nullable<int> mustSettle { get; set; }
+        public string mustSettle { get; set; }
         public Nullable<bool> isHotelSetupFacility { get; set; }
         public Nullable<bool> isManualKeyInFacility { get; set; }
         public string remarksSpecialInstructions { get; set; }

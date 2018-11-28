@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { DocumentListService } from 'src/app/services/document-list.service';
 
 @Injectable()
 export class DocumentChecklistFormModalService {
 
-  constructor() { }
+  constructor(private _documentListService: DocumentListService) { }
 
   getFormlyFields() {
     return [
@@ -17,15 +18,7 @@ export class DocumentChecklistFormModalService {
             templateOptions: {
               label: 'Document Name',
               disabled: true,
-              options: [
-                { value: 1, label: 'BDO\'s Merchant Information Sheet (MIS)' },
-                { value: 2, label: 'BDO\'s Ocular Inspection Form' },
-                { value: 3, label: 'BDO\'s Merchant Accreditation Evaluation Form' },
-                { value: 4, label: 'Certificate of Business Registration with BIR (Form 2303)' },
-                { value: 5, label: 'Article of Partnership with SEC Filing Certificate' },
-                { value: 6, label: 'Certificate of Membership with Any Travel Association' },
-                { value: 7, label: 'Audited Financial Statement or Latest 6mos. Bank Statements' }
-              ]
+              options: this._documentListService.get()
             }
           }
         ]

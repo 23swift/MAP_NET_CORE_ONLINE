@@ -8,6 +8,7 @@ namespace MAP_Web.Services
 {
     public interface IDocumentListService
     {
-        Task<DocumentList> GetDocumentList(string code);
+        Task<DocumentList> GetDocumentListByCode(string code);
+        Task<IPagedList<DocumentList>> GetDocumentList();
     }
 }

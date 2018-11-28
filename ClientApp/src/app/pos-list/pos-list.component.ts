@@ -7,6 +7,7 @@ import { PosListService } from './pos-list.service';
 import { PosFormModalComponent } from '../modal/pos-form-modal/pos-form-modal.component';
 import { PosTerminalBrandListModalComponent } from '../modal/pos-terminal-brand-list-modal/pos-terminal-brand-list-modal.component';
 import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
+import { DropDownService } from '../services/drop-down.service';
 
 @Component({
   selector: 'app-pos-list',
@@ -19,10 +20,16 @@ export class PosListComponent implements OnInit {
   displayedColumns: string[];
   dataSource: Object[];
   @Input() showAdd: boolean;
+  natureOfRequestList = [];
 
   constructor(private _posService: PosListService, private _route: ActivatedRoute, private _dialog: MatDialog,
     private _overlay: Overlay,
-    private _changeDetectRef: ChangeDetectorRef) { }
+    private _changeDetectRef: ChangeDetectorRef,
+    private _dropDownService: DropDownService) {
+      this._dropDownService.getDropdown('NR').subscribe(nr => {
+        this.natureOfRequestList = nr;
+      });
+    }
 
   ngOnInit() {
     this.displayedColumns = this._posService.getTableFields();
@@ -94,7 +101,7 @@ export class PosListComponent implements OnInit {
     return new Date();
   }
 
-  getNatureOfRequest(value) {
-    return this._posService.getNatureOfRequest().find(n => n.value === value).label;
+  getNatureOfRequest(code) {
+    return this.natureOfRequestList.find(n => n.code === code).value;
   }
 }

@@ -7,7 +7,6 @@ namespace MAP_Web.Models
         public OIF()
         {
             this.adverseFindings = false;
-            this.dbaCity = 0;
             this.incompleteReportDueTo = false;
             this.outskirt = false;
             this.typeOfEvent = 0;
@@ -18,7 +17,7 @@ namespace MAP_Web.Models
         public string dbaAddress2 { get; set; }
         public string dbaAddress3 { get; set; }
         public string dbaAddress4 { get; set; }
-        public Nullable<int> dbaCity { get; set; }
+        public string dbaCity { get; set; }
         public bool outskirt { get; set; }
         public string adminContactPerson { get; set; }
         public string position { get; set; }

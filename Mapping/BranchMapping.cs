@@ -10,7 +10,10 @@ namespace MAP_Web.Mapping
         {
             CreateMap<BranchViewModel, Branch>()
                 .ForMember(cp => cp.Id, opt => opt.Ignore())
-                .ForMember(cp => cp.NewAffiliationId, opt => opt.Ignore());   
+                .ForMember(cp => cp.NewAffiliationId, opt => opt.Ignore());
+
+            
+            CreateMap<Branch, BranchViewModel>();
         }
     }
 }

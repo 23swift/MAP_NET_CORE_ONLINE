@@ -10,11 +10,13 @@ namespace MAP_Web.Services
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<CustomerProfile> customerRepo;
         private readonly IRepository<Request> requestRepo;
+        private readonly IRepository<DocumentList> documentListRepo;
         public CustomerProfileService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
+            this.documentListRepo = this.unitOfWork.GetRepository<DocumentList>();
         }
         public async Task InsertAsync(CustomerProfile customerProfile)
         {
@@ -24,10 +26,12 @@ namespace MAP_Web.Services
             request.NewAffiliation = new NewAffiliation();
             request.NewAffiliation.CustomerProfile = customerProfile;
 
-            for (int i = 0; i < 5; i++)
+            var documents = await this.documentListRepo.GetPagedListAsync(predicate: d => d.Code == customerProfile.ownership);
+
+            foreach (var item in documents.Items)
             {
                 request.NewAffiliation.DocumentChecklists.Add(new DocumentChecklist {
-                    documentName = (i + 1).ToString()
+                    documentName = item.Id
                 });
             }
             

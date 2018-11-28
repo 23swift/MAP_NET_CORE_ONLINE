@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 import { DocumentChecklistFormModalComponent } from '../modal/document-checklist-form-modal/document-checklist-form-modal.component';
 import { DocumentPerRequestFormModalComponent } from '../modal/document-per-request-form-modal/document-per-request-form-modal.component';
 import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
+import { DocumentListService } from '../services/document-list.service';
 
 @Component({
   selector: 'app-document-check-list',
@@ -17,9 +18,14 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   mode: string;
   showAdd: boolean;
   dataSource;
+  documentList = [];
   @Input() newAffiliationId: number;
   constructor(private _route: ActivatedRoute, private _router: Router, private _docService: DocumentCheckListService,
-    private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef) { }
+    private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef, private _documentList: DocumentListService) { 
+      this._documentList.get().subscribe(dl => {
+        this.documentList = dl;
+      });
+    }
 
   ngOnInit() {
     this.displayedColumns = this._docService.getTableFields();
@@ -94,6 +100,6 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   }
 
   getDocumentName(docId) {
-    return this._docService.getDocumentName().find(d => d.id === +docId).description;
+    return this.documentList.find(dl => dl.id === docId).description;
   }
 }

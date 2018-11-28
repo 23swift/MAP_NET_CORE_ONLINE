@@ -22,7 +22,7 @@ namespace MAP_Web.Services
         {
             var document = new DocumentChecklist {
                 NewAffiliationId = id,
-                documentName = documentId.ToString()
+                documentName = documentId
             };
 
             await documentRepo.InsertAsync(document);

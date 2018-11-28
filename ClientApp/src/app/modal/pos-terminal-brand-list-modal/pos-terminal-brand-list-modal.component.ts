@@ -41,7 +41,7 @@ export class PosTerminalBrandListModalComponent implements OnInit {
         this.terminalTypeList = fjData[1];
         this.terminalModelList = fjData[2];
         this.simTypeList = fjData[3];
-        this.dataSource = fjData[4];
+        this.dataSource = fjData[4].items;
       });
     }
 

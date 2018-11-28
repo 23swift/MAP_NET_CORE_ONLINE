@@ -18,12 +18,27 @@ namespace MAP_Web.Controllers
         }
 
         [HttpGet("{code}")]
-        public async Task<IActionResult> GetDocumentList(string code)
+        public async Task<IActionResult> GetDocumentListByCode(string code)
         {
             try
             {
-                var result = await _documentListService.GetDocumentList(code);
+                var result = await _documentListService.GetDocumentListByCode(code);
                 return Ok(result);
+            }
+            catch (System.Exception)
+            {
+                _logger.LogError("Failed to execute GET");
+                return BadRequest();
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDocumentList()
+        {
+            try
+            {
+                var result = await _documentListService.GetDocumentList();
+                return Ok(result.Items);
             }
             catch (System.Exception)
             {

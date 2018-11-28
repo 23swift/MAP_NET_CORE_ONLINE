@@ -4,6 +4,7 @@ import { Router, Route, ActivatedRoute } from '@angular/router';
 import { supportsWebAnimations } from '@angular/animations/browser/src/render/web_animations/web_animations_driver';
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { RemarksModalComponent } from '../modal/remarks-modal/remarks-modal.component';
+import { NewAffiliationRequestService } from '../services/new-affiliation-request.service';
 
 
 @Component({
@@ -22,13 +23,19 @@ export class BdoFormHeaderComponent implements OnInit {
   showMqrUserProcessingButton: boolean;
   showMdcsChecking: boolean;
   showPreScreen: boolean;
+  newAffiliationId: number;
   @Input() mode: string;
   @Input() text: string;
   @Input() sub_text: string;
   @Input() submit: Function;
   @Input() disabled: boolean;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar, private _dialog: MatDialog) {}
+  constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar,
+    private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService) {
+    this._route.params.subscribe(param => {
+      this.newAffiliationId = param['id'];
+    });
+  }
 
   ngOnInit() {
     this.showApprovalOptions = true;
@@ -43,12 +50,12 @@ export class BdoFormHeaderComponent implements OnInit {
     this.showPreScreen = false;
 
     this.mode = this.mode ? this.mode : 'create';
-    
+
     if (this._router.url !== '/home') {
       if (this.mode.match(/approval/i)) {
         this.showApprovalOptions = true;
       }
-      if (this.mode.match(/update/i) /*|| this.mode.match(/approval/)*/) {
+      if (this.mode.match(/aoChecker/i) /*|| this.mode.match(/approval/)*/) {
         this.showRequestFlowOptions = true;
       }
       if (this.mode.match(/create/i)) {
@@ -64,7 +71,7 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showPosProcessingButton = true;
       }
       if (this.mode.match(/forPsChecker/i)) {
-        this.showPsCheckerButton = true;        
+        this.showPsCheckerButton = true;
       }
       if (this.mode.match(/mqrUser/i)) {
         this.showMqrUserProcessingButton = true;
@@ -92,8 +99,14 @@ export class BdoFormHeaderComponent implements OnInit {
   }
 
   return(): void {
-    this._dialog.open(RemarksModalComponent, {
+    const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%'
+    });
+
+    dialog.afterClosed().subscribe(d => {
+      this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
+        this._router.navigateByUrl('/home/aoChecker');
+      });
     });
   }
 }

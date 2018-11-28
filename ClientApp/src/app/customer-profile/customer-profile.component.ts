@@ -81,7 +81,7 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
   }
 
   backToHome() {
-    this.router.navigateByUrl('["/"]');
+    this.router.navigateByUrl('/home/aoEncoder');
   }
 }
 

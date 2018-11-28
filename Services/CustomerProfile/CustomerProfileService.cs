@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using MAP_Web.Models.ViewModels;
@@ -35,6 +36,10 @@ namespace MAP_Web.Services
             }
             
             await requestRepo.InsertAsync(request);
+            await SaveChangesAsync();
+
+            request.TrackingNo = request.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0');
+            requestRepo.Update(request);
         }
 
         public async Task<CustomerProfile> FindAsync(int id)

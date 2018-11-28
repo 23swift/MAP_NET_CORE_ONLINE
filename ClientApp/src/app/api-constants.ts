@@ -14,6 +14,7 @@ export namespace ApiConstants {
     export const aoListModalApi = '/api/aoListModal';
     export const dropdownlistApi = '/api/DropdownList';
     export const documentListApi = '/api/DocumentList';
+    export const requestHeaderApi = '/api/requestHeader';
 
 
     // REQUESTS

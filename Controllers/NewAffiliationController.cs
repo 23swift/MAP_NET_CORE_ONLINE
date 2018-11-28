@@ -17,7 +17,27 @@ namespace MAP_Web.Controllers
         public async Task<IActionResult> UpdateRequestForAoEncoder(int id)
         {
             var request = await newAffiliationService.FindAsync(id);
-            newAffiliationService.UpdateRequest(request);
+            newAffiliationService.UpdateRequest(request, 2);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("returnToAoEncoder/{id}")]
+        public async Task<IActionResult> ReturnToAoEncoder(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+            newAffiliationService.UpdateRequest(request, 1);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("aoChecker/{id}")]
+        public async Task<IActionResult> UpdateRequestForAoChecker(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+            newAffiliationService.UpdateRequest(request, 3);
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();

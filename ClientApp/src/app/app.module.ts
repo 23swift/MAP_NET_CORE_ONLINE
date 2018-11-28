@@ -437,8 +437,7 @@ export function showErrorOption(field) {
     MatSortModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule,
-    MatRadioModule
+    MatProgressSpinnerModule
   ],
   entryComponents: [RemarksModalComponent, HistoryModalComponent,
     AoListModalComponent, MidFormModalComponent,

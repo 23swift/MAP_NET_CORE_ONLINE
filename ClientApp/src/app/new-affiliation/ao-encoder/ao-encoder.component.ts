@@ -140,7 +140,7 @@ export class AoEncoderComponent implements OnInit {
       });
 
       snackBarSub.afterDismissed().subscribe(() => {
-        this._router.navigateByUrl('/');
+        this._router.navigateByUrl('/home/aoEncoder');
       });
     });
   }

@@ -76,7 +76,7 @@ import { PosListComponent } from './pos-list/pos-list.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/home/:userGroup', pathMatch: 'full' },
   { path: 'pos/:mode', component: PosRequestComponent },
   {
     path: 'posStep/:mode', component: PosRequestStepperComponent,
@@ -174,7 +174,7 @@ const routes: Routes = [
     ]
   },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home', component: HomeScreenComponent },
+  { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
   { path: 'oifForm', component: OcularInspectionFormComponent },
   { path: 'aoDashboard', component: AoCheckerDashboardComponent },
@@ -213,7 +213,7 @@ const routes: Routes = [
   { path: 'requestForm', component: RequestFormComponent },
   { path: 'posForm', component: PosFormComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home', component: HomeScreenComponent },
+  { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
   { path: 'oifForm', component: OcularInspectionFormComponent },
   ////////////// DASHBOARD ///////////////////
@@ -291,7 +291,7 @@ const routes: Routes = [
   { path: 'aoChecking', component: AoCheckingComponent },
   { path: 'posForm', component: PosFormComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home', component: HomeScreenComponent },
+  { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
   {
     path: 'na/mqrUser', component: MqrUserComponent,

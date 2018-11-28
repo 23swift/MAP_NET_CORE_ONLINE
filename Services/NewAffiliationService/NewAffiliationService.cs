@@ -19,9 +19,9 @@ namespace MAP_Web.Services
         {
             return await requestRepo.FindAsync(id);
         }
-        public void UpdateRequest(Request request)
+        public void UpdateRequest(Request request, int status)
         {
-            request.Status = 2;
+            request.Status = status;
             requestRepo.Update(request);
         }
 

@@ -35,8 +35,8 @@ export class DashboardData {
         }
       ];
 
-    Fields = ['ReferenceNo', 'RequestDate', 'RequestType', 'BusinessName',
-    'DBAName', 'RequestedBy', 'Status', 'TAT', 'Operation'];
+    Fields = ['referenceNo', 'requestDate', 'requestType', 'businessName',
+    'dbaName', 'requestedBy', 'status', 'tat', 'Operation'];
 
     MdcsFields = ['ReferenceNo', 'RequestDate', 'RequestType', 'BusinessName',
     'DBAName', 'RequestedBy', 'Status', 'TAT', 'Operation'];

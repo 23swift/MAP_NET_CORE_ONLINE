@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatStepper } from '@angular/material';
 import { AoCheckerService } from './ao-checker.service';
+import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
 
 @Component({
   selector: 'app-ao-checker',
@@ -26,11 +27,11 @@ export class AoCheckerComponent implements OnInit {
   isDocumentChecklist = false;
 
   constructor(private _formBuilder: FormBuilder, private _route: ActivatedRoute,
-    private _router: Router, private _snackBar: MatSnackBar
+    private _router: Router, private _snackBar: MatSnackBar, private _newAffiliationService: NewAffiliationRequestService
   ) { }
 
   ngOnInit() {
-    this.mode = 'update';
+    this.mode = 'aoChecker';
     // this.isOptional = true;
   }
 
@@ -64,12 +65,14 @@ export class AoCheckerComponent implements OnInit {
   }
 
   Submit() {
-    const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted', {
-      duration: 2000
-    });
+    this._newAffiliationService.updateRequestForAoChecker(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted', {
+        duration: 2000
+      });
 
-    snackBarSub.afterDismissed().subscribe(() => {
-      this._router.navigateByUrl('/');
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/home/aoChecker');
+      });
     });
   }
 

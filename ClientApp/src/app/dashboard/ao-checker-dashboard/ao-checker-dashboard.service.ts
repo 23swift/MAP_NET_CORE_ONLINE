@@ -14,13 +14,13 @@ export class AoCheckerDashboardService implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   getTableFields() {
     return this._dashboard.Fields;
   }
-  
+
   getAll() {
     return this._http.get(apiUrl);
   }

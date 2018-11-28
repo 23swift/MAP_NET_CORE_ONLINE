@@ -23,19 +23,12 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   constructor(private _route: ActivatedRoute, private _router: Router, private _docService: DocumentCheckListService,
     private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef, private _documentList: DocumentListService) { 
       this._documentList.get().subscribe(dl => {
-        console.log(dl)
-        // this.documentList = dl;
+        this.documentList = dl;
       });
     }
 
   ngOnInit() {
     this.displayedColumns = this._docService.getTableFields();
-    // this.mode = this._route.snapshot.params['mode'];
-
-    // if (this._router.url.indexOf('mdmUser') > -1 || this._router.url.indexOf('aoEncoder') > -1 ||
-    //   this._router.url.indexOf('aoChecker') > -1) {
-    //   this.showAdd = true;
-    // }
   }
 
   ngAfterViewInit() {
@@ -101,8 +94,6 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   }
 
   getDocumentName(docId) {
-    // console.log(docId);
-    return '';
-    // return this.documentList.find(dl => dl.id === docId).description;
+    return this.documentList.find(dl => dl.id === docId).description;
   }
 }

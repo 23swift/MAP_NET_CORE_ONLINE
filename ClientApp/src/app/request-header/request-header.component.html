@@ -1,13 +1,14 @@
-<div fxLayout="column" style="margin: 0px 10px;">
+
+<div fxLayout="column" style="margin: 0px 10px;" *ngIf="model">
     <div fxLayout="row" style="width: 100%;">
         <div fxFlex class="mat-subheading-1" style="color:#0d47a1">
-            Reference No: 000000110232018
+            Reference No: {{ model.referenceNumber }}
         </div>
         <div fxFlex></div>
         <div fxFlex></div>
         <div fxFlex></div>
         <div fxFlex>
-            <span class="mat-subheading-1" style="color:#0d47a1"> Requested Date: {{ dateToday | date: 'ddMMMyy' }}</span>
+            <span class="mat-subheading-1" style="color:#0d47a1"> Requested Date: {{ model.requestedDate | date: 'ddMMMyy' }}</span>
             <button mat-button (click)="openHistory()" color="primary" class="no-padding history-btn" matTooltip="Show History">
                 <i class="material-icons">history</i>
             </button>
@@ -15,21 +16,19 @@
     </div>
     <div fxLayout="row">
         <div fxFlex class="mat-subheading-1" style="color:#0d47a1">
-            AO Code: Juan dela Cruz
+            AO Code: {{ model.aoCode }}
         </div>
         <div fxFlex></div>
         <div fxFlex></div>
         <div fxFlex></div>
         <div fxFlex class="mat-subheading-1" style="color:#0d47a1">
-            Business/Legal Name: Aldo
+            Business/Legal Name: {{ model.legalName }}
         </div>
     </div>
     <div fxLayout="row">
         <div fxFlex class="mat-subheading-1" style="color:#0d47a1">
-            Ownership: Single Proprietorship
+            Ownership: {{ model.ownership }}
         </div>
-        <div fxFlex></div>
-        <div fxFlex></div>
         <div fxFlex></div>
         <div fxFlex></div>
         <div fxFlex></div>

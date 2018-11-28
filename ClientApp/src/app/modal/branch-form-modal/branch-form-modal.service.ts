@@ -2042,7 +2042,8 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Hold-out Amount',
           placeholder: '9999999999999999999',
-          pattern: '^\\d{1,19}$'
+          pattern: '^\\d{1,19}$',
+          maxLength: 19
         }
       }
       ]
@@ -2065,7 +2066,7 @@ export class BranchFormModalService {
       {
         className: 'flex-1',
         type: 'select',
-        key: 'fraudToolProviderId',
+        key: 'fraudToolProvider',
         expressionProperties: {
 
         },

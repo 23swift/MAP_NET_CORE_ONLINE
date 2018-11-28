@@ -83,6 +83,7 @@ namespace MAP_Web
             services.AddScoped<IBUMaintenanceService, BUMaintenanceService>();
             services.AddScoped<IServiceFeeContractService, ServiceFeeContractService>();
             services.AddScoped<IAoEncoderDashboardService, AoEncoderDashboardService>();
+            services.AddScoped<IAoCheckerDashboardService, AoCheckerDashboardService>();
             services.AddScoped<INewAffiliationService, NewAffiliationService>();
             services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<IDocumentListService, DocumentListService>();

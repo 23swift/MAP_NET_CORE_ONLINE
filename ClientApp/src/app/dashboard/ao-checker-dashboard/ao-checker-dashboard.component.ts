@@ -12,7 +12,7 @@ import { IRequestDisplay } from '../../temp/interface/irequest-display';
 })
 export class AoCheckerDashboardComponent implements OnInit {
   displayedColumns: string[];
-  dataSource: IRequestDisplay[];
+  dataSource = [];
 
   mode: string;
   title: string;
@@ -22,14 +22,20 @@ export class AoCheckerDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this.dataSource = this._service.get(0);
+    this._service.get().subscribe(dd => {
+      this.dataSource = dd;
+    });
 
     this.mode = '';
     this.title = '';
     this.subTitle = '';
   }
 
+  getStatus() {
+    return 'FOR AO CHECKER\'s REVIEW';
+  }
+
   private getItem(Id) {
-    this._router.navigateByUrl('na/aoChecker');
+    this._router.navigateByUrl('na/aoChecker/' + Id);
   }
 }

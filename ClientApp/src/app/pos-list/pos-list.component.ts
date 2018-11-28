@@ -102,6 +102,6 @@ export class PosListComponent implements OnInit {
   }
 
   getNatureOfRequest(code) {
-    return this.natureOfRequestList.find(n => n.code === code).value;
+    return code ? this.natureOfRequestList.find(n => n.code === code).value : '';
   }
 }

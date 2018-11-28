@@ -22,7 +22,6 @@ namespace MAP_Web.Services
         {
             Request request = new Request();
             request.Status = 1;
-            
             request.NewAffiliation = new NewAffiliation();
             request.NewAffiliation.CustomerProfile = customerProfile;
 

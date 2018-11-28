@@ -9,7 +9,6 @@ namespace MAP_Web.Models.ViewModels
             this.adverseFindings = false;
             this.incompleteReportDueTo = false;
             this.outskirt = false;
-            this.typeOfEvent = 0;
         }
         public int Id { get; set; }
         public string dbaTradeName { get; set; }
@@ -32,9 +31,9 @@ namespace MAP_Web.Models.ViewModels
         public string premiseStatus { get; set; }
         public string monthlyRent { get; set; }
         public string lengthOfStay { get; set; }
-        public int location { get; set; }
+        public string location { get; set; }
         public string businessSignage { get; set; }
-        public int typeOfPremise { get; set; }
+        public string typeOfPremise { get; set; }
         public string floorArea { get; set; }
         public bool interiorAppearance { get; set; }
         public bool exteriorAppearance { get; set; }
@@ -46,7 +45,7 @@ namespace MAP_Web.Models.ViewModels
         public string averageNoOfTransactionMonth { get; set; }
         public string nameOfEvent { get; set; }
         public string venue { get; set; }
-        public int typeOfEvent { get; set; }
+        public string typeOfEvent { get; set; }
         public string expectedNoOfBuyers { get; set; }
         public string productsServicesSoldOffered { get; set; }
         public string priceRangeOfProductsServices { get; set; }

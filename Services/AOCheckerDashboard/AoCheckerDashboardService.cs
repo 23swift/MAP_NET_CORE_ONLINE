@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using System.Linq;
 using MAP_Web.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System;
 
 namespace MAP_Web.Services
 {
-    public class AoEncoderDashboardService : IAoEncoderDashboardService
+    public class AoCheckerDashboardService : IAoCheckerDashboardService
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
-        public AoEncoderDashboardService(IUnitOfWork unitOfWork)
+        public AoCheckerDashboardService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
@@ -20,7 +20,7 @@ namespace MAP_Web.Services
         public async Task<List<DashboardViewModel>> FindAsync()
         {
             var dashboardContainer = new List<DashboardViewModel>();
-            var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile), orderBy: x => x.OrderByDescending(y => y.Id), predicate: r => r.Status == 1);
+            var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile), orderBy: x => x.OrderByDescending(y => y.Id), predicate: r => r.Status == 2);
 
             foreach (var item in requests.Items)
             {

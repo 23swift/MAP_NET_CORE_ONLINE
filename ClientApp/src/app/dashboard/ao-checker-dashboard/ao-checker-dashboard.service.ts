@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from '@angular/common/http';
+import { ApiConstants } from 'src/app/api-constants';
+import { Observable } from 'rxjs';
 
 const apiUrl = '';
 @Injectable()
@@ -23,9 +25,9 @@ export class AoCheckerDashboardService implements OnInit {
     return this._http.get(apiUrl);
   }
 
-  get(id) {
+  get(): Observable<any> {
     // return this._http.get(apiUrl + id);
-    return this._dashboard.ElementData;
+    return this._http.get(ApiConstants.aoCheckerDashboardApi);
   }
 
   create(): void {

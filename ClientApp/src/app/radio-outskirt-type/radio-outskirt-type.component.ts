@@ -1,6 +1,6 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { FieldType } from '@ngx-formly/material';
-import { MatInput, MatRadioButton, MatFormFieldControl, MatDialogRef, MatDialog } from '@angular/material';
+import { MatInput, MatRadioButton, MatFormFieldControl, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { startWith, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { OutskirtReminderModalComponent } from '../modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
@@ -17,12 +17,13 @@ export class RadioOutskirtTypeComponent extends FieldType implements OnInit {
     super();
   }
   ngOnInit() {
+  
   }
 
   showInfo(event) {
-    if (event.value) {
+    if (event.value == "true") {
       this._matDialog.open(OutskirtReminderModalComponent, {
-
+          data: event
       });
     }
   }

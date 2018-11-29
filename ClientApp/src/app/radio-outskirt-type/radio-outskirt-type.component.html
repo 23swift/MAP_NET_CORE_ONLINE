@@ -4,7 +4,8 @@
   <div class="mat-form-field-flex">
     <span class="mat-body-1"> Outskirt:</span>
     <mat-radio-group>
-      <mat-radio-button *ngFor="let item of to.options" [value]="item.value" (change)="showInfo($event)">{{item.label}}</mat-radio-button>
+      <mat-radio-button [value]=true (change)="showInfo($event)">Yes</mat-radio-button>
+      <mat-radio-button [value]=false (change)="showInfo($event)">No</mat-radio-button>
     </mat-radio-group>
   </div>
 </div>

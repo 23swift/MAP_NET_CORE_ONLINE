@@ -158,12 +158,11 @@ export class OifFormModalService {
         {
           key: 'outskirt',
           type: 'radioOutskirt',
-          defaultValue: 'false',
           templateOptions: {
             label: 'Outskirt',
             options: [
-              { value: 'true', label: 'Yes' },
-              { value: 'false', label: 'No' },
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' },
             ]
           },
           expressionProperties: {

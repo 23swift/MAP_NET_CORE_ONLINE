@@ -47,6 +47,7 @@ export class OifFormModalComponent implements OnInit {
 
   submit() {
     if (this.model['id']) {
+     // console.log(this.model);
       this._oifService.update(this.model['id'], this.model).subscribe(data => {
         this._snackBar.open('OIF Details', 'Updated', {
           duration: 1500

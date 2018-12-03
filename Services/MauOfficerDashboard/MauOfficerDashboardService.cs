@@ -39,7 +39,8 @@ namespace MAP_Web.Services
                 {
                     RequestId = item.Id,
                     RequestedDate = item.CreatedDate.Value,
-                    ReferenceNo = item.Id.ToString().PadLeft(7, '0'),
+                    // ReferenceNo = item.Id.ToString().PadLeft(7, '0'),
+                    ReferenceNo = item.TrackingNo,
                     RequestedBy = requestedBy,
                     TAT = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours,
                     Status = item.Owner == null ? "For Evaluation" : "For Re-Evaluation", //For Testing Purposes Only

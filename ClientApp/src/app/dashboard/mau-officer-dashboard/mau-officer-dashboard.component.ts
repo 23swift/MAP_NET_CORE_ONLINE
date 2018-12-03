@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MauOfficerDashboardService } from './mau-officer-dashboard.service';
 //import { IRequestDisplay } from '../../temp/interface/irequest-display';
-import { MatDialogRef, MatDialog, MatSnackBar } from '../../../../node_modules/@angular/material';
+import { MatDialogRef, MatDialog, MatSnackBar, MatSort, MatTableDataSource, MatTab } from '../../../../node_modules/@angular/material';
 import { AoListModalComponent } from '../../modal/ao-list-modal/ao-list-modal.component';
 import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 import { SearchModalComponent } from 'src/app/modal/search-modal/search-modal.component';
@@ -52,8 +52,9 @@ import { SearchModalComponent } from 'src/app/modal/search-modal/search-modal.co
   providers: [MauOfficerDashboardService]
 })
 export class MauOfficerDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[];
-  dataSource: any;
+  dataSource: MatTableDataSource<any>;
   mode: string;
   title: string;
   subTitle: string;
@@ -69,8 +70,10 @@ export class MauOfficerDashboardComponent implements OnInit {
     this.displayedColumns = ['ReferenceNo', 'RequestedDate', 'RequestType',
       'BusinessName', 'DBAName', 'RequestedBy',
       'RequestStatus', 'TAT', 'Operation']
+    
     this._service.Get().subscribe(x => {
-      this.dataSource = x;
+      this.dataSource = new MatTableDataSource(x);
+      this.dataSource.sort = this.sort;
     });
 
     this.mode = '';
@@ -113,6 +116,10 @@ export class MauOfficerDashboardComponent implements OnInit {
   ownRequest(id) {
     id = 1;
     this._router.navigateByUrl('na/mauOfficer/' + id);
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

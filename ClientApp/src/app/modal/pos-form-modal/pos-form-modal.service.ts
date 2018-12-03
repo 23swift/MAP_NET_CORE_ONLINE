@@ -58,10 +58,12 @@ export class PosFormModalService {
           lifecycle: {
             onInit: (form, field) => {
               field.formControl.valueChanges.subscribe(v => {
-                if (v === 3) {
+                if (v === 'TID Issuance') {
                   form.get('numberOfPrintedSlips').patchValue('2');
-                } else {
+                } else if (v === 'Installation') {
                   form.get('numberOfPrintedSlips').patchValue('');
+                } else {
+
                 }
               });
             }
@@ -457,7 +459,10 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Merchant Category Code (MCC)',
-            type: 'number'
+            maxLength: 4
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
@@ -527,7 +532,9 @@ export class PosFormModalService {
           templateOptions: {
             label: 'Number of Printed Slips',
             maxLength: 10,
-            type: 'number'
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
@@ -959,7 +966,9 @@ export class PosFormModalService {
           templateOptions: {
             label: 'BDO Pay Mobile – Number of Terminals (Count)',
             maxLength: 10,
-            type: 'number',
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {

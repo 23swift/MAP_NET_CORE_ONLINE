@@ -15,7 +15,7 @@ namespace MAP_Web.Models
         public string dbaAddress3 { get; set; }
         public string dbaAddress4 { get; set; }
         public string dbaCity { get; set; }
-        public bool outskirt { get; set; }
+        public string outskirt { get; set; }
         public string adminContactPerson { get; set; }
         public string position { get; set; }
         public string branchPhoneNumber { get; set; }

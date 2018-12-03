@@ -159,11 +159,7 @@ export class OifFormModalService {
           key: 'outskirt',
           type: 'radioOutskirt',
           templateOptions: {
-            label: 'Outskirt',
-            options: [
-              { value: true, label: 'Yes' },
-              { value: false, label: 'No' },
-            ]
+            label: 'Outskirt'
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -329,10 +325,11 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            pattern: '^\\d+$',
-            type: 'number',
             label: 'No. of Fulltime Employees',
             maxLength: 5
+          },
+          validators: {
+            validation: ['numeric'],
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -348,10 +345,11 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            pattern: '^\\d+$',
-            type: 'number',
             label: 'Contractual',
             maxLength: 5
+          },
+          validators: {
+            validation: ['numeric'],
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {

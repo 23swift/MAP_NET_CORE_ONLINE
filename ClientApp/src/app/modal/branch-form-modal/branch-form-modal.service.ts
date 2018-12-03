@@ -385,8 +385,10 @@ export class BranchFormModalService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -940,8 +942,10 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
           placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
-          pattern: '^\d{20}$',
           maxLength: 20
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -1368,6 +1372,9 @@ export class BranchFormModalService {
           label: 'Total Number Of Manual Imprinters',
           placeholder: 'Total Number Of Manual Imprinters',
           maxLength: 2
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -1638,8 +1645,10 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          type: 'number',
-          max: 999
+          maxLength: 3,
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -1774,8 +1783,10 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          type: 'number',
-          max: 999
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -1828,9 +1839,11 @@ export class BranchFormModalService {
 
           },
           templateOptions: {
-            type: 'number',
             label: 'INTES Code for Diners',
-            max: 9999
+            maxLength: 4
+          },
+          validators: {
+            validation: ['numeric'],
           }
         }
       ]
@@ -2015,8 +2028,10 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Total Number Of Manual Imprinters',
           placeholder: 'Total Number Of Manual Imprinters',
-          type: 'number',
-          max: 99
+          maxLength: 2
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -2878,8 +2893,10 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
           placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
-          pattern: '^\d{20}$',
           maxLength: 20
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -3327,8 +3344,10 @@ export class BranchFormModalService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -3517,8 +3536,10 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
           placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
-          pattern: '^\d{20}$',
           maxLength: 20
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -3605,7 +3626,9 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Store ID',
           placeholder: 'Store ID',
-          pattern: '^\d+$'
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -3619,7 +3642,7 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'SM Shop Card',
           placeholder: 'SM Shop Card',
-          pattern: '^\d+\.\d{2}$'
+          pattern: '^\\d+\\.\\d{2}$'
         }
       },
       {
@@ -3629,7 +3652,7 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'SM Gift Card',
           placeholder: 'SM Gift Card',
-          pattern: '^\d+\.\d{2}$'
+          pattern: '^\\d+\\.\\d{2}$'
         }
       },
       {
@@ -3764,7 +3787,11 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -3873,7 +3900,11 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -4693,8 +4724,10 @@ export class BranchFormModalService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -4884,8 +4917,10 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
           placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
-          pattern: '^\d{20}$',
           maxLength: 20
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -5054,7 +5089,11 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -5163,7 +5202,11 @@ export class BranchFormModalService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {

@@ -76,7 +76,8 @@ import { PosListComponent } from './pos-list/pos-list.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home/:userGroup', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeScreenComponent },
   { path: 'pos/:mode', component: PosRequestComponent },
   {
     path: 'posStep/:mode', component: PosRequestStepperComponent,

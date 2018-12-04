@@ -1624,8 +1624,8 @@ export class BranchFormModalService {
           onInit: (form, field) => {
             field.formControl.valueChanges.subscribe(v => {
               if (!v) {
-                form.get('numberOfDebitTidAtm').patchValue('');
-                form.get('mdrAtm').patchValue('');
+                form.get('numberOfDebitTidAtm').patchValue(undefined);
+                form.get('mdrAtm').patchValue(undefined);
               }
             });
           }
@@ -1684,7 +1684,7 @@ export class BranchFormModalService {
           onInit: (form, field) => {
             field.formControl.valueChanges.subscribe(v => {
               if (!v) {
-                form.get('mdrSmGiftCard').patchValue('');
+                form.get('mdrSmGiftCard').patchValue(undefined);
               }
             });
           }
@@ -1723,7 +1723,7 @@ export class BranchFormModalService {
           onInit: (form, field) => {
             field.formControl.valueChanges.subscribe(v => {
               if (!v) {
-                form.get('mdrSmShopCard').patchValue('');
+                form.get('mdrSmShopCard').patchValue(undefined);
               }
             });
           }
@@ -1762,8 +1762,8 @@ export class BranchFormModalService {
           onInit: (form, field) => {
             field.formControl.valueChanges.subscribe(v => {
               if (!v) {
-                form.get('numberOfDebitTidCashAgad').patchValue('');
-                form.get('mdrCashAgad').patchValue('');
+                form.get('numberOfDebitTidCashAgad').patchValue(undefined);
+                form.get('mdrCashAgad').patchValue(undefined);
               }
             });
           }

@@ -134,7 +134,6 @@ export class OifFormModalService {
           key: 'dbaCity',
           type: 'select',
           className: 'flex-1',
-          defaultValue: 0,
           templateOptions: {
             label: 'DBA City',
             options: this._dropDownService.getDropdown('CY'),
@@ -580,7 +579,7 @@ export class OifFormModalService {
           className: 'flex-1',
           key: 'withHighCardTraffic',
           type: 'radio',
-          defaultValue: 'true',
+          defaultValue: true,
           templateOptions: {
             label: 'With High Card Traffic?',
             options: [
@@ -718,20 +717,20 @@ export class OifFormModalService {
             onInit: (form, field) => {
               field.formControl.valueChanges.subscribe(v => {
                 if (v === 'EXHIBIT') {
-                  form.get('expectedNoOfParticipants').patchValue('');
-                  form.get('averageRegistration').patchValue('');
-                  form.get('inclusiveDateOfEvent').patchValue('');
+                  form.get('expectedNoOfParticipants').patchValue(undefined);
+                  form.get('averageRegistration').patchValue(undefined);
+                  form.get('inclusiveDateOfEvent').patchValue(undefined);
                 } else if (v === 'CONFERENCE/SYMPOSIUM/ANNUAL MEETING') {
-                  form.get('expectedNoOfBuyers').patchValue('');
-                  form.get('productsServicesSoldOffered').patchValue('');
-                  form.get('priceRangeOfProductsServices').patchValue('');
+                  form.get('expectedNoOfBuyers').patchValue(undefined);
+                  form.get('productsServicesSoldOffered').patchValue(undefined);
+                  form.get('priceRangeOfProductsServices').patchValue(undefined);
                 } else {
-                  form.get('expectedNoOfBuyers').patchValue('');
-                  form.get('productsServicesSoldOffered').patchValue('');
-                  form.get('priceRangeOfProductsServices').patchValue('');
-                  form.get('expectedNoOfParticipants').patchValue('');
-                  form.get('averageRegistration').patchValue('');
-                  form.get('inclusiveDateOfEvent').patchValue('');
+                  form.get('expectedNoOfBuyers').patchValue(undefined);
+                  form.get('productsServicesSoldOffered').patchValue(undefined);
+                  form.get('priceRangeOfProductsServices').patchValue(undefined);
+                  form.get('expectedNoOfParticipants').patchValue(undefined);
+                  form.get('averageRegistration').patchValue(undefined);
+                  form.get('inclusiveDateOfEvent').patchValue(undefined);
                 }
               });
             }
@@ -1007,8 +1006,7 @@ export class OifFormModalService {
           type: 'textarea',
           className: 'flex-1',
           templateOptions: {
-            label: 'Remarks',
-            description: ''
+            label: 'Remarks'
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {

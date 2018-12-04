@@ -61,9 +61,9 @@ export class PosFormModalService {
                 if (v === 'TID Issuance') {
                   form.get('numberOfPrintedSlips').patchValue('2');
                 } else if (v === 'Installation') {
-                  form.get('numberOfPrintedSlips').patchValue('');
+                  form.get('numberOfPrintedSlips').patchValue(undefined);
                 } else {
-
+                  form.get('numberOfPrintedSlips').patchValue(undefined);
                 }
               });
             }

@@ -3,10 +3,10 @@
     [formlyAttributes]="field">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>
-  <mat-error *ngIf="formControl.errors ? formControl.errors.required && formControl.touched : false" class="mat-error"
-    role="alert">This field is
+  <mat-error *ngIf="displayErrorOnInit && formControl.errors ? formControl.errors.required : false" class="mat-error">This field is
     required</mat-error>
-  <mat-error *ngIf="formControl.errors ? formControl.errors.matDatepickerParse && formControl.touched : false" class="mat-error"
-    role="alert">This
+  <mat-error *ngIf="displayErrorOnInit && formControl.errors ? formControl.errors.matDatepickerParse : false" class="mat-error">This
     field has invalid date</mat-error>
 </mat-form-field>
+
+<!-- <pre>ERROR {{ form.get(model.key) | json }}</pre> -->

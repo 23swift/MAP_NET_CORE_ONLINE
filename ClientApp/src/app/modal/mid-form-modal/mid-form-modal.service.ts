@@ -19,7 +19,6 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'cardPlans',
             type: 'select',
-            defaultValue: 1,
             templateOptions: {
               label: 'Card Plans / Styles',
               required: true,
@@ -46,27 +45,27 @@ export class MidFormModalService {
             },
             lifecycle: {
               onInit: (form, field) => {
-                field.formControl.valueChanges.subscribe(v => {
-                  if (v === 3 || v === 5) {
-                    form.get('merchantGroupCode').patchValue(4);
-                  } else if (v === 2 || v === 4) {
-                    form.get('merchantGroupCode').patchValue(3);
-                  }
+                // field.formControl.valueChanges.subscribe(v => {
+                //   if (v === 3 || v === 5) {
+                //     form.get('merchantGroupCode').patchValue(4);
+                //   } else if (v === 2 || v === 4) {
+                //     form.get('merchantGroupCode').patchValue(3);
+                //   }
 
-                  if (v === 2 || v === 3 || v === 6) {
-                    form.get('serviceFeeRate').patchValue('99.99');
-                    form.get('majorPurchase').patchValue(true);
-                  }
+                //   if (v === 2 || v === 3 || v === 6) {
+                //     form.get('serviceFeeRate').patchValue('99.99');
+                //     form.get('majorPurchase').patchValue(true);
+                //   }
 
-                  if (v === 6) {
-                    form.get('merchantPromotionsGroup').patchValue(1);
-                    form.get('defaultMpPromotion').patchValue(1);
-                  }
+                //   if (v === 6) {
+                //     form.get('merchantPromotionsGroup').patchValue(1);
+                //     form.get('defaultMpPromotion').patchValue(1);
+                //   }
 
-                  if (v !== 5) {
-                    form.get('status').patchValue(1);
-                  }
-                });
+                //   if (v !== 5) {
+                //     form.get('status').patchValue(1);
+                //   }
+                // });
               }
             }
           },
@@ -75,9 +74,9 @@ export class MidFormModalService {
             key: 'defaultTransSrc',
             type: 'select',
             expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 3;
-              }
+              // 'templateOptions.required': (model: any, formState: any) => {
+              //   return model['monitorCode'] === 3;
+              // }
             },
             templateOptions: {
               label: 'Default Transaction Source',
@@ -119,9 +118,9 @@ export class MidFormModalService {
             key: 'majorPurchase',
             type: 'checkbox',
             expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 2 || model['monitorCode'] === 3;
-              }
+              // 'templateOptions.required': (model: any, formState: any) => {
+              //   return model['monitorCode'] === 2 || model['monitorCode'] === 3;
+              // }
             },
             templateOptions: {
               label: 'Major Purchase',
@@ -130,8 +129,12 @@ export class MidFormModalService {
             lifecycle: {
               onInit: (form, field) => {
                 field.formControl.valueChanges.subscribe(v => {
-                  if (v) {
-                    form.get('serviceFeeStraight').patchValue(0);
+                  if (v === true) {
+                    form.get('serviceFeeRate').patchValue('99.99');
+                    form.get('serviceFeeStraight').patchValue(undefined);
+                  } else {
+                    form.get('serviceFeeRate').patchValue(undefined);
+                    form.get('merchantGroupCode').patchValue(undefined);
                   }
                 });
               }
@@ -190,13 +193,12 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'serviceFeeStraight',
             type: 'select',
-            defaultValue: 0,
             expressionProperties: {
               'templateOptions.disabled': (model: any, formState: any) => {
                 return model['majorPurchase'];
               },
               'templateOptions.required': (model: any, formState: any) => {
-                return model['serviceFeeRate'] === 0;
+                return !model['majorPurchase'];
               }
             },
             templateOptions: {
@@ -210,17 +212,19 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'merchantGroupCode',
             type: 'select',
-            defaultValue: 0,
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 3;
+                return model['majorPurchase'];
+              },
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return !model['majorPurchase'];
               }
             },
             templateOptions: {
               label: 'Merchant Group Code (Installment)',
-            options: this._dropDownService.getDropdown('MGC'),
-            labelProp: 'value',
-            valueProp: 'code',
+              options: this._dropDownService.getDropdown('MGC'),
+              labelProp: 'value',
+              valueProp: 'code',
             }
           },
           {
@@ -228,13 +232,13 @@ export class MidFormModalService {
             key: 'serviceFeeRate',
             type: 'input',
             expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['merchantGroupCode'] === 0 || model['serviceFeeStraight'] === 0;
-              }
+
             },
             templateOptions: {
+              required: true,
               label: 'Service Fee Rate',
               pattern: '^\\d{1,2}\.\\d{2}$',
+              maxLength: 5
             }
           }
         ]
@@ -278,7 +282,6 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'merchantPromotionsGroup',
             type: 'select',
-            defaultValue: 0,
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
                 return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
@@ -295,7 +298,6 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'defaultMpPromotion',
             type: 'select',
-            defaultValue: 1,
             templateOptions: {
               label: 'Default MP Promotion',
               required: true,

@@ -63,8 +63,10 @@ export class PosTerminalFormModalService {
             templateOptions: {
               label: 'Number of Terminal/s Requested',
               required: true,
-              type: 'number',
-              maxLength: 10,
+              maxLength: 10
+            },
+            validators: {
+              validation: ['numeric'],
             }
           },
           {

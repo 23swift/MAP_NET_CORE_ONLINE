@@ -21,7 +21,7 @@ export class RadioOutskirtTypeComponent extends FieldType implements OnInit {
 
   showInfo(event) {
    // console.log(event)
-    if (event.value == true) {
+    if (event.value === 'true') {
       this._matDialog.open(OutskirtReminderModalComponent, {
           data: event
       });

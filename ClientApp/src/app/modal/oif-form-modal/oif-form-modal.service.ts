@@ -432,7 +432,6 @@ export class OifFormModalService {
             labelProp: 'value',
             valueProp: 'code',
           },
-          defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
@@ -469,7 +468,6 @@ export class OifFormModalService {
             labelProp: 'value',
             valueProp: 'code',
           },
-          defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
@@ -705,7 +703,6 @@ export class OifFormModalService {
           key: 'typeOfEvent',
           type: 'select',
           className: 'flex-1',
-          defaultValue: 0,
           templateOptions: {
             label: 'Type Of Event',
             options: this._dropDownService.getDropdown('TE'),

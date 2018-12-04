@@ -29,10 +29,10 @@ namespace MAP_Web.Services
             var requests = await _requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(ss => ss.Branches), orderBy: x => x.OrderByDescending(y => y.Id));
             //var branch = await _branchRepo.GetPagedListAsync(include: x => x.Include(xx => xx.Request));
             var testUser = "a012001164";
-
+            var getRequestedBy = await _aoMaintenanceRepo.GetFirstOrDefaultAsync(predicate: x => x.userId == testUser);
             foreach (var item in requests.Items)
             {
-                var getRequestedBy = await _aoMaintenanceRepo.GetFirstOrDefaultAsync(predicate: x => x.userId == item.CreatedBy);
+               
                 var requestedBy = getRequestedBy == null ? "None" : getRequestedBy.firstName + " " + getRequestedBy.lastName;
 
                 dashboardContainer.Add(new MauOfficerDashboardViewModel

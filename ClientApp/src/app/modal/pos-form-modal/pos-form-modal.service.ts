@@ -1059,7 +1059,7 @@ export class PosFormModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'select',
           key: 'bdoPayMobileInternetConnection',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -1068,7 +1068,9 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'BDO Pay Mobile – Internet Connection',
-            maxLength: 50,
+            options: this._dropDownService.getDropdown('BPMIC'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         }
       ]
@@ -1092,7 +1094,7 @@ export class PosFormModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'select',
           key: 'bdoPayMobileReferenceField',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -1101,7 +1103,9 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'BDO Pay Mobile – Reference Field',
-            maxLength: 50,
+            options: this._dropDownService.getDropdown('NR'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {

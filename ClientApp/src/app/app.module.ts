@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatRadioModule, MatDialogModule, MatPaginator,
-  MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule
+  MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule, MatBottomSheet, MatBottomSheetModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
@@ -343,7 +343,7 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     NavMenuComponent,
     HomeComponent,
     RadioOutskirtTypeComponent,
-    OutskirtReminderModalComponent
+    OutskirtReminderModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -449,7 +449,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     MatSortModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatBottomSheetModule
   ],
   entryComponents: [RemarksModalComponent, HistoryModalComponent,
     AoListModalComponent, MidFormModalComponent,
@@ -465,7 +466,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     PosTerminalBrandListModalComponent,
     DocumentChecklistFormModalComponent,
     DocumentPerRequestFormModalComponent,
-    OutskirtReminderModalComponent],
+    OutskirtReminderModalComponent,
+    LoadingSpinnerComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

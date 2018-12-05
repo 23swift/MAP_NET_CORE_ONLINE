@@ -26,7 +26,7 @@ namespace MAP_Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //  services.AddAuthentication(options =>
             //     {
@@ -34,7 +34,7 @@ namespace MAP_Web
             //         options.DefaultChallengeScheme = "oidc";
             //     })
             //     .AddCookie("Cookies")
-                
+
             //     .AddOpenIdConnect("oidc", options =>
             //     {
             //         options.SignInScheme = "Cookies";
@@ -57,10 +57,10 @@ namespace MAP_Web
             //         //         return Task.FromResult(0);
             //         //     }
             //         // };
-                    
-                    
+
+
             //     });
-            services.AddDbContext<DataAccess.MAP_Context>(options=> options.UseSqlServer(Configuration.GetConnectionString("MAP_DB")))
+            services.AddDbContext<DataAccess.MAP_Context>(options => options.UseSqlServer(Configuration.GetConnectionString("MAP_DB")))
             .AddHttpClient()
             .AddUnitOfWork<DataAccess.MAP_Context>();
             services.AddAutoMapper();
@@ -94,7 +94,7 @@ namespace MAP_Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-			
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,22 +109,22 @@ namespace MAP_Web
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-               
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-		    
+
             // app.UseAuthentication();
-          
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-              
-            
-            
+
+
+
             // app.Use(async (context, next) =>
             //                                             {
             //                                                 if (!context.User.Identity.IsAuthenticated)
@@ -136,26 +136,26 @@ namespace MAP_Web
             //                                                         await next();
             //                                                     }
             //                                             });
-                    app.UseSpa(spa =>
-                    {
+            app.UseSpa(spa =>
+            {
                         // To learn more about options for serving an Angular SPA from ASP.NET Core,
                         // see https://go.microsoft.com/fwlink/?linkid=864501
 
                         spa.Options.SourcePath = "ClientApp";
 
-                        if (env.IsDevelopment())
-                        {
+                if (env.IsDevelopment())
+                {
                             // spa.UseAngularCliServer(npmScript: "build");
                             // spa.UseAngularCliServer(npmScript: "start");
                             // spa.UseAngularCliServer( "ng serve");
                             spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
 
-                            
-                        }
-                    });  
-                            
-                    }
+
                 }
-                
+            });
+
+        }
+    }
+
 }

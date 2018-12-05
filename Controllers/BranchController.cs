@@ -93,6 +93,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<BranchViewModel, Branch>(branch, currentBranch);
 
+            branchService.Update(currentBranch);
             await branchService.SaveChangesAsync();
 
             return Ok(currentBranch);

@@ -15,6 +15,7 @@ export namespace ApiConstants {
     export const dropdownlistApi = '/api/DropdownList';
     export const documentListApi = '/api/DocumentList';
     export const requestHeaderApi = '/api/requestHeader';
+    export const historyApi = '/api/history';
 
 
     // REQUESTS

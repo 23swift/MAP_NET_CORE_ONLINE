@@ -67,6 +67,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<MIDViewModel, MID>(mid, currentMid);
 
+            midService.Update(currentMid);
             await midService.SaveChangesAsync();
 
             return Ok(mid);

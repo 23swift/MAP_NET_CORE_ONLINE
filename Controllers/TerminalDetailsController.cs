@@ -67,6 +67,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<TerminalDetailsViewModel, TerminalDetails>(terminal, currentTerminal);
 
+            terminalDetailsService.Update(currentTerminal);
             await terminalDetailsService.SaveChangesAsync();
 
             return Ok(currentTerminal);

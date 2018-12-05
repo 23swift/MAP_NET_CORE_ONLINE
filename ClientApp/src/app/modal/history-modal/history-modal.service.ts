@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ApiConstants } from 'src/app/api-constants';
+import { Observable } from 'rxjs';
 
 const apiUrl = '';
 @Injectable()
@@ -7,7 +9,7 @@ export class HistoryModalService {
 
   constructor(private _http: HttpClient) { }
 
-  getById() {
-    return this._http.get(apiUrl);
+  getByRequest(id): Observable<any> {
+    return this._http.get(ApiConstants.historyApi + '/request/' + id);
   }
 }

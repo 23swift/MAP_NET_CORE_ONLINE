@@ -88,6 +88,7 @@ namespace MAP_Web
             services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<IDocumentListService, DocumentListService>();
             services.AddScoped<IRequestHeaderService, RequestHeaderService>();
+            services.AddScoped<IHistoryService, HistoryService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

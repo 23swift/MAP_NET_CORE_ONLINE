@@ -158,6 +158,7 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'status',
             type: 'select',
+            defaultValue: 1,
             expressionProperties: {
             },
             templateOptions: {

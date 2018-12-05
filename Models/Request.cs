@@ -14,6 +14,7 @@ namespace MAP_Web.Models
             RequiredApprovals = new HashSet<RequiredApproval>();
             MQRRequestApprovals = new HashSet<MQRRequestApproval>();
             MQRRequiredApprovals = new HashSet<MQRRequiredApproval>();
+            History = new HashSet<History>();
             CreatedDate = DateTime.Now;
         }
 
@@ -38,7 +39,7 @@ namespace MAP_Web.Models
         public virtual AdditionalFacility AdditionalFacility { get; set; }
         public virtual BranchAffiliation BranchAffiliation { get; set; }
         public virtual MAEF MAEF { get; set; }
-        public virtual History History { get; set; }
+        public virtual ICollection<History> History { get; set; }
     }
 
 }

@@ -29,7 +29,7 @@ namespace MAP_Web.Services
 
             foreach (var item in requests.Items)
             {
-                if (item.NewAffiliation.Branches.Count > 1)
+                if (item.NewAffiliation.Branches.Count > 0)
                 {
                     foreach (var branch in item.NewAffiliation.Branches)
                     {
@@ -53,7 +53,7 @@ namespace MAP_Web.Services
                         requestedDate = item.CreatedDate.Value,
                         businessName = item.NewAffiliation.CustomerProfile.legalName,
                         referenceNo = item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
-                        dbaName = item.NewAffiliation.Branches.SingleOrDefault().dbaName,
+                        dbaName = "",
                         requestedBy = "Test User",
                         tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                     });

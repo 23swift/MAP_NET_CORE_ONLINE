@@ -10,14 +10,30 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Owners> ownersRepo;
+        private readonly IRepository<History> historyRepo;
+        private readonly IRepository<CustomerProfile> customerRepo;
         public OwnersService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.ownersRepo = this.unitOfWork.GetRepository<Owners>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
         }
 
         public async Task InsertAsync(Owners owner)
         {
+            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
+
+            // CustomerProfile.NewAffiliationId is the same with Request.Id
+
+            historyRepo.Insert(new History{
+                date = DateTime.Now,
+                action = "Owner: " + owner.name + "'s Details Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = customer.NewAffiliationId
+            });
+
             await ownersRepo.InsertAsync(owner);
         }
 
@@ -38,11 +54,35 @@ namespace MAP_Web.Services
 
         public void Update(Owners owner)
         {
+            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
+
+            // CustomerProfile.NewAffiliationId is the same with Request.Id
+
+            historyRepo.Insert(new History{
+                date = DateTime.Now,
+                action = "Owner: " + owner.name + "'s Details Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = customer.NewAffiliationId
+            });
             ownersRepo.Update(owner);
         }
 
         public void Delete(Owners owner)
         {
+            
+            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
+
+            // CustomerProfile.NewAffiliationId is the same with Request.Id
+
+            historyRepo.Insert(new History{
+                date = DateTime.Now,
+                action = "Owner: " + owner.name + " Deleted",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = customer.NewAffiliationId
+            });
+
             ownersRepo.Delete(owner);
         }
     }

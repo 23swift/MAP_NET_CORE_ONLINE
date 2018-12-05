@@ -12,12 +12,14 @@ namespace MAP_Web.Services
         private readonly IRepository<CustomerProfile> customerRepo;
         private readonly IRepository<Request> requestRepo;
         private readonly IRepository<DocumentList> documentListRepo;
+        private readonly IRepository<History> historyRepo;
         public CustomerProfileService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
             this.documentListRepo = this.unitOfWork.GetRepository<DocumentList>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
         public async Task InsertAsync(CustomerProfile customerProfile)
         {
@@ -34,6 +36,13 @@ namespace MAP_Web.Services
                     documentName = item.Id
                 });
             }
+
+            request.History.Add(new History{
+                date = DateTime.Now,
+                action = "Request Created",
+                groupCode = "Test Group Code",
+                user = "Test User"
+            });
             
             await requestRepo.InsertAsync(request);
             await SaveChangesAsync();
@@ -55,6 +64,16 @@ namespace MAP_Web.Services
 
         public void Update(CustomerProfile customerProfile)
         {
+            // CustomerProfile.NewAffiliationId is the same with Request.Id
+
+            historyRepo.Insert(new History{
+                date = DateTime.Now,
+                action = "Request Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = customerProfile.NewAffiliationId
+            });
+
             customerRepo.Update(customerProfile);
         }
 

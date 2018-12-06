@@ -11,12 +11,11 @@ namespace MAP_Web.Models
     {
         [ForeignKey("Request")]
         public Int32 Id { get; set; }
-        public string RequestDescription { get; set; }
         public Int32 Status { get; set; }
         public Guid WorkflowInstanceId { get; set; }
         public Request Request { get; set; }
         public string userScreenFlow { get; set; }
-
+        // public POS POS { get; set; }
         // public virtual Branch Branch { get; set; }
 
     }

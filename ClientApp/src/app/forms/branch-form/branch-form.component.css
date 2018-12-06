@@ -1,3 +1,12 @@
 .mat-headline {
     font-size: 18px;
 }
+
+.mid-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.mid-form-container>* {
+    width: 100%;
+}

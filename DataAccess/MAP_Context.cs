@@ -42,6 +42,11 @@ namespace MAP_Web.DataAccess
                 .HasOne(n => n.OIF)
                 .WithOne(c => c.Branch)
                 .HasForeignKey<Models.OIF>(c => c.BranchId);
+
+            // modelBuilder.Entity<Models.POSRequest>()
+            //     .HasOne(n => n.POS)
+            //     .WithOne(c => c.POSRequest)
+            //     .HasForeignKey<Models.POS>(c => c.POSRequestId);
         }
     }
 }

@@ -48,10 +48,10 @@ export class OwnersFormModalComponent implements OnInit {
           this.model['percentOfOwnership'] = 100;
         }
 
-        this.fields = this._ownersService.getFormlyFields();
+        this.fields = this._ownersService.getFormlyFields(this.data['userGroup']);
       });
     } else {
-      this.fields = this._ownersService.getFormlyFields();
+      this.fields = this._ownersService.getFormlyFields(this.data['userGroup']);
     }
   }
 
@@ -85,7 +85,7 @@ export class OwnersFormModalComponent implements OnInit {
         const snackBarRef = this._snackBar.open('Owner\'s Details', 'No Inputted Value', {
           duration: 1000
         });
-        
+
         snackBarRef.afterDismissed().subscribe(s => {
           this._modalRef.close();
         });

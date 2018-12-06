@@ -7,7 +7,6 @@
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Create Customer Profile</span>
     </ng-template>
-    <span class="mat-headline">Customer Profile</span>
     <app-customer-profile [displayMode]="false" [userGroup]="'ao'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'cust')">Next

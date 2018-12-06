@@ -9,69 +9,141 @@ export class SignatoriesFormModalService {
 
   constructor(private _http: HttpClient) { }
 
-  getFormlyFields(): FormlyFieldConfig[] {
-    return [
-      {
-        fieldGroupClassName: 'display-flex',
-        fieldGroup: [
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'name',
-            templateOptions: {
-              label: 'Name',
-              maxLength: 50
+  getFormlyFields(userGroup): FormlyFieldConfig[] {
+    let fields = [];
+    if (userGroup === 'ao') {
+      fields = [
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'name',
+              templateOptions: {
+                label: 'Name',
+                maxLength: 50
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'signingAuthority',
+              templateOptions: {
+                label: 'Signing Authority',
+                maxLength: 50
+              }
             }
-          },
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'signingAuthority',
-            templateOptions: {
-              label: 'Signing Authority',
-              maxLength: 50
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'position',
+              templateOptions: {
+                label: 'Position',
+                maxLength: 22
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'select',
+              key: 'applicableTo',
+              defaultValue: 1,
+              templateOptions: {
+                label: 'Applicable To',
+                options: [
+                  { label: 'Legal Name', value: 1 },
+                  { label: 'Branch <DBA Name>', value: 2 }
+                ]
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'dbaName',
+              hideExpression: 'model.applicableTo !== 2',
+              templateOptions: {
+                label: 'DBA Name',
+                maxLength: 50
+              }
             }
-          }
-        ]
-      },
-      {
-        fieldGroupClassName: 'display-flex',
-        fieldGroup: [
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'position',
-            templateOptions: {
-              label: 'Position',
-              maxLength: 22
+          ]
+        }
+      ];
+    } else if (userGroup === 'mdcs') {
+      fields = [
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'name',
+              templateOptions: {
+                label: 'Name',
+                maxLength: 50
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'signingAuthority',
+              templateOptions: {
+                label: 'Signing Authority',
+                maxLength: 50,
+                disabled: true
+              }
             }
-          },
-          {
-            className: 'flex-1',
-            type: 'select',
-            key: 'applicableTo',
-            defaultValue: 1,
-            templateOptions: {
-              label: 'Applicable To',
-              options: [
-                { label: 'Legal Name', value: 1 },
-                { label: 'Branch <DBA Name>', value: 2 }
-              ]
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'position',
+              templateOptions: {
+                label: 'Position',
+                maxLength: 22,
+                disabled: true
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'select',
+              key: 'applicableTo',
+              defaultValue: 1,
+              templateOptions: {
+                label: 'Applicable To',
+                options: [
+                  { label: 'Legal Name', value: 1 },
+                  { label: 'Branch <DBA Name>', value: 2 }
+                ],
+                disabled: true
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'dbaName',
+              hideExpression: 'model.applicableTo !== 2',
+              templateOptions: {
+                label: 'DBA Name',
+                maxLength: 50,
+                disabled: true
+              }
             }
-          },
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'dbaName',
-            hideExpression: 'model.applicableTo !== 2',
-            templateOptions: {
-              label: 'DBA Name',
-              maxLength: 50
-            }
-          }
-        ]
-      }
-    ];
+          ]
+        }
+      ];
+    }
+
+    return fields;
   }
 
   create(signatories): Observable<any> {

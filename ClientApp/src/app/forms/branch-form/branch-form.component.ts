@@ -5,14 +5,16 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppBaseComponent } from '../../app-base/app-base.component';
 import { BranchFormService } from '../branch-form/branch-form.service';
 import { FormlyFieldConfigService } from '../../services/formly-field-config.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-branch-form',
   templateUrl: './branch-form.component.html',
   styleUrls: ['./branch-form.component.css']
 })
-export class BranchFormComponent extends AppBaseComponent implements OnInit {
+export class BranchFormComponent implements OnInit {
   @Input() displayMode: boolean;
+  @Input() branchId: number;
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {};
@@ -22,50 +24,28 @@ export class BranchFormComponent extends AppBaseComponent implements OnInit {
   subTitle: string;
   mode: string;
   backUrl: string;
-  private _branchFormService: BranchFormService;
-  constructor(private branchService: BranchFormService, public route: ActivatedRoute,
-    public router: Router, private _formService: FormlyFieldConfigService) {
-    super(route, router);
-    this._branchFormService = this.branchService;
+  constructor(private _branchService: BranchFormService, public route: ActivatedRoute,
+    public router: Router, private _formService: FormlyFieldConfigService, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.title = 'Branch';
-    this.getFields();
 
-    this.route.parent.url.subscribe((urlPath) => {
-      this.backUrl = urlPath.join().replace(',', '/');
+    this._branchService.get(this.branchId).subscribe(b => {
+      this.model = b;
+      this.fields = this._branchService.getBranchFields('mdcsEncoder');
     });
-
-    if (this.displayMode === true) {
-      this._formService.disabled(this.fields);
-    } else {
-      this._formService.enabled(this.fields);
-    }
   }
 
   submit() {
-    if (this.model['id']) {
-      this.branchService.update(this.model['id'], this.model).subscribe(data => {
-        console.log('UPDATE');
-        this.model = data;
-        this.isSaved = true;
+    this._branchService.update(this.model['id'], this.model).subscribe(data => {
+      const snackBarRef = this._snackBar.open('Branch Details', 'Updated', {
+        duration: 1000
       });
-    } else {
-      this.branchService.create(this.model).subscribe(data => {
-        console.log('SUCCESS');
-        this.model = data;
-        this.isSaved = true;
-      });
-    }
+    });
   }
 
   cancel() {
     this.router.navigateByUrl(this.backUrl);
   }
-
-  getFields() {
-    this.fields = this._branchFormService.getBranchFields();
-  }
-
 }

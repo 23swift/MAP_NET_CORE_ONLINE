@@ -16,11 +16,11 @@
   <!-- <div style="margin: 20px 0px">
     <app-pos-terminal-brand-list [showAdd]="showAction"></app-pos-terminal-brand-list>
   </div> -->
-
-  <div style="margin-top: 20px;">
-    <app-mid-list-modal [branchId]="branchId" [showAdd]="false" [showUpdate]="false"></app-mid-list-modal>
-  </div>
   <div style="margin-top: 20px;" *ngIf="model['id']">
-    <app-pos-terminal-brand-list-modal></app-pos-terminal-brand-list-modal>
+    <app-pos-terminal-brand-list-modal [showUpdate]="showTerminalUpdate" [showAdd]="showTerminalAdd"></app-pos-terminal-brand-list-modal>
+  </div>
+  
+  <div style="margin-top: 20px;" *ngIf="showMid">
+    <app-mid-list-modal [showAdd]="false" [showUpdate]="false"></app-mid-list-modal>
   </div>
 </mat-dialog-content>

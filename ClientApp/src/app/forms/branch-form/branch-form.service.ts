@@ -3,6 +3,7 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 import { HttpClient } from '@angular/common/http';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable({
   providedIn: 'root'
@@ -2962,6 +2963,7 @@ export class BranchFormService {
   //#endregion 
 
   //#region mdcs-encoder field
+
   mdcsEncoder: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
@@ -3074,16 +3076,9 @@ export class BranchFormService {
         templateOptions: {
           label: 'DBA City',
           disabled: true,
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ]
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       },
       {
@@ -3092,16 +3087,9 @@ export class BranchFormService {
         key: 'dbaZipCode',
         templateOptions: {
           label: 'Zipcode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ]
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }]
     },
@@ -3184,10 +3172,9 @@ export class BranchFormService {
           key: 'taxCode',
           templateOptions: {
             label: 'Tax Code',
-            options: [
-              { label: 'With Tax', value: '1' },
-              { label: 'No Tax Type Required', value: '2' }
-            ]
+            options: this._dropDownService.getDropdown('TC'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {
@@ -3197,10 +3184,9 @@ export class BranchFormService {
           templateOptions: {
             required: true,
             label: 'Tax Type',
-            options: [
-              { label: 'Tax Type 1', value: '1' },
-              { label: 'Tax Type 2', value: '2' }
-            ]
+            options: this._dropDownService.getDropdown('TT'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         }
       ]
@@ -3280,8 +3266,10 @@ export class BranchFormService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -3351,7 +3339,7 @@ export class BranchFormService {
       },
       ]
     },
-    //dropdown
+    // dropdown
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -3363,16 +3351,9 @@ export class BranchFormService {
         },
         templateOptions: {
           label: 'Special Mailing Address City',
-          options: [
-            { label: 'PASIG', value: '1' },
-            { label: 'MAKATI CITY', value: '2' },
-            { label: 'MANDALUYONG', value: '3' },
-            { label: 'PASAY CITY', value: '4' },
-            { label: 'SAN JUAN', value: '5' },
-            { label: 'VALENZUELA', value: '6' },
-            { label: 'QUEZON CITY', value: '7' },
-            { label: 'MANILA', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
       {
@@ -3384,16 +3365,9 @@ export class BranchFormService {
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
-          options: [
-            { label: '0400', value: '1' },
-            { label: '0401', value: '2' },
-            { label: '0410', value: '3' },
-            { label: '0420', value: '4' },
-            { label: '0550', value: '5' },
-            { label: '0560', value: '6' },
-            { label: '0700', value: '7' },
-            { label: '0701', value: '8' }
-          ],
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
       }
       ]
@@ -3409,7 +3383,8 @@ export class BranchFormService {
         type: 'checkbox',
         key: 'withExistingAcquirer',
         templateOptions: {
-          label: 'Yes'
+          label: 'Yes',
+          indeterminate: false
         },
       },
       {
@@ -3483,8 +3458,10 @@ export class BranchFormService {
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
           placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
-          pattern: '^\d{20}$',
           maxLength: 20
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -3571,7 +3548,9 @@ export class BranchFormService {
         templateOptions: {
           label: 'Store ID',
           placeholder: 'Store ID',
-          pattern: '^\d+$'
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -3585,7 +3564,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'SM Shop Card',
           placeholder: 'SM Shop Card',
-          pattern: '^\d+\.\d{2}$'
+          pattern: '^\\d+\\.\\d{2}$'
         }
       },
       {
@@ -3595,7 +3574,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'SM Gift Card',
           placeholder: 'SM Gift Card',
-          pattern: '^\d+\.\d{2}$'
+          pattern: '^\\d+\\.\\d{2}$'
         }
       },
       {
@@ -3713,7 +3692,8 @@ export class BranchFormService {
         key: 'isAtmDebit',
         templateOptions: {
           label: 'ATM/Debit',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -3729,7 +3709,11 @@ export class BranchFormService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -3745,7 +3729,8 @@ export class BranchFormService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3758,7 +3743,8 @@ export class BranchFormService {
         key: 'isSmGiftCard',
         templateOptions: {
           label: 'SM Gift Card',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         }
       },
       {
@@ -3774,7 +3760,8 @@ export class BranchFormService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3787,7 +3774,8 @@ export class BranchFormService {
         key: 'isSmShopCard',
         templateOptions: {
           label: 'SM Shop Card',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -3803,7 +3791,8 @@ export class BranchFormService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3816,7 +3805,8 @@ export class BranchFormService {
         key: 'isCashAgad',
         templateOptions: {
           label: 'Cash Agad',
-          disabled: true
+          disabled: true,
+          indeterminate: false
         },
       },
       {
@@ -3832,7 +3822,11 @@ export class BranchFormService {
           }
         },
         templateOptions: {
-          label: 'No. of Debit TIDs'
+          label: 'No. of Debit TIDs',
+          maxLength: 3
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -3848,7 +3842,8 @@ export class BranchFormService {
           }
         },
         templateOptions: {
-          label: 'MDR'
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
         }
       }
       ]
@@ -3857,7 +3852,7 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'merchDiscountRateDebitCrd',
           expressionProperties: {
@@ -3874,28 +3869,24 @@ export class BranchFormService {
     },
     {
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [  //conditional mandatory
+      fieldGroup: [  // conditional mandatory
         {
-          className: 'flex-1', //dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
-          key: 'MCC_Id',
+          key: 'mcc',
           expressionProperties: {
 
           },
           templateOptions: {
             label: 'MCC',
-            options: [
-              { label: '5421-Department Store', value: '1' },
-              { label: '5422-Food Store', value: '2' },
-              { label: '5423-Gaming', value: '3' },
-              { label: '5424-Software Industry', value: '4' },
-              { label: '5425-Apparel Industry', value: '5' }
-            ],
+            options: this._dropDownService.getDropdown('MCC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'INTES Code for Diners',
           expressionProperties: {
@@ -3911,7 +3902,7 @@ export class BranchFormService {
       ]
     },
     {
-      fieldGroupClassName: 'display-flex', //conditional mandatory
+      fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
           className: 'flex-1', // not yet
@@ -3935,9 +3926,9 @@ export class BranchFormService {
           },
           templateOptions: {
             label: 'Strategic Merchant',
-            options: [
-              { label: '1', value: '1' }
-            ],
+            options: this._dropDownService.getDropdown('SM'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           },
         }
@@ -3947,17 +3938,16 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          className: 'flex-1', //not yet
+          className: 'flex-1', // not yet
           type: 'select',
           key: 'defaultTransactionSource',
           expressionProperties: {
 
           },
           templateOptions: {
-            label: 'Default Transaction Source',
-            options: [
-              { label: ' ', value: '1' }
-            ],
+            options: this._dropDownService.getDropdown('MTSRC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -3975,7 +3965,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',//dropdown
+          className: 'flex-1',// dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -3983,11 +3973,9 @@ export class BranchFormService {
           },
           templateOptions: {
             label: 'Area Mall Code',
-            options: [
-              { label: 'AREA MALL CODE 1', value: '1' },
-              { label: 'AREA MALL CODE 2', value: '2' },
-              { label: 'AREA MALL CODE 3', value: '3' }
-            ],
+            options: this._dropDownService.getDropdown('AMC'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -4013,6 +4001,7 @@ export class BranchFormService {
         className: 'flex-1',
         type: 'input',
         key: 'imprinterNumber',
+        defaultValue: 'R',
         expressionProperties: {
 
         },
@@ -4111,7 +4100,7 @@ export class BranchFormService {
           disabled: true
         }
       },
-      { //numeric
+      { // numeric
         className: 'flex-1',
         type: 'input',
         key: 'holdOutAmount',
@@ -4120,14 +4109,15 @@ export class BranchFormService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: 'Hold-out Amount',
+          placeholder: '9999999999999999999',
+          pattern: '^\\d{1,19}$',
           disabled: true
         }
       }
       ]
     },
 
-    { //numeric
+    { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
@@ -4255,7 +4245,7 @@ export class BranchFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'fraudToolProvider',
+          key: 'fraudToolProviderId',
           templateOptions: {
             label: 'Fraud Tool Provider',
             placeholder: 'Fraud Tool Provider',
@@ -4350,8 +4340,7 @@ export class BranchFormService {
         }
       ]
     }
-  ];
-  //#endregion
+  ];//#endregion
 
   //#region mdcs-checker field
   mdcsChecker: FormlyFieldConfig[] = [
@@ -6579,10 +6568,16 @@ export class BranchFormService {
 
 
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
-  getBranchFields(): FormlyFieldConfig[] {
-    return this.veriScreen;
+  getBranchFields(userGroup): FormlyFieldConfig[] {
+    let fields;
+    if (userGroup === 'mdcsEncoder') {
+      fields = this.mdcsEncoder;
+    } else if (userGroup === 'mauEncoder') {
+      fields = this.veriScreen;
+    }
+    return fields;
   }
 
   get(branchId): Observable<any> {

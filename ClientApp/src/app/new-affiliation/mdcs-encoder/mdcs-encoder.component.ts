@@ -11,6 +11,7 @@ export class MdcsEncoderComponent implements OnInit {
   title: string;
   subTitle: string;
   mode: string;
+  newAffiliationId: number;
   constructor() { }
 
   ngOnInit() {
@@ -19,7 +20,11 @@ export class MdcsEncoderComponent implements OnInit {
     this.mode = 'forMdcsChecking';
   }
 
-  Submit() {
-    
+  getNewAffiliationId(id) {
+    this.newAffiliationId = id;
+  }
+
+  submit() {
+
   }
 }

@@ -1,3 +1,4 @@
+<span class="mat-headline">Customer Profile</span>
 <div class="m-lr-20px">
     <form [formGroup]="form" style="margin-top: 10px;" (ngSubmit)="submit()">
         <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
@@ -10,8 +11,8 @@
 </div>
 
 <div style="margin: 20px 0px">
-    <app-owners-list [displayMode]="false" [customerProfileId]="customerProfileId"></app-owners-list>
+    <app-owners-list [displayMode]="false" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-owners-list>
 </div>
 <div style="margin: 20px 0px">
-    <app-signatories-list [displayMode]="false" [customerProfileId]="customerProfileId"></app-signatories-list>
+    <app-signatories-list [displayMode]="false" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-signatories-list>
 </div>

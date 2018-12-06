@@ -1,4 +1,4 @@
-<span class="mat-headline">
+<!-- <span class="mat-headline">
   Branch Details
 </span>
 <form [formGroup]="form" (ngSubmit)="submit()">
@@ -17,4 +17,16 @@
     <router-outlet name="mid"></router-outlet>
 </div>
 
-<ng-content></ng-content>
+<ng-content></ng-content> -->
+<div class="mat-typography">
+  <div class="mat-headline" color="primary">Branch Details</div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
+  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+    <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+      <button type="submit" color="primary" mat-raised-button [disabled]="form.invalid">Save </button>
+      <button type="button" color="accent" (click)="cancel()" mat-raised-button>Cancel</button>
+    </div>
+  </formly-form>
+</form>

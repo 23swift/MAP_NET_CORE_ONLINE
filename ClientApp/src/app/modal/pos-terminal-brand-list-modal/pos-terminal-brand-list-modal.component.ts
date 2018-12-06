@@ -16,8 +16,8 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   displayedColumns;
   dataSource;
   posId: number;
-  @Input() showAdd?: boolean;
-  showAddTerminal: boolean;
+  @Input() showUpdate = true;
+  @Input() showAdd = true;
   terminalBrandList = [];
   terminalTypeList = [];
   terminalModelList = [];
@@ -28,7 +28,9 @@ export class PosTerminalBrandListModalComponent implements OnInit {
     private _changeDetectRef: ChangeDetectorRef,
     private _dropDownService: DropDownService) {
       this.posId = this.dialogData['posId'];
-
+      // if (this.dialogData['showTerminalUpdate'] !== undefined) {
+      //   this.showUpdate = this.dialogData['showTerminalUpdate'];
+      // }
 
       forkJoin([
         this._dropDownService.getDropdown('POSTB'),
@@ -48,13 +50,13 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   ngOnInit() {
     this.displayedColumns = this._terminalService.getTableFields();
 
-    this._route.data.subscribe(data => {
-      if (data['showAddTerminal'] !== undefined) {
-        this.showAddTerminal = data['showAddTerminal'];
-      } else {
-        this.showAddTerminal = this.showAdd;
-      }
-    });
+    // this._route.data.subscribe(data => {
+    //   if (data['showAddTerminal'] !== undefined) {
+    //     this.showAddTerminal = data['showAddTerminal'];
+    //   } else {
+    //     this.showAddTerminal = this.showAdd;
+    //   }
+    // });
 
 
   }

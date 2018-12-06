@@ -167,6 +167,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { OutskirtReminderModalComponent } from './modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
 import { RadioOutskirtTypeComponent } from './radio-outskirt-type/radio-outskirt-type.component';
+import { MdcsBranchListComponent } from './mdcs-branch-list/mdcs-branch-list.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -343,7 +344,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     NavMenuComponent,
     HomeComponent,
     RadioOutskirtTypeComponent,
-    OutskirtReminderModalComponent
+    OutskirtReminderModalComponent,
+    MdcsBranchListComponent
   ],
   imports: [
     BrowserModule,

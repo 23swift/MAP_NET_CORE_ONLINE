@@ -1,10 +1,12 @@
+<div *ngIf="showBranchInfo">
 <div class="flex-branch-list-header">
-    <span class="mat-headline">Branch Information</span>
-  </div>  
+  <span class="mat-headline">Branch Information</span>
+</div>
 <form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
   <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
   </formly-form>
 </form>
+</div>
 <div style="margin-top: 20px">
-    <app-pos-list [branchId]="branchId"></app-pos-list>
+  <app-pos-list [branchId]="branchId"></app-pos-list>
 </div>

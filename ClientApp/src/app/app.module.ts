@@ -187,6 +187,9 @@ export function maxLengthValidationMessage(err, field) {
 export function patternValidationMessage(err, field) {
   return `Invalid input characters`;
 }
+export function emailValidationMessage(err, field) {
+  return `This field has an invalid email address`;
+}
 
 export function showErrorOption(field) {
   return (field.formState.submitted || field.formControl.touched ||
@@ -409,7 +412,12 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
           {
             name: 'pattern', message: patternValidationMessage
           },
-          { name: 'numeric', message: numericValidatorMessage }
+          {
+            name: 'numeric', message: numericValidatorMessage
+          },
+          {
+            name: 'email', message: emailValidationMessage
+          }
         ],
         validators: [
           { name: 'numeric', validation: numericValidator }

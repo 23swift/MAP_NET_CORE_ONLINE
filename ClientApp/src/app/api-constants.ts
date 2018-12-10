@@ -16,6 +16,7 @@ export namespace ApiConstants {
     export const documentListApi = '/api/DocumentList';
     export const requestHeaderApi = '/api/requestHeader';
     export const historyApi = '/api/history';
+    export const mdcsDashboard = '/api/mdcsDashboard';
 
 
     // REQUESTS

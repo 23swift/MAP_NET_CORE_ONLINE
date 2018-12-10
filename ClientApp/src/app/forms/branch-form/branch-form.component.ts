@@ -17,7 +17,11 @@ export class BranchFormComponent implements OnInit {
   @Input() branchId: number;
   form = new FormGroup({});
   model: any = {};
-  options: FormlyFormOptions = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
   fields: FormlyFieldConfig[];
   title = 'Branch Affiliation';
   isSaved = false;

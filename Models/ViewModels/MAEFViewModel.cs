@@ -1,20 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
-namespace MAP_Web.Models
+namespace MAP_Web.Models.ViewModels
 {
-    public partial class MAEF
+    public class MAEFViewModel
     {
-
-        public MAEF()
-        {
-            //this.CreditChecking = new HashSet<CreditChecking>();
-        }
-
-
         public Int32 Id { get; set; }
 
         public bool bnpNfisWithAd { get; set; }
@@ -103,12 +92,7 @@ namespace MAP_Web.Models
 
        public Nullable<System.DateTime> decisionDate3 { get; set; }
 
-       public ICollection<ApproveWithReqReason> ApproveWithReqReason { get; set; }
-
-       public ICollection<ApproveWithExceptDetails> ApproveWithExceptDetails { get; set; }
-
         public int RequestId { get; set; }
-        public Request Request { get; set; }
-
+        public Request Request { get; set; }       
     }
 }

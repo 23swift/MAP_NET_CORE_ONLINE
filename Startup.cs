@@ -88,6 +88,10 @@ namespace MAP_Web
             services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<IDocumentListService, DocumentListService>();
             services.AddScoped<IRequestHeaderService, RequestHeaderService>();
+            services.AddScoped<IMauEncoderDashboardService, MauEncoderDashboardService>();
+            services.AddScoped<IMAEFService, MAEFService>();
+            services.AddScoped<IApproveWithReqReasonService, ApproveWithReqReasonService>();
+            services.AddScoped<IApproveWithExceptDetailsService, ApproveWithExceptDetailsService>();          
             services.AddScoped<IHistoryService, HistoryService>();
             services.AddScoped<IMDCSDashboardService, MDCSDashboardService>();
 

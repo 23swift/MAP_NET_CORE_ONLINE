@@ -477,6 +477,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     DocumentChecklistFormModalComponent,
     DocumentPerRequestFormModalComponent,
     OutskirtReminderModalComponent,
+    ApproveWithReqReasonFormModalComponent,
+    ApproveWithExceptReasonDetailsModalComponent,
     LoadingSpinnerComponent],
   providers: [],
   bootstrap: [AppComponent]

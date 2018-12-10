@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from '../../api-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +23,7 @@ export class MaefFormService {
       }
       ]
     },
+    /*
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -47,7 +51,7 @@ export class MaefFormService {
         }
       }
       ]
-    },
+    }, */
 
     {
       fieldGroupClassName: 'display-flex',
@@ -546,8 +550,8 @@ export class MaefFormService {
             label: 'Nature Of Business',
             required: true,
             options: [
-              { value: '1', label: 'Desirable' },
-              { value: '2', label: 'Non-Desirable' }
+              { value: true, label: 'Desirable' },
+              { value: false, label: 'Non-Desirable' }
             ],
           },
 
@@ -857,9 +861,21 @@ export class MaefFormService {
 
   ];
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
   getMaefFields(): FormlyFieldConfig[] {
     return this.fields;
+  }
+
+  create(maef): Observable<any> {
+    return this._http.post(ApiConstants.maefApi, maef);
+  }
+
+  update(id, maef): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/' + id, maef);
+  }
+
+  getMAEF(id): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/' + id);
   }
 
 

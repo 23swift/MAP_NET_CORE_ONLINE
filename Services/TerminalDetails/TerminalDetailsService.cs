@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,13 +9,28 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<TerminalDetails> terminalRepo;
+        private readonly IRepository<History> historyRepo;
+        private readonly IRepository<POS> posRepo;
         public TerminalDetailsService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.terminalRepo = this.unitOfWork.GetRepository<TerminalDetails>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.posRepo = this.unitOfWork.GetRepository<POS>();
         }
         public async Task InsertAsync(TerminalDetails terminalDetails)
         {
+            var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
+            var branch = pos.Branch;
+            // POS.Branch.NewAffiliationId is the same with Request.Id
+
+            historyRepo.Insert(new History{
+                date = DateTime.Now,
+                action = "Terminal Details for Branch: " + branch.dbaName + " Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             await terminalRepo.InsertAsync(terminalDetails);
         }
 
@@ -28,13 +44,35 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(TerminalDetails terminalDetails)
+        public async void Update(TerminalDetails terminalDetails)
         {
+            var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
+            var branch = pos.Branch;
+            // POS.Branch.NewAffiliationId is the same with Request.Id
+
+            historyRepo.Insert(new History{
+                date = DateTime.Now,
+                action = "MID for Branch: " + branch.dbaName + " Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             terminalRepo.Update(terminalDetails);
         }
 
-        public void Delete(TerminalDetails terminalDetails)
+        public async void Delete(TerminalDetails terminalDetails)
         {
+            var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
+            var branch = pos.Branch;
+            // POS.Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "MID for Branch: " + branch.dbaName + " Deleted",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             terminalRepo.Delete(terminalDetails);
         }
 

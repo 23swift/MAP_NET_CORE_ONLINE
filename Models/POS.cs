@@ -90,5 +90,7 @@ namespace MAP_Web.Models
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
         public virtual ICollection<TerminalDetails> TerminalDetails {get;set;}
+        // public int POSRequestId { get; set; }
+        // public POSRequest POSRequest { get; set; }
     }
 }

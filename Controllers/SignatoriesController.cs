@@ -66,8 +66,8 @@ namespace MAP_Web.Controllers
 
             mapper.Map<SignatoriesViewModel, Signatories>(signatories, currentSigna);
 
+            signatoriesService.Update(currentSigna);
             await signatoriesService.SaveChangesAsync();
-
 
             return Ok(currentSigna);
         }

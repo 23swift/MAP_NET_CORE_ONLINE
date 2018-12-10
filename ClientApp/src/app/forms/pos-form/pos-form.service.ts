@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { Observable, of } from 'rxjs';
 import { when } from '../../../../node_modules/@types/q';
+import { DropDownService } from 'src/app/services/drop-down.service';
+import { AoListModalService } from 'src/app/modal/ao-list-modal/ao-list-modal.service';
 
 @Injectable()
 
@@ -9,42 +11,195 @@ export class PosFormService {
 
   fields: FormlyFieldConfig[] = [
     {
-      className: 'flex-1',
-      type: 'select',
-      key: 'natureOfRequest',
-      templateOptions: {
-        label: 'Nature Of Request',
-        disabled: true
-      }
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'checkbox',
+          key: 'isWaved',
+          defaultValue: false,
+          templateOptions: {
+            indeterminate: false,
+            label: 'Waive POS'
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'checkbox',
+          key: 'isShared',
+          templateOptions: {
+            indeterminate: false,
+            label: 'Shared POS'
+          }
+        }
+      ]
     },
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-        // {
-        //   className: 'flex-1',
-        //   type: 'input',
-        //   key: 'requestersName',
-        //   templateOptions: {
-        //     label: "Requester's Name",
-        //     disabled: true
-        //   }
-        // },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'natureOfRequest',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Nature Of Request',
+            options: this._dropDownService.getDropdown('NR'),
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === 'Installation') {
+                  form.get('numberOfPrintedSlips').patchValue(undefined);
+                  form.get('merchantDbaAddressOld').patchValue(undefined);
+                  form.get('dateTimeEndorsedPaymentSolutionsOperations').patchValue(undefined);
+                } else if (v === 'TID Issuance') {
+                  form.get('numberOfPrintedSlips').patchValue('2');
+                  form.get('area').patchValue(undefined);
+                  form.get('businessTypeOfAccount').patchValue(undefined);
+                  form.get('businessUnitAO').patchValue(undefined);
+                  form.get('segment').patchValue(undefined);
+                  form.get('merchantNameOnSignage').patchValue(undefined);
+                  form.get('merchantDbaAddressOld').patchValue(undefined);
+                  form.get('isContactlessMerchant').patchValue(undefined);
+                  form.get('contactPerson').patchValue(undefined);
+                  form.get('contactNumber').patchValue(undefined);
+                  form.get('numberOfPrintedSlips').patchValue(undefined);
+                  form.get('reasonForThreeSlipsPrinting').patchValue(undefined);
+                  form.get('requiredDateAndTimeOfDispatch').patchValue(undefined);
+                  form.get('isInstallationTerm').patchValue(undefined);
+                  form.get('requiredPullOutDateForTempPOSTerminals').patchValue(undefined);
+                  form.get('reasonForPermanentGPRSInstallation').patchValue(undefined);
+                  form.get('otherRequiredProfilingFacility').patchValue(undefined);
+                  form.get('mustSettle').patchValue(undefined);
+                  form.get('remarksSpecialInstructions').patchValue(undefined);
+                  form.get('merchantLoyalty').patchValue(undefined);
+                  form.get('merchantPrepaid').patchValue(undefined);
+                  form.get('bdoPayMobileNumberOfTerminals').patchValue(undefined);
+                  form.get('bdoPayMobileBusinessGroup').patchValue(undefined);
+                  form.get('bdoPayMobileMerchantPortalUserEmailAddress').patchValue(undefined);
+                  form.get('bdoPayMobileMerchantPortalNominatedUsername').patchValue(undefined);
+                  form.get('bdoPayMobileInternetConnection').patchValue(undefined);
+                  form.get('bdoPayMobileInternetProvider').patchValue(undefined);
+                  form.get('bdoPayMobileReferenceField').patchValue(undefined);
+                  form.get('bdoPayMobileRfName').patchValue(undefined);
+                } else {
+                  form.get('area').patchValue(undefined);
+                  form.get('businessTypeOfAccount').patchValue(undefined);
+                  form.get('businessUnitAO').patchValue(undefined);
+                  form.get('segment').patchValue(undefined);
+                  form.get('approvedBy').patchValue(undefined);
+                  form.get('merchantNameOnSignage').patchValue(undefined);
+                  form.get('isInstallationTerm').patchValue(undefined);
+                  form.get('requiredPullOutDateForTempPOSTerminals').patchValue(undefined);
+                  form.get('reasonForPermanentGPRSInstallation').patchValue(undefined);
+                  form.get('dateTimeEndorsedPaymentSolutionsOperations').patchValue(undefined);
+                }
+              });
+            }
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'reprogrammingType',
+          defaultValue: 0,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'TID Issuance' ||
+              model['natureOfRequest'] === 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'TID Issuance' ||
+              model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Reprogramming Type',
+            options: this._dropDownService.getDropdown('RPT'),
+            labelProp: 'value',
+            valueProp: 'code',
+          }
+        },
+        /*  {
+            className: 'flex-1',
+            type: 'select',
+            key: 'tidIssuanceType',
+            defaultValue: 0,
+            expressionProperties: {
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['natureOfRequest'] !== 'TID Issuance';
+              }
+            },
+            templateOptions: {
+              label: 'TID Issuance Type',
+              options: [
+                { value: 0, label: 'Select TID Issuance Type' }
+              ]
+            }
+          } */
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'requestersName',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Requester\'s Name',
+            maxLength: 50,
+          }
+        },
         {
           className: 'flex-1',
           type: 'input',
           key: 'requestersBusinessUnit',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Requester's Business Unit",
-            disabled: true
+            label: 'Requester\'s Business Unit',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'requestersContactNumber',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Requester's Contact Number / Cellphone Number",
-            disabled: true
+            label: 'Requester\'s Contact Number / Cellphone Number',
+            pattern: '^(\\d{2})-\\d{3}-\\d{2}-\\d{2}$',
+            type: 'number',
+            maxLength: 50,
           }
         }
       ]
@@ -56,69 +211,102 @@ export class PosFormService {
           className: 'flex-1',
           type: 'select',
           key: 'area',
+          defaultValue: 0,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
             label: 'Business Unit / Area (where POS will be charged)',
-            disabled: true
+            options: this._dropDownService.getDropdown('MALLS'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {
           className: 'flex-1',
           type: 'select',
           key: 'accountOfficerHandler',
+          defaultValue: 0,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
             label: 'Account Officer / Handler',
-            disabled: true
+            options: this._aoListService.getAoList(),
+            labelProp: 'lastName',
+            valueProp: 'lastName',
           }
         },
         {
           className: 'flex-1',
           type: 'select',
           key: 'businessTypeOfAccount',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
             label: 'Business Type Of Account (AO / RM / HO)',
-            valueProp: 'BusinessTypeOfAcccount_Id',
-            labelProp: 'Description',
-            options: [
-              { BusinessTypeOfAcccount_Id: '1', Description: 'AO' },
-              { BusinessTypeOfAcccount_Id: '2', Description: 'RM' },
-              { BusinessTypeOfAcccount_Id: '3', Description: 'HO' }
-            ],
-            disabled: true
+            options: this._dropDownService.getDropdown('BTOA'),
+            labelProp: 'value',
+            valueProp: 'code',
           },
           defaultValue: '1'
-
         }
       ]
     },
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'segment',
-          templateOptions: {
-            disabled: true,
-            label: "Segment",
-
-          }
-        },
         {
           className: 'flex-1',
           type: 'select',
           key: 'businessUnitAO',
+          defaultValue: 0,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Business Unit (AO's Business Unit)",
-            disabled: true
+            label: 'Business Unit (AO\'s Business Unit)',
+            options: this._dropDownService.getDropdown('ABU'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'approvedBy',
+          key: 'segment',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Approved By (Business Unit Head)",
-            disabled: true
+            label: 'Segment',
+            maxLength: 50,
           }
         }
       ]
@@ -129,28 +317,52 @@ export class PosFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'merchantLegalName',
+          key: 'approvedBy',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Merchant's Legal Name",
-            disabled: true
+            label: 'Approved By (Business Unit Head)',
+            maxLength: 50,
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantLegalName',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Merchant\'s Legal Name',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'merchantDBAName',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Merchant's DBA Name",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantNameOnSignage',
-          templateOptions: {
-            label: "Merchant's Name on Signage",
-            disabled: true
+            label: 'Merchant\'s DBA Name',
+            maxLength: 50,
           }
         }
       ]
@@ -161,31 +373,110 @@ export class PosFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'merchantDBAAddress',
+          key: 'merchantNameOnSignage',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Merchant's DBA Address",
-            disabled: true
+            label: 'Merchant\'s Name on Signage',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'merchantDBACity',
+          key: 'merchantDbaAddress',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Merchant's DBA City",
-            disabled: true
+            label: 'Merchant\'s DBA Address',
+            maxLength: 50,
           }
         },
         {
-          key: 'contactlessMerchant',
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantDbaAddressOld',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Merchant\'s DBA Address (old)',
+            maxLength: 150,
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantDbaCity',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Merchant\'s DBA City',
+            maxLength: 50,
+          }
+        },
+        {
+          className: 'flex-1',
+          key: 'isContactlessMerchant',
           type: 'radio',
+          defaultValue: true,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
             label: 'Contactless Merchant?',
             options: [
-              { value: 'true', label: 'Yes' },
-              { value: 'false', label: 'No' }
-            ],
-            disabled: true
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' }
+            ]
+          }
+        },
+        {
+          className: 'flex-1',
+          key: 'isMultiMerchant',
+          type: 'radio',
+          defaultValue: false,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'Multi-Merchant?',
+            options: [
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' }
+            ]
           }
         }
       ]
@@ -197,27 +488,51 @@ export class PosFormService {
           className: 'flex-1',
           type: 'input',
           key: 'merchantCategoryCode',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Merchant Category Code (MCC)",
-            disabled: true
+            label: 'Merchant Category Code (MCC)',
+            maxLength: 4
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'nsp',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "NSP",
-            disabled: true
+            label: 'NSP',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'contactPerson',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Contact Person",
-            disabled: true
+            label: 'Contact Person (Outlet / Branch) Name / Email Address)',
+            maxLength: 50,
           }
         }
       ]
@@ -229,27 +544,53 @@ export class PosFormService {
           className: 'flex-1',
           type: 'input',
           key: 'contactNumber',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Contact Number",
-            disabled: true
+            label: 'Contact Number (Outlet / Branch) Landline / Mobile Phone)',
+            pattern: '^(\\d{2})-\\d{3}-\\d{2}-\\d{2}$|^[\\d\\d\\d|\\d\\d\\d\\d]-\\d{8}$',
+            type: 'number',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'numberOfPrintedSlips',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Number of Printed Slips",
-            disabled: true
+            label: 'Number of Printed Slips',
+            maxLength: 10,
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'reasonForThreeSlipsPrinting',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Reason For 3 Slips Printing",
-            disabled: true
+            label: 'Reason For 3 Slips Printing',
+            maxLength: 50
           }
         }
       ]
@@ -260,769 +601,53 @@ export class PosFormService {
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'requestDateAndTimeOfDispatch',
+          key: 'requiredDateAndTimeOfDispatch',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] !== 'TID Issuance') || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Request Date And Time Of Dispatch",
-            disabled: true
+            label: 'Required Date and Time of Dispatch',
           }
         },
         {
           className: 'flex-1',
           type: 'radio',
-          key: 'installationTerm',
-          templateOptions: {
-            label: "Installation Term",
-            options: [
-              { value: 'Permanent', label: 'Permanent' },
-              { value: 'Temporary', label: 'Temporary' },
-            ],
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'calendar',
-          key: 'requestPullOutDateForTempPOSTerminals',
-          templateOptions: {
-            label: "Request Pull Out Date For Temporary POS Terminals",
-            disabled: true
-          }
-        },
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'reasonForPermanentGPRSInstallation',
-          templateOptions: {
-            label: "Reason For Permanent GPRS Installation",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'otherRequiredProfilingFacility',
-          templateOptions: {
-            label: "Other Required Profiling Facility (tip adjust, binver, BDO Pay, etc)",
-            disabled: true
-          }
-        },
-        // {
-        //   className: 'flex-1',
-        //   type: 'radio',
-        //   key: 'tipAdjust',
-        //   templateOptions: {
-        //     label: "TIP Adjust",
-        //     disabled: true
-        //   }
-        // },
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'mustSettle',
-          templateOptions: {
-            label: "Must Settle (No. Of Days Required)",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'remarksSpecialInstructions',
-          templateOptions: {
-            label: "Remarks / Special Instructions (Dispatch-Related Only)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'calendar',
-          key: 'dateAndTimeEndorsedToMAU',
-          templateOptions: {
-            label: "Date and Time Endorsed To MAU",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaVmjac',
-          templateOptions: {
-            label: "Credit Straight MID-VMJA/VMJAC",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmj',
-          templateOptions: {
-            label: "Credit Straight MID-VMJ",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidAmex',
-          templateOptions: {
-            label: "Credit Straight MID-AMEX (If with VMJ)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dinersMID',
-          templateOptions: {
-            label: "DINERS MID",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        //   {
-        //   className: 'flex-1',
-        //   type: 'input',
-        //   key: 'cupAcceptorId',
-        //   templateOptions: {
-        //     label: "CUP Acceptor ID",
-        //     disabled: true
-        //   }
-        // },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantLoyalty',
-          templateOptions: {
-            label: "Merchant Loyalty",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantLoyalty',
-          templateOptions: {
-            label: "Merchant Prepaid",
-            disabled: true
-          }
-        },]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'creditStraightMidVmjaOffUs',
-        templateOptions: {
-          label: "Credit Straight MID-VMJA (off-us)",
-          disabled: true
-        }
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'creditStraightMidVmjOffUs',
-        templateOptions: {
-          label: "Credit Straight MID-VMJ (off-us)",
-          disabled: true
-        }
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'creditStraightMidAmexOffUs',
-        templateOptions: {
-          label: "Credit Straight MID-AMEX (If with VMJ) (off-us)",
-          disabled: true
-        }
-      },]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaUsd',
-          templateOptions: {
-            label: "Credit Straight MID-VMJA (USD)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjUsd',
-          templateOptions: {
-            label: "Credit Straight MID-VMJ (USD)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidAmexUsd',
-          templateOptions: {
-            label: "Credit Straight MID-AMEX (If with VMJ) (USD)",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'smEcardMID',
-          templateOptions: {
-            label: "SM E-Card MID",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'smPartnerPlusMID',
-          templateOptions: {
-            label: "SM Partner Plus MID",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Regular Installment MID-VMJA/VMJAC",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularInstallmentMidVmj',
-          templateOptions: {
-            label: "Regular Installment MID-VMJ",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularInstallmentMidAmex',
-          templateOptions: {
-            label: "Regular Installment MID-AMEX (If with VMJ)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Zero Installment MID-VMJA/VMJAC",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroInstallmentMidVmj',
-          templateOptions: {
-            label: "Zero Installment MID-VMJ",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroInstallmentMidAmex',
-          templateOptions: {
-            label: "Zero Installment MID-AMEX (If with VMJ)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularBnplInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Regular BNPL Installment MID-VMJA/VMJAC",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroBnplInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Zero BNPL Installment MID-VMJA/VMJAC",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'debitTID',
-          templateOptions: {
-            label: "Debit TID",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dccMarkup',
-          templateOptions: {
-            label: "DCC MARK UP",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dateTimeEndorsedPaymentSolutionsOperations',
-          templateOptions: {
-            label: "Date and Time Endorsed to Payment Solutions Operations",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'emailSubject',
-          templateOptions: {
-            label: "Email Subject",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dateTimeAssignedPSProfiling',
-          templateOptions: {
-            label: "Date and Time Assigned to PS Profiling",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightTID',
-          templateOptions: {
-            label: "Credit Straight TID (new)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileNumberOfTerminals',
-          templateOptions: {
-            label: "BDO Pay Mobile – Number of Terminals (Count)",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileBusinessGroup',
-          templateOptions: {
-            label: "BDO Pay Mobile – Business Group (If applicable)",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileMerchantPortalUserEmailAddress',
-          templateOptions: {
-            label: "BDO Pay Mobile – Merchant Portal User's Email Address",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileMerchantPortalNominatedUsername',
-          templateOptions: {
-            label: "BDO Pay Mobile – Merchant Portal Nominated Username",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileInternetConnection',
-          templateOptions: {
-            label: "BDO Pay Mobile – Internet Connection",
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileInternetProvider',
-          templateOptions: {
-            label: "BDO Pay Mobile – Internet Provider",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileReferenceField',
-          templateOptions: {
-            label: "BDO Pay Mobile – Reference Field",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileRfName',
-          templateOptions: {
-            label: "BDO Pay Mobile – If RF is Customized, pls Include RF Name (Max 10 Characters)",
-            disabled: true
-          }
-        }
-      ]
-    }
-  ]
-
-  aoFields: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'select',
-        key: 'natureOfRequest',
-        templateOptions: {
-          label: 'Nature Of Request',
-        }
-      }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        // {
-        //   className: 'flex-1',
-        //   type: 'input',
-        //   key: 'requestersName',
-        //   templateOptions: {
-        //     label: "Requester's Name",
-
-        //   }
-        // },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'requestersBusinessUnit',
-          templateOptions: {
-            label: "Requester's Business Unit",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'requestersContactNumber',
-          templateOptions: {
-            label: "Requester's Contact Number / Cellphone Number",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'area',
-          templateOptions: {
-            label: 'Business Unit / Area (where POS will be charged)',
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'accountOfficerHandler',
-          templateOptions: {
-            label: 'Account Officer / Handler',
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'businessTypeOfAccount',
-          templateOptions: {
-            label: 'Business Type Of Account (AO / RM / HO)',
-            valueProp: 'BusinessTypeOfAcccount_Id',
-            labelProp: 'Description',
-            options: [
-              { BusinessTypeOfAcccount_Id: '1', Description: 'AO' },
-              { BusinessTypeOfAcccount_Id: '2', Description: 'RM' },
-              { BusinessTypeOfAcccount_Id: '3', Description: 'HO' }
-            ]
+          key: 'isInstallationTerm',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
           },
-          defaultValue: '1'
-
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'businessUnitAO',
           templateOptions: {
-            label: "Business Unit (AO's Business Unit)",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'segment',
-          templateOptions: {
-            label: "Segment",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'approvedBy',
-          templateOptions: {
-            label: "Approved By (Business Unit Head)",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantLegalName',
-          templateOptions: {
-            label: "Merchant's Legal Name",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantDBAName',
-          templateOptions: {
-            label: "Merchant's DBA Name",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantNameOnSignage',
-          templateOptions: {
-            label: "Merchant's Name on Signage",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantDBAAddress',
-          templateOptions: {
-            label: "Merchant's DBA Address",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantDBACity',
-          templateOptions: {
-            label: "Merchant's DBA City",
-
-          }
-        },
-        {
-          key: 'contactlessMerchant',
-          type: 'radio',
-          templateOptions: {
-            label: 'Contactless Merchant?',
+            label: 'Installation Term',
             options: [
-              { value: 'true', label: 'Yes' },
-              { value: 'false', label: 'No' }
-            ],
-          },
-          defaultValue: 'false'
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'merchantCategoryCode',
-          templateOptions: {
-            label: "Merchant Category Code (MCC)",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'nsp',
-          templateOptions: {
-            label: "NSP",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'contactPerson',
-          templateOptions: {
-            label: "Contact Person",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'contactNumber',
-          templateOptions: {
-            label: "Contact Number",
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'numberOfPrintedSlips',
-          templateOptions: {
-            label: "Number of Printed Slips",
-          },
-          defaultValue: 2
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'reasonForThreeSlipsPrinting',
-          templateOptions: {
-            label: "Reason For 3 Slips Printing"
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'calendar',
-          key: 'requestDateAndTimeOfDispatch',
-          templateOptions: {
-            label: "Request Date And Time Of Dispatch",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'radio',
-          key: 'installationTerm',
-          templateOptions: {
-            label: "Installation Term",
-            options: [
-              { value: 'Permanent', label: 'Permanent' },
-              { value: 'Temporary', label: 'Temporary' },
+              { value: true, label: 'Permanent' },
+              { value: false, label: 'Temporary' },
             ]
           }
         },
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'requestPullOutDateForTempPOSTerminals',
+          key: 'requiredPullOutDateForTempPOSTerminals',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Request Pull Out Date For Temporary POS Terminals",
-
+            label: 'Required Pull Out Date For Temporary POS Terminals',
           }
         }
       ]
@@ -1034,27 +659,54 @@ export class PosFormService {
           className: 'flex-1',
           type: 'input',
           key: 'reasonForPermanentGPRSInstallation',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Reason For Permanent GPRS Installation",
-
+            label: 'Reason For Permanent GPRS Installation',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'otherRequiredProfilingFacility',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Other Required Profiling Facility (tip adjust, binver, BDO Pay, etc)",
-
+            label: 'Other Required Profiling Facility (tip adjust, binver, BDO Pay, etc)',
+            maxLength: 100,
           }
         },
         {
           className: 'flex-1',
           type: 'select',
           key: 'mustSettle',
+          defaultValue: 0,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Must Settle (No. Of Days Required)",
-
+            label: 'Must Settle (No. of Days Required)',
+            options: this._dropDownService.getDropdown('MS'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         }
       ]
@@ -1066,344 +718,155 @@ export class PosFormService {
           className: 'flex-1',
           type: 'input',
           key: 'remarksSpecialInstructions',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Remarks / Special Instructions (Dispatch-Related Only)",
-
+            label: 'Remarks / Special Instructions (Dispatch-Related Only)',
+            maxLength: 300,
           }
         },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'creditStraightTidExisting',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' || model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'Credit Straight TID (existing)'
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'creditStraightTidNew',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Credit Straight TID (new)',
+            maxLength: 50,
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
         {
           className: 'flex-1',
           type: 'calendar',
           key: 'dateAndTimeEndorsedToMAU',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Date and Time Endorsed To MAU",
-
-          }
-        }
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'creditStraightMidVmjaVmjac',
-        //       templateOptions: {
-        //         label: "Credit Straight MID-VMJA/VMJAC",
-
-        //       }
-        //     }
-        //   ]
-        // },
-        // {
-        //   fieldGroupClassName: 'display-flex',
-        //   fieldGroup: [
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'creditStraightMidVmj',
-        //       templateOptions: {
-        //         label: "Credit Straight MID-VMJ",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'creditStraightMidAmex',
-        //       templateOptions: {
-        //         label: "Credit Straight MID-AMEX (If with VMJ)",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'cupAcceptorId',
-        //       templateOptions: {
-        //         label: "CUP Acceptor ID",
-
-        //       }
-        //     },
-        //   ]
-        // },
-        // {
-        //   fieldGroupClassName: 'display-flex',
-        //   fieldGroup: [
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'merchantLoyalty',
-        //       templateOptions: {
-        //         label: "Merchant Loyalty",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'merchantLoyalty',
-        //       templateOptions: {
-        //         label: "Merchant Prepaid",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'regularInstallmentMidVmjaVmjac',
-        //       templateOptions: {
-        //         label: "Regular Installment MID-VMJA/VMJAC",
-
-        //       }
-        //     }
-        //   ]
-        // },
-        // {
-        //   fieldGroupClassName: 'display-flex',
-        //   fieldGroup: [
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'regularInstallmentMidVmj',
-        //       templateOptions: {
-        //         label: "Regular Installment MID-VMJ",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'regularInstallmentMidAmex',
-        //       templateOptions: {
-        //         label: "Regular Installment MID-AMEX (If with VMJ)",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'zeroInstallmentMidVmjaVmjac',
-        //       templateOptions: {
-        //         label: "Zero Installment MID-VMJA/VMJAC",
-
-        //       }
-        //     }
-        //   ]
-        // },
-        // {
-        //   fieldGroupClassName: 'display-flex',
-        //   fieldGroup: [
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'zeroInstallmentMidVmj',
-        //       templateOptions: {
-        //         label: "Zero Installment MID-VMJ",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'zeroInstallmentMidAmex',
-        //       templateOptions: {
-        //         label: "Zero Installment MID-AMEX (If with VMJ)",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'regularBnplInstallmentMidVmjaVmjac',
-        //       templateOptions: {
-        //         label: "Regular BNPL Installment MID-VMJA/VMJAC",
-
-        //       }
-        //     }
-        //   ]
-        // },
-        // {
-        //   fieldGroupClassName: 'display-flex',
-        //   fieldGroup: [
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'zeroBnplInstallmentMidVmjaVmjac',
-        //       templateOptions: {
-        //         label: "Zero BNPL Installment MID-VMJA/VMJAC",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'debitTID',
-        //       templateOptions: {
-        //         label: "Debit TID",
-
-        //       }
-        //     },
-        //     {
-        //       className: 'flex-1',
-        //       type: 'input',
-        //       key: 'dccMarkup',
-        //       templateOptions: {
-        //         label: "DCC MARK UP",
-
-        //       }
-        //     }
-        //   ]
-        // },
-        // 
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileNumberOfTerminals',
-          templateOptions: {
-            label: "BDO Pay Mobile – Number of Terminals (Count)",
-
+            label: 'Date and Time Endorsed To MAU',
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'bdoPayMobileBusinessGroup',
+          key: 'creditStraightMidVmjaVmjacd',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "BDO Pay Mobile – Business Group (If applicable)",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileMerchantPortalUserEmailAddress',
-          templateOptions: {
-            label: "BDO Pay Mobile – Merchant Portal User's Email Address",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileMerchantPortalNominatedUsername',
-          templateOptions: {
-            label: "BDO Pay Mobile – Merchant Portal Nominated Username",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileInternetConnection',
-          templateOptions: {
-            label: "BDO Pay Mobile – Internet Connection",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileInternetProvider',
-          templateOptions: {
-            label: "BDO Pay Mobile – Internet Provider",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileReferenceField',
-          templateOptions: {
-            label: "BDO Pay Mobile – Reference Field",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'bdoPayMobileRfName',
-          templateOptions: {
-            label: "BDO Pay Mobile – If RF is Customized, pls Include RF Name (Max 10 Characters)",
-
-          }
-        }
-      ]
-    }
-  ]
-
-  mmuFields: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaVmjac',
-          templateOptions: {
-            label: "Credit Straight MID-VMJA/VMJAC",
-
+            label: 'Credit Straight MID-VMJA/VMJACD',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
           key: 'creditStraightMidVmj',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-VMJ",
-
+            label: 'Credit Straight MID-VMJ',
+            maxLength: 50,
           }
-        },
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
         {
           className: 'flex-1',
           type: 'input',
           key: 'creditStraightMidAmex',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-AMEX (If with VMJ)",
-
+            label: 'Credit Straight MID-AMEX (If with VMJ)',
+            maxLength: 50,
           }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
+        },
         {
           className: 'flex-1',
           type: 'input',
           key: 'dinersMID',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "DINERS MID",
-
+            label: 'Credit Straight MID-Diners (If with VMJ)',
+            maxLength: 50,
           }
         },
-        // {
-        //   className: 'flex-1',
-        //   type: 'input',
-        //   key: 'cupAcceptorId',
-        //   templateOptions: {
-        //     label: "CUP Acceptor ID",
-
-        //   }
-        // },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightMidVmjaOffUs',
+          key: 'cupAcceptorId',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-VMJA (off-us)",
-
+            label: 'CUP Acceptor ID',
+            maxLength: 50,
           }
         }
       ]
@@ -1414,28 +877,46 @@ export class PosFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightMidVmjOffUs',
+          key: 'merchantLoyalty',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-VMJ (off-us)",
-
+            label: 'Merchant Loyalty',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightMidAmexOffUs',
+          key: 'merchantPrepaid',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-AMEX (If with VMJ) (off-us)",
-
+            label: 'Merchant Prepaid',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightMidVmjaUsd',
+          key: 'creditStraightMidVmjaVmjacVmjacd',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-VMJA (USD)",
-
+            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD',
+            maxLength: 50,
           }
         }
       ]
@@ -1446,187 +927,265 @@ export class PosFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightMidVmjUsd',
+          key: 'creditStraightMidVmjaVmjacVmjacdNew',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'Installation') || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return (model['natureOfRequest'] !== 'Installation') && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-VMJ (USD)",
-
+            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (New)',
+            maxLength: 50,
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightMidAmexUsd',
+          key: 'creditStraightMidVmjaVmjacVmjacdOffUs',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
+            }
+          },
           templateOptions: {
-            label: "Credit Straight MID-AMEX (If with VMJ) (USD)",
-
+            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (Off Us)',
+            maxLength: 50,
           }
         },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'smEcardMID',
-          templateOptions: {
-            label: "SM E-Card MID",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'smPartnerPlusMID',
-          templateOptions: {
-            label: "SM Partner Plus MID",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Regular Installment MID-VMJA/VMJAC",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularInstallmentMidVmj',
-          templateOptions: {
-            label: "Regular Installment MID-VMJ",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularInstallmentMidAmex',
-          templateOptions: {
-            label: "Regular Installment MID-AMEX (If with VMJ)",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Zero Installment MID-VMJA/VMJAC",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroInstallmentMidVmj',
-          templateOptions: {
-            label: "Zero Installment MID-VMJ",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroInstallmentMidAmex',
-          templateOptions: {
-            label: "Zero Installment MID-AMEX (If with VMJ)",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'regularBnplInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Regular BNPL Installment MID-VMJA/VMJAC",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'zeroBnplInstallmentMidVmjaVmjac',
-          templateOptions: {
-            label: "Zero BNPL Installment MID-VMJA/VMJAC",
-
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'debitTID',
-          templateOptions: {
-            label: "Debit TID",
-
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dateTimeEndorsedPaymentSolutionsOperations',
-          templateOptions: {
-            label: "Date and Time Endorsed to Payment Solutions Operations",
-
-          }
-        },
-      ]
-    },
-  ]
-
-  psServicingFields: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
         {
           className: 'flex-1',
           type: 'input',
           key: 'emailSubject',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
           templateOptions: {
-            label: "Email Subject",
-            disabled: true
+            label: 'Email Subject',
+            maxLength: 50,
           }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dateTimeAssignedPSProfiling',
-          templateOptions: {
-            label: "Date and Time Assigned to PS Profiling",
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightTID',
-          templateOptions: {
-            label: "Credit Straight TID (new)",
-            disabled: true
-          }
-        },
+        }
       ]
-    }
-  ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'dateTimeEndorsedPaymentSolutionsOperations',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Date and Time Endorsed to Payment Solutions Operations',
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileNumberOfTerminals',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Number of Terminals (Count)',
+            maxLength: 10,
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileBusinessGroup',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Business Group (If applicable)',
+            maxLength: 50,
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileMerchantPortalUserEmailAddress',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Merchant Portal User\'s Email Address',
+            maxLength: 50,
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileMerchantPortalNominatedUsername',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Merchant Portal Nominated Username',
+            maxLength: 50,
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'bdoPayMobileInternetConnection',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Internet Connection',
+            options: this._dropDownService.getDropdown('BPMIC'),
+            labelProp: 'value',
+            valueProp: 'code',
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileInternetProvider',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Internet Provider',
+            maxLength: 50,
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'bdoPayMobileReferenceField',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – Reference Field',
+            options: this._dropDownService.getDropdown('NR'),
+            labelProp: 'value',
+            valueProp: 'code',
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileRfName',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return (model['natureOfRequest'] === 'TID Issuance') || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'BDO Pay Mobile – If RF is Customized, pls Include RF Name (Max 10 Characters)',
+            maxLength: 50,
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'tidIssuedBy',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'TID Issued By'
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'dateAndTimeTidIssued',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'];
+            }
+          },
+          templateOptions: {
+            label: 'Date and Time TID Issued'
+          }
+        },
+        /*{
+          className: 'flex-1',
+          type: 'input',
+          key: 'dateAndTimeEndorsedToMAU',
+          templateOptions: {
+            label: 'Date and Time Endorsed To MAU'
+          }
+        } */
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'dateTimeAssignedPSProfiling',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
+            }
+          },
+          templateOptions: {
+            label: 'Date and Time Assigned to PS Profiling',
+          }
+        },
+        { className: 'flex-2' }
+      ]
+    },
+  ];
 
   veriScreenFields: FormlyFieldConfig[] = [
     {
@@ -1637,8 +1196,7 @@ export class PosFormService {
           type: 'calendar',
           key: 'requestPullOutDateForTempPOSTerminals',
           templateOptions: {
-            label: "Request Pull Out Date For Temporary POS Terminals",
-            disabled: true
+            label: 'Request Pull Out Date For Temporary POS Terminals'
           }
         },
         {
@@ -1646,40 +1204,74 @@ export class PosFormService {
           type: 'input',
           key: 'remarksSpecialInstructions',
           templateOptions: {
-            label: "Remarks / Special Instructions (Dispatch-Related Only)",
-            disabled: true
+            label: 'Remarks / Special Instructions (Dispatch-Related Only)'
           }
         },
 
       ]
     }
-  ]
+  ];
 
-  constructor() { }
+  psServicingFields: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'emailSubject',
+          templateOptions: {
+            label: 'Email Subject',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'dateTimeAssignedPSProfiling',
+          templateOptions: {
+            label: 'Date and Time Assigned to PS Profiling',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'creditStraightTID',
+          templateOptions: {
+            label: 'Credit Straight TID (new)',
+            disabled: true
+          }
+        },
+      ]
+    }
+  ];
+
+  constructor(private _dropDownService: DropDownService, private _aoListService: AoListModalService) { }
 
   getPosFields(userGroup): FormlyFieldConfig[] {
-    var retFields: FormlyFieldConfig[];
-    userGroup = 'veriScreenFields';
-    switch (userGroup) {
-      case 'ao':
-        retFields = this.aoFields
-        break;
-      case 'ae':
-        retFields = this.aoFields
-        break;
-      case 'mmu':
-        retFields = this.mmuFields
-        break;
-      case 'psServicing':
-        retFields = this.psServicingFields
-        break;
-      case 'veriScreenFields':
-        retFields = this.veriScreenFields
-        break;
-      default:
-        retFields = this.fields
-    }
-    return retFields
-  };
+    let retFields: FormlyFieldConfig[];
+    retFields = this.fields;
+    // switch (userGroup) {
+    //   case 'ao':
+    //     retFields = this.aoFields;
+    //     break;
+    //   case 'ae':
+    //     retFields = this.aoFields;
+    //     break;
+    //   case 'mmu':
+    //     retFields = this.mmuFields;
+    //     break;
+    //   case 'psServicing':
+    //     retFields = this.psServicingFields;
+    //     break;
+    //   case 'veriScreenFields':
+    //     retFields = this.veriScreenFields
+    //     break;
+    //   default:
+    //     retFields = this.fields
+    // }
+    return retFields;
+  }
 }
 

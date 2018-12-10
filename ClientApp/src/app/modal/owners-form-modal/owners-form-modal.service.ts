@@ -10,63 +10,127 @@ export class OwnersFormModalService {
 
   constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
-  getFormlyFields(): FormlyFieldConfig[] {
-    return [
-      {
-        fieldGroupClassName: 'display-flex',
-        fieldGroup: [
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'name',
-            templateOptions: {
-              label: 'Name',
-              maxLength: 50
-            }
-          },
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'percentOfOwnership',
-            templateOptions: {
-              label: '% of Ownership',
-              pattern: '^\\d{1,2}$|100'
-            }
-          }
-        ]
-      },
-      {
-        fieldGroupClassName: 'display-flex',
-        fieldGroup: [
-          {
-            className: 'flex-1',
-            type: 'select',
-            key: 'typeOfRelatedParty',
-            defaultValue: 'N/A',
-            templateOptions: {
-              label: 'Type of Related Party',
-              options: this._dropDownService.getDropdown('TORP'),
-              labelProp: 'value',
-              valueProp: 'code',
-            }
-          },
-          {
-            className: 'flex-1',
-            type: 'input',
-            key: 'remarks',
-            expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['typeOfRelatedParty'] !== 'N/A';
+  getFormlyFields(userGroup): FormlyFieldConfig[] {
+    let fields = [];
+    if (userGroup === 'ao') {
+      fields = [
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'name',
+              templateOptions: {
+                label: 'Name',
+                maxLength: 50
               }
             },
-            templateOptions: {
-              label: 'Remarks',
-              maxLength: 120
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'percentOfOwnership',
+              templateOptions: {
+                label: '% of Ownership',
+                pattern: '^\\d{1,2}$|100'
+              }
             }
-          }
-        ]
-      }
-    ];
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'select',
+              key: 'typeOfRelatedParty',
+              defaultValue: 'N/A',
+              templateOptions: {
+                label: 'Type of Related Party',
+                options: this._dropDownService.getDropdown('TORP'),
+                labelProp: 'value',
+                valueProp: 'code',
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'remarks',
+              expressionProperties: {
+                'templateOptions.required': (model: any, formState: any) => {
+                  return model['typeOfRelatedParty'] !== 'N/A';
+                }
+              },
+              templateOptions: {
+                label: 'Remarks',
+                maxLength: 120
+              }
+            }
+          ]
+        }
+      ];
+    } else if (userGroup === 'mdcs') {
+      fields = [
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'name',
+              templateOptions: {
+                label: 'Name',
+                maxLength: 50
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'percentOfOwnership',
+              templateOptions: {
+                label: '% of Ownership',
+                pattern: '^\\d{1,2}$|100',
+                disabled: true
+              }
+            }
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'select',
+              key: 'typeOfRelatedParty',
+              defaultValue: 'N/A',
+              templateOptions: {
+                label: 'Type of Related Party',
+                options: this._dropDownService.getDropdown('TORP'),
+                labelProp: 'value',
+                valueProp: 'code',
+                disabled: true
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'remarks',
+              expressionProperties: {
+                'templateOptions.required': (model: any, formState: any) => {
+                  return model['typeOfRelatedParty'] !== 'N/A';
+                }
+              },
+              templateOptions: {
+                label: 'Remarks',
+                maxLength: 120,
+                disabled: true
+              }
+            }
+          ]
+        }
+      ];
+    }
+    return fields;
   }
 
   create(owners): Observable<any> {

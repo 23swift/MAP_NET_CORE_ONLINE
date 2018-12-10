@@ -19,6 +19,7 @@ export namespace ApiConstants {
     export const maefApi = '/api/maef';
     export const approveWithReqReasonApi = '/api/approveWithReqReason';
     export const approveWithExceptDetailsApi = '/api/approveWithExceptDetails';
+    export const historyApi = '/api/history';
 
 
     // REQUESTS

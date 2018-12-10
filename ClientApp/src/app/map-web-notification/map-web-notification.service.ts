@@ -6,9 +6,7 @@ import {MatBottomSheet, MatBottomSheetConfig,MatSnackBar,MatSnackBarConfig} from
 
 const defaultConfig = new MatBottomSheetConfig();
 const defaultConfigSanck= new  MatSnackBarConfig();
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MapWebNotificationService {
 
   constructor(private bottomSheet: MatBottomSheet,public snackBar: MatSnackBar) { }

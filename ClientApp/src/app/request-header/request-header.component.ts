@@ -24,9 +24,11 @@ export class RequestHeaderComponent implements OnInit {
   dateToday = new Date();
   model: IRequestHeader;
   ownershipList = [];
+  requestId: number;
   constructor(private _dialog: MatDialog, private _service: RequestHeaderService, private _router: ActivatedRoute,
     private _dropDownService: DropDownService) {
     this._router.params.subscribe(param => {
+      this.requestId = +param['id'];
       forkJoin([
         this._service.get(param['id']),
         this._dropDownService.getDropdown('OW')
@@ -44,7 +46,10 @@ export class RequestHeaderComponent implements OnInit {
 
   openHistory() {
     this._dialog.open(HistoryModalComponent, {
-      width: '60%'
+      width: '60%',
+      data: {
+        requestId: this.requestId
+      }
     });
   }
 

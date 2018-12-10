@@ -9,7 +9,7 @@ namespace MAP_Web.Models
     public partial class History
     {
 
-        public int HistoryId { get; set; }
+        public int Id { get; set; }
 
         public System.DateTime date { get; set; }
 
@@ -20,7 +20,7 @@ namespace MAP_Web.Models
         public string user { get; set; }
 
         public string groupCode { get; set; }
-
-        //public virtual Request Request { get; set; }
+        public int RequestId { get; set; }
+        public virtual Request Request { get; set; }
     }
 }

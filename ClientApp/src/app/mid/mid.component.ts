@@ -1,10 +1,14 @@
-import { Component, OnInit, Input, Renderer2, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, ElementRef, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MidService } from './mid.service';
 import { MatDialog } from '@angular/material';
 import { MidFormModalComponent } from '../modal/mid-form-modal/mid-form-modal.component';
 import { MidModalComponent } from '../modal/mid-modal/mid-modal.component';
-import { FormControl } from '../../../node_modules/@angular/forms';
+import { FormControl, FormGroup } from '../../../node_modules/@angular/forms';
+import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
+import { forkJoin } from 'rxjs';
+import { MidListModalService } from '../modal/mid-list-modal/mid-list-modal.service';
+import { DropDownService } from '../services/drop-down.service';
 
 @Component({
   selector: 'app-mid',
@@ -18,7 +22,7 @@ export class MidComponent implements OnInit {
   displayedColumns: string[];
   mode: string;
   dataSource: Object[];
-  form: string;
+  form: FormGroup;
   midIndex: number; // ROW WHERE ADDING OR UPDATE OF MID IS CLICKED
   midContainer: number[]; // CONTAINER OF ALL MIDs
   midInput: FormControl; // FORM CONTROL FOR MID INPUTTED
@@ -26,43 +30,81 @@ export class MidComponent implements OnInit {
   tidContainer: string[]; // CONTAINER OF ALL TIDs
   tidInput: FormControl; // FORM CONTROL FOR TID INPUTTED
   showAction: boolean;
+  @Input() showAdd = true;
+  @Input() showUpdate = true;
+  @Input() branchId;
 
-  @Input() action?: boolean;
-  @Input() update?: boolean;
-  constructor(private _route: ActivatedRoute, private _router: Router, private _service: MidService,
-    private _dialog: MatDialog, private _renderer: Renderer2) { }
+  monitorCodeList = [];
+  cardPlansList = [];
+
+  constructor(private _midService: MidListModalService,
+    private _dialog: MatDialog,
+    private _changeDetectRef: ChangeDetectorRef,
+    private _dropDownService: DropDownService) {
+
+    forkJoin([
+      // this._midService.getByBranchId(this.branchId),
+      this._dropDownService.getDropdown('MC'),
+      this._dropDownService.getDropdown('CP')
+    ]).subscribe(fjData => {
+      // this.dataSource = fjData[0].items;
+      this.monitorCodeList = fjData[0];
+      this.cardPlansList = fjData[1];
+    });
+  }
 
   ngOnInit() {
-    this.dataSource = this._service.get();
-    this.form = this._route.snapshot.params['form'] || this.action;
+    this.dataSource = [];
+    this.form = new FormGroup({});
     this.midContainer = new Array<number>(this.dataSource.length);
     this.tidContainer = new Array<string>(this.dataSource.length);
-    this.displayedColumns = this._service.getTableFields(this.update);
+    this.displayedColumns = this._midService.getTableFields('');
     this.midInput = new FormControl('');
     this.tidInput = new FormControl('');
 
-    if (this.action == false) {
-      this.form = 'POS';
-    }
+    this._midService.getByBranchId(this.branchId).subscribe(d => {
+      this.dataSource = d.items;
+    });
+  }
 
-    this._route.data.subscribe(data => {
-      if (data['showAction']) {
-        this.showAction = true;
-      } else {
-        this.showAction = false;
-      }
+  private refresh() {
+    this._midService.getByBranchId(this.branchId).subscribe(data => {
+      this.dataSource = data.items;
+      this._changeDetectRef.detectChanges();
     });
   }
 
   addMid() {
-    this._dialog.open(MidFormModalComponent, {
-      width: '80%'
+    const dialog = this._dialog.open(MidFormModalComponent, {
+      width: '80%',
+      height: 'auto',
+      data: {
+        branchId: this.branchId
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
+  }
+
+  updateMidDetails(mid) {
+    const dialog = this._dialog.open(MidFormModalComponent, {
+      width: '80%',
+      height: 'auto',
+      data: {
+        mid: mid
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
     });
   }
 
   showMidUpdateButton(index) {
     this.midIndex = index;
-    if (this.midContainer[index] != undefined) {
+    if (this.midContainer[index] !== undefined) {
       this.midInput.setValue(this.midContainer[index]);
     } else {
       this.midInput.setValue(undefined);
@@ -72,8 +114,8 @@ export class MidComponent implements OnInit {
   saveMid(element, index) {
     const value = element.value;
     if (value.match(/^\d{10}$|^$/)) {
-      if (value === "") {
-        this.midContainer.splice(index, 1);  
+      if (value === '') {
+        this.midContainer.splice(index, 1);
       } else {
         this.midContainer.splice(index, 1, +value);
       }
@@ -91,7 +133,7 @@ export class MidComponent implements OnInit {
   showTidUpdateButton(index) {
     this.tidIndex = index;
 
-    if (this.tidContainer[index] != undefined) {
+    if (this.tidContainer[index] !== undefined) {
       this.tidInput.setValue(this.tidContainer[index]);
     } else {
       this.tidInput.setValue(undefined);
@@ -101,8 +143,8 @@ export class MidComponent implements OnInit {
   saveTid(element, index) {
     const value = element.value;
     if (value.match(/^\d{10}(,\d{10})*$/)) {
-      if (value === "") {
-        this.tidContainer.splice(index, 1);  
+      if (value === '') {
+        this.tidContainer.splice(index, 1);
       } else {
         this.tidContainer.splice(index, 1, value);
       }
@@ -112,7 +154,28 @@ export class MidComponent implements OnInit {
     }
   }
 
-  deleteItem(id) {
-    console.log('DELETE MID');
+  delete(id) {
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._midService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
+  }
+
+  getMonitorCode(mc) {
+    return this.monitorCodeList.find(m => m.code === mc).value;
+  }
+
+  getCardPlans(cp) {
+    return this.cardPlansList.find(m => m.code === cp).value;
+  }
+
+  getStatus(s) {
+    return this._midService.getStatus().find(m => m.value === s).label;
   }
 }

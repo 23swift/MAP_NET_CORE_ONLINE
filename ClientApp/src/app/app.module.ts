@@ -3,14 +3,14 @@ import { VerificationScreenComponent } from './new-affiliation/verification-scre
 import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormlyModule } from '@ngx-formly/core';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormlyModule, FormlyFieldConfig } from '@ngx-formly/core';
+import { ReactiveFormsModule, FormsModule, FormControl, ValidationErrors } from '@angular/forms';
 import { FormlyMaterialModule } from '@ngx-formly/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
   MatToolbarModule, MatTooltipModule, MatCheckboxModule, MatRadioModule, MatDialogModule, MatPaginator,
-  MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule
+  MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule, MatBottomSheet, MatBottomSheetModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
@@ -167,6 +167,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { OutskirtReminderModalComponent } from './modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
 import { RadioOutskirtTypeComponent } from './radio-outskirt-type/radio-outskirt-type.component';
+import { MdcsBranchListComponent } from './mdcs-branch-list/mdcs-branch-list.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -186,10 +187,21 @@ export function maxLengthValidationMessage(err, field) {
 export function patternValidationMessage(err, field) {
   return `Invalid input characters`;
 }
+export function emailValidationMessage(err, field) {
+  return `This field has an invalid email address`;
+}
 
 export function showErrorOption(field) {
   return (field.formState.submitted || field.formControl.touched ||
     (field.field.validation && field.field.validation.show)) && !field.formControl.valid;
+}
+
+export function numericValidator(control: FormControl): ValidationErrors {
+  return !control.value || /^[0-9]+$/.test(control.value) ? null : { 'numeric': true };
+}
+
+export function numericValidatorMessage(err, field: FormlyFieldConfig) {
+  return `"${field.formControl.value}" has an invalid numeric value`;
 }
 
 
@@ -335,7 +347,8 @@ export function showErrorOption(field) {
     NavMenuComponent,
     HomeComponent,
     RadioOutskirtTypeComponent,
-    OutskirtReminderModalComponent
+    OutskirtReminderModalComponent,
+    MdcsBranchListComponent
   ],
   imports: [
     BrowserModule,
@@ -398,8 +411,17 @@ export function showErrorOption(field) {
           },
           {
             name: 'pattern', message: patternValidationMessage
+          },
+          {
+            name: 'numeric', message: numericValidatorMessage
+          },
+          {
+            name: 'email', message: emailValidationMessage
           }
-        ]
+        ],
+        validators: [
+          { name: 'numeric', validation: numericValidator }
+        ],
       }
     ),
     BrowserAnimationsModule,
@@ -437,7 +459,8 @@ export function showErrorOption(field) {
     MatSortModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatBottomSheetModule
   ],
   entryComponents: [RemarksModalComponent, HistoryModalComponent,
     AoListModalComponent, MidFormModalComponent,
@@ -455,8 +478,8 @@ export function showErrorOption(field) {
     DocumentPerRequestFormModalComponent,
     OutskirtReminderModalComponent,
     ApproveWithReqReasonFormModalComponent,
-    ApproveWithExceptReasonDetailsModalComponent
-  ],
+    ApproveWithExceptReasonDetailsModalComponent,
+    LoadingSpinnerComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

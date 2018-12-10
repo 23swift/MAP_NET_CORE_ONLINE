@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MAP_Web.Models;
@@ -9,10 +10,12 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Branch> branchRepo;
+        private readonly IRepository<History> historyRepo;
         public BranchService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
 
         public async Task InsertAsync(Branch branch)
@@ -29,6 +32,15 @@ namespace MAP_Web.Services
                 });
             }
 
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Branch: " + branch.dbaName + "'s Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             await branchRepo.InsertAsync(branch);
         }
 
@@ -42,13 +54,32 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(Branch branch)
+        public async void Update(Branch branch)
         {
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Branch: " + branch.dbaName + "'s Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
+
             branchRepo.Update(branch);
         }
 
-        public void Delete(Branch branch)
+        public async void Delete(Branch branch)
         {
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Branch: " + branch.dbaName + "'s Deleted",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             branchRepo.Delete(branch);
         }
 

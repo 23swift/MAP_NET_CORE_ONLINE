@@ -48,10 +48,10 @@ export class SignatoriesFormModalComponent implements OnInit {
           this.model['signingAuthority'] = 'Singly';
           this.model['position'] = 'Proprietor';
         }
-        this.fields = this._signatoriesService.getFormlyFields();
+        this.fields = this._signatoriesService.getFormlyFields(this.data['userGroup']);
       });
     } else {
-      this.fields = this._signatoriesService.getFormlyFields();
+      this.fields = this._signatoriesService.getFormlyFields(this.data['userGroup']);
     }
   }
 

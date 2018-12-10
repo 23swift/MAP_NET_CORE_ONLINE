@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MAP_Web.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace MAP_Web.Services
 {
@@ -11,6 +12,7 @@ namespace MAP_Web.Services
         private readonly IRepository<OIF> oifRepo;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<NewAffiliation> newAffRepo;
+        private readonly IRepository<History> historyRepo;
 
         public OIFService(IUnitOfWork unitOfWork)
         {
@@ -18,9 +20,21 @@ namespace MAP_Web.Services
             this.oifRepo = this.unitOfWork.GetRepository<OIF>();
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.newAffRepo = this.unitOfWork.GetRepository<NewAffiliation>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
         public async Task InsertAsync(OIF oif)
         {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "OIF for Branch: " + oif.dbaName + " Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
+
             await oifRepo.InsertAsync(oif);
         }
 
@@ -34,13 +48,33 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(OIF oif)
+        public async void Update(OIF oif)
         {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "OIF for Branch: " + oif.dbaName + " Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             oifRepo.Update(oif);
         }
 
-        public void Delete(OIF oif)
+        public async void Delete(OIF oif)
         {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "OIF for Branch: " + oif.dbaName + " Deleted",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             oifRepo.Delete(oif);
         }
 

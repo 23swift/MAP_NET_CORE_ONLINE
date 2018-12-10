@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -9,14 +10,28 @@ namespace MAP_Web.Services
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<POS> posRepo;
         private readonly IRepository<NewAffiliation> newAffRepo;
+        private readonly IRepository<History> historyRepo;
+        private readonly IRepository<Branch> branchRepo;
         public POSService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.posRepo = this.unitOfWork.GetRepository<POS>();
             this.newAffRepo = this.unitOfWork.GetRepository<NewAffiliation>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.branchRepo = this.unitOfWork.GetRepository<Branch>();
         }
         public async Task InsertAsync(POS pos)
         {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "POS for Branch: " + branch.dbaName + " Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             await posRepo.InsertAsync(pos);
         }
 
@@ -30,13 +45,33 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(POS pos)
+        public async void Update(POS pos)
         {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "POS for Branch: " + branch.dbaName + " Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             posRepo.Update(pos);
         }
 
-        public void Delete(POS pos)
+        public async void Delete(POS pos)
         {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
+            // Branch.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "POS for Branch: " + branch.dbaName + " Deleted",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId
+            });
             posRepo.Delete(pos);
         }
 

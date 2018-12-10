@@ -13,7 +13,7 @@ export class MauOfficerDashboardService {
     //this._dashboard = new DashboardData();
   }
 
-  Get() {
+  Get(): Observable<any> {
     return this._http.get(ApiConstants.mauOfficerDashboardApi);
   }
 

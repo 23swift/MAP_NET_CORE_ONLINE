@@ -357,7 +357,7 @@ namespace MAP_Web.Models
         public virtual ICollection<POS> POS { get; set; }
 
         public virtual Request Request { get; set; }
-        public Nullable<int> NewAffiliationId { get; set; }
+        public int NewAffiliationId { get; set; }
         public virtual NewAffiliation NewAffiliation { get; set; }
         public virtual ICollection<MID> MIDs { get; set; }
     }

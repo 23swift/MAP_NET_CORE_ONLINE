@@ -66,6 +66,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<OwnersViewModel, Owners>(owners, currentOwner);
 
+            ownersService.Update(currentOwner);
             await ownersService.SaveChangesAsync();
 
             return Ok(currentOwner);

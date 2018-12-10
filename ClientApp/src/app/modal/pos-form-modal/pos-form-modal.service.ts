@@ -58,10 +58,51 @@ export class PosFormModalService {
           lifecycle: {
             onInit: (form, field) => {
               field.formControl.valueChanges.subscribe(v => {
-                if (v === 3) {
+                if (v === 'Installation') {
+                  form.get('numberOfPrintedSlips').patchValue(undefined);
+                  form.get('merchantDbaAddressOld').patchValue(undefined);
+                  form.get('dateTimeEndorsedPaymentSolutionsOperations').patchValue(undefined);
+                } else if (v === 'TID Issuance') {
                   form.get('numberOfPrintedSlips').patchValue('2');
+                  form.get('area').patchValue(undefined);
+                  form.get('businessTypeOfAccount').patchValue(undefined);
+                  form.get('businessUnitAO').patchValue(undefined);
+                  form.get('segment').patchValue(undefined);
+                  form.get('merchantNameOnSignage').patchValue(undefined);
+                  form.get('merchantDbaAddressOld').patchValue(undefined);
+                  form.get('isContactlessMerchant').patchValue(undefined);
+                  form.get('contactPerson').patchValue(undefined);
+                  form.get('contactNumber').patchValue(undefined);
+                  form.get('numberOfPrintedSlips').patchValue(undefined);
+                  form.get('reasonForThreeSlipsPrinting').patchValue(undefined);
+                  form.get('requiredDateAndTimeOfDispatch').patchValue(undefined);
+                  form.get('isInstallationTerm').patchValue(undefined);
+                  form.get('requiredPullOutDateForTempPOSTerminals').patchValue(undefined);
+                  form.get('reasonForPermanentGPRSInstallation').patchValue(undefined);
+                  form.get('otherRequiredProfilingFacility').patchValue(undefined);
+                  form.get('mustSettle').patchValue(undefined);
+                  form.get('remarksSpecialInstructions').patchValue(undefined);
+                  form.get('merchantLoyalty').patchValue(undefined);
+                  form.get('merchantPrepaid').patchValue(undefined);
+                  form.get('bdoPayMobileNumberOfTerminals').patchValue(undefined);
+                  form.get('bdoPayMobileBusinessGroup').patchValue(undefined);
+                  form.get('bdoPayMobileMerchantPortalUserEmailAddress').patchValue(undefined);
+                  form.get('bdoPayMobileMerchantPortalNominatedUsername').patchValue(undefined);
+                  form.get('bdoPayMobileInternetConnection').patchValue(undefined);
+                  form.get('bdoPayMobileInternetProvider').patchValue(undefined);
+                  form.get('bdoPayMobileReferenceField').patchValue(undefined);
+                  form.get('bdoPayMobileRfName').patchValue(undefined);
                 } else {
-                  form.get('numberOfPrintedSlips').patchValue('');
+                  form.get('area').patchValue(undefined);
+                  form.get('businessTypeOfAccount').patchValue(undefined);
+                  form.get('businessUnitAO').patchValue(undefined);
+                  form.get('segment').patchValue(undefined);
+                  form.get('approvedBy').patchValue(undefined);
+                  form.get('merchantNameOnSignage').patchValue(undefined);
+                  form.get('isInstallationTerm').patchValue(undefined);
+                  form.get('requiredPullOutDateForTempPOSTerminals').patchValue(undefined);
+                  form.get('reasonForPermanentGPRSInstallation').patchValue(undefined);
+                  form.get('dateTimeEndorsedPaymentSolutionsOperations').patchValue(undefined);
                 }
               });
             }
@@ -457,7 +498,10 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Merchant Category Code (MCC)',
-            type: 'number'
+            maxLength: 4
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
@@ -527,7 +571,9 @@ export class PosFormModalService {
           templateOptions: {
             label: 'Number of Printed Slips',
             maxLength: 10,
-            type: 'number'
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
@@ -959,7 +1005,9 @@ export class PosFormModalService {
           templateOptions: {
             label: 'BDO Pay Mobile – Number of Terminals (Count)',
             maxLength: 10,
-            type: 'number',
+          },
+          validators: {
+            validation: ['numeric'],
           }
         },
         {
@@ -1011,7 +1059,7 @@ export class PosFormModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'select',
           key: 'bdoPayMobileInternetConnection',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -1020,7 +1068,9 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'BDO Pay Mobile – Internet Connection',
-            maxLength: 50,
+            options: this._dropDownService.getDropdown('BPMIC'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         }
       ]
@@ -1044,7 +1094,7 @@ export class PosFormModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'select',
           key: 'bdoPayMobileReferenceField',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
@@ -1053,7 +1103,9 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'BDO Pay Mobile – Reference Field',
-            maxLength: 50,
+            options: this._dropDownService.getDropdown('NR'),
+            labelProp: 'value',
+            valueProp: 'code',
           }
         },
         {

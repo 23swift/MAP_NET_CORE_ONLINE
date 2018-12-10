@@ -17,6 +17,7 @@
                 <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request</button>
             <button *ngIf="showRequestFlowOptions" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit Request">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
+                
             <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">
                 <mat-icon class="request-mat-icon">mail_outline</mat-icon> Generate Welcome Letter</button>
             <button *ngIf="showCadencieProcessingButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Cadencie Processing">
@@ -42,8 +43,8 @@
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Checking</button>
             <button *ngIf="showPreScreen" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Evaluation">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Evaluation</button>
-            <button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
-                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
+           <!-- <button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button> -->
         </div>
     </mat-toolbar>
 
@@ -54,10 +55,10 @@
 
         <mat-menu class="request-menu-container" #requestMenu="matMenu" style="padding:0;">
             <div fxLayout="column" fxLayoutAlign="start" fxLayoutGap="2px">
-                <button *ngIf="showRequestFlowOptions" (click)="return()" mat-flat-button color="primary" matTooltip="Return Request">
+             <!--   <button *ngIf="showRequestFlowOptions" (click)="return()" mat-flat-button color="primary" matTooltip="Return Request">
                     <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request</button>
                 <button *ngIf="showRequestFlowOptions" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit Request">
-                    <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
+                    <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button> -->
                 <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">
                     <mat-icon class="request-mat-icon">mail_outline</mat-icon> Generate Welcome Letter</button>
                 <button *ngIf="showCadencieProcessingButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Cadencie Processing">

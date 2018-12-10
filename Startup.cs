@@ -88,6 +88,10 @@ namespace MAP_Web
             services.AddScoped<IDropdownService, DropdownService>();
             services.AddScoped<IDocumentListService, DocumentListService>();
             services.AddScoped<IRequestHeaderService, RequestHeaderService>();
+            services.AddScoped<IMauEncoderDashboardService, MauEncoderDashboardService>();
+            services.AddScoped<IMAEFService, MAEFService>();
+            services.AddScoped<IApproveWithReqReasonService, ApproveWithReqReasonService>();
+            services.AddScoped<IApproveWithExceptDetailsService, ApproveWithExceptDetailsService>();          
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

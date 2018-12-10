@@ -453,7 +453,10 @@ export function showErrorOption(field) {
     PosTerminalBrandListModalComponent,
     DocumentChecklistFormModalComponent,
     DocumentPerRequestFormModalComponent,
-    OutskirtReminderModalComponent],
+    OutskirtReminderModalComponent,
+    ApproveWithReqReasonFormModalComponent,
+    ApproveWithExceptReasonDetailsModalComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

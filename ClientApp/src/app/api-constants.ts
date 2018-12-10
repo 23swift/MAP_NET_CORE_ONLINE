@@ -15,6 +15,10 @@ export namespace ApiConstants {
     export const dropdownlistApi = '/api/DropdownList';
     export const documentListApi = '/api/DocumentList';
     export const requestHeaderApi = '/api/requestHeader';
+    export const mauEncoderDashboardApi = '/api/MauEncoderDashboard';
+    export const maefApi = '/api/maef';
+    export const approveWithReqReasonApi = '/api/approveWithReqReason';
+    export const approveWithExceptDetailsApi = '/api/approveWithExceptDetails';
 
 
     // REQUESTS

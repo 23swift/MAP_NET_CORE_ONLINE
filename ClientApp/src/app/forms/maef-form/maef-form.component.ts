@@ -4,6 +4,7 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppBaseComponent } from '../../app-base/app-base.component';
 import { MaefFormService } from '../maef-form/maef-form.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -13,6 +14,7 @@ import { MaefFormService } from '../maef-form/maef-form.service';
 })
 export class MaefFormComponent extends AppBaseComponent implements OnInit {
   @Input()displayMode:boolean=false;
+  @Input()
   form = new FormGroup({});
   model: any = {};
   options: FormlyFormOptions = {};
@@ -20,30 +22,27 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
   title: string = 'MAEF';
   subTitle: string = '';
   mode: string;
+  reqId: number;
+
   private _maefFormService: MaefFormService;
 
   constructor(private maefFormService: MaefFormService, public route: ActivatedRoute,
-    public router: Router) { 
+    public router: Router, private _snackBar: MatSnackBar) { 
       super(route, router);
       this._maefFormService = maefFormService;
-      this.getFields();
+      this.reqId = +this.route.snapshot.paramMap.get('id');    
+      this._maefFormService.getMAEF(this.reqId).subscribe(data => {
+        this.model = data;
+        console.log(data);
+
+        this.getFields();
+      });
+
     }
 
   ngOnInit() {
     this.title = 'MAEF';
-    // this.baseCreateFunction=this.create;
-    // this.baseUpdateFunction=this.update;
-
     this.initialize();
-  }
-
-  public create() {
-    alert('Create branch');
-  }
-
-  public update() {
-    alert('Update Branch');
-    alert(this.route.snapshot.paramMap.get('id'));
   }
 
   public cancel() {
@@ -56,7 +55,29 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
   }
 
   submit() {
+    this.model['requestId'] = this.reqId;
     
+    if (this.model['id']) {
+     this._maefFormService.update(this.model['id'], this.model).subscribe(data => {
+      this._snackBar.open('MAEF Details', 'Saved', {
+        duration: 1500
+      });
+      this.model = data; 
+    }); 
+    } else 
+    {
+      this._maefFormService.create(this.model).subscribe(data => {
+        this._snackBar.open('MAEF Details', 'Saved', {
+          duration: 1500
+        });
+        this.model = data; 
+      }); 
+    }
+
+    
+
+
+
   }
 
 }

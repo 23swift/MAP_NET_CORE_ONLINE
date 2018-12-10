@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormlyFieldConfig } from '@ngx-formly/core';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
+import { HttpClient } from '@angular/common/http';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable()
 export class ApproveWithReqReasonFormModalService {
@@ -10,12 +14,12 @@ export class ApproveWithReqReasonFormModalService {
       {
         className: 'flex-1',
         type: 'select',
-        key: 'awrsName',
+        key: 'awrsRequirement',
         expressionProperties: {
 
         },
         templateOptions: {
-          label: 'Name',
+          label: 'Requirement',
           required: true,
           options: [
             { label: 'CA/SA-Related', value: '1' },
@@ -44,11 +48,12 @@ export class ApproveWithReqReasonFormModalService {
       {
         className: 'flex-1',
         type: 'checkbox',
-        key: 'chkAwrsStatus',
+        key: 'chkAwrsComplied',
         expressionProperties: {
       },
         templateOptions: {
-          label: 'Complied'
+          label: 'Complied',
+          indeterminate: false,
         },
       },
 
@@ -57,10 +62,28 @@ export class ApproveWithReqReasonFormModalService {
 
 ];
 
-constructor() { }
+constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 getFormlyFields(): FormlyFieldConfig[] {
   return this.fields;
 }
+
+getByAppReq(id): Observable<any> {
+  return this._http.get(ApiConstants.approveWithReqReasonApi + '/' + id);
+}
+
+create(appReq): Observable<any> {
+  return this._http.post(ApiConstants.approveWithReqReasonApi, appReq);
+}
+
+update(id, appReq): Observable<any> {
+  return this._http.put(ApiConstants.approveWithReqReasonApi + '/' + id, appReq);
+}
+
+delete(id): Observable<any> {
+  return this._http.delete(ApiConstants.approveWithReqReasonApi + '/' + id);
+}
+
+
 }
 
 

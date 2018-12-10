@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from 'node_modules/@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from '../../api-constants';
 
 const apiUrl = '';
 @Injectable()
@@ -19,8 +21,8 @@ export class MauEncoderDashboardService implements OnInit {
     return this._dashboard.Fields;
   }
   
-  getAll() {
-    return this._http.get(apiUrl);
+  getRequests(): Observable<any> {
+    return this._http.get(ApiConstants.mauEncoderDashboardApi);
   }
 
   get(id) {
@@ -36,3 +38,4 @@ export class MauEncoderDashboardService implements OnInit {
     this._http.put(apiUrl, {});
   }
 }
+

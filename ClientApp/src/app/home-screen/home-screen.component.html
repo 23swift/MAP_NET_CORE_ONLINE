@@ -2,14 +2,17 @@
 <!-- <div class="dashboard-container"> -->
 <!-- <app-ao-checker-dashboard></app-ao-checker-dashboard> -->
 <!-- <span class="mat-display-3"><mat-icon color="warn">dashboard</mat-icon> Welcome to Merchant Acquiring System</span> -->
-<!-- <app-ao-checker-dashboard></app-ao-checker-dashboard> 
- <app-mau-encoder-dashboard></app-mau-encoder-dashboard> -->
+<!-- <app-ao-checker-dashboard></app-ao-checker-dashboard>  -->
+<div *ngIf="userGroup == 'mauEncoder'">
+ <app-mau-encoder-dashboard></app-mau-encoder-dashboard> 
+</div>
 <div *ngIf="userGroup == 'aoEncoder'">
   <app-ao-encoder-dashboard></app-ao-encoder-dashboard>
 </div>
 <div *ngIf="userGroup == 'aoChecker'">
   <app-ao-checker-dashboard></app-ao-checker-dashboard>
 </div>
+
 <!-- <app-approver-dashboard></app-approver-dashboard> -->
 <!-- <app-mau-checker-dashboard></app-mau-checker-dashboard> -->
 <!-- <app-mau-encoder-dashboard></app-mau-encoder-dashboard>   -->

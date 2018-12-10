@@ -1,18 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ApiConstants } from '../api-constants';
 
 @Injectable()
 export class ApproveWithReqReasonListService {
 
-  constructor() { }
+
+  constructor(private _http: HttpClient) { }
 
   getTableFields() {
-    return ["Name", "Remarks", "Action"];   
+    return ["Name", "Remarks", "Complied", "Action"];   
   }
 
   get() {
     return [
-      { Name: 'MDR', Remarks: 'MDR Remarks' }
+      { awrsRequirement: 'MDR', awrsRemarks: 'MDR Remarks' }
     ];
+  }
+
+  getByAppReqId(id): Observable<any> {
+    return this._http.get(ApiConstants.approveWithReqReasonApi + '/appreqlist/' + id);
+  }
+
+  delete(id): Observable<any> {
+    return this._http.delete(ApiConstants.approveWithReqReasonApi + '/' + id);
   }
 
 }

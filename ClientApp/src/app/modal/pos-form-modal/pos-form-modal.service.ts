@@ -573,12 +573,12 @@ export class PosFormModalService {
           type: 'radio',
           key: 'isInstallationTerm',
           expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
+         /*   'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
-            }
+            } */
           },
           templateOptions: {
             label: 'Installation Term',

@@ -40,7 +40,7 @@ export class AoEncoderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.mode = this.route.snapshot.params['mode'];
+    this.mode = 'create';
     this.isOptional = true;
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]

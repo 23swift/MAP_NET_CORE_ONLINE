@@ -33,11 +33,11 @@ namespace MAP_Web.Models
         public string businessSignage { get; set; }
         public string typeOfPremise { get; set; }
         public string floorArea { get; set; }
-        public bool interiorAppearance { get; set; }
-        public bool exteriorAppearance { get; set; }
-        public bool stocksInventory { get; set; }
-        public bool equipment { get; set; }
-        public bool withHighCardTraffic { get; set; }
+        public Nullable<bool> interiorAppearance { get; set; }
+        public Nullable<bool> exteriorAppearance { get; set; }
+        public Nullable<bool> stocksInventory { get; set; }
+        public Nullable<bool> equipment { get; set; }
+        public Nullable<bool> withHighCardTraffic { get; set; }
         public string surroundingEstablishment { get; set; }
         public string otherMarketingChannelSource { get; set; }
         public string averageNoOfTransactionMonth { get; set; }
@@ -55,8 +55,8 @@ namespace MAP_Web.Models
         public Nullable<DateTime> dateOfTheLastEvent { get; set; }
         public string totalSalesVolume { get; set; }
         public string nameOfTheLastAcquirer { get; set; }
-        public bool overAllRating { get; set; }
-        public bool adverseFindings { get; set; }
+        public Nullable<bool> overAllRating { get; set; }
+        public Nullable<bool> adverseFindings { get; set; }
         public Nullable<int> incompleteReportDueTo { get; set; }
         public string remarks { get; set; }
         public string informantsName { get; set; }
@@ -65,7 +65,7 @@ namespace MAP_Web.Models
         public Nullable<DateTime> dateInspected { get; set; }
         public string reviewedBy { get; set; }
         public Nullable<DateTime> dateReviewed { get; set; }
-        public bool isWaved { get; set; }
+        public Nullable<bool> isWaved { get; set; }
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
     }

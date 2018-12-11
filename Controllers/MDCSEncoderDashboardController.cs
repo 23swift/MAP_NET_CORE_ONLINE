@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace MAP_Web.Controllers
 {
     [Route("/api/mdcsDashboard")]
-    public class MDCSDashboardController : Controller
+    public class MDCSEncoderDashboardController : Controller
     {
-        private readonly IMDCSDashboardService _service;
-        public MDCSDashboardController(IMDCSDashboardService _service)
+        private readonly IMDCSEncoderDashboardService _service;
+        public MDCSEncoderDashboardController(IMDCSEncoderDashboardService _service)
         {
             this._service = _service;
         }

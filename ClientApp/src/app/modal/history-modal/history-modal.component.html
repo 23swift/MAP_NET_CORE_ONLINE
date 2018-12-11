@@ -1,6 +1,6 @@
 <div class="mat-subheading-1" style="margin: 0px;"><i class="material-icons icon-color align-middle">history</i>
   History</div>
-<mat-list>
+<mat-list style="overflow: auto;">
   <mat-list-item *ngFor="let item of history">
     <mat-icon mat-list-icon class="icon-color">error</mat-icon>
     <h4 mat-line>{{ item.date | date:'ddMMMyy' }} | {{ item.user }} - &lt;{{item.action}}&gt;</h4>

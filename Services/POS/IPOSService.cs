@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using MAP_Web.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
@@ -13,5 +14,6 @@ namespace MAP_Web.Services
          Task SaveChangesAsync();
          void Update(POS pos);
          void Delete(POS pos);
+         Task<POSAutoPopulateFields> FindPosAutoPopulate(int id);
     }
 }

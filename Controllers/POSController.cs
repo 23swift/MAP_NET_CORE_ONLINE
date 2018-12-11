@@ -30,6 +30,14 @@ namespace MAP_Web.Controllers
             return Ok(pos);
         }
 
+        [HttpGet("posAutoPopulate/{id}")]
+        public async Task<IActionResult> GetPosAutoPopulate(int id)
+        {
+            var pos = await posService.FindPosAutoPopulate(id);
+
+            return Ok(pos);
+        }
+
         [HttpGet("branch/{id}")]
         public async Task<IActionResult> GetPOSByBranch(int id)
         {

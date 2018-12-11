@@ -34,7 +34,7 @@ namespace MAP_Web.Models
         public string reasonForThreeSlipsPrinting { get; set; }
         public Nullable<DateTime> requiredDateAndTimeOfDispatch { get; set; }
         public Nullable<bool> isInstallationTerm { get; set; }
-        public Nullable<DateTime> requiredPullOutDateForTempPOSTerminals { get; set; }
+        public Nullable<DateTime> requestPullOutDateForTempPOSTerminals { get; set; }
         public string reasonForPermanentGPRSInstallation { get; set; }
         public string otherRequiredProfilingFacility { get; set; }
         public Nullable<bool> isTipAdjust { get; set; }

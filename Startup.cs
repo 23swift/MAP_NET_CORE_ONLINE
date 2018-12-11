@@ -93,7 +93,7 @@ namespace MAP_Web
             services.AddScoped<IApproveWithReqReasonService, ApproveWithReqReasonService>();
             services.AddScoped<IApproveWithExceptDetailsService, ApproveWithExceptDetailsService>();          
             services.AddScoped<IHistoryService, HistoryService>();
-            services.AddScoped<IMDCSDashboardService, MDCSDashboardService>();
+            services.AddScoped<IMDCSEncoderDashboardService, MDCSEncoderDashboardService>();
 
 
 

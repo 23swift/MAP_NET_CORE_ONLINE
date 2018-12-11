@@ -41,6 +41,7 @@ export class PosFormModalService {
           className: 'flex-1',
           type: 'select',
           key: 'natureOfRequest',
+          defaultValue: 'Installation',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
@@ -77,7 +78,7 @@ export class PosFormModalService {
                   form.get('reasonForThreeSlipsPrinting').patchValue(undefined);
                   form.get('requiredDateAndTimeOfDispatch').patchValue(undefined);
                   form.get('isInstallationTerm').patchValue(undefined);
-                  form.get('requiredPullOutDateForTempPOSTerminals').patchValue(undefined);
+                  form.get('requestPullOutDateForTempPOSTerminals').patchValue(undefined);
                   form.get('reasonForPermanentGPRSInstallation').patchValue(undefined);
                   form.get('otherRequiredProfilingFacility').patchValue(undefined);
                   form.get('mustSettle').patchValue(undefined);
@@ -100,7 +101,7 @@ export class PosFormModalService {
                   form.get('approvedBy').patchValue(undefined);
                   form.get('merchantNameOnSignage').patchValue(undefined);
                   form.get('isInstallationTerm').patchValue(undefined);
-                  form.get('requiredPullOutDateForTempPOSTerminals').patchValue(undefined);
+                  form.get('requestPullOutDateForTempPOSTerminals').patchValue(undefined);
                   form.get('reasonForPermanentGPRSInstallation').patchValue(undefined);
                   form.get('dateTimeEndorsedPaymentSolutionsOperations').patchValue(undefined);
                 }
@@ -276,7 +277,6 @@ export class PosFormModalService {
           className: 'flex-1',
           type: 'select',
           key: 'businessUnitAO',
-          defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
@@ -637,17 +637,17 @@ export class PosFormModalService {
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'requiredPullOutDateForTempPOSTerminals',
+          key: 'requestPullOutDateForTempPOSTerminals',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['isInstallationTerm'];
             },
             'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
+              return !model['isWaved'] && !model['isInstallationTerm'];
             }
           },
           templateOptions: {
-            label: 'Required Pull Out Date For Temporary POS Terminals',
+            label: 'Request Pull Out Date For Temporary POS Terminals',
           }
         }
       ]
@@ -661,10 +661,10 @@ export class PosFormModalService {
           key: 'reasonForPermanentGPRSInstallation',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || !model['isInstallationTerm'];
             },
             'templateOptions.required': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
+              return model['natureOfRequest'] === 'Installation' && !model['isWaved'] && model['isInstallationTerm'];
             }
           },
           templateOptions: {
@@ -1233,5 +1233,9 @@ export class PosFormModalService {
 
   validateByNewAffiliationId(id): Observable<any> {
     return this._http.get(ApiConstants.posApi + '/validate/' + id);
+  }
+
+  getPosAutoPopulate(id): Observable<any> {
+    return this._http.get(ApiConstants.posApi + '/posAutoPopulate/' + id);
   }
 }

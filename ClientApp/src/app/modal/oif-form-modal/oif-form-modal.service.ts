@@ -647,8 +647,6 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            pattern: '^\\d+$',
-            type: 'number',
             label: 'Average No. of Transaction/Month',
             maxLength: 20
           },
@@ -659,6 +657,9 @@ export class OifFormModalService {
             'templateOptions.required': (model: any, formState: any) => {
               return !model['isWaved'];
             }
+          },
+          validators: {
+            validation: ['numeric']
           }
         }
       ]
@@ -963,7 +964,7 @@ export class OifFormModalService {
           key: 'adverseFindings',
           type: 'radio',
           className: 'flex-1',
-          defaultValue: false,
+          // defaultValue: false,
           templateOptions: {
             label: 'Adverse Findings',
             options: [

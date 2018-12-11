@@ -8,11 +8,11 @@ using System;
 
 namespace MAP_Web.Services
 {
-    public class MDCSDashboardService : IMDCSDashboardService
+    public class MDCSEncoderDashboardService : IMDCSEncoderDashboardService
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
-        public MDCSDashboardService(IUnitOfWork unitOfWork)
+        public MDCSEncoderDashboardService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();

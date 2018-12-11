@@ -30,7 +30,7 @@ export class DocumentCheckListService {
   constructor(private _http: HttpClient, private _documentListService: DocumentListService) { }
 
   getTableFields() {
-    return ['DocumentName', 'Submitted', 'Remarks', 'TargetDateOfSubmission', 'FileUpload', 'Action'];
+    return ['DocumentName', 'Submitted', 'Remarks', 'TargetDateOfSubmission', 'DateSubmitted', 'FileUpload', 'Action'];
   }
 
   getDocumentChecklist(): Observable<any> {

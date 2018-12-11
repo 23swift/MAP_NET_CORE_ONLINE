@@ -39,19 +39,6 @@ export class DocumentChecklistFormModalService {
           },
           {
             className: 'flex-1',
-            key: 'remarks',
-            type: 'input',
-            expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return !model['submitted'];
-              }
-            },
-            templateOptions: {
-              label: 'Remarks',
-            }
-          },
-          {
-            className: 'flex-1',
             key: 'targetDateOfSubmission',
             type: 'calendar',
             expressionProperties: {
@@ -62,13 +49,39 @@ export class DocumentChecklistFormModalService {
             templateOptions: {
               label: 'Target Date of Submission',
             }
+          },
+          {
+            className: 'flex-1',
+            key: 'dateSubmitted',
+            type: 'calendar',
+            expressionProperties: {
+
+            },
+            templateOptions: {
+              label: 'Date Submitted',
+              disabled: true
+            }
+          }
+        ]
+      },
+      {
+        fieldGroupClassName: 'display-flex',
+        fieldGroup: [
+          {
+            className: 'flex-1',
+            key: 'remarks',
+            type: 'input',
+            expressionProperties: {
+              'templateOptions.required': (model: any, formState: any) => {
+                return !model['submitted'];
+              }
+            },
+            templateOptions: {
+              label: 'Remarks',
+            }
           }
         ]
       }
-      // ,
-      // {
-      //   fieldGroupClassName: 'display-flex',
-      //   fieldGroup: [
       //     {
       //       className: 'flex-1',
       //       key: 'submitted',

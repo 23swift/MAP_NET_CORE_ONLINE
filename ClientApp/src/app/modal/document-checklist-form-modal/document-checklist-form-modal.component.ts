@@ -42,6 +42,7 @@ export class DocumentChecklistFormModalComponent implements OnInit {
     const base64file = this.file ? this.file.toString().split(',')[1] : null;
     this.model['fileUpload'] = base64file;
     this.model['submitted'] = this.model['submitted'] || base64file ? true : false;
+    this.model['dateSubmitted'] = this.model['submitted'] || base64file ? new Date() : null;
 
     this._docuService.update(this.model['id'], this.model).subscribe(data => {
       this._snackBar.open('Document Checklist Details', 'Updated', {

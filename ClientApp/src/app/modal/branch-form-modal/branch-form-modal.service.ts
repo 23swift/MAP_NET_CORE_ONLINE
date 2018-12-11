@@ -819,7 +819,7 @@ export class BranchFormModalService {
           key: 'serviceProvider',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return !model['withInstalledECR'];
+              return model['withInstalledECR'] === false;
             }
           },
           templateOptions: {
@@ -878,7 +878,7 @@ export class BranchFormModalService {
           key: 'ifYesCardholder1',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return !model['withECRSwiping'];
+              return model['withECRSwiping'] === false;
             }
           },
           templateOptions: {
@@ -914,7 +914,7 @@ export class BranchFormModalService {
           key: 'ifYesCardholder2',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return !model['forInstallationSwiping'];
+              return model['forInstallationSwiping'] === false;
             }
           },
           templateOptions: {
@@ -1163,22 +1163,23 @@ export class BranchFormModalService {
               field.templateOptions.options = this._dropDownService.getDropdown('MCC');
             }
           }
-        },
-        {
-          className: 'flex-1',  // decimal format   // conditional mandatory
-          type: 'input',
-          key: 'INTES Code for Diners',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            type: 'number',
-            label: 'INTES Code for Diners',
-            placeholder: 'INTES Code for Diners',
-            pattern: '^\\d\\.\\d{2}$|^\\d\\.\\d{4}$',
-            maxLength: 4
-          }
         }
+        // ,
+        // {
+        //   className: 'flex-1',  // decimal format   // conditional mandatory
+        //   type: 'input',
+        //   key: 'INTES Code for Diners',
+        //   expressionProperties: {
+
+        //   },
+        //   templateOptions: {
+        //     type: 'number',
+        //     label: 'INTES Code for Diners',
+        //     placeholder: 'INTES Code for Diners',
+        //     pattern: '^\\d\\.\\d{2}$|^\\d\\.\\d{4}$',
+        //     maxLength: 4
+        //   }
+        // }
       ]
     },
 
@@ -1830,22 +1831,23 @@ export class BranchFormModalService {
               field.templateOptions.options = this._dropDownService.getDropdown('MCC');
             }
           }
-        },
-        {
-          className: 'flex-1',  // decimal format   // conditional mandatory
-          type: 'input',
-          key: 'intesCodeForDiners',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'INTES Code for Diners',
-            maxLength: 4
-          },
-          validators: {
-            validation: ['numeric'],
-          }
         }
+        // ,
+        // {
+        //   className: 'flex-1',  // decimal format   // conditional mandatory
+        //   type: 'input',
+        //   key: 'intesCodeForDiners',
+        //   expressionProperties: {
+
+        //   },
+        //   templateOptions: {
+        //     label: 'INTES Code for Diners',
+        //     maxLength: 4
+        //   },
+        //   validators: {
+        //     validation: ['numeric'],
+        //   }
+        // }
       ]
     },
 
@@ -3962,21 +3964,22 @@ export class BranchFormModalService {
             valueProp: 'code',
             disabled: true
           }
-        },
-        {
-          className: 'flex-1',  // decimal format   // conditional mandatory
-          type: 'input',
-          key: 'INTES Code for Diners',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            type: 'number',
-            label: 'INTES Code for Diners',
-            placeholder: 'INTES Code for Diners',
-            disabled: true
-          }
         }
+        // ,
+        // {
+        //   className: 'flex-1',  // decimal format   // conditional mandatory
+        //   type: 'input',
+        //   key: 'INTES Code for Diners',
+        //   expressionProperties: {
+
+        //   },
+        //   templateOptions: {
+        //     type: 'number',
+        //     label: 'INTES Code for Diners',
+        //     placeholder: 'INTES Code for Diners',
+        //     disabled: true
+        //   }
+        // }
       ]
     },
     {
@@ -4051,7 +4054,7 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Area Mall Code',
-            options: this._dropDownService.getDropdown('AMC'),
+            options: this._dropDownService.getDropdown('MALLS'),
             labelProp: 'value',
             valueProp: 'code',
             disabled: true
@@ -4891,7 +4894,7 @@ export class BranchFormModalService {
           key: 'serviceProvider',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return !model['withInstalledECR'];
+              return model['withInstalledECR'] === false;
             }
           },
           templateOptions: {
@@ -5264,21 +5267,22 @@ export class BranchFormModalService {
             valueProp: 'code',
             disabled: true
           }
-        },
-        {
-          className: 'flex-1',  // decimal format   // conditional mandatory
-          type: 'input',
-          key: 'INTES Code for Diners',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            type: 'number',
-            label: 'INTES Code for Diners',
-            placeholder: 'INTES Code for Diners',
-            disabled: true
-          }
         }
+        // ,
+        // {
+        //   className: 'flex-1',  // decimal format   // conditional mandatory
+        //   type: 'input',
+        //   key: 'INTES Code for Diners',
+        //   expressionProperties: {
+
+        //   },
+        //   templateOptions: {
+        //     type: 'number',
+        //     label: 'INTES Code for Diners',
+        //     placeholder: 'INTES Code for Diners',
+        //     disabled: true
+        //   }
+        // }
       ]
     },
     {

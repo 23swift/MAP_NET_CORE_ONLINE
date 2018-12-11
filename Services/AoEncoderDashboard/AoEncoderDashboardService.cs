@@ -24,8 +24,7 @@ namespace MAP_Web.Services
                             include: r => r.Include(rr => rr.NewAffiliation)
                                 .ThenInclude(n => n.CustomerProfile)
                                 .Include(rr => rr.NewAffiliation.Branches),
-                                orderBy: x => x.OrderByDescending(y => y.Id),
-                            predicate: r => r.Status == 1);
+                                orderBy: x => x.OrderByDescending(y => y.Id));
 
             foreach (var item in requests.Items)
             {
@@ -38,9 +37,10 @@ namespace MAP_Web.Services
                             RequestId = item.Id,
                             requestedDate = item.CreatedDate.Value,
                             businessName = item.NewAffiliation.CustomerProfile.legalName,
-                            referenceNo = item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
+                            referenceNo = item.TrackingNo, //item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
                             dbaName = branch.dbaName,
                             requestedBy = "Test User",
+                            status = item.Status == 1 ? "DRAFT" : "FOR AO CHECKER'S REVIEW",
                             tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                         });
                     }
@@ -52,9 +52,10 @@ namespace MAP_Web.Services
                         RequestId = item.Id,
                         requestedDate = item.CreatedDate.Value,
                         businessName = item.NewAffiliation.CustomerProfile.legalName,
-                        referenceNo = item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
+                        referenceNo = item.TrackingNo, //item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
                         dbaName = "",
                         requestedBy = "Test User",
+                        status = item.Status == 1 ? "DRAFT" : "FOR AO CHECKER'S REVIEW",
                         tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                     });
                 }

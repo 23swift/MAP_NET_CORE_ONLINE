@@ -22,6 +22,13 @@ export class AoEncoderDashboardComponent implements OnInit {
     this._service.getRequests().subscribe(data => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.sort = this.sort;
+
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
     });
   }
 

@@ -117,11 +117,11 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' ||
-              model['natureOfRequest'] === 'Installation' || model['isWaved'];
+                model['natureOfRequest'] === 'Installation' || model['isWaved'];
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' ||
-              model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
+                model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
             }
           },
           templateOptions: {
@@ -619,12 +619,12 @@ export class PosFormModalService {
           type: 'radio',
           key: 'isInstallationTerm',
           expressionProperties: {
-         /*   'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            } */
+            /*   'templateOptions.disabled': (model: any, formState: any) => {
+                 return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+               },
+               'templateOptions.required': (model: any, formState: any) => {
+                 return model['isWaved'] === false;
+               } */
           },
           templateOptions: {
             label: 'Installation Term',
@@ -643,7 +643,7 @@ export class PosFormModalService {
               return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['isInstallationTerm'];
             },
             'templateOptions.required': (model: any, formState: any) => {
-              return !model['isWaved'] && !model['isInstallationTerm'];
+              return !model['isWaved'] && model['isInstallationTerm'] === false;
             }
           },
           templateOptions: {
@@ -661,7 +661,7 @@ export class PosFormModalService {
           key: 'reasonForPermanentGPRSInstallation',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || !model['isInstallationTerm'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['isInstallationTerm'] === false;
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && !model['isWaved'] && model['isInstallationTerm'];
@@ -728,6 +728,11 @@ export class PosFormModalService {
             maxLength: 300,
           }
         },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
         {
           className: 'flex-1',
           type: 'input',
@@ -778,96 +783,6 @@ export class PosFormModalService {
           templateOptions: {
             label: 'Date and Time Endorsed To MAU',
           }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaVmjacd',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJACD',
-            maxLength: 50,
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmj',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-VMJ',
-            maxLength: 50,
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidAmex',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-AMEX (If with VMJ)',
-            maxLength: 50,
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dinersMID',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-Diners (If with VMJ)',
-            maxLength: 50,
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'cupAcceptorId',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'CUP Acceptor ID',
-            maxLength: 50,
-          }
         }
       ]
     },
@@ -901,63 +816,12 @@ export class PosFormModalService {
             label: 'Merchant Prepaid',
             maxLength: 50,
           }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaVmjacVmjacd',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD',
-            maxLength: 50,
-          }
         }
       ]
     },
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaVmjacVmjacdNew',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return (model['natureOfRequest'] === 'Installation') || model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return (model['natureOfRequest'] !== 'Installation') && model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (New)',
-            maxLength: 50,
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'creditStraightMidVmjaVmjacVmjacdOffUs',
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'Installation' || model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
-            }
-          },
-          templateOptions: {
-            label: 'Credit Straight MID-VMJA/VMJAC/VMJACD (Off Us)',
-            maxLength: 50,
-          }
-        },
         {
           className: 'flex-1',
           type: 'input',
@@ -1103,7 +967,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'BDO Pay Mobile – Reference Field',
-            options: this._dropDownService.getDropdown('NR'),
+            options: this._dropDownService.getDropdown('BPMRF'),
             labelProp: 'value',
             valueProp: 'code',
           }

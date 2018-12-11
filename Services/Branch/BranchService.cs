@@ -21,20 +21,46 @@ namespace MAP_Web.Services
         public async Task InsertAsync(Branch branch)
         {
             branch.MIDs = new Collection<MID>();
-            for (int i = 0; i < 5; i++)
+            branch.MIDs.Add(new MID
             {
-                branch.MIDs.Add(new MID
-                {
-                    currencyPhp = true,
-                    monitorCode = "OTC",
-                    cardPlans = "MCVCJCACCC - 1",
-                    status = 1
-                });
-            }
+                currencyPhp = true,
+                monitorCode = "OTC",
+                cardPlans = "MCVCJCACCC - 1",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "Installment Regular",
+                cardPlans = "MCVCJCACCC - 1",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "0% Installment",
+                cardPlans = "MCVCJCACCC - 1",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "BNPL Regular",
+                cardPlans = "MCVCJCACCC - 1",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "0% BNPL",
+                cardPlans = "MCVCJCACCC - 1",
+                status = 1
+            });
 
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Added",
                 groupCode = "Test Group Code",
@@ -58,7 +84,8 @@ namespace MAP_Web.Services
         {
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Updated",
                 groupCode = "Test Group Code",
@@ -73,7 +100,8 @@ namespace MAP_Web.Services
         {
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Deleted",
                 groupCode = "Test Group Code",

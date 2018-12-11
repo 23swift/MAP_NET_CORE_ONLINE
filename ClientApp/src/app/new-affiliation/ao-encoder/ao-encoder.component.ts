@@ -8,18 +8,16 @@ import { BranchListService } from 'src/app/branch-list/branch-list.service';
 import { OifFormModalService } from 'src/app/modal/oif-form-modal/oif-form-modal.service';
 import { PosFormModalService } from 'src/app/modal/pos-form-modal/pos-form-modal.service';
 import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
+import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
 
 @Component({
   selector: 'app-ao-encoder-step',
   templateUrl: './ao-encoder.component.html',
   styleUrls: ['./ao-encoder.component.css'],
-  providers: [AoEncoderService, BranchListService, OifFormModalService, PosFormModalService]
+  providers: [AoEncoderService, BranchListService, OifFormModalService, PosFormModalService, DocumentCheckListService]
 })
 export class AoEncoderComponent implements OnInit {
   isLinear = false;
-  isOptional = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
   title = 'New Affiliation';
   subTitle = 'DRAFT';
   mode: string;
@@ -36,18 +34,12 @@ export class AoEncoderComponent implements OnInit {
     private _router: Router, private _snackBar: MatSnackBar,
     private _branchService: BranchListService, private _oifService: OifFormModalService,
     private _posService: PosFormModalService,
-    private _newAffiliationService: NewAffiliationRequestService
+    private _newAffiliationService: NewAffiliationRequestService,
+    private _documentChecklistService: DocumentCheckListService
   ) { }
 
   ngOnInit() {
     this.mode = 'create';
-    this.isOptional = true;
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
   }
 
   public completed(stepper: MatStepper, form: string) {
@@ -76,9 +68,9 @@ export class AoEncoderComponent implements OnInit {
           stepper.next();
         } else {
           this._snackBar.open('NEXT', 'FAILED: No Existing Branch',
-          {
-            duration: 1000
-          });
+            {
+              duration: 1000
+            });
         }
       });
     } else if (form === 'oif') {
@@ -91,9 +83,9 @@ export class AoEncoderComponent implements OnInit {
           stepper.next();
         } else {
           this._snackBar.open('NEXT', 'FAILED: One or More Branch has no OIF',
-          {
-            duration: 1000
-          });
+            {
+              duration: 1000
+            });
         }
       });
     } else if (form === 'pos') {
@@ -105,8 +97,7 @@ export class AoEncoderComponent implements OnInit {
           stepper.selected.completed = true;
           stepper.next();
         } else {
-          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no POS',
-          {
+          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no POS', {
             duration: 1000
           });
         }

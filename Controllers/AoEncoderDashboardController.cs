@@ -19,5 +19,19 @@ namespace MAP_Web.Controllers
 
             return Ok(requests);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var requests = await _service.FindAsync(id);
+
+            if (requests == null)
+                return NotFound();
+
+            _service.DeleteRequest(requests);
+            await _service.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

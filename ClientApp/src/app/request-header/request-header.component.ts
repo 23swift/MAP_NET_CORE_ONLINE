@@ -47,6 +47,7 @@ export class RequestHeaderComponent implements OnInit {
   openHistory() {
     this._dialog.open(HistoryModalComponent, {
       width: '60%',
+      height: 'auto',
       data: {
         requestId: this.requestId
       }

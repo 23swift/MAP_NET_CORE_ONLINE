@@ -11,6 +11,7 @@ namespace MAP_Web.Services
          Task<DocumentChecklist> FindAsync(int id);
          Task<IPagedList<DocumentChecklist>> FindByNewAffiliationAsync(int id);
          Task SaveChangesAsync();
+         Task<bool> ValidateDocuments(int id);
          void Update(DocumentChecklist documentChecklist);
          void Delete(DocumentChecklist documentChecklist);
     }

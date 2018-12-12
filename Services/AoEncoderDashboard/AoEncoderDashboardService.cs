@@ -17,6 +17,17 @@ namespace MAP_Web.Services
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
+
+        public void DeleteRequest(Request request)
+        {
+            requestRepo.Delete(request);
+        }
+
+        public async Task<Request> FindAsync(int id)
+        {
+            return await requestRepo.FindAsync(id);
+        }
+
         public async Task<List<DashboardViewModel>> FindAsync()
         {
             var dashboardContainer = new List<DashboardViewModel>();
@@ -62,6 +73,11 @@ namespace MAP_Web.Services
             }
 
             return dashboardContainer;
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await unitOfWork.SaveChangesAsync();
         }
     }
 }

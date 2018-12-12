@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { DocumentListService } from 'src/app/services/document-list.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 @Injectable()
 export class DocumentChecklistFormModalService {
 
-  constructor(private _documentListService: DocumentListService) { }
+  constructor(private _documentListService: DocumentListService, private _http: HttpClient) { }
 
   getFormlyFields() {
     return [
@@ -35,6 +38,18 @@ export class DocumentChecklistFormModalService {
             defaultValue: false,
             templateOptions: {
               label: 'Submitted',
+            },
+            lifecycle: {
+              onInit: (form, field) => {
+                field.formControl.valueChanges.subscribe(v => {
+                  if (v === false) {
+                    form.get('dateSubmitted').patchValue(undefined);
+                    form.get('targetDateOfSubmission').patchValue(undefined);
+                  } else {
+                    form.get('targetDateOfSubmission').patchValue(undefined);
+                  }
+                });
+              }
             }
           },
           {
@@ -137,5 +152,9 @@ export class DocumentChecklistFormModalService {
       //   ]
       // }
     ];
+  }
+
+  deleteDocumentUploaded(id): Observable<any> {
+    return this._http.put(ApiConstants.documentChecklistApi + '/document/' + id, {});
   }
 }

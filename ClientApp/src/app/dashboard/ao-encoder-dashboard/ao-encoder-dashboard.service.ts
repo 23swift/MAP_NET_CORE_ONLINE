@@ -37,4 +37,8 @@ export class AoEncoderDashboardService implements OnInit {
   update(): void {
     this._http.put(apiUrl, {});
   }
+
+  delete(id): Observable<any> {
+    return this._http.delete(ApiConstants.aoEncoderDashboardApi + '/' + id);
+  }
 }

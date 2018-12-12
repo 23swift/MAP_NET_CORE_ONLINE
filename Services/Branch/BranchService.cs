@@ -31,21 +31,21 @@ namespace MAP_Web.Services
             branch.MIDs.Add(new MID
             {
                 currencyPhp = true,
-                monitorCode = "Installment Regular",
+                monitorCode = "REGULAR INSTALLMENT",
                 cardPlans = "MCVCJCACCC - 1",
                 status = 1
             });
             branch.MIDs.Add(new MID
             {
                 currencyPhp = true,
-                monitorCode = "0% Installment",
+                monitorCode = "Installment Zero",
                 cardPlans = "MCVCJCACCC - 1",
                 status = 1
             });
             branch.MIDs.Add(new MID
             {
                 currencyPhp = true,
-                monitorCode = "BNPL Regular",
+                monitorCode = "BNPL Reg",
                 cardPlans = "MCVCJCACCC - 1",
                 status = 1
             });

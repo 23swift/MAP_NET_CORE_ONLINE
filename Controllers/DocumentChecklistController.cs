@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using MAP_Web.Models.ViewModels;
+using System;
 
 namespace MAP_Web.Controllers
 {
@@ -53,6 +54,14 @@ namespace MAP_Web.Controllers
             return Ok(document.fileUpload);
         }
 
+        [HttpGet("validate/{id}")]
+        public async Task<IActionResult> ValidateDocuments(int id)
+        {
+            bool isValid = await documentChecklistService.ValidateDocuments(id);
+
+            return Ok(isValid);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateDocumentChecklist([FromBody] DocumentChecklist document)
         {
@@ -72,12 +81,14 @@ namespace MAP_Web.Controllers
                 return BadRequest(ModelState);
 
             var doc = await documentChecklistService.FindAsync(id);
+            document.submittedBy = document.submitted ? "Test User" : "";
 
             if (doc == null)
                 return NotFound();
 
             mapper.Map<DocumentChecklistViewModel, DocumentChecklist>(document, doc);
 
+            documentChecklistService.Update(doc);
             await documentChecklistService.SaveChangesAsync();
 
             return Ok(document);
@@ -90,6 +101,21 @@ namespace MAP_Web.Controllers
                 return BadRequest(ModelState);
 
             await documentChecklistService.InsertToRequestAsync(id, documentId);
+            await documentChecklistService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("document/{id}")]
+        public async Task<IActionResult> DeleteDocument(int id, [FromBody] Object obj)
+        {
+            var document = await documentChecklistService.FindAsync(id);
+            
+            if (document == null)
+                return NotFound();
+
+            document.fileUpload = null;
+            documentChecklistService.Update(document);
             await documentChecklistService.SaveChangesAsync();
 
             return Ok();

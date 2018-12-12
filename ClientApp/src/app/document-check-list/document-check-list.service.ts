@@ -30,11 +30,15 @@ export class DocumentCheckListService {
   constructor(private _http: HttpClient, private _documentListService: DocumentListService) { }
 
   getTableFields() {
-    return ['DocumentName', 'Submitted', 'Remarks', 'TargetDateOfSubmission', 'DateSubmitted', 'FileUpload', 'Action'];
+    return ['DocumentName', 'Submitted', 'Remarks', 'TargetDateOfSubmission', 'SubmittedBy', 'DateSubmitted', 'FileUpload', 'Action'];
   }
 
   getDocumentChecklist(): Observable<any> {
     return this._documentListService.get();
+  }
+
+  validateDocuments(id): Observable<any> {
+    return this._http.get(ApiConstants.documentChecklistApi + '/validate/' + id);
   }
 
   get(id): Observable<any> {
@@ -74,6 +78,11 @@ export class DocumentCheckListService {
     link.href = window.URL.createObjectURL(blob);
     const fileName = documentName;
     link.download = fileName;
+    document.body.appendChild(link);
     link.click();
+    // setTimeout(() => {
+    //   document.removeChild(link);
+    //   window.URL.revokeObjectURL(link.href);
+    // }, 100);
   }
 }

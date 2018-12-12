@@ -48,6 +48,9 @@
         <a (click)="getItem(element.requestId)" mat-mini-fab color="primary">
           <mat-icon style="color: white;">edit</mat-icon>
         </a>
+        <a (click)="delete(element.requestId)" mat-mini-fab color="primary">
+          <mat-icon style="color: white;">delete_outline</mat-icon>
+        </a>
       </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

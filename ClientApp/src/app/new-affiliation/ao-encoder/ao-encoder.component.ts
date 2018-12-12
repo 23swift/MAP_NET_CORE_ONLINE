@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { MatStepper } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AoEncoderService } from './ao-encoder.service';
@@ -9,6 +9,7 @@ import { OifFormModalService } from 'src/app/modal/oif-form-modal/oif-form-modal
 import { PosFormModalService } from 'src/app/modal/pos-form-modal/pos-form-modal.service';
 import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
 import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
+import { HistoryModalComponent } from 'src/app/modal/history-modal/history-modal.component';
 
 @Component({
   selector: 'app-ao-encoder-step',
@@ -35,7 +36,8 @@ export class AoEncoderComponent implements OnInit {
     private _branchService: BranchListService, private _oifService: OifFormModalService,
     private _posService: PosFormModalService,
     private _newAffiliationService: NewAffiliationRequestService,
-    private _documentChecklistService: DocumentCheckListService
+    private _documentChecklistService: DocumentCheckListService,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -104,10 +106,18 @@ export class AoEncoderComponent implements OnInit {
       });
     } else if (form === 'docs') {
       // FOR DOCUMENTS
-      this.isDone = true;
+      this._documentChecklistService.validateDocuments(this.newAffiliationId).subscribe(d => {
+        if (d) {
+          this.isDone = true;
 
-      stepper.selected.completed = true;
-      stepper.next();
+          stepper.selected.completed = true;
+          stepper.next();
+        } else {
+          this._snackBar.open('NEXT', 'FAILED: Not all documents were updated', {
+            duration: 1000
+          });
+        }
+      });
     }
 
     return true;
@@ -133,6 +143,21 @@ export class AoEncoderComponent implements OnInit {
       snackBarSub.afterDismissed().subscribe(() => {
         this._router.navigateByUrl('/home/aoEncoder');
       });
+    });
+  }
+
+  clearStepper() {
+    this.isOif = false;
+    this.isPos = false;
+  }
+
+  openHistory() {
+    this._dialog.open(HistoryModalComponent, {
+      width: '60%',
+      height: 'auto',
+      data: {
+        requestId: this.newAffiliationId
+      }
     });
   }
 }

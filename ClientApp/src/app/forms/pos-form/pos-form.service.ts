@@ -1596,34 +1596,415 @@ export class PosFormService {
   psServicingFields: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'select',
+        key: 'natureOfRequest',
+        templateOptions: {
+          label: 'Nature Of Request',
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [   
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'requestersBusinessUnit',
+          templateOptions: {
+            label: "Requester's Business Unit",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'requestersContactNumber',
+          templateOptions: {
+            label: "Requester's Contact Number / Cellphone Number",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'area',
+          templateOptions: {
+            label: 'Business Unit / Area (where POS will be charged)',
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'accountOfficerHandler',
+          templateOptions: {
+            label: 'Account Officer / Handler',
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'businessTypeOfAccount',
+          templateOptions: {
+            label: 'Business Type Of Account (AO / RM / HO)',
+            valueProp: 'BusinessTypeOfAcccount_Id',
+            labelProp: 'Description',
+            options: [
+              { BusinessTypeOfAcccount_Id: '1', Description: 'AO' },
+              { BusinessTypeOfAcccount_Id: '2', Description: 'RM' },
+              { BusinessTypeOfAcccount_Id: '3', Description: 'HO' }
+            ]
+          },
+          defaultValue: '1'
+
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'businessUnitAO',
+          templateOptions: {
+            label: "Business Unit (AO's Business Unit)",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'segment',
+          templateOptions: {
+            label: "Segment",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'approvedBy',
+          templateOptions: {
+            label: "Approved By (Business Unit Head)",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
           className: 'flex-1',
           type: 'input',
-          key: 'emailSubject',
+          key: 'merchantLegalName',
           templateOptions: {
-            label: "Email Subject",
-            disabled: true
+            label: "Merchant's Legal Name",
+
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'dateTimeAssignedPSProfiling',
+          key: 'merchantDBAName',
           templateOptions: {
-            label: "Date and Time Assigned to PS Profiling",
-            disabled: true
+            label: "Merchant's DBA Name",
+
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'creditStraightTID',
+          key: 'merchantNameOnSignage',
           templateOptions: {
-            label: "Credit Straight TID (new)",
-            disabled: true
+            label: "Merchant's Name on Signage",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantDBAAddress',
+          templateOptions: {
+            label: "Merchant's DBA Address",
+
           }
         },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantDBACity',
+          templateOptions: {
+            label: "Merchant's DBA City",
+
+          }
+        },
+        {
+          key: 'contactlessMerchant',
+          type: 'radio',
+          templateOptions: {
+            label: 'Contactless Merchant?',
+            options: [
+              { value: 'true', label: 'Yes' },
+              { value: 'false', label: 'No' }
+            ],
+          },
+          defaultValue: 'false'
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantCategoryCode',
+          templateOptions: {
+            label: "Merchant Category Code (MCC)",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'nsp',
+          templateOptions: {
+            label: "NSP",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'contactPerson',
+          templateOptions: {
+            label: "Contact Person",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'contactNumber',
+          templateOptions: {
+            label: "Contact Number",
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'numberOfPrintedSlips',
+          templateOptions: {
+            label: "Number of Printed Slips",
+          },
+          defaultValue: 2
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'reasonForThreeSlipsPrinting',
+          templateOptions: {
+            label: "Reason For 3 Slips Printing"
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'requestDateAndTimeOfDispatch',
+          templateOptions: {
+            label: "Request Date And Time Of Dispatch",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'radio',
+          key: 'installationTerm',
+          templateOptions: {
+            label: "Installation Term",
+            options: [
+              { value: 'Permanent', label: 'Permanent' },
+              { value: 'Temporary', label: 'Temporary' },
+            ]
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'requestPullOutDateForTempPOSTerminals',
+          templateOptions: {
+            label: "Request Pull Out Date For Temporary POS Terminals",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'reasonForPermanentGPRSInstallation',
+          templateOptions: {
+            label: "Reason For Permanent GPRS Installation",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'otherRequiredProfilingFacility',
+          templateOptions: {
+            label: "Other Required Profiling Facility (tip adjust, binver, BDO Pay, etc)",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'mustSettle',
+          templateOptions: {
+            label: "Must Settle (No. Of Days Required)",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'remarksSpecialInstructions',
+          templateOptions: {
+            label: "Remarks / Special Instructions (Dispatch-Related Only)",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'dateAndTimeEndorsedToMAU',
+          templateOptions: {
+            label: "Date and Time Endorsed To MAU",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileNumberOfTerminals',
+          templateOptions: {
+            label: "BDO Pay Mobile – Number of Terminals (Count)",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileBusinessGroup',
+          templateOptions: {
+            label: "BDO Pay Mobile – Business Group (If applicable)",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileMerchantPortalUserEmailAddress',
+          templateOptions: {
+            label: "BDO Pay Mobile – Merchant Portal User's Email Address",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileMerchantPortalNominatedUsername',
+          templateOptions: {
+            label: "BDO Pay Mobile – Merchant Portal Nominated Username",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileInternetConnection',
+          templateOptions: {
+            label: "BDO Pay Mobile – Internet Connection",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileInternetProvider',
+          templateOptions: {
+            label: "BDO Pay Mobile – Internet Provider",
+
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileReferenceField',
+          templateOptions: {
+            label: "BDO Pay Mobile – Reference Field",
+
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'bdoPayMobileRfName',
+          templateOptions: {
+            label: "BDO Pay Mobile – If RF is Customized, pls Include RF Name (Max 10 Characters)",
+
+          }
+        }
       ]
     }
   ]
@@ -1659,7 +2040,7 @@ export class PosFormService {
 
   getPosFields(userGroup): FormlyFieldConfig[] {
     var retFields: FormlyFieldConfig[];
-    userGroup = 'veriScreenFields';
+    // userGroup = 'psServicing';
     switch (userGroup) {
       case 'ao':
         retFields = this.aoFields

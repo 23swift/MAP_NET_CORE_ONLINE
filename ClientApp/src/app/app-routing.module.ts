@@ -288,7 +288,7 @@ const routes: Routes = [
   { path: 'na/mdcsEncoder/:mode', component: MdcsEncoderComponent },
   { path: 'na/mdcsChecker/:mode', component: MdcsCheckerComponent },
   // { path: 'na/mdcsUser', component: MdcsUserComponent },
-  { path: 'na/psServicing', component: PsServicingComponent },
+  { path: 'na/psServicing/:requestId/:branchId', component: PsServicingComponent },
   { path: 'aoChecking', component: AoCheckingComponent },
   { path: 'posForm', component: PosFormComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },

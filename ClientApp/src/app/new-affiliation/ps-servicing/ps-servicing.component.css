@@ -10,3 +10,11 @@
     margin-top: 20px;
 }
 
+.m-bottom  {
+    margin-bottom: 25px !important;
+}
+
+.mat-card-accordion {
+    padding: 5px !important;
+    margin: 2px !important;
+}

@@ -8,10 +8,9 @@
         </formly-form>
     </form>
 </div>
-
-<div style="margin: 20px 0px">
+<div style="margin: 20px 0px" *ngIf="!isHide">
     <app-owners-list [displayMode]="false" [customerProfileId]="customerProfileId"></app-owners-list>
 </div>
-<div style="margin: 20px 0px">
+<div style="margin: 20px 0px" *ngIf="!isHide">
     <app-signatories-list [displayMode]="false" [customerProfileId]="customerProfileId"></app-signatories-list>
 </div>

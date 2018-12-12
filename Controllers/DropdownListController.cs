@@ -43,5 +43,26 @@ namespace MAP_Web.Controllers
             return Ok(detailsList);
         }
 
+        [HttpGet("getTerminalModel/{brandCode}")]
+        public async Task<IActionResult> GetTerminalModel(string brandCode)
+        {
+            var dropdownvalue = await _service.GetTerminalModel(brandCode);
+
+            if (dropdownvalue == null)
+                return NotFound();
+
+            var detailsList = new List<DropdownViewModel>();
+            foreach (var item in dropdownvalue)
+            {
+                detailsList.Add(new DropdownViewModel
+                {
+                    Code = item.Code,
+                    Value = item.Value
+                });
+            }
+            // var mapped = mapper.Map<ICollection<MaintenanceDetails>, IEnumerable<DropdownViewModel>>(dropdownvalue.MaintenanceDetails);
+            return Ok(detailsList);
+        }
+
     }
 }

@@ -21,6 +21,7 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
   customerProfileId = 0;
   model: CutomerProfile;
   title = 'New Affiliation';
+  isHide: boolean;
 
   options: FormlyFormOptions = {
     showError: () => {
@@ -35,6 +36,7 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
     private _snackBar: MatSnackBar
   ) {
     super(route, router);
+
 
     this.route.params.subscribe(data => {
       if (data['id']) {
@@ -56,6 +58,9 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
       this._formlyFieldConfigService.disabled(this.fields);
     } else {
       this._formlyFieldConfigService.enabled(this.fields);
+    }
+    if (this.userGroup === 'psServicing') {
+      this.isHide = true;
     }
   }
 

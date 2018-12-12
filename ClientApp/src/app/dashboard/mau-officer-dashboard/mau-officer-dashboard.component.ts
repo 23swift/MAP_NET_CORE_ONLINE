@@ -46,7 +46,6 @@ export class MauOfficerDashboardComponent implements OnInit {
   }
 
   editItem(id) {
-    id = 1;
     this._router.navigateByUrl('na/mauOfficer/' + id);
   }
 
@@ -78,7 +77,6 @@ export class MauOfficerDashboardComponent implements OnInit {
   }
 
   ownRequest(id) {
-    id = 1;
     this._router.navigateByUrl('na/mauOfficer/' + id);
   }
 

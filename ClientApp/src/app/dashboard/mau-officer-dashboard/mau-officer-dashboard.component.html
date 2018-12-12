@@ -16,7 +16,7 @@
         </ng-container>
         <ng-container matColumnDef="RequestedDate">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Requested Date</th>
-            <td mat-cell *matCellDef="let element"> {{element.requestedDate | date: 'MM/dd/yyyy'}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.requestedDate | date: 'dd MMM yy'}} </td>
         </ng-container>
         <ng-container matColumnDef="RequestType">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Type </th>

@@ -15,12 +15,10 @@ import { FormlyFieldConfigService } from '../../services/formly-field-config.ser
   providers: [PosFormService]
 })
 export class PosFormComponent extends AppBaseComponent implements OnInit {
-
-  userGroup: string;
+  @Input() userGroup: string;
   @Input() displayMode: boolean;
   constructor(private _posFormService: PosFormService, private _route: ActivatedRoute, private _router: Router, private _formService: FormlyFieldConfigService) {
     super(_route, _router);
-    this.userGroup = 'ao';
     this.fields = _posFormService.getPosFields(this.userGroup);
   }
 

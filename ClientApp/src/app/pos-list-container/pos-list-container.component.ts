@@ -19,6 +19,7 @@ export class PosListContainerComponent implements OnInit, AfterViewInit {
   fields: FormlyFieldConfig[];
   model: Object;
   options = {};
+  @Input() showBranchInfo = true;
 
   constructor(private _service: PosListContainerService, private _router: Router, private _branchService: BranchFormService,
     private _formlyFieldConfigService: FormlyFieldConfigService) {

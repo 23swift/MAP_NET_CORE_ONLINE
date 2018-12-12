@@ -1,20 +1,25 @@
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="true" *ngIf="!isDone"></app-bdo-form-header>
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false" *ngIf="isDone"></app-bdo-form-header>
 <!-- <app-request-header></app-request-header> -->
-<span class="mat-headline">Please follow the steps:</span>
+<div class="mat-headline">Please follow the steps:
+  <span style="float: right;" *ngIf="newAffiliationId">
+    <button mat-button (click)="openHistory()" color="primary" class="no-padding history-btn" matTooltip="Show History">
+      <i class="material-icons">history</i>
+    </button>
+  </span>
+</div>
 <mat-vertical-stepper [linear]="true" #stepper>
   <mat-step [completed]="false">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Create Customer Profile</span>
     </ng-template>
-    <span class="mat-headline">Customer Profile</span>
     <app-customer-profile [displayMode]="false" [userGroup]="'ao'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'cust')">Next
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
   </mat-step>
-  <mat-step [completed]="false">
+  <mat-step [completed]="false" (click)="clearStepper()">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Add Branches</span>
     </ng-template>

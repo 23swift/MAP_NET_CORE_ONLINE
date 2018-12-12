@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl } from '../../../../node_modules/@angular/forms';
-import { MatDialogRef } from '../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../node_modules/@angular/material';
 
 interface ISearchField {
-  mqr: string[],
-  mdcsEncoder: string[]
-};
+  mqr: string[];
+  mdcsEncoder: string[];
+}
 
 @Component({
   selector: 'app-search-modal',
@@ -15,7 +15,11 @@ interface ISearchField {
 export class SearchModalComponent implements OnInit {
   searchCriteria: ISearchField;
   criteriaContainer: string[][];
-  constructor(private _matDialogRef: MatDialogRef<SearchModalComponent>) { }
+  userGroup: string;
+  constructor(private _matDialogRef: MatDialogRef<SearchModalComponent>,
+    @Inject(MAT_DIALOG_DATA)public dialogData: any) {
+      this.userGroup = this.dialogData['userGroup'];
+    }
 
   ngOnInit() {
     this.searchCriteria = {
@@ -23,15 +27,15 @@ export class SearchModalComponent implements OnInit {
       mdcsEncoder: ['Business Name', 'DBA Name', 'AO Name']
     };
     this.criteriaContainer = new Array<Array<string>>();
-    var rawArray = [];
-    this.searchCriteria.mdcsEncoder.forEach((val, index, arr) => {
-      if (index != 0 && index % 2 == 0) {
+    let rawArray = [];
+    this.searchCriteria[this.userGroup].forEach((val, index, arr) => {
+      if (index !== 0 && index % 2 === 0) {
         this.criteriaContainer.push(rawArray);
         rawArray = [];
       }
-      
-      rawArray.push(val);      
-      if (index == (arr.length - 1)) {
+
+      rawArray.push(val);
+      if (index === (arr.length - 1)) {
         this.criteriaContainer.push(rawArray);
       }
     });

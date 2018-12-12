@@ -29,6 +29,8 @@ namespace MAP_Web.Services
             return details;
         }
 
+        // public async Task<ServiceFeeContract> GetServiceFeeContract
+
         public async Task<MaintenanceMaster> GetOwnership()
         {
             var details = await masterRepo.GetFirstOrDefaultAsync(predicate: m => m.Code == "OW", include: m => m.Include(y => y.MaintenanceDetails));

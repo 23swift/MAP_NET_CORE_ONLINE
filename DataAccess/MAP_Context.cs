@@ -1,4 +1,9 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System;
+
 namespace MAP_Web.DataAccess
 {
     public class MAP_Context : DbContext
@@ -43,6 +48,30 @@ namespace MAP_Web.DataAccess
                 .HasOne(n => n.OIF)
                 .WithOne(c => c.Branch)
                 .HasForeignKey<Models.OIF>(c => c.BranchId);
+
+            modelBuilder.Entity<Models.Request>()
+                .HasOne(n => n.MAEF)
+                .WithOne(c => c.Request)
+                .HasForeignKey<Models.MAEF>(c => c.RequestId);
+
+
+            
+            // modelBuilder.Entity<Models.POSRequest>()
+            //     .HasOne(n => n.POS)
+            //     .WithOne(c => c.POSRequest)
+            //     .HasForeignKey<Models.POS>(c => c.POSRequestId);
+        }
+
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var modifiedEntities = ChangeTracker.Entries()
+                                    .Where(p => p.State == EntityState.Modified).ToList();
+            var now = DateTime.UtcNow;
+
+            
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
     }
 }

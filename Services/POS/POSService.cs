@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using MAP_Web.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
@@ -92,6 +93,29 @@ namespace MAP_Web.Services
             }
 
             return isValid;
+        }
+
+        public async Task<POSAutoPopulateFields> FindPosAutoPopulate(int id)
+        {
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == id,
+                                        include: b => b.Include(bb => bb.OIF)
+                                            .Include(r => r.NewAffiliation)
+                                                .ThenInclude(r => r.CustomerProfile));
+            
+            POSAutoPopulateFields pos = new POSAutoPopulateFields {
+                approvedBy = "",
+                businessUnitAO = "",
+                requestersBusinessUnit = "",
+                businessSignage = branch.OIF.businessSignage,
+                merchantDBAName = branch.dbaName,
+                merchantDbaAddress = branch.dbaAddress1,
+                merchantDbaCity = branch.dbaCity,
+                merchantLegalName = branch.NewAffiliation.CustomerProfile.legalName,
+                nsp = "",
+                segment = ""
+            };
+
+            return pos;
         }
     }
 }

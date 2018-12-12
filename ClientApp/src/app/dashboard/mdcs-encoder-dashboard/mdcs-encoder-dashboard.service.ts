@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from 'node_modules/@angular/common/http';
+import { ApiConstants } from 'src/app/api-constants';
+import { Observable } from 'rxjs';
 
 const apiUrl = '';
 @Injectable()
@@ -12,20 +14,19 @@ export class MdcsEncoderDashboardService implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   getTableFields() {
-    return this._dashboard.MdcsFields;
-  }
-  
-  getAll() {
-    return this._http.get(apiUrl);
+    return this._dashboard.Fields;
   }
 
-  get(id) {
-    // return this._http.get(apiUrl + id);
-    return this._dashboard.MdcsData;
+  getRequest(): Observable<any> {
+    return this._http.get(ApiConstants.mdcsDashboard);
+  }
+
+  get(id): Observable<any> {
+    return this._http.get(ApiConstants.mdcsDashboard + '/' + id);
   }
 
   create(): void {

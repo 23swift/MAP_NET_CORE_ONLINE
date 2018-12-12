@@ -142,6 +142,8 @@ const routes: Routes = [
   { path: 'na/aoEncoder/new', component: AoEncoderComponent },
   { path: 'na/aoEncoder/:id', component: AoEncoderComponent },
   { path: 'na/aoChecker/:id', component: AoCheckerComponent },
+  { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent },
+  { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent },
   {
     path: 'na/aoEncoder/:mode', component: AoEncoderComponent,
     children: [
@@ -278,6 +280,7 @@ const routes: Routes = [
     ]
   },
   { path: 'na/mauOfficer/:id', component: MauOfficerComponent }, // 1
+  { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, //story7
   { path: 'na/mdcsUser', component: MdcsUserComponent },
   {
     path: 'na/mdmUser', component: MdmUserComponent, children: [

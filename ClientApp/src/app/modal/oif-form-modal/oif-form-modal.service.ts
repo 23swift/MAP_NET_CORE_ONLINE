@@ -395,7 +395,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['premiseStatus'] === 'OWNED';
             }
           }
         },
@@ -647,18 +647,20 @@ export class OifFormModalService {
           type: 'input',
           className: 'flex-1',
           templateOptions: {
-            pattern: '^\\d+$',
-            type: 'number',
             label: 'Average No. of Transaction/Month',
             maxLength: 20
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return !model['isWaved'];
             }
+            // ,
+            // 'templateOptions.required': (model: any, formState: any) => {
+            //   return !model['isWaved'];
+            // }
+          },
+          validators: {
+            validation: ['numeric']
           }
         }
       ]
@@ -942,7 +944,6 @@ export class OifFormModalService {
           key: 'overAllRating',
           type: 'radio',
           className: 'flex-1',
-          defaultValue: true,
           templateOptions: {
             label: 'OverAll Rating',
             options: [
@@ -963,7 +964,7 @@ export class OifFormModalService {
           key: 'adverseFindings',
           type: 'radio',
           className: 'flex-1',
-          defaultValue: false,
+          // defaultValue: false,
           templateOptions: {
             label: 'Adverse Findings',
             options: [
@@ -974,7 +975,10 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'];
-            }
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['overAllRating'] === false;
+            },
           }
         },
         {
@@ -1009,7 +1013,7 @@ export class OifFormModalService {
             label: 'Remarks'
           },
           expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
+            'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'];
             }
           }

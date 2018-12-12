@@ -7,6 +7,7 @@ import { AppBaseComponent } from '../../../app/app-base/app-base.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { PosFormService } from './pos-form.service';
 import { FormlyFieldConfigService } from '../../services/formly-field-config.service';
+import { PosListService } from 'src/app/pos-list/pos-list.service';
 
 @Component({
   selector: 'app-pos-form',
@@ -14,15 +15,20 @@ import { FormlyFieldConfigService } from '../../services/formly-field-config.ser
   styleUrls: ['./pos-form.component.css'],
   providers: [PosFormService]
 })
-export class PosFormComponent extends AppBaseComponent implements OnInit {
+export class PosFormComponent implements OnInit {
+
   @Input() userGroup: string;
   @Input() displayMode: boolean;
-  constructor(private _posFormService: PosFormService, private _route: ActivatedRoute, private _router: Router, private _formService: FormlyFieldConfigService) {
-    super(_route, _router);
-    this.fields = _posFormService.getPosFields(this.userGroup);
+  @Input() branchId: number;
+  fields = [];
+  constructor(private _posFormService: PosFormService, private _route: ActivatedRoute,
+    private _router: Router, private _formService: FormlyFieldConfigService, private _posListService: PosListService) {
+    this.fields = this._posFormService.getPosFields(this.userGroup);
   }
 
   ngOnInit() {
+    // this._posListService.get(this.branchId)
+    this._posFormService.getPosFields(this.userGroup);
     if (this.displayMode) {
       this._formService.disabled(this.fields);
     } else {

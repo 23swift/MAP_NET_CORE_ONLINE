@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { MatStepper } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AoEncoderService } from './ao-encoder.service';
@@ -8,18 +8,17 @@ import { BranchListService } from 'src/app/branch-list/branch-list.service';
 import { OifFormModalService } from 'src/app/modal/oif-form-modal/oif-form-modal.service';
 import { PosFormModalService } from 'src/app/modal/pos-form-modal/pos-form-modal.service';
 import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
+import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
+import { HistoryModalComponent } from 'src/app/modal/history-modal/history-modal.component';
 
 @Component({
   selector: 'app-ao-encoder-step',
   templateUrl: './ao-encoder.component.html',
   styleUrls: ['./ao-encoder.component.css'],
-  providers: [AoEncoderService, BranchListService, OifFormModalService, PosFormModalService]
+  providers: [AoEncoderService, BranchListService, OifFormModalService, PosFormModalService, DocumentCheckListService]
 })
 export class AoEncoderComponent implements OnInit {
   isLinear = false;
-  isOptional = false;
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
   title = 'New Affiliation';
   subTitle = 'DRAFT';
   mode: string;
@@ -36,18 +35,13 @@ export class AoEncoderComponent implements OnInit {
     private _router: Router, private _snackBar: MatSnackBar,
     private _branchService: BranchListService, private _oifService: OifFormModalService,
     private _posService: PosFormModalService,
-    private _newAffiliationService: NewAffiliationRequestService
+    private _newAffiliationService: NewAffiliationRequestService,
+    private _documentChecklistService: DocumentCheckListService,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.mode = this.route.snapshot.params['mode'];
-    this.isOptional = true;
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
+    this.mode = 'create';
   }
 
   public completed(stepper: MatStepper, form: string) {
@@ -76,9 +70,9 @@ export class AoEncoderComponent implements OnInit {
           stepper.next();
         } else {
           this._snackBar.open('NEXT', 'FAILED: No Existing Branch',
-          {
-            duration: 1000
-          });
+            {
+              duration: 1000
+            });
         }
       });
     } else if (form === 'oif') {
@@ -91,9 +85,9 @@ export class AoEncoderComponent implements OnInit {
           stepper.next();
         } else {
           this._snackBar.open('NEXT', 'FAILED: One or More Branch has no OIF',
-          {
-            duration: 1000
-          });
+            {
+              duration: 1000
+            });
         }
       });
     } else if (form === 'pos') {
@@ -105,18 +99,25 @@ export class AoEncoderComponent implements OnInit {
           stepper.selected.completed = true;
           stepper.next();
         } else {
-          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no POS',
-          {
+          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no POS', {
             duration: 1000
           });
         }
       });
     } else if (form === 'docs') {
       // FOR DOCUMENTS
-      this.isDone = true;
+      this._documentChecklistService.validateDocuments(this.newAffiliationId).subscribe(d => {
+        if (d) {
+          this.isDone = true;
 
-      stepper.selected.completed = true;
-      stepper.next();
+          stepper.selected.completed = true;
+          stepper.next();
+        } else {
+          this._snackBar.open('NEXT', 'FAILED: Not all documents were updated', {
+            duration: 1000
+          });
+        }
+      });
     }
 
     return true;
@@ -142,6 +143,21 @@ export class AoEncoderComponent implements OnInit {
       snackBarSub.afterDismissed().subscribe(() => {
         this._router.navigateByUrl('/home/aoEncoder');
       });
+    });
+  }
+
+  clearStepper() {
+    this.isOif = false;
+    this.isPos = false;
+  }
+
+  openHistory() {
+    this._dialog.open(HistoryModalComponent, {
+      width: '60%',
+      height: 'auto',
+      data: {
+        requestId: this.newAffiliationId
+      }
     });
   }
 }

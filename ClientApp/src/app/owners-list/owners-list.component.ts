@@ -18,6 +18,7 @@ export class OwnersListComponent implements OnInit {
   dataSource: Object[];
   torp: any[];
   @Input() displayMode: boolean;
+  @Input() userGroup: string;
   @Input() customerProfileId: number;
 
   constructor(private _ownerService: OwnersListService, private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef,
@@ -44,7 +45,8 @@ export class OwnersListComponent implements OnInit {
     const dialog = this._dialog.open(OwnersFormModalComponent, {
       width: '60%',
       data: {
-        owner: owner
+        owner: owner,
+        userGroup: this.userGroup
       }
     });
 
@@ -71,7 +73,8 @@ export class OwnersListComponent implements OnInit {
       const dialog = this._dialog.open(OwnersFormModalComponent, {
         width: '60%',
         data: {
-          customerProfileId: this.customerProfileId
+          customerProfileId: this.customerProfileId,
+          userGroup: this.userGroup
         }
       });
 

@@ -52,5 +52,20 @@ namespace MAP_Web.Services
         {
             return await documentRepo.GetPagedListAsync(predicate: x => x.NewAffiliationId == id);
         }
+
+        public async Task<bool> ValidateDocuments(int id)
+        {
+            var docs = await FindByNewAffiliationAsync(id);
+            bool valid = true;
+
+            foreach (var item in docs.Items)
+            {
+                if (item.submitted == false && item.targetDateOfSubmission == null) {
+                    valid = false;
+                }    
+            }
+
+            return valid;
+        }
     }
 }

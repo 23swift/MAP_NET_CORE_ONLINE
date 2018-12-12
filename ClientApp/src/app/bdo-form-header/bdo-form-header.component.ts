@@ -38,7 +38,7 @@ export class BdoFormHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showApprovalOptions = true;
+    this.showApprovalOptions = false;
     this.showRequestFlowOptions = false;
     this.showCreateOptions = false;
     this.showWelcomeLetter = false;
@@ -83,7 +83,7 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showPreScreen = true;
       }
       if (this.mode.match(/mauOfficer/i)) {
-        this.showRequestFlowOptions = false;
+        this.showRequestFlowOptions = true;
       }
     }
   }

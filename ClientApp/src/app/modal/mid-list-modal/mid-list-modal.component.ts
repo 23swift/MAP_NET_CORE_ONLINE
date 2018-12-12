@@ -28,9 +28,6 @@ export class MidListModalComponent implements OnInit {
   showAction: boolean;
   @Input() showAdd = true;
   @Input() showUpdate = true;
-  @Input() branchId = 0;
-
-
 
   monitorCodeList = [];
   cardPlansList = [];

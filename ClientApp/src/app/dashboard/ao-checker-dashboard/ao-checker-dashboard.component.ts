@@ -27,6 +27,13 @@ export class AoCheckerDashboardComponent implements OnInit {
     this._service.get().subscribe(dd => {
       this.dataSource = new MatTableDataSource(dd);
       this.dataSource.sort = this.sort;
+
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
     });
 
     this.mode = '';

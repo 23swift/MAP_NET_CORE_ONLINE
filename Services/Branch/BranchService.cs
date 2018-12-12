@@ -26,6 +26,8 @@ namespace MAP_Web.Services
                 currencyPhp = true,
                 monitorCode = "OTC",
                 cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = false,
+                serviceFeeRate = "99.99",
                 status = 1
             });
             branch.MIDs.Add(new MID
@@ -33,6 +35,8 @@ namespace MAP_Web.Services
                 currencyPhp = true,
                 monitorCode = "REGULAR INSTALLMENT",
                 cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
                 status = 1
             });
             branch.MIDs.Add(new MID
@@ -40,6 +44,8 @@ namespace MAP_Web.Services
                 currencyPhp = true,
                 monitorCode = "Installment Zero",
                 cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
                 status = 1
             });
             branch.MIDs.Add(new MID
@@ -47,6 +53,8 @@ namespace MAP_Web.Services
                 currencyPhp = true,
                 monitorCode = "BNPL Reg",
                 cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
                 status = 1
             });
             branch.MIDs.Add(new MID
@@ -54,6 +62,8 @@ namespace MAP_Web.Services
                 currencyPhp = true,
                 monitorCode = "0% BNPL",
                 cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
                 status = 1
             });
 

@@ -133,7 +133,7 @@ export class MidFormModalService {
                     form.get('serviceFeeRate').patchValue('0');
                     form.get('serviceFeeStraight').patchValue(undefined);
                   } else {
-                    form.get('serviceFeeRate').patchValue(undefined);
+                    form.get('serviceFeeRate').patchValue('99.99');
                     form.get('merchantGroupCode').patchValue(undefined);
                   }
                 });

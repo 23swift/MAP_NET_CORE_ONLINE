@@ -82,7 +82,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<POSViewModel, POS>(pos, currentPos);
 
-            posService.Update(currentPos);
+            await posService.Update(currentPos);
             await posService.SaveChangesAsync();
 
             return Ok(pos);
@@ -96,7 +96,7 @@ namespace MAP_Web.Controllers
             if (currentPos == null)
                 return NotFound();
 
-            posService.Delete(currentPos);
+            await posService.Delete(currentPos);
             await posService.SaveChangesAsync();
 
             return Ok();

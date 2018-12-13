@@ -10,7 +10,7 @@ namespace MAP_Web.Services
          Task<TerminalDetails> FindAsync(int id);
          Task<IPagedList<TerminalDetails>> FindByPosAsync(int id);
          Task SaveChangesAsync();
-         void Update(TerminalDetails terminalDetails);
-         void Delete(TerminalDetails terminalDetails);
+         Task Update(TerminalDetails terminalDetails);
+         Task Delete(TerminalDetails terminalDetails);
     }
 }

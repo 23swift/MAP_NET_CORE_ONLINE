@@ -63,6 +63,7 @@ namespace MAP_Web
             services.AddDbContext<DataAccess.MAP_Context>(options => options.UseSqlServer(Configuration.GetConnectionString("MAP_DB")))
             .AddHttpClient()
             .AddUnitOfWork<DataAccess.MAP_Context>();
+
             services.AddAutoMapper();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IAOMaintenanceService, AOMaintenanceService>();

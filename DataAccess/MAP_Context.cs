@@ -73,5 +73,10 @@ namespace MAP_Web.DataAccess
 
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MAP_DB;Integrated Security=SSPI;");
+        // }
     }
 }

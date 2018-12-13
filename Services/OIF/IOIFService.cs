@@ -11,7 +11,7 @@ namespace MAP_Web.Services
          Task<OIF> FindByBranchAsync(int id);
          bool ValidateOIF(int id);
          Task SaveChangesAsync();
-         void Update(OIF oif);
+         Task Update(OIF oif);
          void Delete(OIF oif);
     }
 }

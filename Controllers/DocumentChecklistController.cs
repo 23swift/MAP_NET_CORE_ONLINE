@@ -88,7 +88,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<DocumentChecklistViewModel, DocumentChecklist>(document, doc);
 
-            documentChecklistService.Update(doc);
+            await documentChecklistService.Update(doc);
             await documentChecklistService.SaveChangesAsync();
 
             return Ok(document);
@@ -115,21 +115,21 @@ namespace MAP_Web.Controllers
                 return NotFound();
 
             document.fileUpload = null;
-            documentChecklistService.Update(document);
+            await documentChecklistService.Update(document);
             await documentChecklistService.SaveChangesAsync();
 
             return Ok();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteDocument(int id)
+        public async Task<IActionResult> DeleteDocumentChecklist(int id)
         {
             var currentDocument = await documentChecklistService.FindAsync(id);
 
             if (currentDocument == null)
                 return NotFound();
 
-            documentChecklistService.Delete(currentDocument);
+            await documentChecklistService.Delete(currentDocument);
             await documentChecklistService.SaveChangesAsync();
 
             return Ok();

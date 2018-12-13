@@ -10,7 +10,8 @@ namespace MAP_Web.Services
          Task<MID> FindAsync(int id);
          Task<IPagedList<MID>> FindByBranchAsync(int id);
          Task SaveChangesAsync();
-         void Update(MID mid);
-         void Delete(MID mid);
+         void SaveChanges();
+         Task Update(MID mid);
+         Task Delete(MID mid);
     }
 }

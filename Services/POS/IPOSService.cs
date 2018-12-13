@@ -12,8 +12,8 @@ namespace MAP_Web.Services
          Task<IPagedList<POS>> FindByBranchAsync(int id);
          bool ValidatePOS(int id);
          Task SaveChangesAsync();
-         void Update(POS pos);
-         void Delete(POS pos);
+         Task Update(POS pos);
+         Task Delete(POS pos);
          Task<POSAutoPopulateFields> FindPosAutoPopulate(int id);
     }
 }

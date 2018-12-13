@@ -90,7 +90,7 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async void Update(Branch branch)
+        public async Task Update(Branch branch)
         {
             // Branch.NewAffiliationId is the same with Request.Id
 
@@ -106,7 +106,7 @@ namespace MAP_Web.Services
             branchRepo.Update(branch);
         }
 
-        public async void Delete(Branch branch)
+        public async Task Delete(Branch branch)
         {
             // Branch.NewAffiliationId is the same with Request.Id
 

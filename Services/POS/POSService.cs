@@ -46,7 +46,7 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async void Update(POS pos)
+        public async Task Update(POS pos)
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
@@ -61,7 +61,7 @@ namespace MAP_Web.Services
             posRepo.Update(pos);
         }
 
-        public async void Delete(POS pos)
+        public async Task Delete(POS pos)
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id

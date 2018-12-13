@@ -288,9 +288,9 @@ export class MidFormModalService {
             key: 'merchantPromotionsGroup',
             type: 'select',
             expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
-              }
+              // 'templateOptions.required': (model: any, formState: any) => {
+              //   return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
+              // }
             },
             templateOptions: {
               label: 'Merchant Promotions Group',

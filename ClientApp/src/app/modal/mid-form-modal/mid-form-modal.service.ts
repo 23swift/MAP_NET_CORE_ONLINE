@@ -130,10 +130,10 @@ export class MidFormModalService {
               onInit: (form, field) => {
                 field.formControl.valueChanges.subscribe(v => {
                   if (v === true) {
-                    form.get('serviceFeeRate').patchValue('99.99');
+                    form.get('serviceFeeRate').patchValue('0');
                     form.get('serviceFeeStraight').patchValue(undefined);
                   } else {
-                    form.get('serviceFeeRate').patchValue(undefined);
+                    form.get('serviceFeeRate').patchValue('99.99');
                     form.get('merchantGroupCode').patchValue(undefined);
                   }
                 });
@@ -196,7 +196,7 @@ export class MidFormModalService {
             type: 'select',
             expressionProperties: {
               'templateOptions.disabled': (model: any, formState: any) => {
-                return model['majorPurchase'];
+                return model['majorPurchase'] || model['serviceFeeRate'] !== '99.99';
               },
               'templateOptions.required': (model: any, formState: any) => {
                 return !model['majorPurchase'];
@@ -232,13 +232,15 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'serviceFeeRate',
             type: 'input',
+            defaultValue: '99.99',
             expressionProperties: {
-
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return !model['majorPurchase'];
+              }
             },
             templateOptions: {
-              required: true,
               label: 'Service Fee Rate',
-              pattern: '^\\d{1,2}\.\\d{2}$',
+              pattern: '^\\d{1,2}\.\\d{2}|0$',
               maxLength: 5
             }
           }
@@ -258,10 +260,10 @@ export class MidFormModalService {
           },
           {
             className: 'flex-1',
-            key: 'intesCode',
+            key: 'dinersIse',
             type: 'input',
             templateOptions: {
-              label: 'INTES Code',
+              label: 'Diners ISE',
             }
           },
           {
@@ -270,8 +272,10 @@ export class MidFormModalService {
             type: 'input',
             templateOptions: {
               label: 'Pay Delay Days',
-              pattern: '^\\d+$',
               maxLength: 2
+            },
+            validators: {
+              validation: ['numeric']
             }
           }
         ]
@@ -284,9 +288,9 @@ export class MidFormModalService {
             key: 'merchantPromotionsGroup',
             type: 'select',
             expressionProperties: {
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
-              }
+              // 'templateOptions.required': (model: any, formState: any) => {
+              //   return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
+              // }
             },
             templateOptions: {
               label: 'Merchant Promotions Group',
@@ -311,7 +315,6 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'forMoto',
             type: 'radio',
-            defaultValue: 1,
             templateOptions: {
               label: 'For MOTO',
               options: [
@@ -333,7 +336,6 @@ export class MidFormModalService {
             templateOptions: {
               label: 'DCC Mark-up Rate',
               placeholder: '0.00',
-              type: 'number',
               pattern: '^\\d{1,8}\.\\d{2}$'
             }
           },
@@ -344,7 +346,6 @@ export class MidFormModalService {
             templateOptions: {
               label: 'DCC Merchant Rebate',
               placeholder: '0.00',
-              type: 'number',
               pattern: '^\\d{1,8}\.\\d{2}$'
             }
           }

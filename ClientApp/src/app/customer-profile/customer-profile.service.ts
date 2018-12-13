@@ -94,20 +94,6 @@ export class CustomerProfileService {
             options: this._dropDownService.getDropdown('OW'),
             labelProp: 'value',
             valueProp: 'code',
-            // labelProp: 'value',
-            // valueProp: 'id'
-            // options: [
-            //   { label: 'Single Proprietorship', value: 1 },
-            //   { label: 'Partnership', value: 2 },
-            //   { label: 'Corporation', value: 3 },
-            //   { label: 'Registered Association, Cooperative & Organization', value: 4 },
-            //   { label: 'GOCC', value: 5 },
-            //   { label: 'Resident Foreign Corporation', value: 6 },
-            //   { label: 'Resident Foreign Partnership', value: 7 },
-            //   { label: 'Branch or Representative Office of Foreign Corporation/Company', value: 8 },
-            //   { label: 'Foreign Individual/Single Proprietorship', value: 9 },
-            //   { label: 'Others', value: 10 }
-            // ],
             disabled: true
           }
         },
@@ -147,6 +133,45 @@ export class CustomerProfileService {
     }
   ];
 
+  psServicngFields: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'legalName',
+          templateOptions: {
+            label: 'Business/Legal Name',
+            placeholder: 'Business Name',
+            disabled: true
+          },
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'ownership',
+          templateOptions: {
+            label: 'Ownership',
+            options: this._dropDownService.getDropdown('OW'),
+            labelProp: 'value',
+            valueProp: 'code',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'dtiRegDate',
+          templateOptions: {
+            label: 'Sec/DTI Registration Date',
+            disabled: true
+          }
+        }
+      ],
+    },
+  ];
+
   constructor(private _http: HttpClient, private _dropDownService: DropDownService) {
       // this._dropDownService.getDropdown('OW').subscribe(data => {
       //   this.ownershipList = data;
@@ -160,6 +185,8 @@ export class CustomerProfileService {
       fields = this.aoFields;
     } else if (userGroup === 'mdcs') {
       fields = this.mdcsFields;
+    } else if (userGroup === 'psServicing') {
+      fields = this.psServicngFields;
     }
 
     return fields;

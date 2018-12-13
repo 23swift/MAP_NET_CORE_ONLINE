@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstants } from '../api-constants';
+import { DocumentListService } from '../services/document-list.service';
 
 export interface DocumentDisplayInfo {
   Id: number;
@@ -26,21 +27,18 @@ const TEST_DATA: DocumentDisplayInfo[] = [
 @Injectable()
 export class DocumentCheckListService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _documentListService: DocumentListService) { }
 
   getTableFields() {
-    return ['DocumentName', 'Submitted', 'Remarks', 'TargetDateOfSubmission', 'FileUpload', 'Action'];
+    return ['DocumentName', 'Submitted', 'Remarks', 'TargetDateOfSubmission', 'SubmittedBy', 'DateSubmitted', 'FileUpload', 'Action'];
   }
 
-  getDocumentChecklist(): Object[] {
-    return [{ id: 1, description: 'BDO\'s Merchant Information Sheet (MIS)' },
-    { id: 2, description: 'BDO\'s Ocular Inspection Form' },
-    { id: 3, description: 'BDO\'s Merchant Accreditation Evaluation Form' },
-    { id: 4, description: 'Certificate of Business Registration with BIR (Form 2303)' },
-    { id: 5, description: 'Article of Partnership with SEC Filing Certificate' },
-    { id: 6, description: 'Certificate of Membership with Any Travel Association' },
-    { id: 7, description: 'Audited Financial Statement or Latest 6mos. Bank Statements' }
-    ];
+  getDocumentChecklist(): Observable<any> {
+    return this._documentListService.get();
+  }
+
+  validateDocuments(id): Observable<any> {
+    return this._http.get(ApiConstants.documentChecklistApi + '/validate/' + id);
   }
 
   get(id): Observable<any> {
@@ -80,17 +78,11 @@ export class DocumentCheckListService {
     link.href = window.URL.createObjectURL(blob);
     const fileName = documentName;
     link.download = fileName;
+    document.body.appendChild(link);
     link.click();
-  }
-
-  getDocumentName() {
-    return [{ id: 1, description: 'BDO\'s Merchant Information Sheet (MIS)'},
-    { id: 2, description: 'BDO\'s Ocular Inspection Form'},
-    { id: 3, description: 'BDO\'s Merchant Accreditation Evaluation Form'},
-    { id: 4, description: 'Certificate of Business Registration with BIR (Form 2303)'},
-    { id: 5, description: 'Article of Partnership with SEC Filing Certificate'},
-    { id: 6, description: 'Certificate of Membership with Any Travel Association'},
-    { id: 7, description: 'Audited Financial Statement or Latest 6mos. Bank Statements'}
-    ];
+    // setTimeout(() => {
+    //   document.removeChild(link);
+    //   window.URL.revokeObjectURL(link.href);
+    // }, 100);
   }
 }

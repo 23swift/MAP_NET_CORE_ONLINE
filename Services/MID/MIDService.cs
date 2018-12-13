@@ -43,22 +43,28 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async void Update(MID mid)
+        public void SaveChanges()
+        {
+            unitOfWork.SaveChanges();
+        }
+
+        public async Task Update(MID mid)
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
                 RequestId = branch.NewAffiliationId
             });
+
             midRepo.Update(mid);
         }
 
-        public async void Delete(MID mid)
+        public async Task Delete(MID mid)
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id

@@ -16,8 +16,8 @@ export class CalendarTypeComponent extends FieldType implements OnInit {
   displayErrorOnInit: boolean;
 
   ngOnInit() {
-    // this.displayErrorOnInit = this.options.showError(Field.prototype);
-    // console.log(this.displayErrorOnInit);
+    this.displayErrorOnInit = this.options.showError(Field.prototype);
+    //console.log(this.displayErrorOnInit);
   }
 
 }

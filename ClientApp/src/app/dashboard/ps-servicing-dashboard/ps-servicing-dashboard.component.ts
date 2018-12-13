@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { PsServicingDashboardService } from './ps-servicing-dashboard.service';
 import { IRequestDisplay } from '../../temp/interface/irequest-display';
 import { Router } from '@angular/router';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-ps-servicing-dashboard',
@@ -10,24 +11,35 @@ import { Router } from '@angular/router';
   providers: [PsServicingDashboardService]
 })
 export class PsServicingDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[];
-  dataSource;
+  dataSource: MatTableDataSource<any>;
 
   mode: string;
   title: string;
   subTitle: string;
-  constructor(private _service: PsServicingDashboardService, private _router: Router) { }
+  constructor(private _service: PsServicingDashboardService,
+    private _router: Router) { }
 
   ngOnInit() {
-    this.displayedColumns = this._service.getTableFields();
-    this.dataSource = this._service.get(0);
+    this.displayedColumns = ['ReferenceNo', 'RequestersName', 'RequestType',
+      'DBAName', 'DateRequested',
+      'Status', 'NatureOfRequest', 'Operation'];
+    this.mode = '';
+    this.title = '';
+    this.subTitle = '';
 
-    this.mode = 'create';
-    this.title = 'New Affiliation';
-    this.subTitle = 'PS Servicing';
+    this._service.getAll().subscribe(x => {
+      this.dataSource = new MatTableDataSource(x);
+      this.dataSource.sort = this.sort;
+    })
   }
 
-  getItem(id) {
-    this._router.navigateByUrl('na/psServicing');
+  getItem(requestId, branchId) {
+    this._router.navigateByUrl('na/psServicing' + '/' + requestId + '/' + branchId);
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

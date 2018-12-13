@@ -3616,20 +3616,20 @@ export class BranchFormService {
         templateOptions: {
           label: 'Name of Authorized SOA Recipient',
           placeholder: 'Name of Authorized SOA Recipient',
-          maxLength: 120
+          maxLength: 20
         }
       },
       {
         className: 'flex-1',
         type: 'input',
-        key: 'SoaEmailAddress',
+        key: 'soaEmailAddress',
         expressionProperties: {
 
         },
         templateOptions: {
           label: 'Email Address',
           placeholder: 'Email Address',
-          maxLength: 250
+          maxLength: 50
         }
       },
       {
@@ -3639,7 +3639,7 @@ export class BranchFormService {
           label: 'Report Distribution?',
           options: [
             { value: '1', label: 'Per Company' },
-            { value: '2', label: "Per Company's Branch" }
+            { value: '2', label: 'Per Company\'s Branch' }
           ],
         },
 
@@ -3660,8 +3660,8 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          label: "Owner's Name",
-          placeholder: "Owner's Name",
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
           required: true
         },
       },
@@ -3685,8 +3685,8 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          label: "Spouse's Name",
-          placeholder: "Spouse's Name"
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
         }
       },
       ]
@@ -3711,16 +3711,17 @@ export class BranchFormService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isAtmDebit'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isAtmDebit'];
-          }
+          // 'templateOptions.required': (model: any, formState: any) => {
+          //   return model['isAtmDebit'];
+          // },
+          // 'templateOptions.disabled': (model: any, formState: any) => {
+          //   return !model['isAtmDebit'];
+          // }
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          maxLength: 3
+          maxLength: 3,
+          disabled: true,
         },
         validators: {
           validation: ['numeric'],
@@ -3731,16 +3732,17 @@ export class BranchFormService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isAtmDebit'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isAtmDebit'];
-          }
+          // 'templateOptions.required': (model: any, formState: any) => {
+          //   return model['isAtmDebit'];
+          // },
+          // 'templateOptions.disabled': (model: any, formState: any) => {
+          //   return !model['isAtmDebit'];
+          // }
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          pattern: '^\\d{1,4}\\.\\d{2}$',
+          disabled: true
         }
       }
       ]
@@ -3762,16 +3764,17 @@ export class BranchFormService {
         className: 'flex-6',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isSmGiftCard'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isSmGiftCard'];
-          }
+          // 'templateOptions.required': (model: any, formState: any) => {
+          //   return model['isSmGiftCard'];
+          // },
+          // 'templateOptions.disabled': (model: any, formState: any) => {
+          //   return !model['isSmGiftCard'];
+          // }
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          pattern: '^\\d{1,4}\\.\\d{2}$',
+          disabled: true
         }
       }
       ]
@@ -3793,16 +3796,17 @@ export class BranchFormService {
         className: 'flex-6',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isSmShopCard'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isSmShopCard'];
-          }
+          // 'templateOptions.required': (model: any, formState: any) => {
+          //   return model['isSmShopCard'];
+          // },
+          // 'templateOptions.disabled': (model: any, formState: any) => {
+          //   return !model['isSmShopCard'];
+          // }
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          pattern: '^\\d{1,4}\\.\\d{2}$',
+          disabled: true
         }
       }
       ]
@@ -3824,36 +3828,39 @@ export class BranchFormService {
         type: 'input',
         key: 'numberOfDebitTidCashAgad',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isCashAgad'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isCashAgad'];
-          }
+          // 'templateOptions.required': (model: any, formState: any) => {
+          //   return model['isCashAgad'];
+          // },
+          // 'templateOptions.disabled': (model: any, formState: any) => {
+          //   return !model['isCashAgad'];
+          // }
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          maxLength: 3
-        },
-        validators: {
-          validation: ['numeric'],
+          maxLength: 3,
+          disabled: true
         }
+        // ,
+        // validators: {
+        //   validation: ['numeric'],
+        // }
       },
       {
         key: 'mdrCashAgad',
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isCashAgad'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isCashAgad'];
-          }
+          // 'templateOptions.required': (model: any, formState: any) => {
+          //   return model['isCashAgad'];
+          // },
+          // 'templateOptions.disabled': (model: any, formState: any) => {
+          //   return !model['isCashAgad'];
+          // }
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          pattern: '^\\d{1,4}\\.\\d{2}$',
+          disabled: true
         }
       }
       ]
@@ -4120,7 +4127,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'Hold-out Amount',
           placeholder: '9999999999999999999',
-          pattern: '^\\d{1,19}$',
+          // pattern: '^\\d{1,19}$',
           disabled: true
         }
       }
@@ -4170,8 +4177,8 @@ export class BranchFormService {
           templateOptions: {
             label: 'DCC Rebate Rate',
             placeholder: 'DCC Rebate Rate',
-            pattern: '^\d+\.\d{2}$',
-            disabled: true
+            pattern: '^\\d+\\.\\d{2}$',
+            // disabled: true
           }
         },
         {
@@ -4181,8 +4188,8 @@ export class BranchFormService {
           templateOptions: {
             label: 'Third Party CASA',
             placeholder: 'Third Party CASA',
-            pattern: '^[^\d]$',
-            disabled: true
+            pattern: '^[^\\d]$',
+            // disabled: true
           }
         }
       ]
@@ -4197,7 +4204,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Other Email Address',
             placeholder: 'Other Email Address',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4207,7 +4214,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Other Mobile Number',
             placeholder: 'Other Mobile Number',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -4223,7 +4230,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Type of Related Party',
             placeholder: 'Type of Related Party',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4233,7 +4240,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Ri-Name / Relation',
             placeholder: 'Ri-Name / Relation',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4243,7 +4250,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Name of PEP',
             placeholder: 'Name of PEP',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -4259,7 +4266,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Fraud Tool Provider',
             placeholder: 'Fraud Tool Provider',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4269,7 +4276,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'CNP Orientation Date',
             placeholder: 'CNP Orientation Date',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -4284,7 +4291,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Direct Payment Link',
             placeholder: 'Direct Payment Link',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4294,7 +4301,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Gateway Integration Type',
             placeholder: 'Gateway Integration Type',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -4310,7 +4317,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'CRTE Issued By',
             placeholder: 'CRTE Issued By',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4320,7 +4327,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Tax Exempt Classification',
             placeholder: 'Tax Exempt Classification',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -4335,7 +4342,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Valid From',
             placeholder: 'Valid From',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -4345,7 +4352,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Valid Until',
             placeholder: 'Valid Until',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -5524,8 +5531,8 @@ export class BranchFormService {
           templateOptions: {
             label: 'DCC Rebate Rate',
             placeholder: 'DCC Rebate Rate',
-            pattern: '^\d+\.\d{2}$',
-            disabled: true
+            pattern: '^\\d+\\.\\d{2}$',
+            // disabled: true
           }
         },
         {
@@ -5536,7 +5543,7 @@ export class BranchFormService {
             label: 'Third Party CASA',
             placeholder: 'Third Party CASA',
             pattern: '^[^\\d]$',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -5549,9 +5556,10 @@ export class BranchFormService {
           type: 'input',
           key: 'otherEmailAddress',
           templateOptions: {
+            type: 'email',
             label: 'Other Email Address',
             placeholder: 'Other Email Address',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -5561,7 +5569,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Other Mobile Number',
             placeholder: 'Other Mobile Number',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -5577,7 +5585,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Type of Related Party',
             placeholder: 'Type of Related Party',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -5587,7 +5595,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Ri-Name / Relation',
             placeholder: 'Ri-Name / Relation',
-            disabled: true
+            // disabled: true
           }
         },
         {
@@ -5597,7 +5605,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Name of PEP',
             placeholder: 'Name of PEP',
-            disabled: true
+            // disabled: true
           }
         }
       ]
@@ -5622,7 +5630,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'CNP Orientation Date',
             placeholder: 'CNP Orientation Date',
-            disabled: true
+            // disabled: true
           }
         }
       ]

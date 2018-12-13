@@ -62,11 +62,11 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(CustomerProfile customerProfile)
+        public async Task Update(CustomerProfile customerProfile)
         {
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            historyRepo.Insert(new History{
+            await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Request Updated",
                 groupCode = "Test Group Code",

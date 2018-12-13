@@ -22,6 +22,8 @@ export namespace ApiConstants {
     export const historyApi = '/api/history';
     
 
+    export const psServicingDashboardApi = '/api/psServicingDashboard';
+    export const mdcsDashboard = '/api/mdcsDashboard';
 
 
     // REQUESTS

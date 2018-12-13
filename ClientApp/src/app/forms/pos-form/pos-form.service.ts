@@ -116,11 +116,11 @@ export class PosFormService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' ||
-              model['natureOfRequest'] === 'Installation' || model['isWaved'];
+                model['natureOfRequest'] === 'Installation' || model['isWaved'];
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' ||
-              model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
+                model['natureOfRequest'] !== 'Installation' && model['isWaved'] === false;
             }
           },
           templateOptions: {

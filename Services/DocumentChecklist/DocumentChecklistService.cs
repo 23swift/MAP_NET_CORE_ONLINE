@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -8,10 +9,12 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<DocumentChecklist> documentRepo;
+        private readonly IRepository<History> historyRepo;
         public DocumentChecklistService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.documentRepo = this.unitOfWork.GetRepository<DocumentChecklist>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
         public async Task InsertAsync(DocumentChecklist documentChecklist)
         {
@@ -38,19 +41,54 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(DocumentChecklist documentChecklist)
+        public async Task Update(DocumentChecklist documentChecklist)
         {
+            // DocumentChecklist.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Document: " + documentChecklist.documentName + " Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = documentChecklist.NewAffiliationId
+            });
+
             documentRepo.Update(documentChecklist);
         }
         
-        public void Delete(DocumentChecklist documentChecklist)
+        public async Task Delete(DocumentChecklist documentChecklist)
         {
+            // DocumentChecklist.NewAffiliationId is the same with Request.Id
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Document: " + documentChecklist.documentName + " Deleted",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = documentChecklist.NewAffiliationId
+            });
+
             documentRepo.Delete(documentChecklist);
         }
 
         public async Task<IPagedList<DocumentChecklist>> FindByNewAffiliationAsync(int id)
         {
             return await documentRepo.GetPagedListAsync(predicate: x => x.NewAffiliationId == id);
+        }
+
+        public async Task<bool> ValidateDocuments(int id)
+        {
+            var docs = await FindByNewAffiliationAsync(id);
+            bool isValid = true;
+
+            foreach (var item in docs.Items)
+            {
+                if (item.submitted == false && item.targetDateOfSubmission == null) {
+                    isValid = false;
+                }    
+            }
+
+            return isValid;
         }
     }
 }

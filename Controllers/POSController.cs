@@ -30,6 +30,14 @@ namespace MAP_Web.Controllers
             return Ok(pos);
         }
 
+        [HttpGet("posAutoPopulate/{id}")]
+        public async Task<IActionResult> GetPosAutoPopulate(int id)
+        {
+            var pos = await posService.FindPosAutoPopulate(id);
+
+            return Ok(pos);
+        }
+
         [HttpGet("branch/{id}")]
         public async Task<IActionResult> GetPOSByBranch(int id)
         {
@@ -74,7 +82,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<POSViewModel, POS>(pos, currentPos);
 
-            posService.Update(currentPos);
+            await posService.Update(currentPos);
             await posService.SaveChangesAsync();
 
             return Ok(pos);
@@ -88,7 +96,7 @@ namespace MAP_Web.Controllers
             if (currentPos == null)
                 return NotFound();
 
-            posService.Delete(currentPos);
+            await posService.Delete(currentPos);
             await posService.SaveChangesAsync();
 
             return Ok();

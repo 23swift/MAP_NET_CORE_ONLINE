@@ -1,4 +1,9 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System;
+
 namespace MAP_Web.DataAccess
 {
     public class MAP_Context : DbContext
@@ -30,6 +35,7 @@ namespace MAP_Web.DataAccess
         public virtual DbSet<Models.AOMaintenance> AOMaintenance { get; set; }
         public virtual DbSet<Models.BUMaintenance> BUMaintenance { get; set; }
         public virtual DbSet<Models.ServiceFeeContract> ServiceFeeContract { get; set; }
+        public virtual DbSet<Models.TerminalMaintenance> TerminalMaintenance { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,5 +61,22 @@ namespace MAP_Web.DataAccess
             //     .WithOne(c => c.POSRequest)
             //     .HasForeignKey<Models.POS>(c => c.POSRequestId);
         }
+
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var modifiedEntities = ChangeTracker.Entries()
+                                    .Where(p => p.State == EntityState.Modified).ToList();
+            var now = DateTime.UtcNow;
+
+            
+
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MAP_DB;Integrated Security=SSPI;");
+        // }
     }
 }

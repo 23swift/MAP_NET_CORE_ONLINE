@@ -89,7 +89,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<OIFViewModel, OIF>(oif, currentOif);
 
-            oifService.Update(currentOif);
+            await oifService.Update(currentOif);
             await oifService.SaveChangesAsync();
 
             return Ok(currentOif);

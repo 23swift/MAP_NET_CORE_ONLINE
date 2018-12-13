@@ -63,6 +63,7 @@ namespace MAP_Web
             services.AddDbContext<DataAccess.MAP_Context>(options => options.UseSqlServer(Configuration.GetConnectionString("MAP_DB")))
             .AddHttpClient()
             .AddUnitOfWork<DataAccess.MAP_Context>();
+
             services.AddAutoMapper();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IAOMaintenanceService, AOMaintenanceService>();
@@ -91,9 +92,15 @@ namespace MAP_Web
             services.AddScoped<IMauEncoderDashboardService, MauEncoderDashboardService>();
             services.AddScoped<IMAEFService, MAEFService>();
             services.AddScoped<IApproveWithReqReasonService, ApproveWithReqReasonService>();
-            services.AddScoped<IApproveWithExceptDetailsService, ApproveWithExceptDetailsService>();          
+            services.AddScoped<IApproveWithExceptDetailsService, ApproveWithExceptDetailsService>();
             services.AddScoped<IHistoryService, HistoryService>();
             services.AddScoped<IBdoFormHeaderService, BdoFormHeaderService>();
+            services.AddScoped<IPSServicingDashboardService, PSServicingDashboardService>();
+            services.AddScoped<IMDCSEncoderDashboardService, MDCSEncoderDashboardService>();
+
+
+
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -143,17 +150,17 @@ namespace MAP_Web
             //                                             });
             app.UseSpa(spa =>
             {
-                        // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                        // see https://go.microsoft.com/fwlink/?linkid=864501
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                        spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
                 {
-                            // spa.UseAngularCliServer(npmScript: "build");
-                            // spa.UseAngularCliServer(npmScript: "start");
-                            // spa.UseAngularCliServer( "ng serve");
-                            spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    // spa.UseAngularCliServer(npmScript: "build");
+                    // spa.UseAngularCliServer(npmScript: "start");
+                    // spa.UseAngularCliServer( "ng serve");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
 
 
 

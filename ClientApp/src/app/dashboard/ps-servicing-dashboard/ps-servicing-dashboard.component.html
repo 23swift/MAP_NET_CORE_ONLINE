@@ -1,48 +1,46 @@
-<div class="flex-branch-list-header">
+<div fxLayout="row" fxLayoutAlign="space-between">
     <span class="mat-headline">Payment Solution - Servicing</span>
 </div>
+<div style="text-align: right">
+    <mat-form-field style="width: 20%">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="FILTER">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</div>
 <div fxLayout="row">
-    <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="TrackingNo">
-            <th mat-header-cell *matHeaderCellDef> Reference No. </th>
-            <td mat-cell *matCellDef="let element"> {{element.TrackingNo}} </td>
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="ReferenceNo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Reference No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.referenceNo}} </td>
         </ng-container>
-        <ng-container matColumnDef="RequesterName">
-            <th mat-header-cell *matHeaderCellDef> Requester's Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.RequesterName}} </td>
+        <ng-container matColumnDef="RequestersName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Requester's Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.requestersName}} </td>
         </ng-container>
         <ng-container matColumnDef="RequestType">
-            <th mat-header-cell *matHeaderCellDef> Request Type </th>
-            <td mat-cell *matCellDef="let element"> {{element.RequestType}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Type </th>
+            <td mat-cell *matCellDef="let element"> {{element.requestType}} </td>
         </ng-container>
         <ng-container matColumnDef="DBAName">
-            <th mat-header-cell *matHeaderCellDef> DBA Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.DBAName}} </td>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> DBA Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.dbaName}} </td>
         </ng-container>
-        <ng-container matColumnDef="BranchName">
-            <th mat-header-cell *matHeaderCellDef> Branch Name </th>
-            <td mat-cell *matCellDef="let element"> {{element.BranchName}} </td>
+        <ng-container matColumnDef="DateRequested">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Requested </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateRequested | date: 'dd MMM yy'}} </td>
         </ng-container>
-        <ng-container matColumnDef="Location">
-            <th mat-header-cell *matHeaderCellDef> Location </th>
-            <td mat-cell *matCellDef="let element"> {{element.Location}} </td>
-        </ng-container>
-        <ng-container matColumnDef="RequestDate">
-            <th mat-header-cell *matHeaderCellDef> Date Requested </th>
-            <td mat-cell *matCellDef="let element"> {{element.RequestDate}} </td>
-        </ng-container>
-        <ng-container matColumnDef="RequestStatus">
+        <ng-container matColumnDef="Status">
             <th mat-header-cell *matHeaderCellDef> Status </th>
-            <td mat-cell *matCellDef="let element"> {{element.RequestStatus}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
         <ng-container matColumnDef="NatureOfRequest">
-                <th mat-header-cell *matHeaderCellDef> Nature of Request </th>
-                <td mat-cell *matCellDef="let element"> {{element.NatureOfRequest}} </td>
-            </ng-container>
+            <th mat-header-cell *matHeaderCellDef> Nature of Request </th>
+            <td mat-cell *matCellDef="let element"> {{element.natureOfRequest}} </td>
+        </ng-container>
         <ng-container matColumnDef="Operation">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <a (click)="getItem(element.Id)" mat-mini-fab color="primary">
+                <a (click)="getItem(element.requestId,element.branchId)" matTooltip="View Request" mat-mini-fab color="primary">
                     <mat-icon style="color:white;">edit</mat-icon>
                 </a>
             </td>

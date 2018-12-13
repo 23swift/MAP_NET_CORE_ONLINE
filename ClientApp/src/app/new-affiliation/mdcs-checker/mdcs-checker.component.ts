@@ -21,6 +21,6 @@ export class MdcsCheckerComponent implements OnInit {
   }
 
   Submit() {
-    
+
   }
 }

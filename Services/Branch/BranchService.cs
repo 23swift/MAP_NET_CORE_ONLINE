@@ -21,20 +21,56 @@ namespace MAP_Web.Services
         public async Task InsertAsync(Branch branch)
         {
             branch.MIDs = new Collection<MID>();
-            for (int i = 0; i < 5; i++)
+            branch.MIDs.Add(new MID
             {
-                branch.MIDs.Add(new MID
-                {
-                    currencyPhp = true,
-                    monitorCode = "OTC",
-                    cardPlans = "MCVCJCACCC - 1",
-                    status = 1
-                });
-            }
+                currencyPhp = true,
+                monitorCode = "OTC",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = false,
+                serviceFeeRate = "99.99",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "REGULAR INSTALLMENT",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "Installment Zero",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "BNPL Reg",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
+                status = 1
+            });
+            branch.MIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "0% BNPL",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = "0",
+                status = 1
+            });
 
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Added",
                 groupCode = "Test Group Code",
@@ -54,11 +90,12 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async void Update(Branch branch)
+        public async Task Update(Branch branch)
         {
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Updated",
                 groupCode = "Test Group Code",
@@ -69,11 +106,12 @@ namespace MAP_Web.Services
             branchRepo.Update(branch);
         }
 
-        public async void Delete(Branch branch)
+        public async Task Delete(Branch branch)
         {
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Deleted",
                 groupCode = "Test Group Code",

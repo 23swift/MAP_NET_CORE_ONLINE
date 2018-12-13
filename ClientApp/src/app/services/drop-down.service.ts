@@ -13,4 +13,9 @@ export class DropDownService {
   getDropdown(code): Observable<any> {
     return this._http.get(ApiConstants.dropdownlistApi + '/' + code);
   }
+  
+  getTerminalModel(brandCode): Observable<any> {
+    return this._http.get(ApiConstants.dropdownlistApi +'/getTerminalModel' + '/' + brandCode);
+  }
+
 }

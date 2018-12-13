@@ -44,7 +44,7 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async void Update(TerminalDetails terminalDetails)
+        public async Task Update(TerminalDetails terminalDetails)
         {
             var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
             var branch = pos.Branch;
@@ -60,7 +60,7 @@ namespace MAP_Web.Services
             terminalRepo.Update(terminalDetails);
         }
 
-        public async void Delete(TerminalDetails terminalDetails)
+        public async Task Delete(TerminalDetails terminalDetails)
         {
             var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
             var branch = pos.Branch;

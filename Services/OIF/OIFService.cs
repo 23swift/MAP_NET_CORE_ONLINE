@@ -48,7 +48,7 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public async void Update(OIF oif)
+        public async Task Update(OIF oif)
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id

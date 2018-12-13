@@ -10,7 +10,7 @@ namespace MAP_Web.Services
          Task<CustomerProfile> FindAsync(int id);
          Task<CustomerProfile> FindByRequestAsync(int id);
          Task SaveChangesAsync();
-         void Update(CustomerProfile customerProfile);
+         Task Update(CustomerProfile customerProfile);
          void Delete(CustomerProfile customerProfile);
     }
 }

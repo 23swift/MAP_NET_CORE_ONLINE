@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatSort, MatTableDataSource } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdcsEncoderDashboardService } from './mdcs-encoder-dashboard.service';
 import { IRequestDisplay } from '../../temp/interface/irequest-display';
@@ -12,25 +12,47 @@ import { SearchModalComponent } from '../../modal/search-modal/search-modal.comp
   providers: [MdcsEncoderDashboardService]
 })
 export class MdcsEncoderDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[];
-  dataSource;
-  
+  dataSource: MatTableDataSource<any>;
+
   constructor(private _route: ActivatedRoute, private _router: Router, private _service: MdcsEncoderDashboardService,
   private _matDialog: MatDialog) { }
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this.dataSource = this._service.get(0);
+    this._service.getRequest().subscribe(d => {
+      this.dataSource = new MatTableDataSource(d);
+      this.dataSource.sort = this.sort;
+
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
+    });
   }
 
-  getItem(Id) {
-    this._router.navigateByUrl('na/mdcsEncoder/update');
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getItem(id) {
+    this._router.navigateByUrl('na/mdcsEncoder/' + id);
+  }
+
+  getStatus() {
+    return 'FOR ENCODING';
   }
 
   openSearchDialog() {
     const dialogRef = this._matDialog.open(SearchModalComponent, {
       autoFocus: false,
-      width: '40%'
+      width: '40%',
+      data: {
+        userGroup: 'mdcsEncoder'
+      }
     });
   }
 }

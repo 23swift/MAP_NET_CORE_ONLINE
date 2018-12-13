@@ -18,7 +18,7 @@ namespace MAP_Web.Models
         public string merchantGroupCode { get; set; }
         public string serviceFeeRate { get; set; }
         public Nullable<bool> amexMna { get; set; }
-        public string intesCode { get; set; }
+        public string dinersIse { get; set; }
         public string payDelayDays { get; set; }
         public string merchantPromotionsGroup { get; set; }
         public string defaultMpPromotion { get; set; }

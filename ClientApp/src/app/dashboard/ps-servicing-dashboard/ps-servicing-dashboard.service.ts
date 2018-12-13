@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 const apiUrl = '';
 @Injectable()
@@ -19,13 +21,13 @@ export class PsServicingDashboardService implements OnInit {
     return this._dashboard.PosFields;
   }
   
-  getAll() {
-    return this._http.get(apiUrl);
+  getAll(): Observable<any> {
+    var result = this._http.get(ApiConstants.psServicingDashboardApi);
+    return result;
   }
 
-  get(id) {
-    // return this._http.get(apiUrl + id);
-    return this._dashboard.PosData;
+  get(id): Observable<any> {
+    return this._http.get(ApiConstants.psServicingDashboardApi + id);
   }
 
   create(): void {

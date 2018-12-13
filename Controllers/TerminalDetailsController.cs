@@ -67,7 +67,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<TerminalDetailsViewModel, TerminalDetails>(terminal, currentTerminal);
 
-            terminalDetailsService.Update(currentTerminal);
+            await terminalDetailsService.Update(currentTerminal);
             await terminalDetailsService.SaveChangesAsync();
 
             return Ok(currentTerminal);
@@ -81,7 +81,7 @@ namespace MAP_Web.Controllers
             if (currentTerminal == null)
                 return NotFound();
 
-            terminalDetailsService.Delete(currentTerminal);
+            await terminalDetailsService.Delete(currentTerminal);
             await terminalDetailsService.SaveChangesAsync();
 
             return Ok();

@@ -67,7 +67,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<MIDViewModel, MID>(mid, currentMid);
 
-            midService.Update(currentMid);
+            await midService.Update(currentMid);
             await midService.SaveChangesAsync();
 
             return Ok(mid);
@@ -81,7 +81,7 @@ namespace MAP_Web.Controllers
             if (currentMid == null)
                 return NotFound();
 
-            midService.Delete(currentMid);
+            await midService.Delete(currentMid);
             await midService.SaveChangesAsync();
 
             return Ok();

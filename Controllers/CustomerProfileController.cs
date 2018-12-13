@@ -55,7 +55,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<CustomerProfileViewModel, CustomerProfile>(customer, cust);
 
-            customerProfileService.Update(cust);
+            await customerProfileService.Update(cust);
             await customerProfileService.SaveChangesAsync();
 
             return Ok();

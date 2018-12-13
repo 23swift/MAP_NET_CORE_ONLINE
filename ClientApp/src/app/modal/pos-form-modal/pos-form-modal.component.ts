@@ -44,9 +44,11 @@ export class PosFormModalComponent implements OnInit {
 
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL
-      this.model = {
-        branchId: this._dialogData['branchId']
-      };
+
+      this._posService.getPosAutoPopulate(this.branchId).subscribe(p => {
+        this.model = p;
+        this.model['branchId'] = this._dialogData['branchId'];
+      });
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
     }

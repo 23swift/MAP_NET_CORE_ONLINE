@@ -24,7 +24,7 @@ export class PosTerminalFormModalService {
               required: true,
               options: this._dropDownService.getDropdown('POSTB'),
               labelProp: 'value',
-              valueProp: 'code',
+              valueProp: 'code'
             }
           },
           {
@@ -43,12 +43,27 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             type: 'select',
             key: 'terminalModelRequested',
+            defaultValue: 'Terminal Model Requested',
             templateOptions: {
               label: 'Terminal Model Requested',
               required: true,
-              options: this._dropDownService.getDropdown('TBTM'),
+              options: [],
               labelProp: 'value',
               valueProp: 'code',
+            },
+            lifecycle: {
+              onInit: (form, field) => {
+                const updateOptions = (v) => {
+                  if (v.terminalBrand == undefined) {
+                    field.templateOptions.options = this._dropDownService.getDropdown('TBTM');
+                  }
+                  else {
+                    field.templateOptions.options = this._dropDownService.getTerminalModel(v.terminalBrand);
+                  }
+                };
+                updateOptions(form.value);
+                form.valueChanges.subscribe(f => updateOptions(f));
+              }
             }
           }
         ]
@@ -151,7 +166,7 @@ export class PosTerminalFormModalService {
               label: 'Credit Straight TID'
             }
           },
-          {className: 'flex-2'}
+          { className: 'flex-2' }
         ]
       }
     ];

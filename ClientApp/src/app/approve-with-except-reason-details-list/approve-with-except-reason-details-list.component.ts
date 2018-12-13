@@ -30,12 +30,19 @@ export class ApproveWithExceptReasonDetailsListComponent extends FieldType imple
   }
 
   addExDetails() {
-    this._dialog.open(ApproveWithExceptReasonDetailsModalComponent, {
+    const dialog = this._dialog.open(ApproveWithExceptReasonDetailsModalComponent, {
       width: '60%',
       data: {
        maefId: this.model['id']
       }
     });
+
+      dialog.afterClosed().subscribe(data => {
+        this._service.getByAppExId(this.model['id']).subscribe(data => {
+          this.dataSource = data.items;
+        });
+      });
+
   }
 
   update(appex) {

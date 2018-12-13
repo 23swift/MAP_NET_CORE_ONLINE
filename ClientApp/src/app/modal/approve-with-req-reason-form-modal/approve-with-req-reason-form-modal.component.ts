@@ -18,7 +18,7 @@ export class ApproveWithReqReasonFormModalComponent implements OnInit {
   };
   
   
-  constructor(private _modalRef: MatDialogRef<ApproveWithReqReasonFormModalComponent>, private _service: ApproveWithReqReasonFormModalService, @Inject(MAT_DIALOG_DATA) 
+  constructor(private _modalRef: MatDialogRef<ApproveWithReqReasonFormModalComponent>, private _service: ApproveWithReqReasonFormModalService,  @Inject(MAT_DIALOG_DATA) 
   public data: any, private _snackBar: MatSnackBar) {
    if(this.data.appreq) {
     this.model = this.data.appreq;
@@ -29,7 +29,7 @@ export class ApproveWithReqReasonFormModalComponent implements OnInit {
       // this._service.getByAppReq(this.data.appreq['id']).subscribe(data => {
       // this.model = data;    
       // }); 
-
+      console.log(this.model);
     this.getFields();
 
     
@@ -60,6 +60,7 @@ export class ApproveWithReqReasonFormModalComponent implements OnInit {
       this._modalRef.close(data);
     });
     }
+
   }
 
   public getFields() {

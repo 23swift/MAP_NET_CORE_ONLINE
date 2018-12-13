@@ -93,6 +93,7 @@ namespace MAP_Web
             services.AddScoped<IApproveWithReqReasonService, ApproveWithReqReasonService>();
             services.AddScoped<IApproveWithExceptDetailsService, ApproveWithExceptDetailsService>();          
             services.AddScoped<IHistoryService, HistoryService>();
+            services.AddScoped<IBdoFormHeaderService, BdoFormHeaderService>();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {

@@ -15,6 +15,10 @@ namespace MAP_Web.Services
          Task SaveChangesAsync();
          void Update(MAEF maef);
 
+         Task InsertRemarksAsync(History history);
+
+        Task<History> FindRemarksAsync(int id);
+
          
     }
 }

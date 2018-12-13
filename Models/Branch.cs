@@ -92,8 +92,6 @@ namespace MAP_Web.Models
 
         public Nullable<int> AMEXRoleCode { get; set; }
 
-        public string AMEXRiskIND { get; set; }
-
         public string AMEXKeyAcctIND { get; set; }
 
         public string CUPCardAcceptorId { get; set; }
@@ -273,7 +271,9 @@ namespace MAP_Web.Models
 
         public Nullable<int> amexRating { get; set; }
 
-        public Nullable<int> bdoPayRating { get; set; }
+        public string bdoPayRating { get; set; }
+
+        public string amexRiskIndicator { get; set; }
 
         public Nullable<int> bdoPaySegment { get; set; }
 

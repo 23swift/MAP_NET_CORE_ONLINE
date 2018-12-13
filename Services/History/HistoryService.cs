@@ -12,12 +12,15 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Request> requestRepo;
+
+        private readonly IRepository<History> historyRepo;
         private readonly IMapper mapper;
         public HistoryService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
         public async Task<IEnumerable<HistoryViewModel>> FindByRequestAsync(int id)
         {
@@ -27,6 +30,16 @@ namespace MAP_Web.Services
             List<HistoryViewModel> historyVm = new List<HistoryViewModel>();
             mapper.Map<IEnumerable<History>, List<HistoryViewModel>>(request.History, historyVm);
             return historyVm;
+        }
+
+        public async Task InsertAsync(History history)
+        {
+             await historyRepo.InsertAsync(history);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await unitOfWork.SaveChangesAsync();
         }
     }
 }

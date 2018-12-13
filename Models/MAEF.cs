@@ -51,16 +51,16 @@ namespace MAP_Web.Models
 
          public bool amlaYes { get; set; }
 
-        public int amlaClass { get; set; } 
+        public string amlaClass { get; set; } 
 
         public string nameOfPep { get; set; }
 
         public bool rptYes { get; set; }
 
-        public int rptClass { get; set; }
+        public string rptClass { get; set; }
         public string nameOfRp { get; set; }   
 
-        public int location { get; set; }   
+         public string location { get; set; }   
         public bool appearance { get; set; }    
 
         public bool withTelYes { get; set; }     

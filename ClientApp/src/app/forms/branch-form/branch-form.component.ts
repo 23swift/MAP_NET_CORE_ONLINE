@@ -13,7 +13,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./branch-form.component.css'],
   providers: [BranchFormService]
 })
-export class BranchFormComponent implements OnInit, AfterViewInit {
+export class BranchFormComponent implements OnInit {
   @Input() displayMode: boolean;
   @Input() branchId: number;
   form: FormGroup;

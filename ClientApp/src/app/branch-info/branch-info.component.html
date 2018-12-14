@@ -1,25 +1,28 @@
 <span class="mat-headline">Branches</span>
 <mat-accordion>
-    <mat-expansion-panel *ngFor="let items of dataSource">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{items.dbaName}}
-            </mat-panel-title>
-            <mat-panel-description>
-               <!-- DBA Name Ortigas --> 
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-        <app-branch-form [branchId]="items.id" [displayMode]="true"></app-branch-form> 
-       <mat-card>
-    <mat-tab-group>
-        <mat-tab label="OIF"> <app-ocular-inspection-form [branchId]="items.id"></app-ocular-inspection-form> </mat-tab>
-        <mat-tab label="POS"> <app-pos-list [branchId]="items.id" [showAdd]="true" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="true" ></app-pos-list> </mat-tab>
-        <mat-tab label="MID"> <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="false"></app-mid> </mat-tab> 
-     </mat-tab-group>
-</mat-card>
-    </mat-expansion-panel>
-
-
-
+  <mat-expansion-panel *ngFor="let items of dataSource; trackBy: items?.id;">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{items.dbaName}}
+      </mat-panel-title>
+      <mat-panel-description>
+        <!-- DBA Name Ortigas -->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-branch-form [branchId]="items.id" [displayMode]="true"></app-branch-form>
+    <mat-card>
+      <mat-tab-group>
+        <mat-tab label="OIF">
+          <app-ocular-inspection-form [branchId]="items.id"></app-ocular-inspection-form>
+        </mat-tab>
+        <mat-tab label="POS">
+          <app-pos-list [branchId]="items.id" [showAdd]="true" [showMid]="false" [showTerminalUpdate]="true"
+            [showTerminalAdd]="true"></app-pos-list>
+        </mat-tab>
+        <mat-tab label="MID">
+          <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="false"></app-mid>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </mat-expansion-panel>
 </mat-accordion>
-

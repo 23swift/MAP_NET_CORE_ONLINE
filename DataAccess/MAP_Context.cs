@@ -13,7 +13,7 @@ namespace MAP_Web.DataAccess
         public MAP_Context(DbContextOptions<MAP_Context> options, IAuditLogService _AuditLogService)
         : base(options)
         {
-            this.IAuditLogService = _AuditLogService;
+            this._AuditLogService = _AuditLogService;
         }
 
         public DbSet<Models.Employee> Employee { get; set; }

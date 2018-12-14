@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppBaseComponent } from '../app-base/app-base.component';
 import { BranchListService } from '../branch-list/branch-list.service';
@@ -30,9 +30,11 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
   ngOnInit() {
     this._branchService.getByNewAffiliationId(this.requestId).subscribe(data => {
       this.dataSource = data.items;
-      console.log(this.requestId);
-      console.log(data.items);
     });
+  }
+
+  trackById(index, branch) {
+    return branch.id;
   }
 
 }

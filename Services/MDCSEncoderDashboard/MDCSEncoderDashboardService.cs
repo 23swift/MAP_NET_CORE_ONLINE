@@ -62,5 +62,15 @@ namespace MAP_Web.Services
 
             return dashboardContainer;
         }
+
+        // public async Task<List<DashboardViewModel>> FilterAsync(FilterCriteriaViewModel criteria)
+        // {
+        //     var requests = await this.requestRepo.GetPagedListAsync(
+        //                     include: r => r.Include(rr => rr.NewAffiliation)
+        //                         .ThenInclude(n => n.CustomerProfile)
+        //                         .Include(rr => rr.NewAffiliation.Branches),
+        //                         orderBy: x => x.OrderByDescending(y => y.Id),
+        //                     predicate: r => criteria.status != 0 ? r.Status == criteria.status : r.Status == r.Status);
+        // }
     }
 }

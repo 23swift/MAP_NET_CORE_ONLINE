@@ -36,4 +36,8 @@ export class MdcsEncoderDashboardService implements OnInit {
   update(): void {
     this._http.put(apiUrl, {});
   }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.post(ApiConstants.mdcsDashboard, searchCriteria);
+  }
 }

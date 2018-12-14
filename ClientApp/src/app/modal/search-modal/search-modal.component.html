@@ -1,17 +1,11 @@
-<div class="mat-headline" style="margin: 0px;" fxLayout="row" fxLayoutAlign="space-between">
-  <mat-label fxLayoutAlign="start center">
-      <mat-icon>search</mat-icon> Search Criteria</mat-label>
-  <mat-icon class="close-button flex-1" (click)="closeDialog()">close</mat-icon>
-</div>
-<!-- <div class="mat-card-content" fxLayout="row" style="padding-top: 5px">
-  <mat-form-field fxFlex>
-    <input matInput placeholder="Search" />
-  </mat-form-field>
-  <a (click)="openDialog()" color="primary" mat-mini-fab matTooltip="Search">
-    <mat-icon>search</mat-icon>
-  </a>
-</div> -->
-<div style="padding-top: 5px;">
+<mat-dialog-content>
+  <div class="mat-headline" style="margin: 0px;" fxLayout="row" fxLayoutAlign="space-between">
+    <mat-label fxLayoutAlign="start center">
+      <mat-icon>search</mat-icon> Search Criteria
+    </mat-label>
+    <mat-icon class="close-button flex-1" (click)="closeDialog()">close</mat-icon>
+  </div>
+  <!-- <div style="padding-top: 5px;">
   <div class="mat-checkbox" fxLayout="row" *ngFor="let container of criteriaContainer;">
     <div *ngFor="let criteria of container" style="flex: 1">
       <div style="margin: 5px;">
@@ -26,13 +20,14 @@
     <button type="submit" color="primary" mat-raised-button>Search </button>
     <button type="button" color="accent" mat-raised-button (click)="closeDialog()">Cancel</button>
   </div>
-  <!-- <div class="mat-form-field-infix">
-        <mat-checkbox>{{ container | json}}</mat-checkbox>  
-    </div>
-    <div class="mat-form-field-infix">
-        <mat-checkbox>123</mat-checkbox>  
-    </div>
-    <div class="mat-form-field-infix">
-        <mat-checkbox>123</mat-checkbox>  
-    </div> -->
-</div>
+</div> -->
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
+    <formly-form [model]="model" [fields]="fields" [form]="form">
+      <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+        <button type="submit" color="primary" mat-raised-button [disabled]="form.invalid">Save </button>
+        <button type="button" color="accent" (click)="cancel()" mat-raised-button>Cancel</button>
+      </div>
+    </formly-form>
+  </form>
+</mat-dialog-content>

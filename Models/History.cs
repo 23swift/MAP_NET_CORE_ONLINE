@@ -24,3 +24,4 @@ namespace MAP_Web.Models
         public virtual Request Request { get; set; }
     }
 }
+

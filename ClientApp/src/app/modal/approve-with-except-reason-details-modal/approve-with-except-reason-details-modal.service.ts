@@ -21,11 +21,15 @@ export class ApproveWithExceptReasonDetailsModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'select',
           key: 'awerdRequirement',
           templateOptions: {
-            label: 'Requirement'
-          }
+            label: 'Requirement',
+            required: true,
+            options: this._dropDownService.getDropdown('AWR'),
+            labelProp: 'value',
+            valueProp: 'code'
+          },
         }
       ]
     },

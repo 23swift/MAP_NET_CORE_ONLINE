@@ -38,10 +38,9 @@ export class PosFormModalComponent implements OnInit {
     if (this._dialogData['showTerminalAdd'] !== undefined) {
       this.showTerminalAdd = this._dialogData['showTerminalAdd'];
     }
-
     this.model = {};
     this.model['id'] = 0;
-    this.fields = this._posService.getPosFields('ao');
+    this.fields = this._posService.getPosFields('mauEncoder');
 
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL

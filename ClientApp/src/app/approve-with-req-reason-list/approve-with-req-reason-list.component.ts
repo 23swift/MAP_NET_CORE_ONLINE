@@ -33,12 +33,18 @@ export class ApproveWithReqReasonListComponent extends FieldType implements OnIn
   }
 
   addReqReason() {
-    this._dialog.open(ApproveWithReqReasonFormModalComponent, {
+    const dialog = this._dialog.open(ApproveWithReqReasonFormModalComponent, {
       width: '60%',
       data: {
        maefId: this.model['id']
       }
     });
+
+dialog.afterClosed().subscribe(data => {
+  this._service.getByAppReqId(this.model['id']).subscribe(data => {
+    this.dataSource = data.items;
+  });
+  });
   }
 
   update(appreq) {

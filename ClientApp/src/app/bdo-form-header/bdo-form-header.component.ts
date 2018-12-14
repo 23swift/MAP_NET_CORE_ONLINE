@@ -100,12 +100,13 @@ export class BdoFormHeaderComponent implements OnInit {
 
   return(): void {
     const dialog = this._dialog.open(RemarksModalComponent, {
-      width: '50%'
+      width: '50%',
+      data: this.newAffiliationId
     });
 
     dialog.afterClosed().subscribe(d => {
       this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
-        this._router.navigateByUrl('/home/aoChecker');
+       // this._router.navigateByUrl('/home/aoChecker');
       });
     });
   }

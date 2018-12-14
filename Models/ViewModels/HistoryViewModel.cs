@@ -11,5 +11,8 @@ namespace MAP_Web.Models.ViewModels
         public string user { get; set; }
 
         public string groupCode { get; set; }
+
+        public int RequestId { get; set; }
+        
     }
 }

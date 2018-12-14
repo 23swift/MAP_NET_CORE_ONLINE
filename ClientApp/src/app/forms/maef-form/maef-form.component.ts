@@ -17,7 +17,11 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
   @Input()
   form = new FormGroup({});
   model: any = {};
-  options: FormlyFormOptions = {};
+  options: FormlyFormOptions = {
+    showError: () => {
+      return true;
+    }
+  };
   fields: FormlyFieldConfig[];
   title: string = 'MAEF';
   subTitle: string = '';
@@ -73,10 +77,6 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
         this.model = data; 
       }); 
     }
-
-    
-
-
 
   }
 

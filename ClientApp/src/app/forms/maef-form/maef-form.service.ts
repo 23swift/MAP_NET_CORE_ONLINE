@@ -100,7 +100,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'bnpNfisWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['bnpNfisWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -135,7 +138,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'nldsWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['nldsWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -170,7 +176,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'pepOfacWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['pepOfacWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -205,7 +214,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'matchWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['matchWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -240,7 +252,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'vmtsWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['vmtsWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -275,7 +290,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'tmrsWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['tmrsWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -310,7 +328,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'fraudWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['fraudWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -345,7 +366,10 @@ export class MaefFormService {
           type: 'textarea',
           key: 'prevDeclinedWithAdRemarks',
           expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
 
+              return model['prevDeclinedWithAd'];
+            },
           },
           templateOptions: {
             label: 'Remarks',
@@ -376,7 +400,7 @@ export class MaefFormService {
 
         },
 
-        {
+        { //*^
           key: 'amlaClass',
           className: 'flex-1',
           type: 'radio',
@@ -388,8 +412,8 @@ export class MaefFormService {
           templateOptions: {
             label: 'If Yes, Please Select Classification:',
             options: [
-              { value: '1', label: 'High Risk Business' },
-              { value: '2', label: 'PEP' }
+              { value: 'High Risk Business', label: 'High Risk Business' },
+              { value: 'PEP', label: 'PEP' }
             ],
           },
 
@@ -401,7 +425,7 @@ export class MaefFormService {
           key: 'nameOfPep',
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['amlaClass'] == '2';
+              return model['amlaClass'] == 'PEP';
             }
           },
           templateOptions: {
@@ -444,10 +468,10 @@ export class MaefFormService {
           templateOptions: {
             label: 'If Yes, Please Select Classification:',
             options: [
-              { value: '1', label: 'Subsidiary' },
-              { value: '2', label: 'Affiliates' },
-              { value: '3', label: 'DOSRI' },
-              { value: '4', label: 'Other RP' }
+              { value: 'Subsidiary', label: 'Subsidiary' },
+              { value: 'Affiliates', label: 'Affiliates' },
+              { value: 'DOSRI', label: 'DOSRI' },
+              { value: 'Other RP', label: 'Other RP' }
             ],
           },
 
@@ -459,7 +483,7 @@ export class MaefFormService {
           key: 'nameOfRp',
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['rptClass'] == '3';
+              return model['rptClass'] == 'Other RP';
             }
           },
           templateOptions: {
@@ -486,9 +510,9 @@ export class MaefFormService {
             label: 'Location',
             required: true,
             options: [
-              { value: '1', label: 'Outskirt' },
-              { value: '2', label: 'Non-Outskirt' },
-              { value: '3', label: 'Out Of Coverage' }
+              { value: 'Outskirt', label: 'Outskirt' },
+              { value: 'Non-Outskirt', label: 'Non-Outskirt' },
+              { value: 'Out Of Coverage', label: 'Out Of Coverage' }
             ],
           },
         },
@@ -500,8 +524,8 @@ export class MaefFormService {
             label: 'Appearance',
             required: true,
             options: [
-              { value: '1', label: 'Acceptable' },
-              { value: '2', label: 'Non-Acceptable' }
+              { value: true, label: 'Acceptable' },
+              { value: false, label: 'Non-Acceptable' }
             ],
           },
         },
@@ -723,7 +747,7 @@ export class MaefFormService {
         templateOptions: {
           label: 'Pay Delay Days',
           placeholder: 'Pay Delay Days',
-          maxLength: 2
+          maxLength: 13
         }
       },
       {
@@ -737,6 +761,9 @@ export class MaefFormService {
           label: 'Holdout Deposit',
           placeholder: 'Holdout Deposit',
           maxLength: 19
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       ]
@@ -754,7 +781,8 @@ export class MaefFormService {
         templateOptions: {
           label: 'Other Remarks',
           placeholder: 'Other Remarks',
-          maxLength: 2000
+          maxLength: 2000,
+          required: true
         },
       },
       {
@@ -766,7 +794,8 @@ export class MaefFormService {
         },
         templateOptions: {
           label: 'Processed By',
-          placeholder: 'Processed By'
+          placeholder: 'Processed By',
+          required: true
         }
       },
       ]
@@ -876,6 +905,14 @@ export class MaefFormService {
 
   getMAEF(id): Observable<any> {
     return this._http.get(ApiConstants.maefApi + '/' + id);
+  }
+
+  getRemarks(id): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/history/' + id);
+  }
+
+  ReturntoAO(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/returnToAo/' + id, {});
   }
 
 

@@ -1080,7 +1080,14 @@ export class PosFormModalService {
     private _aoListService: AoListModalService) { }
 
   getPosFields(userGroup): FormlyFieldConfig[] {
+    if(userGroup === 'mauEncoder')
+    {
+    return this.veriScreenFields;
+    }
+    else
+    {
     return this.fields;
+     }
   }
 
   get(id): Observable<any> {

@@ -37,7 +37,7 @@ export class BranchFormComponent implements OnInit {
 
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;
-      this.fields = this._branchService.getBranchFields('mdcsEncoder');
+      this.fields = this._branchService.getBranchFields('mauEncoder');
     });
   }
 

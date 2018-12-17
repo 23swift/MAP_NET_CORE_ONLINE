@@ -35,7 +35,6 @@ export class OcularInspectionFormComponent extends AppBaseComponent implements O
     this.form = new FormGroup({});
     this._oifFormModalService.getOifAutoPopulate(this.branchId).subscribe(data => {
       this.model = data;
-      console.log(data);
 
       this.getFields();
     });  

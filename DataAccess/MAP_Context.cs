@@ -3,15 +3,17 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
+using MAP_Web.Services;
 
 namespace MAP_Web.DataAccess
 {
     public class MAP_Context : DbContext
     {
-        public MAP_Context(DbContextOptions<MAP_Context> options)
+        private readonly IAuditLogService _AuditLogService;
+        public MAP_Context(DbContextOptions<MAP_Context> options, IAuditLogService _AuditLogService)
         : base(options)
         {
-
+            this._AuditLogService = _AuditLogService;
         }
 
         public DbSet<Models.Employee> Employee { get; set; }
@@ -63,20 +65,15 @@ namespace MAP_Web.DataAccess
         }
 
 
-        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
+            // var modifiedEntities = ChangeTracker.Entries()
+            // .Where(p => p.State == EntityState.Modified).ToList();
             var modifiedEntities = ChangeTracker.Entries()
-                                    .Where(p => p.State == EntityState.Modified).ToList();
-            var now = DateTime.UtcNow;
-
-            
-
-            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+            .Where(p => p.State == EntityState.Modified).ToList();
+            _AuditLogService.Save(modifiedEntities);
+            int result = await base.SaveChangesAsync();
+            return result;
         }
-
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // {
-        //     optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=MAP_DB;Integrated Security=SSPI;");
-        // }
     }
 }

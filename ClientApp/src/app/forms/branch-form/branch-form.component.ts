@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges, SimpleChange, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFormOptions, FormlyFieldConfig, FieldArrayType } from '@ngx-formly/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppBaseComponent } from '../../app-base/app-base.component';
 import { BranchFormService } from '../branch-form/branch-form.service';
@@ -10,19 +10,20 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-branch-form',
   templateUrl: './branch-form.component.html',
-  styleUrls: ['./branch-form.component.css']
+  styleUrls: ['./branch-form.component.css'],
+  providers: [BranchFormService]
 })
 export class BranchFormComponent implements OnInit {
   @Input() displayMode: boolean;
   @Input() branchId: number;
-  form = new FormGroup({});
-  model: any = {};
+  form: FormGroup;
+  fields: FormlyFieldConfig[];
+  model: Object;
   options: FormlyFormOptions = {
     showError: () => {
       return true;
     }
   };
-  fields: FormlyFieldConfig[];
   title = 'Branch Affiliation';
   isSaved = false;
   subTitle: string;
@@ -38,6 +39,7 @@ export class BranchFormComponent implements OnInit {
 
   ngOnInit() {
     this.title = 'Branch';
+    this.form = new FormGroup({});
 
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;

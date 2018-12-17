@@ -12,5 +12,6 @@ namespace MAP_Web.Services
          Task SaveChangesAsync();
          Task Update(Branch branch);
          Task Delete(Branch branch);
+
     }
 }

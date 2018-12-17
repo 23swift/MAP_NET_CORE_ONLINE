@@ -28,6 +28,7 @@ export class RemarksModalComponent implements OnInit {
   remarks: string;
   date: string;
   request: Object;
+  disable: boolean;
 
   constructor(private _modalRef: MatDialogRef<RemarksModalComponent>, private _remarksModalService: RemarksModalService, private _maefFormService: MaefFormService, @Inject(MAT_DIALOG_DATA) public data: any,
   private _snackBar: MatSnackBar,) {
@@ -46,11 +47,11 @@ export class RemarksModalComponent implements OnInit {
 
   ngOnInit() {
     this.model = { remarks: '', requestId: this.data, user: '', groupCode: '', action: '', date: '' };
-
-    //this.form.controls['remarks'].setValue('vbgfr');
-
     
-
+   if (this.form.value['remarks'] == '')
+   { 
+    this.form.get('remarks').disable();
+   }
   }
 
   save() {
@@ -73,7 +74,6 @@ export class RemarksModalComponent implements OnInit {
   }
 
   update() {
-    console.log(this.data + 'ccc');
     this._maefFormService.ReturntoAO(this.data).subscribe(data => {
       const snackBarRef = this._snackBar.open('Return To AO', 'Saved', {
         duration: 1000      
@@ -83,6 +83,10 @@ export class RemarksModalComponent implements OnInit {
     });
   }); 
 
+  }
+
+  editRemarks() {
+    this.form.get('remarks').enable(); 
   }
 
 

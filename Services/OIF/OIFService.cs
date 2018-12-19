@@ -13,6 +13,7 @@ namespace MAP_Web.Services
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<NewAffiliation> newAffRepo;
         private readonly IRepository<History> historyRepo;
+        private readonly IRepository<Request> requestRepo;
 
         public OIFService(IUnitOfWork unitOfWork)
         {
@@ -21,10 +22,13 @@ namespace MAP_Web.Services
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.newAffRepo = this.unitOfWork.GetRepository<NewAffiliation>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
         public async Task InsertAsync(OIF oif)
         {
-            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
+            var branch = await branchRepo.FindAsync(oif.BranchId);
+            var request = await requestRepo.FindAsync(branch.NewAffiliationId);
+            oif.AuditLogGroupId = request.AuditLogGroupId;
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -32,7 +36,8 @@ namespace MAP_Web.Services
                 action = "OIF for Branch: " + oif.dbaName + " Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = oif.AuditLogGroupId
             });
 
             await oifRepo.InsertAsync(oif);
@@ -50,7 +55,7 @@ namespace MAP_Web.Services
 
         public async Task Update(OIF oif)
         {
-            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
+            var branch = await branchRepo.FindAsync(oif.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -58,14 +63,15 @@ namespace MAP_Web.Services
                 action = "OIF for Branch: " + oif.dbaName + " Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             oifRepo.Update(oif);
         }
 
         public async void Delete(OIF oif)
         {
-            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == oif.BranchId);
+            var branch = await branchRepo.FindAsync(oif.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -73,7 +79,8 @@ namespace MAP_Web.Services
                 action = "OIF for Branch: " + oif.dbaName + " Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             oifRepo.Delete(oif);
         }

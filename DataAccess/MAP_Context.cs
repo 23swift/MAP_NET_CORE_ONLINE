@@ -56,6 +56,12 @@ namespace MAP_Web.DataAccess
                 .WithOne(c => c.Request)
                 .HasForeignKey<Models.MAEF>(c => c.RequestId);
 
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                                                        .SelectMany(t => t.GetProperties())
+                                                        .Where(p => p.ClrType == typeof(decimal)))
+            {
+                property.Relational().ColumnType = "decimal(18,6)";
+            }
 
             
             // modelBuilder.Entity<Models.POSRequest>()
@@ -70,8 +76,10 @@ namespace MAP_Web.DataAccess
             // var modifiedEntities = ChangeTracker.Entries()
             // .Where(p => p.State == EntityState.Modified).ToList();
             var modifiedEntities = ChangeTracker.Entries()
-            .Where(p => p.State == EntityState.Modified).ToList();
-            _AuditLogService.Save(modifiedEntities);
+            .Where(p => p.State == EntityState.Added ||
+            p.State == EntityState.Modified ||
+            p.State == EntityState.Deleted).ToList();
+            await _AuditLogService.Save(modifiedEntities);
             int result = await base.SaveChangesAsync();
             return result;
         }

@@ -33,16 +33,15 @@ namespace MAP_Web.Models
         public string branchMobileNumber { get; set; }
         public Nullable<bool> isAtmDebit { get; set; }
         public Nullable<int> numberOfDebitTidAtm { get; set; }
-        public string mdrAtm { get; set; }
+        public Nullable<decimal> mdrAtm { get; set; }
         public Nullable<bool> isSmGiftCard { get; set; }
-        public string mdrSmGiftCard { get; set; }
+        public Nullable<decimal> mdrSmGiftCard { get; set; }
         public Nullable<bool> isSmShopCard { get; set; }
-        public string mdrSmShopCard { get; set; }
+        public Nullable<decimal> mdrSmShopCard { get; set; }
         public Nullable<bool> isCashAgad { get; set; }
         public Nullable<int> numberOfDebitTidCashAgad { get; set; }
-        public string mdrCashAgad { get; set; }
+        public Nullable<decimal> mdrCashAgad { get; set; }
         public string mcc { get; set; }
-        public Nullable<int> intesCodeForDiners { get; set; }
         public string tppOnly { get; set; }
         public string strategicMerchant { get; set; }
         public string mcAssignedId { get; set; }
@@ -59,7 +58,7 @@ namespace MAP_Web.Models
         public string fraudToolProvider { get; set; }
         public string gatewayIntegrationType { get; set; }
         public string principalDetailsRemarks { get; set; }
-        public string holdOutAmount { get; set; }
+        public Nullable<int> holdOutAmount { get; set; }
 
 
 
@@ -253,7 +252,7 @@ namespace MAP_Web.Models
 
         public Nullable<int> noOfPos { get; set; }
 
-        public decimal discountDebitRate { get; set; }
+        public Nullable<decimal> discountDebitRate { get; set; }
 
         public string storeId { get; set; }
 
@@ -347,7 +346,7 @@ namespace MAP_Web.Models
         public Nullable<bool> isSingleProp { get; set; }
 
         public Nullable<bool> isPartnershipCorp { get; set; }
-
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         public string legalName { get; set; }

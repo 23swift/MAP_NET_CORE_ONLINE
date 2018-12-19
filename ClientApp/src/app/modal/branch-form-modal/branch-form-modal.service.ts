@@ -1400,9 +1400,10 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: '9999999999999999999',
-          pattern: '^\\d{1,19}$',
           maxLength: 19
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -2124,6 +2125,22 @@ export class BranchFormModalService {
     { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'payDelayDays',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Pay Delay Days',
+            placeholder: 'Pay Delay Days',
+            maxLength: 2
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        },
         {
           className: 'flex-1',
           type: 'input',

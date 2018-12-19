@@ -52,13 +52,13 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(Owners owner)
+        public async Task Update(Owners owner)
         {
-            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
+            var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == owner.CustomerProfileId);
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            historyRepo.Insert(new History{
+            await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + "'s Details Updated",
                 groupCode = "Test Group Code",
@@ -68,14 +68,14 @@ namespace MAP_Web.Services
             ownersRepo.Update(owner);
         }
 
-        public void Delete(Owners owner)
+        public async Task Delete(Owners owner)
         {
             
-            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
+            var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == owner.CustomerProfileId);
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            historyRepo.Insert(new History{
+            await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + " Deleted",
                 groupCode = "Test Group Code",

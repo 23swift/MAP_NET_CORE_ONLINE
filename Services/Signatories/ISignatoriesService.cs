@@ -10,7 +10,7 @@ namespace MAP_Web.Services
          Task<Signatories> FindAsync(int id);
          Task<IPagedList<Signatories>> FindByCustomerAsync(int id);
          Task SaveChangesAsync();
-         void Update(Signatories signatory);
-         void Delete(Signatories signatory);
+         Task Update(Signatories signatory);
+         Task Delete(Signatories signatory);
     }
 }

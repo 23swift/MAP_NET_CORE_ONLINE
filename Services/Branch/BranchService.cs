@@ -11,15 +11,20 @@ namespace MAP_Web.Services
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
+        private readonly IRepository<Request> requestRepo;
         public BranchService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
 
         public async Task InsertAsync(Branch branch)
         {
+            var request = await requestRepo.FindAsync(branch.NewAffiliationId);
+            branch.AuditLogGroupId = request.AuditLogGroupId;
+
             branch.MIDs = new Collection<MID>();
             branch.MIDs.Add(new MID
             {
@@ -27,8 +32,9 @@ namespace MAP_Web.Services
                 monitorCode = "OTC",
                 cardPlans = "MCVCJCACCC - 1",
                 majorPurchase = false,
-                serviceFeeRate = "99.99",
-                status = 1
+                serviceFeeRate = 99.99M,
+                status = 1,
+                AuditLogGroupId = request.AuditLogGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -36,8 +42,9 @@ namespace MAP_Web.Services
                 monitorCode = "REGULAR INSTALLMENT",
                 cardPlans = "MCVCJCACCC - 1",
                 majorPurchase = true,
-                serviceFeeRate = "0",
-                status = 1
+                serviceFeeRate = 0.00M,
+                status = 1,
+                AuditLogGroupId = request.AuditLogGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -45,8 +52,9 @@ namespace MAP_Web.Services
                 monitorCode = "Installment Zero",
                 cardPlans = "MCVCJCACCC - 1",
                 majorPurchase = true,
-                serviceFeeRate = "0",
-                status = 1
+                serviceFeeRate = 0.00M,
+                status = 1,
+                AuditLogGroupId = request.AuditLogGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -54,8 +62,9 @@ namespace MAP_Web.Services
                 monitorCode = "BNPL Reg",
                 cardPlans = "MCVCJCACCC - 1",
                 majorPurchase = true,
-                serviceFeeRate = "0",
-                status = 1
+                serviceFeeRate = 0.00M,
+                status = 1,
+                AuditLogGroupId = request.AuditLogGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -63,8 +72,9 @@ namespace MAP_Web.Services
                 monitorCode = "0% BNPL",
                 cardPlans = "MCVCJCACCC - 1",
                 majorPurchase = true,
-                serviceFeeRate = "0",
-                status = 1
+                serviceFeeRate = 0.00M,
+                status = 1,
+                AuditLogGroupId = request.AuditLogGroupId
             });
 
             // Branch.NewAffiliationId is the same with Request.Id
@@ -75,7 +85,8 @@ namespace MAP_Web.Services
                 action = "Branch: " + branch.dbaName + "'s Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = request.AuditLogGroupId
             });
             await branchRepo.InsertAsync(branch);
         }
@@ -100,7 +111,8 @@ namespace MAP_Web.Services
                 action = "Branch: " + branch.dbaName + "'s Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
 
             branchRepo.Update(branch);
@@ -116,7 +128,8 @@ namespace MAP_Web.Services
                 action = "Branch: " + branch.dbaName + "'s Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             branchRepo.Delete(branch);
         }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using MAP_Web.Models;
 using MAP_Web.DataAccess;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
 {
@@ -9,38 +11,63 @@ namespace MAP_Web.Services
     {
         private AuditLog_Context _loggerContext;
 
-        public AuditLogService(AuditLog_Context loggerContext){
-            _loggerContext=loggerContext;
+        public AuditLogService(AuditLog_Context loggerContext)
+        {
+            _loggerContext = loggerContext;
         }
 
-        void IAuditLogService.Save(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> changes)
+        async Task IAuditLogService.Save(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> changes)
         {
             var now = DateTime.UtcNow;
             foreach (var change in changes)
             {
                 var entityName = change.Entity.GetType().Name;
 
-            // var primaryKey = GetPrimaryKeyValue(change);
+                // var primaryKey = GetPrimaryKeyValue(change);
                 var DatabaseValues = change.GetDatabaseValues();
-                foreach(var prop in change.OriginalValues.Properties)
-                // foreach(var prop in change.OriginalValues.Properties)
+                var auditLogId = change.CurrentValues[propertyName: "AuditLogGroupId"];
+                string action = "";
+                foreach (var prop in change.OriginalValues.Properties)
                 {
-                    // var originalValue = change.OriginalValues[prop].ToString();
-                    var originalValue = DatabaseValues.GetValue<object>(prop).ToString();
-                    var currentValue = change.CurrentValues[prop].ToString();
-                    ChangeLog log = new ChangeLog()
+                    var originalValue = new Object();
+                    var currentValue = new Object();
+                    switch (change.State) {
+                        case EntityState.Added:
+                            originalValue = "";
+                            currentValue = change.CurrentValues[property: prop] ?? "";
+                            action = "ADDED";
+                        break;
+                        case EntityState.Modified:
+                            originalValue = DatabaseValues.GetValue<object>(prop) ?? "";
+                            currentValue = change.CurrentValues[property: prop] ?? "";
+                            action = "MODIFIED";
+                            break;
+                        case EntityState.Deleted:
+                            originalValue = DatabaseValues.GetValue<object>(prop) ?? "";
+                            currentValue = "";
+                            action = "DELETED";
+                            break;
+                        default:
+                        break;
+                    }
+
+                    if (!originalValue.Equals(currentValue))
                     {
-                    EntityName = entityName,
-                    // PrimaryKeyValue = prop.IsPrimaryKey,
+                        ChangeLog log = new ChangeLog()
+                        {
+                            EntityName = entityName,
+                            // PrimaryKeyValue = prop.IsPrimaryKey,
+                            PropertyName = prop.Name,
+                            OldValue = originalValue == null ? "" : originalValue.ToString(),
+                            NewValue = currentValue == null ? "" : currentValue.ToString(),
+                            DateChanged = now,
+                            AuditLogGroupId = new Guid(auditLogId.ToString()),
+                            Action = action
+                        };
 
-                    PropertyName = prop.Name,
-                    OldValue = originalValue,
-                    NewValue = currentValue,
-                    DateChanged = now
-                    };
-
-                    _loggerContext.Add<ChangeLog>(log);
-                    _loggerContext.SaveChanges();
+                        await _loggerContext.ChangeLogs.AddAsync(log);
+                        await _loggerContext.SaveChangesAsync();
+                    }
                 }
             }
         }
@@ -48,6 +75,6 @@ namespace MAP_Web.Services
 
     public interface IAuditLogService
     {
-        void Save(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> changes);
+        Task Save(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> changes);
     }
 }

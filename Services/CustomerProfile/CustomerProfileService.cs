@@ -24,16 +24,20 @@ namespace MAP_Web.Services
         public async Task InsertAsync(CustomerProfile customerProfile)
         {
             Request request = new Request();
+            request.AuditLogGroupId = Guid.NewGuid();
             request.Status = 1;
             request.NewAffiliation = new NewAffiliation();
+            request.NewAffiliation.AuditLogGroupId = request.AuditLogGroupId;
             request.NewAffiliation.CustomerProfile = customerProfile;
+            request.NewAffiliation.CustomerProfile.AuditLogGroupId = request.AuditLogGroupId;
 
             var documents = await this.documentListRepo.GetPagedListAsync(predicate: d => d.Code == customerProfile.ownership);
 
             foreach (var item in documents.Items)
             {
                 request.NewAffiliation.DocumentChecklists.Add(new DocumentChecklist {
-                    documentName = item.Id
+                    documentName = item.Id,
+                    AuditLogGroupId = request.AuditLogGroupId
                 });
             }
 
@@ -41,7 +45,8 @@ namespace MAP_Web.Services
                 date = DateTime.Now,
                 action = "Request Created",
                 groupCode = "Test Group Code",
-                user = "Test User"
+                user = "Test User",
+                AuditLogGroupId = request.AuditLogGroupId
             });
             
             await requestRepo.InsertAsync(request);
@@ -64,6 +69,8 @@ namespace MAP_Web.Services
 
         public async Task Update(CustomerProfile customerProfile)
         {
+            var request = await requestRepo.FindAsync(customerProfile.NewAffiliationId);
+            customerProfile.AuditLogGroupId = request.AuditLogGroupId;
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -71,7 +78,8 @@ namespace MAP_Web.Services
                 action = "Request Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customerProfile.NewAffiliationId
+                RequestId = customerProfile.NewAffiliationId,
+                AuditLogGroupId = request.AuditLogGroupId
             });
 
             customerRepo.Update(customerProfile);

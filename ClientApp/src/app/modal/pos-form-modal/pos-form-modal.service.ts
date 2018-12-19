@@ -557,6 +557,7 @@ export class PosFormModalService {
           className: 'flex-1',
           type: 'input',
           key: 'numberOfPrintedSlips',
+          defaultValue: '2',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];

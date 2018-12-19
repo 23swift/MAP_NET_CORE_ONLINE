@@ -240,7 +240,7 @@ export class MidFormModalService {
             },
             templateOptions: {
               label: 'Service Fee Rate',
-              pattern: '^\\d{1,2}\.\\d{2}|0$',
+              pattern: '^\\d{1,2}\\.\\d{2}|0$',
               maxLength: 5
             }
           }

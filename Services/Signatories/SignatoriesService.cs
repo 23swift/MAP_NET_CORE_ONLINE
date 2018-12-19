@@ -50,13 +50,13 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(Signatories signatory)
+        public async Task Update(Signatories signatory)
         {
-            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == signatory.CustomerProfileId);
+            var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == signatory.CustomerProfileId);
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            historyRepo.Insert(new History{
+            await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Signatory: " + signatory.name + "'s Details Updated",
                 groupCode = "Test Group Code",
@@ -67,13 +67,13 @@ namespace MAP_Web.Services
             signatoriesRepo.Update(signatory);
         }
 
-        public void Delete(Signatories signatory)
+        public async Task Delete(Signatories signatory)
         {
-            var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == signatory.CustomerProfileId);
+            var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == signatory.CustomerProfileId);
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            historyRepo.Insert(new History{
+            await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Signatory: " + signatory.name + "'s Details Deleted",
                 groupCode = "Test Group Code",

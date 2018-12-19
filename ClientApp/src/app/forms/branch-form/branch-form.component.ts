@@ -31,7 +31,11 @@ export class BranchFormComponent implements OnInit {
   backUrl: string;
   constructor(private _branchService: BranchFormService, public route: ActivatedRoute,
     public router: Router, private _formService: FormlyFieldConfigService, private _snackBar: MatSnackBar) {
+
+
+
   }
+
 
   ngOnInit() {
     this.title = 'Branch';
@@ -39,8 +43,10 @@ export class BranchFormComponent implements OnInit {
 
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;
+      console.log(this.model);
       this.fields = this._branchService.getBranchFields('mauEncoder');
-    });
+    }); 
+
   }
 
   submit() {

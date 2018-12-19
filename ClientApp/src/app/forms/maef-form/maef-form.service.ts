@@ -629,7 +629,7 @@ export class MaefFormService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['chkDecline'];
-          },
+          }, 
           },
           templateOptions: {
             label: 'Approve'
@@ -641,8 +641,8 @@ export class MaefFormService {
           key: 'chkApprovePendingCust',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'];
-          },  
+              return model['chkApprove'] || model['chkDecline'];
+          },
         },
           templateOptions: {
             label: 'Approve With Pending Customer Number'            
@@ -654,7 +654,7 @@ export class MaefFormService {
           key: 'chkWithReq',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'];
+              return model['chkApprove'] || model['chkDecline'];
           },
         },
           templateOptions: {
@@ -679,7 +679,7 @@ export class MaefFormService {
           key: 'chkWithException',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'];
+              return model['chkApprove'] || model['chkDecline'];
           },
         },
           templateOptions: {
@@ -697,6 +697,18 @@ export class MaefFormService {
         },
           templateOptions: {
             label: 'Decline'
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === true) {
+                  form.get('chkApprovePendingCust').patchValue(false);
+                  form.get('chkWithReq').patchValue(false);
+                  form.get('chkWithException').patchValue(false);
+                  form.get('chkApprove').patchValue(false);
+                } 
+              });
+            }
           },
         },
       ]
@@ -913,6 +925,10 @@ export class MaefFormService {
 
   ReturntoAO(id): Observable<any> {
     return this._http.put(ApiConstants.maefApi + '/returnToAo/' + id, {});
+  }
+
+  SubmitToApprover(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/submitToApprover/' + id, {});
   }
 
 

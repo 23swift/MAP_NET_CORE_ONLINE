@@ -5,6 +5,8 @@ import { supportsWebAnimations } from '@angular/animations/browser/src/render/we
 import { MatSnackBar, MatDialog } from '@angular/material';
 import { RemarksModalComponent } from '../modal/remarks-modal/remarks-modal.component';
 import { NewAffiliationRequestService } from '../services/new-affiliation-request.service';
+import { MaefFormService } from '../forms/maef-form/maef-form.service';
+
 
 
 @Component({
@@ -31,7 +33,7 @@ export class BdoFormHeaderComponent implements OnInit {
   @Input() disabled: boolean;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar,
-    private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService) {
+    private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService, private _maefFormService: MaefFormService) {
     this._route.params.subscribe(param => {
       this.newAffiliationId = param['id'];
     });
@@ -39,7 +41,7 @@ export class BdoFormHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.showApprovalOptions = false;
-    this.showRequestFlowOptions = false;
+    this.showRequestFlowOptions = true;
     this.showCreateOptions = false;
     this.showWelcomeLetter = false;
     this.showCadencieProcessingButton = false;
@@ -59,7 +61,7 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showRequestFlowOptions = true;
       }
       if (this.mode.match(/create/i)) {
-        this.showCreateOptions = true;
+        this.showCreateOptions = false;
       }
       if (this.mode.match(/mdmUser/i)) {
         this.showWelcomeLetter = true;
@@ -83,6 +85,9 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showPreScreen = true;
       }
       if (this.mode.match(/mauOfficer/i)) {
+        this.showRequestFlowOptions = true;
+      }
+      if (this.mode.match(/mauEncoder/i)) {
         this.showRequestFlowOptions = true;
       }
     }
@@ -109,5 +114,13 @@ export class BdoFormHeaderComponent implements OnInit {
        // this._router.navigateByUrl('/home/aoChecker');
       });
     });
+  }
+
+  submittoApprover(): void {
+    this._maefFormService.SubmitToApprover(this.newAffiliationId).subscribe(data => {
+      const snackBarRef = this._snackBar.open('Submitted To Approver', 'Saved', {
+        duration: 1000      
+    });
+  });   
   }
 }

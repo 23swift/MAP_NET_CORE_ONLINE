@@ -13,14 +13,13 @@
     <mat-card>
       <mat-tab-group>
         <mat-tab label="OIF">
-          <app-ocular-inspection-form [branchId]="items.id"></app-ocular-inspection-form>
+          <app-ocular-inspection-form [branchId]="items.id" [showButton]="false"></app-ocular-inspection-form>
         </mat-tab>
         <mat-tab label="POS">
-          <app-pos-list [branchId]="items.id" [showAdd]="true" [showMid]="false" [showTerminalUpdate]="true"
-            [showTerminalAdd]="true"></app-pos-list>
+          <app-pos-list [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
         </mat-tab>
         <mat-tab label="MID">
-          <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="false"></app-mid>
+          <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="true" [showDelete]="false"></app-mid>
         </mat-tab>
       </mat-tab-group>
     </mat-card>

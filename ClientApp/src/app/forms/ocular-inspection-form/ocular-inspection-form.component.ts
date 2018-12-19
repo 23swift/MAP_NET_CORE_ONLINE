@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 })
 export class OcularInspectionFormComponent extends AppBaseComponent implements OnInit {
   @Input()branchId:number;
+  @Input()showButton:boolean;
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;

@@ -21,7 +21,7 @@ export class AoEncoderDashboardService implements OnInit {
     return this._dashboard.Fields;
   }
 
-  getRequests(): Observable<any> {
+  getTableData(): Observable<any> {
     return this._http.get(ApiConstants.aoEncoderDashboardApi);
   }
 

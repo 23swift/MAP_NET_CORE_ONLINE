@@ -12,4 +12,8 @@ export class HistoryModalService {
   getByRequest(id): Observable<any> {
     return this._http.get(ApiConstants.historyApi + '/request/' + id);
   }
+
+  getDetailedByRequest(id): Observable<any> {
+    return this._http.get(ApiConstants.historyApi + '/detailedByRequest/' + id);
+  }
 }

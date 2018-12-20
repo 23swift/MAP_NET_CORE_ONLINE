@@ -336,7 +336,7 @@ export class MidFormModalService {
             templateOptions: {
               label: 'DCC Mark-up Rate',
               placeholder: '0.00',
-              pattern: '^\\d{1,8}\.\\d{2}$'
+              pattern: '^\\d{1,8}\\.\\d{2}$'
             }
           },
           {
@@ -346,7 +346,7 @@ export class MidFormModalService {
             templateOptions: {
               label: 'DCC Merchant Rebate',
               placeholder: '0.00',
-              pattern: '^\\d{1,8}\.\\d{2}$'
+              pattern: '^\\d{1,8}\\.\\d{2}$'
             }
           }
         ]

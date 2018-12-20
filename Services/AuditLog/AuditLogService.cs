@@ -25,7 +25,7 @@ namespace MAP_Web.Services
 
                 // var primaryKey = GetPrimaryKeyValue(change);
                 var DatabaseValues = change.GetDatabaseValues();
-                var auditLogId = change.CurrentValues[propertyName: "AuditLogGroupId"];
+                var auditLogId = change.CurrentValues[propertyName: "AuditLogGroupId"] ?? new Guid();
                 string action = "";
                 foreach (var prop in change.OriginalValues.Properties)
                 {
@@ -51,7 +51,7 @@ namespace MAP_Web.Services
                         break;
                     }
 
-                    if (!originalValue.Equals(currentValue))
+                    if (!originalValue.Equals(currentValue) && !prop.IsPrimaryKey() && !prop.IsForeignKey())
                     {
                         ChangeLog log = new ChangeLog()
                         {

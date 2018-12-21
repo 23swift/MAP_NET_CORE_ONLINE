@@ -1,14 +1,16 @@
 import { Injectable, OnInit } from '@angular/core';
-import { DashboardData } from '../../temp/dashboardData/dashboard-data';
+//import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 const apiUrl = '';
 @Injectable()
 export class MdcsUserDashboardService implements OnInit {
-  private _dashboard: DashboardData;
+ // private _dashboard: DashboardData;
 
   constructor(private _http: HttpClient) {
-    this._dashboard = new DashboardData();
+    //this._dashboard = new DashboardData();
   }
 
   ngOnInit() {
@@ -16,16 +18,17 @@ export class MdcsUserDashboardService implements OnInit {
   }
 
   getTableFields() {
-    return this._dashboard.Fields;
+   // return this._dashboard.MdcsFields;
   }
   
-  getAll() {
-    return this._http.get(apiUrl);
+  getAll(): Observable<any> {
+    return this._http.get(ApiConstants.mdcsUserDashboard);
+    //return this._dashboard.MdcsData;
   }
 
   get(id) {
     // return this._http.get(apiUrl + id);
-    return this._dashboard.ElementData;
+    //return this._dashboard.MdcsData;
   }
 
   create(): void {

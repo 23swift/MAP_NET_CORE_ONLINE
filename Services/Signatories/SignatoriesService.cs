@@ -29,7 +29,8 @@ namespace MAP_Web.Services
                 action = "Signatory: " + signatory.name + "'s Details Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customer.NewAffiliationId
+                RequestId = customer.NewAffiliationId,
+                AuditLogGroupId = customer.AuditLogGroupId
             });
 
             await signatoriesRepo.InsertAsync(signatory);
@@ -61,7 +62,8 @@ namespace MAP_Web.Services
                 action = "Signatory: " + signatory.name + "'s Details Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customer.NewAffiliationId
+                RequestId = customer.NewAffiliationId,
+                AuditLogGroupId = customer.AuditLogGroupId
             });
             
             signatoriesRepo.Update(signatory);
@@ -78,7 +80,8 @@ namespace MAP_Web.Services
                 action = "Signatory: " + signatory.name + "'s Details Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customer.NewAffiliationId
+                RequestId = customer.NewAffiliationId,
+                AuditLogGroupId = customer.AuditLogGroupId
             });
 
             signatoriesRepo.Delete(signatory);

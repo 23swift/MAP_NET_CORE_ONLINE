@@ -13,6 +13,7 @@ namespace MAP_Web.Services
         private readonly IRepository<NewAffiliation> newAffRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<Branch> branchRepo;
+        private readonly IRepository<Request> requestRepo;
         public POSService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
@@ -20,10 +21,13 @@ namespace MAP_Web.Services
             this.newAffRepo = this.unitOfWork.GetRepository<NewAffiliation>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
+            this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
         public async Task InsertAsync(POS pos)
         {
-            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
+            var branch = await branchRepo.FindAsync(pos.BranchId);
+            var request = await requestRepo.FindAsync(branch.NewAffiliationId);
+            pos.AuditLogGroupId = request.AuditLogGroupId;
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -31,7 +35,8 @@ namespace MAP_Web.Services
                 action = "POS for Branch: " + branch.dbaName + " Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             await posRepo.InsertAsync(pos);
         }
@@ -48,7 +53,7 @@ namespace MAP_Web.Services
 
         public async Task Update(POS pos)
         {
-            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
+            var branch = await branchRepo.FindAsync(pos.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -56,14 +61,15 @@ namespace MAP_Web.Services
                 action = "POS for Branch: " + branch.dbaName + " Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             posRepo.Update(pos);
         }
 
         public async Task Delete(POS pos)
         {
-            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == pos.BranchId);
+            var branch = await branchRepo.FindAsync(pos.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -71,7 +77,8 @@ namespace MAP_Web.Services
                 action = "POS for Branch: " + branch.dbaName + " Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             posRepo.Delete(pos);
         }

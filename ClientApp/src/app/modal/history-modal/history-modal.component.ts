@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HistoryModalService } from './history-modal.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-history-modal',
@@ -9,13 +10,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   providers: [HistoryModalService]
 })
 export class HistoryModalComponent implements OnInit {
-  history = [];
+  history: Observable<any>;
+  historyDetailed: Observable<any>;
   constructor(private _modalRef: MatDialogRef<HistoryModalComponent>, private _service: HistoryModalService,
     @Inject(MAT_DIALOG_DATA)public modalData: any) {
-      this._service.getByRequest(modalData['requestId']).subscribe(h => {
-        console.log(h);
-        this.history = h;
-      });
+      this.history = this._service.getByRequest(modalData['requestId']);
+      this.historyDetailed = this._service.getDetailedByRequest(modalData['requestId']);
     }
 
   ngOnInit() {

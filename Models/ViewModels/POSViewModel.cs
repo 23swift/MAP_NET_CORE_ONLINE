@@ -26,15 +26,15 @@ namespace MAP_Web.Models.ViewModels
         public string merchantDbaCity { get; set; }
         public Nullable<bool> isContactlessMerchant { get; set; }
         public Nullable<bool> isMultiMerchant { get; set; }
-        public string merchantCategoryCode { get; set; }
+        public Nullable<int> merchantCategoryCode { get; set; }
         public string nsp { get; set; }
         public string contactPerson { get; set; }
         public string contactNumber { get; set; }
-        public string numberOfPrintedSlips { get; set; }
+        public Nullable<int> numberOfPrintedSlips { get; set; }
         public string reasonForThreeSlipsPrinting { get; set; }
         public Nullable<DateTime> requiredDateAndTimeOfDispatch { get; set; }
         public string installationTerm { get; set; }
-        public Nullable<DateTime> requiredPullOutDateForTempPOSTerminals { get; set; }
+        public Nullable<DateTime> requestPullOutDateForTempPOSTerminals { get; set; }
         public string reasonForPermanentGPRSInstallation { get; set; }
         public string otherRequiredProfilingFacility { get; set; }
         public Nullable<bool> isTipAdjust { get; set; }
@@ -75,7 +75,7 @@ namespace MAP_Web.Models.ViewModels
         public string emailSubject { get; set; }
         public Nullable<DateTime> dateTimeAssignedPSProfiling { get; set; }
         public Nullable<DateTime> dateTimeEndorsedPaymentSolutionsOperations { get; set; }
-        public string bdoPayMobileNumberOfTerminals { get; set; }
+        public  Nullable<int> bdoPayMobileNumberOfTerminals { get; set; }
         public string bdoPayMobileBusinessGroup { get; set; }
         public string bdoPayMobileMerchantPortalUserEmailAddress { get; set; }
         public string bdoPayMobileMerchantPortalNominatedUsername { get; set; }
@@ -87,6 +87,7 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<DateTime> dateAndTimeTidIssued { get; set; }
         public Nullable<bool> isWaved { get; set; }
         public Nullable<bool> isShared { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int BranchId { get; set; }
         public BranchViewModel Branch { get; set; }
         public virtual ICollection<TerminalDetails> TerminalDetails {get;set;}

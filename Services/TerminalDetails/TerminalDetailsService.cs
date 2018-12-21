@@ -11,17 +11,21 @@ namespace MAP_Web.Services
         private readonly IRepository<TerminalDetails> terminalRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<POS> posRepo;
+        private readonly IRepository<Request> requestRepo;
         public TerminalDetailsService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.terminalRepo = this.unitOfWork.GetRepository<TerminalDetails>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
             this.posRepo = this.unitOfWork.GetRepository<POS>();
+            this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
         public async Task InsertAsync(TerminalDetails terminalDetails)
         {
             var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
             var branch = pos.Branch;
+            var request = await requestRepo.FindAsync(branch.NewAffiliationId);
+            terminalDetails.AuditLogGroupId = request.AuditLogGroupId;
             // POS.Branch.NewAffiliationId is the same with Request.Id
 
             historyRepo.Insert(new History{

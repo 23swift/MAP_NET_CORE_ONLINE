@@ -66,7 +66,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<OwnersViewModel, Owners>(owners, currentOwner);
 
-            ownersService.Update(currentOwner);
+            await ownersService.Update(currentOwner);
             await ownersService.SaveChangesAsync();
 
             return Ok(currentOwner);
@@ -80,7 +80,7 @@ namespace MAP_Web.Controllers
             if (currentOwner == null)
                 return NotFound();
 
-            ownersService.Delete(currentOwner);
+            await ownersService.Delete(currentOwner);
             await ownersService.SaveChangesAsync();
 
             return Ok();

@@ -20,6 +20,7 @@ namespace MAP_Web.Models
         public string user { get; set; }
 
         public string groupCode { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int RequestId { get; set; }
         public virtual Request Request { get; set; }
     }

@@ -1,3 +1,5 @@
+using System;
+
 namespace MAP_Web.Models.ViewModels
 {
     public class SignatoriesViewModel
@@ -8,6 +10,7 @@ namespace MAP_Web.Models.ViewModels
         public string position { get; set; }
         public int applicableTo { get; set; }
         public string dbaName { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int CustomerProfileId { get; set; }
         public CustomerProfileViewModel CustomerProfile { get; set; }
     }

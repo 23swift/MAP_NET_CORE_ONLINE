@@ -344,10 +344,6 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
@@ -359,10 +355,7 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
 
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
@@ -854,7 +847,6 @@ export class BranchFormModalService {
     {
       template: '<span class="mat-subheading-1">If With Installed ECR, Do You Store Card Data By Swiping The Card To Your ECR Or Similar Equipment Other Than The BDO-ISSUED POS Terminal?*</span>',
     },
-
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -1034,7 +1026,7 @@ export class BranchFormModalService {
           label: 'Report Distribution?',
           options: [
             { value: '1', label: 'Per Company' },
-            { value: '2', label: "Per Company's Branch" }
+            { value: '2', label: 'Per Company\'s Branch' }
           ],
         },
 
@@ -1055,8 +1047,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Owner's Name",
-          placeholder: "Owner's Name",
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
           required: true
         },
       },
@@ -1080,8 +1072,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Spouse's Name",
-          placeholder: "Spouse's Name"
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
         }
       },
       ]
@@ -1164,22 +1156,6 @@ export class BranchFormModalService {
             }
           }
         }
-        // ,
-        // {
-        //   className: 'flex-1',  // decimal format   // conditional mandatory
-        //   type: 'input',
-        //   key: 'INTES Code for Diners',
-        //   expressionProperties: {
-
-        //   },
-        //   templateOptions: {
-        //     type: 'number',
-        //     label: 'INTES Code for Diners',
-        //     placeholder: 'INTES Code for Diners',
-        //     pattern: '^\\d\\.\\d{2}$|^\\d\\.\\d{4}$',
-        //     maxLength: 4
-        //   }
-        // }
       ]
     },
 
@@ -1400,9 +1376,10 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: '9999999999999999999',
-          pattern: '^\\d{1,19}$',
           maxLength: 19
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -1438,7 +1415,7 @@ export class BranchFormModalService {
       ]
     },
   ];
-  //#endregion  
+  //#endregion
 
   //#region ao field
   ao: FormlyFieldConfig[] = [
@@ -1909,7 +1886,7 @@ export class BranchFormModalService {
           }
         },
         {
-          className: 'flex-1',// dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -2127,6 +2104,22 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
+          key: 'payDelayDays',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Pay Delay Days',
+            placeholder: 'Pay Delay Days',
+            maxLength: 2
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
           key: 'principalDetailsRemarks',
           expressionProperties: {
 
@@ -2220,7 +2213,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settleAccountNumber',
+          key: 'settlementAcctNo',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
 
@@ -2306,10 +2299,6 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
@@ -2321,10 +2310,7 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
 
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
@@ -2987,7 +2973,7 @@ export class BranchFormModalService {
           label: 'Report Distribution?',
           options: [
             { value: '1', label: 'Per Company' },
-            { value: '2', label: "Per Company's Branch" }
+            { value: '2', label: 'Per Company\'s Branch' }
           ],
         },
 
@@ -3008,8 +2994,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Owner's Name",
-          placeholder: "Owner's Name",
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
           required: true
         },
       },
@@ -3033,33 +3019,18 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Spouse's Name",
-          placeholder: "Spouse's Name"
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
         }
       },
       ]
     },
 
   ];
-  //#endregion 
+  //#endregion
 
   //#region mdcs-encoder field
   mdcsEncoder: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'businessName',
-          templateOptions: {
-            label: '',
-            placeholder: 'Legal Name',
-            disabled: true
-          }
-        }
-      ]
-    },
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -3072,35 +3043,19 @@ export class BranchFormModalService {
             placeholder: 'DBA Name(DBA/Trade Name)',
             disabled: true
           }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'registeredBusinessNumber',
-        templateOptions: {
-          label: 'Registered Business Number',
-          placeholder: 'Registered Business Number',
-          disabled: true
         },
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'adminContactPerson',
-        templateOptions: {
-          label: 'Administrator(Contact Person)',
-          placeholder: 'Administrator(Contact Person)',
-          disabled: true
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'adminContactPerson',
+          templateOptions: {
+            label: 'Administrator(Contact Person)',
+            placeholder: 'Administrator(Contact Person)',
+            disabled: true
+          }
         }
-      }
       ]
     },
-
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -3170,6 +3125,7 @@ export class BranchFormModalService {
           options: this._dropDownService.getDropdown('ZC'),
           labelProp: 'value',
           valueProp: 'code',
+          required: true
         }
       }]
     },
@@ -3181,8 +3137,7 @@ export class BranchFormModalService {
         key: 'branchPhoneNumber',
         templateOptions: {
           label: 'Branch/Outlet Phone Number',
-          placeholder: 'Branch/Outlet Phone Number',
-          disabled: true
+          placeholder: 'Branch/Outlet Phone Number'
         }
       },
       {
@@ -3191,8 +3146,7 @@ export class BranchFormModalService {
         key: 'branchMobileNumber',
         templateOptions: {
           label: 'Mobile Number',
-          placeholder: 'Mobile Number',
-          disabled: true
+          placeholder: 'Mobile Number'
         }
       }]
     },
@@ -3204,6 +3158,7 @@ export class BranchFormModalService {
         key: 'branchEmailAddress',
         templateOptions: {
           label: 'E-Mail Address',
+          type: 'email',
           placeholder: 'E-Mail Address'
         }
       },
@@ -3227,15 +3182,20 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'Payment Method',
             options: [
-              { value: '1', label: 'Credit to Account' },
-              { value: '2', label: 'Check Payment' }
+              { value: 'CTA', label: 'Credit to Account' },
+              { value: 'CP', label: 'Check Payment' }
             ]
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settleAccountNumber',
+          key: 'settlementAcctNo',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['paymentMethodCreditFac'] === 'CTA';
+            }
+          },
           templateOptions: {
             label: 'Settle Account Number (For Crediting Payment)',
             placeholder: 'Settle Account Number (For Crediting Payment)'
@@ -3252,6 +3212,7 @@ export class BranchFormModalService {
           key: 'taxCode',
           templateOptions: {
             label: 'Tax Code',
+            required: true,
             options: this._dropDownService.getDropdown('TC'),
             labelProp: 'value',
             valueProp: 'code',
@@ -3292,8 +3253,7 @@ export class BranchFormModalService {
           key: 'taxExemptValidityTo',
           templateOptions: {
             label: 'Date To',
-            placeholder: 'Date To',
-            disabled: true
+            placeholder: 'Date To'
           }
         }
       ]
@@ -3305,10 +3265,6 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
@@ -3320,14 +3276,11 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
-          placeholder: 'Tax Exempt Classification'
+          placeholder: 'Tax Exempt Classification',
+          disabled: true
         }
       }
       ]
@@ -3462,6 +3415,7 @@ export class BranchFormModalService {
       fieldGroup: [{
         type: 'checkbox',
         key: 'withExistingAcquirer',
+        defaultValue: false,
         templateOptions: {
           label: 'Yes',
           indeterminate: false
@@ -3514,6 +3468,9 @@ export class BranchFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return !model['withInstalledECR'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['withInstalledECR'];
             }
           },
           templateOptions: {
@@ -3533,7 +3490,9 @@ export class BranchFormModalService {
         type: 'input',
         key: 'settlementAccNoForDebit',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['paymentMethodCreditFac'] === 'CTA';
+          }
         },
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
@@ -3603,7 +3562,8 @@ export class BranchFormModalService {
           },
           {
             value: 2, label: 'PRINT'
-          }]
+          }],
+          disabled: true
         }
       },
       {
@@ -3611,14 +3571,11 @@ export class BranchFormModalService {
         type: 'input',
         key: 'emailAddressForReportSetting',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['reportSetting'] === 1;
-          }
         },
         templateOptions: {
           label: 'Email Address for Report Setting',
           placeholder: 'Email Address for Report Setting',
-          maxLength: 250
+          disabled: true
         }
       },
       {
@@ -3628,33 +3585,7 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Store ID',
           placeholder: 'Store ID',
-        },
-        validators: {
-          validation: ['numeric'],
-        }
-      }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'smShopCard',
-        templateOptions: {
-          label: 'SM Shop Card',
-          placeholder: 'SM Shop Card',
-          pattern: '^\\d+\\.\\d{2}$'
-        }
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'smGiftCard',
-        templateOptions: {
-          label: 'SM Gift Card',
-          placeholder: 'SM Gift Card',
-          pattern: '^\\d+\\.\\d{2}$'
+          disabled: true
         }
       },
       {
@@ -3664,12 +3595,11 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Remarks',
           placeholder: 'Remarks',
-          maxLength: 250
+          disabled: true
         }
       }
       ]
     },
-
     {
       template: '<span class="mat-headline">Cash Agad Facility Instructions</span>',
     },
@@ -3686,31 +3616,32 @@ export class BranchFormModalService {
         templateOptions: {
           label: 'Name of Authorized SOA Recipient',
           placeholder: 'Name of Authorized SOA Recipient',
-          maxLength: 120
+          disabled: true
         }
       },
       {
         className: 'flex-1',
         type: 'input',
-        key: 'SoaEmailAddress',
+        key: 'soaEmailAddress',
         expressionProperties: {
 
         },
         templateOptions: {
           label: 'Email Address',
           placeholder: 'Email Address',
-          maxLength: 250
+          disabled: true
         }
       },
       {
-        key: 'reportDistribution',
+        key: 'reportDistributionPerCompany',
         type: 'radio',
         templateOptions: {
           label: 'Report Distribution?',
           options: [
             { value: '1', label: 'Per Company' },
-            { value: '2', label: "Per Company's Branch" }
+            { value: '2', label: 'Per Company\'s Branch' }
           ],
+          disabled: true
         },
 
       },
@@ -3730,8 +3661,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Owner's Name",
-          placeholder: "Owner's Name",
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
           required: true
         },
       },
@@ -3755,8 +3686,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Spouse's Name",
-          placeholder: "Spouse's Name"
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
         }
       },
       ]
@@ -3781,19 +3712,11 @@ export class BranchFormModalService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isAtmDebit'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isAtmDebit'];
-          }
+
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          maxLength: 3
-        },
-        validators: {
-          validation: ['numeric'],
+          disabled: true
         }
       },
       {
@@ -3801,16 +3724,11 @@ export class BranchFormModalService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isAtmDebit'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isAtmDebit'];
-          }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          disabled: true
         }
       }
       ]
@@ -3832,16 +3750,11 @@ export class BranchFormModalService {
         className: 'flex-6',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isSmGiftCard'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isSmGiftCard'];
-          }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          disabled: true
         }
       }
       ]
@@ -3863,16 +3776,11 @@ export class BranchFormModalService {
         className: 'flex-6',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isSmShopCard'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isSmShopCard'];
-          }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          disabled: true
         }
       }
       ]
@@ -3894,19 +3802,11 @@ export class BranchFormModalService {
         type: 'input',
         key: 'numberOfDebitTidCashAgad',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isCashAgad'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isCashAgad'];
-          }
+
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          maxLength: 3
-        },
-        validators: {
-          validation: ['numeric'],
+          disabled: true
         }
       },
       {
@@ -3914,16 +3814,11 @@ export class BranchFormModalService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['isCashAgad'];
-          },
-          'templateOptions.disabled': (model: any, formState: any) => {
-            return !model['isCashAgad'];
-          }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$'
+          disabled: true
         }
       }
       ]
@@ -3965,21 +3860,6 @@ export class BranchFormModalService {
             disabled: true
           }
         }
-        // ,
-        // {
-        //   className: 'flex-1',  // decimal format   // conditional mandatory
-        //   type: 'input',
-        //   key: 'INTES Code for Diners',
-        //   expressionProperties: {
-
-        //   },
-        //   templateOptions: {
-        //     type: 'number',
-        //     label: 'INTES Code for Diners',
-        //     placeholder: 'INTES Code for Diners',
-        //     disabled: true
-        //   }
-        // }
       ]
     },
     {
@@ -4019,20 +3899,6 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'select',
-          key: 'defaultTransactionSource',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            options: this._dropDownService.getDropdown('MTSRC'),
-            labelProp: 'value',
-            valueProp: 'code',
-            disabled: true
-          }
-        },
-        {
           className: 'flex-1',
           type: 'input',
           key: 'mcAssignedId',
@@ -4046,7 +3912,7 @@ export class BranchFormModalService {
           }
         },
         {
-          className: 'flex-1',// dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -4190,8 +4056,6 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: '9999999999999999999',
-          pattern: '^\\d{1,19}$',
           disabled: true
         }
       }
@@ -4241,7 +4105,6 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'DCC Rebate Rate',
             placeholder: 'DCC Rebate Rate',
-            pattern: '^\d+\.\d{2}$',
             disabled: true
           }
         },
@@ -4252,7 +4115,6 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'Third Party CASA',
             placeholder: 'Third Party CASA',
-            pattern: '^[^\d]$',
             disabled: true
           }
         }
@@ -4326,7 +4188,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'fraudToolProviderId',
+          key: 'fraudToolProvider',
           templateOptions: {
             label: 'Fraud Tool Provider',
             placeholder: 'Fraud Tool Provider',
@@ -4350,12 +4212,13 @@ export class BranchFormModalService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'checkbox',
           key: 'directPaymentLink',
           templateOptions: {
             label: 'Direct Payment Link',
             placeholder: 'Direct Payment Link',
-            disabled: true
+            disabled: true,
+            indeterminate: false
           }
         },
         {
@@ -4402,7 +4265,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'validFrom',
+          key: 'cnpValidFrom',
           templateOptions: {
             label: 'Valid From',
             placeholder: 'Valid From',
@@ -4412,7 +4275,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'validUntil',
+          key: 'cnpValidUntil',
           templateOptions: {
             label: 'Valid Until',
             placeholder: 'Valid Until',
@@ -4616,7 +4479,7 @@ export class BranchFormModalService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settleAccountNumber',
+          key: 'settlementAcctNo',
           templateOptions: {
             label: 'Settle Account Number (For Crediting Payment)',
             placeholder: 'Settle Account Number (For Crediting Payment)'
@@ -4686,10 +4549,6 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
@@ -4701,10 +4560,6 @@ export class BranchFormModalService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-
-            return model['taxCode'] === '2';
-          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
@@ -4995,7 +4850,7 @@ export class BranchFormModalService {
       {
         className: 'flex-1',
         type: 'input',
-        key: 'SoaEmailAddress',
+        key: 'soaEmailAddress',
         expressionProperties: {
 
         },
@@ -5012,7 +4867,7 @@ export class BranchFormModalService {
           label: 'Report Distribution?',
           options: [
             { value: '1', label: 'Per Company' },
-            { value: '2', label: "Per Company's Branch" }
+            { value: '2', label: 'Per Company\'s Branch' }
           ],
         },
 
@@ -5033,8 +4888,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Owner's Name",
-          placeholder: "Owner's Name",
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
           required: true
         },
       },
@@ -5058,8 +4913,8 @@ export class BranchFormModalService {
 
         },
         templateOptions: {
-          label: "Spouse's Name",
-          placeholder: "Spouse's Name"
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
         }
       },
       ]
@@ -5351,7 +5206,7 @@ export class BranchFormModalService {
           }
         },
         {
-          className: 'flex-1',// dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -5546,7 +5401,6 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'DCC Rebate Rate',
             placeholder: 'DCC Rebate Rate',
-            pattern: '^\d+\.\d{2}$',
             disabled: true
           }
         },
@@ -5655,11 +5509,12 @@ export class BranchFormModalService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'checkbox',
           key: 'directPaymentLink',
           templateOptions: {
             label: 'Direct Payment Link',
             placeholder: 'Direct Payment Link',
+            indeterminate: false,
             disabled: true
           }
         },

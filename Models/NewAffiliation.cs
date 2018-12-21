@@ -19,6 +19,7 @@ namespace MAP_Web.Models
         public Int32 Status { get; set; }
         public string userScreenFlow { get; set; }
         public string eMail { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public virtual CustomerProfile CustomerProfile { get; set; }
         public virtual ICollection<Branch> Branches { get; set; }
         public virtual ICollection<DocumentChecklist> DocumentChecklists { get; set; }

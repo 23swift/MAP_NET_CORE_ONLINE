@@ -101,8 +101,8 @@ namespace MAP_Web
 
 
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("MAP_DB")));
-            services.AddTransient<IAuditLogService, AuditLogService>();
+                options.UseSqlServer(Configuration.GetConnectionString("Log_DB")));
+            services.AddTransient<IAuditLogService,AuditLogService>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

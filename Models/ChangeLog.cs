@@ -11,6 +11,7 @@ namespace MAP_Web.Models
         public string PrimaryKeyValue { get; set; }
         public string OldValue { get; set; }
         public string NewValue { get; set; }
+        public string Action { get; set; }
         public DateTime DateChanged { get; set; }
     }
 }

@@ -8,6 +8,7 @@ namespace MAP_Web.Services
     public interface IHistoryService
     {
          Task<IEnumerable<HistoryViewModel>> FindByRequestAsync(int id);
+         Task<IEnumerable<ChangeLog>> FindDetailedByRequestAsync(int id);
 
          Task InsertAsync(History history);
 

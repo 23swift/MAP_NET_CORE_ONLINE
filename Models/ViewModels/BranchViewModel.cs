@@ -61,6 +61,7 @@ namespace MAP_Web.Models.ViewModels
 
 
 
+
         // public Nullable<int> payDelayDays { get; set; }
 
         // public Nullable<System.DateTime> dateClosed { get; set; }
@@ -116,9 +117,9 @@ namespace MAP_Web.Models.ViewModels
 
         // public string mobileNo { get; set; }
 
-        // public string emailAddress { get; set; }
+         public string emailAddress { get; set; }
 
-        // public string mailingAddress1 { get; set; }
+         public string mailingAddress1 { get; set; }
 
         // public Nullable<bool> withECR { get; set; }
 
@@ -126,7 +127,7 @@ namespace MAP_Web.Models.ViewModels
 
         // public string serviceProvider { get; set; }
 
-        // public string website { get; set; }
+         public string website { get; set; }
 
         // public Nullable<bool> cardHolderData { get; set; }
 
@@ -136,7 +137,7 @@ namespace MAP_Web.Models.ViewModels
 
         // public Nullable<int> imprinterTotal { get; set; }
 
-        // public Nullable<int> dbaZipCode { get; set; }
+         public string dbaZipCode { get; set; }
 
         // public Nullable<int> regionCode { get; set; }
 
@@ -144,11 +145,11 @@ namespace MAP_Web.Models.ViewModels
 
         // public string paymentMode { get; set; }
 
-        // public string settlementAcctNo { get; set; }
+         public string creditSettlementAcctNo { get; set; }
 
         // public string merchantGroupCode { get; set; }
 
-        // public string TIN { get; set; }
+         public string tin { get; set; }
 
         // public Nullable<bool> withTax { get; set; }
 
@@ -164,21 +165,23 @@ namespace MAP_Web.Models.ViewModels
 
         // public string principalMiddleName { get; set; }
 
-        // public string mailingAddress2 { get; set; }
+         public string mailingAddress2 { get; set; }
 
-        // public string mailingAddress3 { get; set; }
+         public string mailingAddress3 { get; set; }
 
-        // public string mailingAddress4 { get; set; }
+         public string mailingAddress4 { get; set; }
 
-        // public Nullable<int> mailingCity { get; set; }
+         public string mailingCity { get; set; }
 
-        // public Nullable<int> mailingAddressZipCode { get; set; }
+         public string mailingAddressZipCode { get; set; }
 
-        // public Nullable<System.DateTime> taxExemptFrom { get; set; }
+         public Nullable<System.DateTime> taxExemptFrom { get; set; }
 
-        // public Nullable<System.DateTime> taxExemptTo { get; set; }
+         public Nullable<System.DateTime> taxExemptTo { get; set; }
 
-        // public Nullable<int> taxExemptIssuedBy { get; set; }
+         public Nullable<int> taxExemptIssuedBy { get; set; }
+
+        public string taxExemptClass { get; set; }   
 
         // public string registeredBusinessNo { get; set; }
 
@@ -196,15 +199,15 @@ namespace MAP_Web.Models.ViewModels
 
         // public Nullable<bool> isSwipingCardWithInstalledECR { get; set; }
 
-        // public string debitSettlementAcctNo { get; set; }
+         public string debitSettlementAcctNo { get; set; }
 
         // public string payeesName { get; set; }
 
         // public string emailAddressForReport { get; set; }
 
-        // public string SOARecipients { get; set; }
+        // public string soaRecipients { get; set; }
 
-        // public string SOAEmailAddress { get; set; }
+        // public string soaEmailAddress { get; set; }
 
         // public Nullable<bool> reportDistributionperCompany { get; set; }
 
@@ -252,7 +255,7 @@ namespace MAP_Web.Models.ViewModels
 
         // public decimal discountDebitRate { get; set; }
 
-        // public string storeId { get; set; }
+         public string storeId { get; set; }
 
         // public string reportPerCompanysBranch { get; set; }
 
@@ -283,7 +286,7 @@ namespace MAP_Web.Models.ViewModels
         // public string holdOutAcctNo { get; set; }
 
 
-        // public string remarks { get; set; }
+         public string remarks { get; set; }
 
         // public string preparedBy { get; set; }
 
@@ -346,6 +349,9 @@ namespace MAP_Web.Models.ViewModels
         // public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         // public string legalName { get; set; }
+         public string taxCode { get; set; } 
+
+         public string merchantNumber { get; set; }  
 
         public Nullable<int> NewAffiliationId { get; set; }
         public virtual NewAffiliation NewAffiliation { get; set; }

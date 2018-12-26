@@ -24,6 +24,7 @@ export class PosListComponent implements OnInit {
   @Input() showTerminalUpdate?: boolean;
   @Input() showTerminalAdd?: boolean;
   @Input() showDelete: boolean;
+  @Input() displayMode?: boolean;
   natureOfRequestList = [];
 
   constructor(private _posService: PosListService, private _route: ActivatedRoute, private _dialog: MatDialog,
@@ -54,7 +55,8 @@ export class PosListComponent implements OnInit {
       width: '98%',
       height: 'auto',
       data: {
-        branchId: this.branchId
+        branchId: this.branchId,
+        displayMode: this.displayMode,
       }
     });
 

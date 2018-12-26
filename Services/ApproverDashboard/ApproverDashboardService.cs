@@ -8,20 +8,21 @@ using System;
 
 namespace MAP_Web.Services
 {
-    public class MauEncoderDashboardService : IMauEncoderDashboardService
+    public class ApproverDashboardService : IApproverDashboardService
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
 
-        public MauEncoderDashboardService(IUnitOfWork unitOfWork)
+        public ApproverDashboardService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
+
         public async Task<List<DashboardViewModel>> FindAsync()
         {
             var dashboardContainer = new List<DashboardViewModel>();
-            var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile), orderBy: x => x.OrderByDescending(y => y.Id), predicate: r => r.Status == 3 || r.Status == 2);
+            var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile), orderBy: x => x.OrderByDescending(y => y.Id), predicate: r => r.Status == 5);
 
             foreach (var item in requests.Items)
             {
@@ -39,6 +40,9 @@ namespace MAP_Web.Services
 
             return dashboardContainer;
         }
+
+
+
 
     }
 }

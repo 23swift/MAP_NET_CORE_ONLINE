@@ -7,7 +7,7 @@ import { ApiConstants } from '../../api-constants';
 @Injectable({
   providedIn: 'root'
 })
-export class MaefFormService {
+export class  MaefFormService {
   fields: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
@@ -919,17 +919,33 @@ export class MaefFormService {
     return this._http.get(ApiConstants.maefApi + '/' + id);
   }
 
-  getRemarks(id): Observable<any> {
-    return this._http.get(ApiConstants.maefApi + '/history/' + id);
+  getRemarks(id, action): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/history/' + id + '/' + action);
+  }
+
+  checkRemarks(id, action): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/historyCheck/' + id + '/' + action);
   }
 
   ReturntoAO(id): Observable<any> {
     return this._http.put(ApiConstants.maefApi + '/returnToAo/' + id, {});
   }
 
+  ReturntoMAMO(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/returnToMamo/' + id, {});
+  }
+
+  Decline(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/decline/' + id, {});
+  }
+
   SubmitToApprover(id): Observable<any> {
     return this._http.put(ApiConstants.maefApi + '/submitToApprover/' + id, {});
   }
+
+  Approve(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/approve/' + id, {});
+  }  
 
 
 }

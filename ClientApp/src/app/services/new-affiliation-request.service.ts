@@ -19,6 +19,14 @@ export class NewAffiliationRequestService {
     return this._http.put(ApiConstants.newAffiliationApi + '/returnToAoEncoder/' + id, {});
   }
 
+  returnToMamo(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/returnToMamo/' + id, {});
+  }
+
+  decline(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/decline/' + id, {});
+  }
+
   updateRequestForAoChecker(id): Observable<any> {
     return this._http.put(ApiConstants.newAffiliationApi + '/aoChecker/' + id, {});
   }

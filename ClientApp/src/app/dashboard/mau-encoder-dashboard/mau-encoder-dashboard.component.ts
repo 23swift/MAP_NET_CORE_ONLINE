@@ -45,7 +45,7 @@ export class MauEncoderDashboardComponent implements OnInit {
   }
 
   getStatus(s) {
-    if(s == '3'){ return 'For Evaluation'} else if (s == '4') { return 'Returned By MAM Approver'} 
+    if(s == '2'){ return 'For Evaluation'} else if (s == '3') { return 'Returned By MAM Approver'} 
   }
 
   openSearchDialog() {

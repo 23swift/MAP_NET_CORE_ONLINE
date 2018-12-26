@@ -139,7 +139,7 @@ namespace MAP_Web.Models
 
         public Nullable<int> imprinterTotal { get; set; }
 
-        public Nullable<int> dbaZipCode { get; set; }
+        public string dbaZipCode { get; set; }
 
         public Nullable<int> regionCode { get; set; }
 
@@ -147,11 +147,11 @@ namespace MAP_Web.Models
 
         public string paymentMode { get; set; }
 
-        public string settlementAcctNo { get; set; }
+        public string creditSettlementAcctNo { get; set; }
 
         public string merchantGroupCode { get; set; }
 
-        public string TIN { get; set; }
+        public string tin { get; set; }
 
         public Nullable<bool> withTax { get; set; }
 
@@ -173,9 +173,9 @@ namespace MAP_Web.Models
 
         public string mailingAddress4 { get; set; }
 
-        public Nullable<int> mailingCity { get; set; }
+        public string mailingCity { get; set; }
 
-        public Nullable<int> mailingAddressZipCode { get; set; }
+        public string mailingAddressZipCode { get; set; }
 
         public Nullable<System.DateTime> taxExemptFrom { get; set; }
 
@@ -205,9 +205,9 @@ namespace MAP_Web.Models
 
         public string emailAddressForReport { get; set; }
 
-        public string SOARecipients { get; set; }
+        //public string soaRecipients { get; set; }
 
-        public string SOAEmailAddress { get; set; }
+        //public string soaEmailAddress { get; set; }
 
         public Nullable<bool> reportDistributionperCompany { get; set; }
 
@@ -351,6 +351,12 @@ namespace MAP_Web.Models
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         public string legalName { get; set; }
+
+        public string taxCode { get; set; }      
+
+        public string taxExemptClass { get; set; }   
+
+        public string merchantNumber { get; set; }   
 
         public virtual POSRequest POSRequest { get; set; }
         public virtual OIF OIF { get; set; }

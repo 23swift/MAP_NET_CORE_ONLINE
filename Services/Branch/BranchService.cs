@@ -101,7 +101,7 @@ namespace MAP_Web.Services
                 groupCode = "Test Group Code",
                 user = "Test User",
                 RequestId = branch.NewAffiliationId
-            });
+            }); 
 
             branchRepo.Update(branch);
         }

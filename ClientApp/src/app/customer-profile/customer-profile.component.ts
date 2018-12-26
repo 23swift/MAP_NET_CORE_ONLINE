@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material';
   providers: [CustomerProfileService, FormlyFieldConfigService]
 })
 export class CustomerProfileComponent extends AppBaseComponent implements OnInit {
-  @Input() displayMode = false;
+  @Input() displayMode;
   @Input() userGroup: string;
   @Output() newAffiliationId = new EventEmitter<number>();
 

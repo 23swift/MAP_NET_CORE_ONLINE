@@ -60,11 +60,17 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(history);
         }
 
-        public async Task<History> FindRemarksAsync(int id)
+        public async Task<History> FindRemarksAsync(int id, string action)
         {
-            var history = await historyRepo.GetPagedListAsync(orderBy:d => d.OrderByDescending(dd => dd.Id), predicate: d => d.RequestId == id && d.action.Contains("Return Request"));
+            var history = await historyRepo.GetPagedListAsync(orderBy:d => d.OrderByDescending(dd => dd.Id), predicate: d => d.RequestId == id && d.action.Contains(action));
 
             return history.Items.First();
+        }
+
+        public async Task<History> CheckRemarksAsync(int id, string action)
+        {
+            var history = await historyRepo.GetFirstOrDefaultAsync(predicate: r => r.RequestId == id && r.action.Contains(action));
+            return (history);
         }
 
      /*   public void UpdateRequest(Request request, int maefId)

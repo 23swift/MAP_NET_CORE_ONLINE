@@ -1,19 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
+import { HttpClient } from 'node_modules/@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from '../../api-constants';
 
 @Injectable()
 export class ApproverDashboardService {
   private _dashboard: DashboardData;
 
-  constructor() {
+  constructor(private _http: HttpClient) {
     this._dashboard = new DashboardData();
   }
 
-  Get() {
+  get() {
     return this._dashboard.ElementData;
   }
 
-  GetTableFields() {
+  getTableFields() {
     return this._dashboard.Fields;
   }
+
+  getRequests(): Observable<any> {
+    return this._http.get(ApiConstants.approverDashboardApi);
+  }
+
 }

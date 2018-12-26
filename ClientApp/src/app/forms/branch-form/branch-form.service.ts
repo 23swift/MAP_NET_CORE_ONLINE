@@ -5847,7 +5847,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'branchEmailAddress',
+      key: 'emailAddress',
       templateOptions: {
         label: 'E-Mail Address',
         placeholder: 'E-Mail Address'
@@ -5856,7 +5856,7 @@ export class BranchFormService {
     {
       className: 'flex-1',
       type: 'input',
-      key: 'branchWebsite',
+      key: 'website',
       templateOptions: {
         label: 'Website',
         placeholder: 'Website'
@@ -5869,7 +5869,7 @@ export class BranchFormService {
       {
         className: 'flex-1',
         type: 'input',
-        key: 'settleAccountNumber',
+        key: 'creditSettlementAcctNo',
         templateOptions: {
           label: 'Settle Account Number (For Crediting Payment)',
           placeholder: 'Settle Account Number (For Crediting Payment)',
@@ -5899,7 +5899,7 @@ export class BranchFormService {
       {
         className: 'flex-1 mat-form-field-infix',
         type: 'calendar',
-        key: 'taxExemptValidityFrom',
+        key: 'taxExemptFrom',
         templateOptions: {
           label: 'Date From',
           placeholder: 'Date From'
@@ -5908,7 +5908,7 @@ export class BranchFormService {
       {
         className: 'flex-1 mat-form-field-infix',
         type: 'calendar',
-        key: 'taxExemptValidityTo',
+        key: 'taxExemptTo',
         templateOptions: {
           label: 'Date To',
           placeholder: 'Date To'
@@ -5921,7 +5921,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'taxExemptCertIssuedBy',
+      key: 'taxExemptIssuedBy',
       expressionProperties: {
        // 'templateOptions.required': (model: any, formState: any) => {
 
@@ -5972,7 +5972,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'specialMailingAdd1',
+      key: 'mailingAddress1',
       expressionProperties: {
 
       },
@@ -5990,7 +5990,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'specialMailingAdd2',
+      key: 'mailingAddress2',
       expressionProperties: {
 
       },
@@ -6006,7 +6006,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'specialMailingAdd3',
+      key: 'mailingAddress3',
       expressionProperties: {
 
       },
@@ -6022,7 +6022,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'specialMailingAdd4',
+      key: 'mailingAddress4',
       expressionProperties: {
 
       },
@@ -6038,7 +6038,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'select',
-      key: 'specialMailingCity',
+      key: 'mailingCity',
       expressionProperties: {
 
       },
@@ -6052,7 +6052,7 @@ export class BranchFormService {
     {
       className: 'flex-1',
       type: 'select',
-      key: 'specialMailingZipCode',
+      key: 'mailingAddressZipCode',
       expressionProperties: {
 
       },
@@ -6070,7 +6070,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'settlementAccNoForDebit',
+      key: 'debitSettlementAcctNo',
       expressionProperties: {
 
       },
@@ -6180,7 +6180,7 @@ export class BranchFormService {
     fieldGroup: [{
       className: 'flex-1',
       type: 'input',
-      key: 'nameAuthorizedSoaRecip',
+      key: 'soaRecipients',
       expressionProperties: {
 
       },
@@ -6429,7 +6429,7 @@ export class BranchFormService {
     },
     {
       key: 'mdrCashAgad',
-      className: 'flex-3',
+      className: 'flex-6',
       type: 'input',
       expressionProperties: {
         'templateOptions.required': (model: any, formState: any) => {
@@ -6658,7 +6658,7 @@ export class BranchFormService {
       {
         className: 'flex-1',
         type: 'input',
-        key: 'otherDetailsRemarks',
+        key: 'remarks',
         expressionProperties: {
 
         },

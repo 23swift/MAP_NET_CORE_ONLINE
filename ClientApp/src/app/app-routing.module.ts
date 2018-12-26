@@ -281,6 +281,7 @@ const routes: Routes = [
   },
   { path: 'na/mauOfficer/:id', component: MauOfficerComponent }, // 1
   { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, //story7
+  { path: 'na/approver/:id', component: MauOfficerComponent }, //story8
   { path: 'na/mdcsUser', component: MdcsUserComponent },
   {
     path: 'na/mdmUser', component: MdmUserComponent, children: [

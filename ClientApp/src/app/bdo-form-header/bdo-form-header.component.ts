@@ -40,8 +40,8 @@ export class BdoFormHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showApprovalOptions = false;
-    this.showRequestFlowOptions = true;
+    this.showApprovalOptions = false;  // 8
+    this.showRequestFlowOptions = false; // 7
     this.showCreateOptions = false;
     this.showWelcomeLetter = false;
     this.showCadencieProcessingButton = false;
@@ -54,7 +54,7 @@ export class BdoFormHeaderComponent implements OnInit {
     this.mode = this.mode ? this.mode : 'create';
 
     if (this._router.url !== '/home') {
-      if (this.mode.match(/approval/i)) {
+      if (this.mode.match(/approver/i)) {
         this.showApprovalOptions = true;
       }
       if (this.mode.match(/aoChecker/i) /*|| this.mode.match(/approval/)*/) {
@@ -103,16 +103,19 @@ export class BdoFormHeaderComponent implements OnInit {
     }
   }
 
-  return(): void {
+  returntoAO(): void {
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
-      data: this.newAffiliationId
+      data: {
+        newAffiliationId : this.newAffiliationId,
+        action : 'Return To AO'
+      }
     });
 
     dialog.afterClosed().subscribe(d => {
-      this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
+      //this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
        // this._router.navigateByUrl('/home/aoChecker');
-      });
+     // });
     });
   }
 
@@ -123,4 +126,41 @@ export class BdoFormHeaderComponent implements OnInit {
     });
   });   
   }
+
+
+  returntoMAMO(): void {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      action : 'Return To MAMO'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+    });
+  }
+
+  decline(): void {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+        newAffiliationId : this.newAffiliationId,
+        action : 'Decline'
+      }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+
+    });   
+  }
+
+  approve(): void {
+    this._maefFormService.Approve(this.newAffiliationId).subscribe(data => {
+      const snackBarRef = this._snackBar.open('Approved', 'Saved', {
+        duration: 1000      
+    });
+  });   
+  }
+
 }

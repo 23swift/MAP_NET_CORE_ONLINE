@@ -31,7 +31,8 @@ namespace MAP_Web.Services
                 action = "Owner: " + owner.name + "'s Details Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customer.NewAffiliationId
+                RequestId = customer.NewAffiliationId,
+                AuditLogGroupId = customer.AuditLogGroupId
             });
 
             await ownersRepo.InsertAsync(owner);
@@ -63,7 +64,8 @@ namespace MAP_Web.Services
                 action = "Owner: " + owner.name + "'s Details Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customer.NewAffiliationId
+                RequestId = customer.NewAffiliationId,
+                AuditLogGroupId = customer.AuditLogGroupId
             });
             ownersRepo.Update(owner);
         }
@@ -80,7 +82,8 @@ namespace MAP_Web.Services
                 action = "Owner: " + owner.name + " Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = customer.NewAffiliationId
+                RequestId = customer.NewAffiliationId,
+                AuditLogGroupId = customer.AuditLogGroupId
             });
 
             ownersRepo.Delete(owner);

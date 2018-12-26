@@ -18,6 +18,8 @@ export class PsServicingComponent extends AppBaseComponent implements OnInit {
   subTitle: string;
   mode: string;
   midAction: boolean;
+  requestId: number;
+  branchId: number;
 
   constructor(public _router: Router,
     public _route: ActivatedRoute) {

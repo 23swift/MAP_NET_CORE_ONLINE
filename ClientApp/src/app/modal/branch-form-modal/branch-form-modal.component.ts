@@ -31,11 +31,11 @@ export class BranchFormModalComponent implements OnInit {
         this.model = data;
         this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
 
-        this.fields = this._branchService.getBranchFields();
+        this.fields = this._branchService.getBranchFields(this.data['userGroup']);
       });
     } else {
       this.model = data['branch'];
-      this.fields = this._branchService.getBranchFields();
+      this.fields = this._branchService.getBranchFields(this.data['userGroup']);
     }
   }
 

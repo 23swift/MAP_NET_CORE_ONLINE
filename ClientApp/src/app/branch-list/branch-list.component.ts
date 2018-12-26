@@ -14,6 +14,7 @@ import { BranchListService } from './branch-list.service';
 export class BranchListComponent implements OnInit, AfterViewInit {
   @Input() detailsRoute: string;
   @Input() newAffiliationId: number;
+  @Input() userGroup: string;
 
   displayedColumns: string[] = ['DBAName', 'DBAAddress', 'Attachment'];
   dataSource: Object[];
@@ -74,7 +75,11 @@ export class BranchListComponent implements OnInit, AfterViewInit {
     const dialog = this._dialog.open(BranchFormModalComponent, {
       width: '98%',
       height: 'auto',
-      data: this.branchAddModel
+      data: {
+        branch: this.branchAddModel,
+        newAffiliationId: this.newAffiliationId,
+        userGroup: this.userGroup
+      }
     });
 
     dialog.afterClosed().subscribe(data => {
@@ -88,7 +93,8 @@ export class BranchListComponent implements OnInit, AfterViewInit {
       height: 'auto',
       data: {
         branch: branch,
-        branchId: branch['id']
+        branchId: branch['id'],
+        userGroup: this.userGroup
       }
     });
 

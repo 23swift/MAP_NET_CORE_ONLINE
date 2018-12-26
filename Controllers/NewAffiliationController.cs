@@ -42,5 +42,25 @@ namespace MAP_Web.Controllers
 
             return Ok();
         }
+
+        [HttpPut("mdcsEncoder/{id}")]
+        public async Task<IActionResult> UpdateRequestForMdcsEncoder(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+            await newAffiliationService.UpdateRequest(request, 4);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("mdcsChecker/{id}")]
+        public async Task<IActionResult> UpdateRequestForMdcsChecker(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+            await newAffiliationService.UpdateRequest(request, 5);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

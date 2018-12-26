@@ -1409,7 +1409,8 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Remarks',
-          placeholder: 'Remarks'
+          placeholder: 'Remarks',
+          maxLength: 250
         }
       }
       ]
@@ -2126,7 +2127,8 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'Remarks',
-            placeholder: 'Remarks'
+            placeholder: 'Remarks',
+            maxLength: 250
           }
         }
       ]
@@ -5586,8 +5588,12 @@ export class BranchFormModalService {
 
   constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
 
-  getBranchFields(): FormlyFieldConfig[] {
-    return this.ao;
+  getBranchFields(userGroup): FormlyFieldConfig[] {
+    if (userGroup === 'ao') {
+      return this.ao;
+    } else if (userGroup === 'mdcsEncoder') {
+      return this.mdcsEncoder;
+    }
   }
 
   getByNewAffiliationId(id): Observable<any> {

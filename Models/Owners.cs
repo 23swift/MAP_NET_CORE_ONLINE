@@ -9,6 +9,7 @@ namespace MAP_Web.Models
         public string percentOfOwnership { get; set; }
         public string typeOfRelatedParty { get; set; }
         public string remarks { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int CustomerProfileId { get; set; }
         public CustomerProfile CustomerProfile { get; set; }
     }

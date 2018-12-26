@@ -1,3 +1,5 @@
+using System;
+
 namespace MAP_Web.Models
 {
     public class Signatories
@@ -8,6 +10,7 @@ namespace MAP_Web.Models
         public string position { get; set; }
         public int applicableTo { get; set; }
         public string dbaName { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int CustomerProfileId { get; set; }
         public CustomerProfile CustomerProfile { get; set; }
     }

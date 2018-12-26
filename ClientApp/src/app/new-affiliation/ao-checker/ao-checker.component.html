@@ -19,7 +19,7 @@
       <span class="mat-subheading-1">Branches</span>
     </ng-template>
     <div *ngIf="isBranch">
-      <app-branch-list [newAffiliationId]="newAffiliationId"></app-branch-list>
+      <app-branch-list [newAffiliationId]="newAffiliationId" [userGroup]="'ao'"></app-branch-list>
     </div>
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'oif')">Next
       <mat-icon color="primary">navigate_next</mat-icon>

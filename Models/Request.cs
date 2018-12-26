@@ -23,6 +23,7 @@ namespace MAP_Web.Models
         public string RequestDescription { get; set; }
 
         public Nullable<Guid> WorkflowInstanceId { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public Int32 Status { get; set; }
         public string BookMark { get; set; }
         public string TrackingNo { get; set; }

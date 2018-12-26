@@ -28,7 +28,8 @@ namespace MAP_Web.Services
                 action = "MID for Branch: " + branch.dbaName + " Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             await midRepo.InsertAsync(mid);
         }
@@ -58,7 +59,8 @@ namespace MAP_Web.Services
                 action = "MID for Branch: " + branch.dbaName + " Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
 
             midRepo.Update(mid);
@@ -74,7 +76,8 @@ namespace MAP_Web.Services
                 action = "MID for Branch: " + branch.dbaName + " Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             midRepo.Delete(mid);
         }

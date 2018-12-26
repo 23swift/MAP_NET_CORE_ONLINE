@@ -15,6 +15,7 @@ namespace MAP_Web.Models
         public Nullable<bool> hotelSetupFacility { get; set; }
         public Nullable<bool> manualKeyInFacility { get; set; }
         public string creditStraightTid { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public Nullable<int> POSId { get; set; }
         public POS POS { get; set; }
     }

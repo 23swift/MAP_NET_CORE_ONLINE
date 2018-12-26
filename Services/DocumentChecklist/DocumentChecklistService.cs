@@ -50,7 +50,8 @@ namespace MAP_Web.Services
                 action = "Document: " + documentChecklist.documentName + " Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = documentChecklist.NewAffiliationId
+                RequestId = documentChecklist.NewAffiliationId,
+                AuditLogGroupId = documentChecklist.AuditLogGroupId
             });
 
             documentRepo.Update(documentChecklist);
@@ -65,7 +66,8 @@ namespace MAP_Web.Services
                 action = "Document: " + documentChecklist.documentName + " Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = documentChecklist.NewAffiliationId
+                RequestId = documentChecklist.NewAffiliationId,
+                AuditLogGroupId = documentChecklist.AuditLogGroupId
             });
 
             documentRepo.Delete(documentChecklist);

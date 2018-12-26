@@ -30,4 +30,12 @@ export class NewAffiliationRequestService {
   updateRequestForAoChecker(id): Observable<any> {
     return this._http.put(ApiConstants.newAffiliationApi + '/aoChecker/' + id, {});
   }
+
+  updateRequestForMdcsEncoder(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mdcsEncoder/' + id, {});
+  }
+
+  updateRequestForMdcsChecker(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mdcsChecker/' + id, {});
+  }
 }

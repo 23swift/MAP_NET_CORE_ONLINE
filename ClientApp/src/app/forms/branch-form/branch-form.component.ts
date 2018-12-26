@@ -16,6 +16,7 @@ import { MatSnackBar } from '@angular/material';
 export class BranchFormComponent implements OnInit {
   @Input() displayMode: boolean;
   @Input() branchId: number;
+  @Input() userGroup: string;
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
@@ -31,9 +32,6 @@ export class BranchFormComponent implements OnInit {
   backUrl: string;
   constructor(private _branchService: BranchFormService, public route: ActivatedRoute,
     public router: Router, private _formService: FormlyFieldConfigService, private _snackBar: MatSnackBar) {
-
-
-
   }
 
 
@@ -43,10 +41,8 @@ export class BranchFormComponent implements OnInit {
 
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;
-      console.log(this.model);
-      this.fields = this._branchService.getBranchFields('mauEncoder');
-    }); 
-
+      this.fields = this._branchService.getBranchFields(this.userGroup);
+    });
   }
 
   submit() {

@@ -25,6 +25,17 @@ namespace MAP_Web.Controllers
             return Ok(history);
         }
 
+        [HttpGet("detailedByRequest/{id}")]
+        public async Task<IActionResult> GetDetailedByRequestAsync(int id)
+        {
+            var detailedHistory = await historyService.FindDetailedByRequestAsync(id);
+
+            if (detailedHistory == null)
+                return NotFound();
+
+            return Ok(detailedHistory);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateHistory([FromBody] History history)
         {

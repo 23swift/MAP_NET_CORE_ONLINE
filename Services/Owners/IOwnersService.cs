@@ -11,7 +11,7 @@ namespace MAP_Web.Services
          Task<Owners> FindAsync(int id);
          Task<IPagedList<Owners>> FindByCustomerAsync(int id);
          Task SaveChangesAsync();
-         void Update(Owners owner);
-         void Delete(Owners owner);
+         Task Update(Owners owner);
+         Task Delete(Owners owner);
     }
 }

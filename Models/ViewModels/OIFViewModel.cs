@@ -16,16 +16,16 @@ namespace MAP_Web.Models.ViewModels
         public string dbaAddress4 { get; set; }
         public string dbaCity { get; set; }
         public string outskirt { get; set; }
-        public string contactPerson { get; set; }
+        public string adminContactPerson { get; set; }
         public string position { get; set; }
-        public string phoneNo { get; set; }
-        public string mobileNo { get; set; }
+        public string branchPhoneNumber { get; set; }
+        public string branchMobileNumber { get; set; }
         public string natureOfBusiness { get; set; }
         public string productsOfferedSold { get; set; }
         public string numberOfYearsOperating { get; set; }
         public string businessHours { get; set; }
-        public string noOfFulltimeEmployees { get; set; }
-        public string contractual { get; set; }
+        public int noOfFulltimeEmployees { get; set; }
+        public int contractual { get; set; }
         public string premiseStatus { get; set; }
         public string monthlyRent { get; set; }
         public string lengthOfStay { get; set; }
@@ -40,7 +40,7 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<bool> withHighCardTraffic { get; set; }
         public string surroundingEstablishment { get; set; }
         public string otherMarketingChannelSource { get; set; }
-        public string averageNoOfTransactionMonth { get; set; }
+        public int averageNoOfTransactionMonth { get; set; }
         public string nameOfEvent { get; set; }
         public string venue { get; set; }
         public string typeOfEvent { get; set; }
@@ -66,6 +66,7 @@ namespace MAP_Web.Models.ViewModels
         public string reviewedBy { get; set; }
         public Nullable<DateTime> dateReviewed { get; set; }
         public Nullable<bool> isWaved { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int BranchId { get; set; }
         public BranchViewModel Branch { get; set; }
     }

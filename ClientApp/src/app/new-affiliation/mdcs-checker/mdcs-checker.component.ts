@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MdcsCheckerService } from './mdcs-checker.service';
+import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mdcs-checker',
@@ -12,7 +15,10 @@ export class MdcsCheckerComponent implements OnInit {
   subTitle: string;
   mode: string;
   options = {};
-  constructor() { }
+  newAffiliationId: number;
+
+  constructor(private _newAffiliationService: NewAffiliationRequestService, private _snackBar: MatSnackBar,
+    private _router: Router) { }
 
   ngOnInit() {
     this.title = 'New Affiliation';
@@ -20,7 +26,19 @@ export class MdcsCheckerComponent implements OnInit {
     this.mode = 'forPreScreening';
   }
 
-  Submit() {
+  getNewAffiliationId(id) {
+    this.newAffiliationId = id;
+  }
 
+  submit() {
+    this._newAffiliationService.updateRequestForMdcsChecker(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted', {
+        duration: 2000
+      });
+
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/home/mdcsChecker');
+      });
+    });
   }
 }

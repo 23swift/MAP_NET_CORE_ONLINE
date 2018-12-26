@@ -54,10 +54,9 @@ export class PosTerminalFormModalService {
             lifecycle: {
               onInit: (form, field) => {
                 const updateOptions = (v) => {
-                  if (v.terminalBrand == undefined) {
+                  if (v.terminalBrand === undefined) {
                     field.templateOptions.options = this._dropDownService.getDropdown('TBTM');
-                  }
-                  else {
+                  } else {
                     field.templateOptions.options = this._dropDownService.getTerminalModel(v.terminalBrand);
                   }
                 };
@@ -75,6 +74,7 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             type: 'input',
             key: 'numberOfTerminalsRequested',
+            defaultValue: '1',
             templateOptions: {
               label: 'Number of Terminal/s Requested',
               required: true,

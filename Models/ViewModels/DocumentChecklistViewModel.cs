@@ -12,6 +12,7 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<DateTime> dateSubmitted { get; set; }
         public byte[] fileUpload { get; set; }
         public string submittedBy { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
         public int NewAffiliationId { get; set; }
         public NewAffiliation NewAffiliation { get; set; }
     }

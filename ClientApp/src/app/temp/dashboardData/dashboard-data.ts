@@ -28,7 +28,7 @@ export class DashboardData {
         },
         {
           Id: 2, referenceNo: '000000110232018',
-          requestDate: '23Oct18', requestType: 'New Affiliation', 
+          requestDate: '23Oct18', requestType: 'New Affiliation',
           businessName: 'Bench', dbaName: 'DBA Name Test',
           requestedBy: 'Juan dela Cruz',
           status: 'FOR ENCODER CHECKER REVIEW', tat: '10 hour(s)'
@@ -36,7 +36,7 @@ export class DashboardData {
       ];
 
     Fields = ['referenceNo', 'requestDate', 'requestType', 'businessName',
-    'dbaName', 'requestedBy', 'status', 'tat', 'Operation'];
+    'requestedBy', 'status', 'tat', 'Operation'];
 
     MdcsFields = ['ReferenceNo', 'RequestDate', 'RequestType', 'BusinessName',
     'DBAName', 'RequestedBy', 'Status', 'TAT', 'Operation'];

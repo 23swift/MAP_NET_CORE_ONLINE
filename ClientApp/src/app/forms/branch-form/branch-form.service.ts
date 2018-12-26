@@ -130,7 +130,7 @@ export class BranchFormService {
       ]
     },
 
-    //dropdown  mandatory
+    // dropdown  mandatory
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -179,7 +179,7 @@ export class BranchFormService {
       }
       ]
     },
-    //dropdown
+    // dropdown
 
     {
       fieldGroupClassName: 'display-flex',
@@ -244,7 +244,7 @@ export class BranchFormService {
     },
 
 
-    //mandatory checkbox
+    // mandatory checkbox
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -387,8 +387,10 @@ export class BranchFormService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -715,7 +717,7 @@ export class BranchFormService {
       },
       ]
     },
-    //dropdown
+    // dropdown
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -1129,7 +1131,7 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'merchDiscountRateDebitCrd',
           expressionProperties: {
@@ -1148,9 +1150,9 @@ export class BranchFormService {
 
     {
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [  //conditional mandatory
+      fieldGroup: [  // conditional mandatory
         {
-          className: 'flex-1', //dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'MCC_Id',
           expressionProperties: {
@@ -1168,7 +1170,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'INTES Code for Diners',
           expressionProperties: {
@@ -1190,7 +1192,7 @@ export class BranchFormService {
        }, */
 
     {
-      fieldGroupClassName: 'display-flex', //conditional mandatory
+      fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
           className: 'flex-1', // not yet
@@ -1224,7 +1226,7 @@ export class BranchFormService {
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
-        className: 'flex-1', //not yet
+        className: 'flex-1', // not yet
         type: 'select',
         key: 'defaultTransactionSource',
         expressionProperties: {
@@ -1251,7 +1253,7 @@ export class BranchFormService {
         }
       },
       {
-        className: 'flex-1',//dropdown
+        className: 'flex-1', // dropdown
         type: 'select',
         key: 'areaMallCode',
         expressionProperties: {
@@ -1386,7 +1388,7 @@ export class BranchFormService {
           maxLength: 20
         }
       },
-      { //numeric
+      { // numeric
         className: 'flex-1',
         type: 'input',
         key: 'holdOutAmount',
@@ -1402,7 +1404,7 @@ export class BranchFormService {
       ]
     },
 
-    { //numeric
+    { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
@@ -1761,7 +1763,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'INTES Code for Diners',
           expressionProperties: {
@@ -1781,7 +1783,7 @@ export class BranchFormService {
        }, */
 
     {
-      fieldGroupClassName: 'display-flex', //conditional mandatory
+      fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
           className: 'flex-1', // not yet
@@ -1829,7 +1831,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',//dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -1964,7 +1966,7 @@ export class BranchFormService {
           maxLength: 20
         }
       },
-      { //numeric
+      { // numeric
         className: 'flex-1',
         type: 'input',
         key: 'holdOutAmount',
@@ -2031,7 +2033,7 @@ export class BranchFormService {
       ]
     },
 
-    { //numeric
+    { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
@@ -2112,7 +2114,7 @@ export class BranchFormService {
     },
 
 
-    //mandatory checkbox
+    // mandatory checkbox
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -2255,8 +2257,10 @@ export class BranchFormService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       },
       {
@@ -2583,7 +2587,7 @@ export class BranchFormService {
       },
       ]
     },
-    //dropdown
+    // dropdown
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -2960,26 +2964,11 @@ export class BranchFormService {
     },
 
   ];
-  //#endregion 
+  //#endregion
 
   //#region mdcs-encoder field
 
   mdcsEncoder: FormlyFieldConfig[] = [
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'businessName',
-          templateOptions: {
-            label: '',
-            placeholder: 'Legal Name',
-            disabled: true
-          }
-        }
-      ]
-    },
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -2992,35 +2981,19 @@ export class BranchFormService {
             placeholder: 'DBA Name(DBA/Trade Name)',
             disabled: true
           }
-        }
-      ]
-    },
-
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'registeredBusinessNumber',
-        templateOptions: {
-          label: 'Registered Business Number',
-          placeholder: 'Registered Business Number',
-          disabled: true
         },
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'adminContactPerson',
-        templateOptions: {
-          label: 'Administrator(Contact Person)',
-          placeholder: 'Administrator(Contact Person)',
-          disabled: true
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'adminContactPerson',
+          templateOptions: {
+            label: 'Administrator(Contact Person)',
+            placeholder: 'Administrator(Contact Person)',
+            disabled: true
+          }
         }
-      }
       ]
     },
-
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -3090,6 +3063,7 @@ export class BranchFormService {
           options: this._dropDownService.getDropdown('ZC'),
           labelProp: 'value',
           valueProp: 'code',
+          required: true
         }
       }]
     },
@@ -3101,8 +3075,7 @@ export class BranchFormService {
         key: 'branchPhoneNumber',
         templateOptions: {
           label: 'Branch/Outlet Phone Number',
-          placeholder: 'Branch/Outlet Phone Number',
-          disabled: true
+          placeholder: 'Branch/Outlet Phone Number'
         }
       },
       {
@@ -3111,8 +3084,7 @@ export class BranchFormService {
         key: 'branchMobileNumber',
         templateOptions: {
           label: 'Mobile Number',
-          placeholder: 'Mobile Number',
-          disabled: true
+          placeholder: 'Mobile Number'
         }
       }]
     },
@@ -3123,10 +3095,9 @@ export class BranchFormService {
         type: 'input',
         key: 'branchEmailAddress',
         templateOptions: {
-          type: 'email',
           label: 'E-Mail Address',
-          placeholder: 'E-Mail Address',
-          required: true
+          type: 'email',
+          placeholder: 'E-Mail Address'
         }
       },
       {
@@ -3135,8 +3106,7 @@ export class BranchFormService {
         key: 'branchWebsite',
         templateOptions: {
           label: 'Website',
-          placeholder: 'Website',
-          maxLength: 30
+          placeholder: 'Website'
         }
       }]
     },
@@ -3150,22 +3120,23 @@ export class BranchFormService {
           templateOptions: {
             label: 'Payment Method',
             options: [
-              { value: 1, label: 'Credit to Account' },
-              { value: 2, label: 'Check Payment' }
+              { value: 'CTA', label: 'Credit to Account' },
+              { value: 'CP', label: 'Check Payment' }
             ]
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settleAccountNumber',
+          key: 'settlementAcctNo',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['paymentMethodCreditFac'] === 'CTA';
+            }
+          },
           templateOptions: {
             label: 'Settle Account Number (For Crediting Payment)',
-            placeholder: 'Settle Account Number (For Crediting Payment)',
-            maxLength: 20
-          },
-          validators: {
-            validation: ['numeric'],
+            placeholder: 'Settle Account Number (For Crediting Payment)'
           }
         }
       ]
@@ -3179,10 +3150,10 @@ export class BranchFormService {
           key: 'taxCode',
           templateOptions: {
             label: 'Tax Code',
+            required: true,
             options: this._dropDownService.getDropdown('TC'),
             labelProp: 'value',
             valueProp: 'code',
-            required: true
           }
         },
         {
@@ -3232,15 +3203,10 @@ export class BranchFormService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-
-          //   return model['taxCode'] === '2';
-          // }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
-          placeholder: 'Tax Exempt Certificate Issued By',
-          maxLength: 20
+          placeholder: 'Tax Exempt Certificate Issued By'
         },
       },
       {
@@ -3248,15 +3214,11 @@ export class BranchFormService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-
-          //   return model['taxCode'] === '2';
-          // }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
           placeholder: 'Tax Exempt Classification',
-          maxLength: 30
+          disabled: true
         }
       }
       ]
@@ -3391,6 +3353,7 @@ export class BranchFormService {
       fieldGroup: [{
         type: 'checkbox',
         key: 'withExistingAcquirer',
+        defaultValue: false,
         templateOptions: {
           label: 'Yes',
           indeterminate: false
@@ -3441,8 +3404,11 @@ export class BranchFormService {
           type: 'input',
           key: 'serviceProvider',
           expressionProperties: {
-            'templateOptions.required': (model: any, formState: any) => {
+            'templateOptions.disabled': (model: any, formState: any) => {
               return !model['withInstalledECR'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['withInstalledECR'];
             }
           },
           templateOptions: {
@@ -3462,7 +3428,9 @@ export class BranchFormService {
         type: 'input',
         key: 'settlementAccNoForDebit',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['paymentMethodCreditFac'] === 'CTA';
+          }
         },
         templateOptions: {
           label: 'Settlement Account Number for Debit Facility(If CTA)',
@@ -3532,7 +3500,8 @@ export class BranchFormService {
           },
           {
             value: 2, label: 'PRINT'
-          }]
+          }],
+          disabled: true
         }
       },
       {
@@ -3540,14 +3509,11 @@ export class BranchFormService {
         type: 'input',
         key: 'emailAddressForReportSetting',
         expressionProperties: {
-          'templateOptions.required': (model: any, formState: any) => {
-            return model['reportSetting'] === 1;
-          }
         },
         templateOptions: {
           label: 'Email Address for Report Setting',
           placeholder: 'Email Address for Report Setting',
-          maxLength: 250
+          disabled: true
         }
       },
       {
@@ -3557,34 +3523,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'Store ID',
           placeholder: 'Store ID',
-          required: true
-        },
-        validators: {
-          validation: ['numeric'],
-        }
-      }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'smShopCard',
-        templateOptions: {
-          label: 'SM Shop Card',
-          placeholder: 'SM Shop Card',
-          pattern: '^\\d+\\.\\d{2}$'
-        }
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'smGiftCard',
-        templateOptions: {
-          label: 'SM Gift Card',
-          placeholder: 'SM Gift Card',
-          pattern: '^\\d+\\.\\d{2}$'
+          disabled: true
         }
       },
       {
@@ -3594,12 +3533,11 @@ export class BranchFormService {
         templateOptions: {
           label: 'Remarks',
           placeholder: 'Remarks',
-          maxLength: 250
+          disabled: true
         }
       }
       ]
     },
-
     {
       template: '<span class="mat-headline">Cash Agad Facility Instructions</span>',
     },
@@ -3616,7 +3554,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'Name of Authorized SOA Recipient',
           placeholder: 'Name of Authorized SOA Recipient',
-          maxLength: 20
+          disabled: true
         }
       },
       {
@@ -3629,11 +3567,11 @@ export class BranchFormService {
         templateOptions: {
           label: 'Email Address',
           placeholder: 'Email Address',
-          maxLength: 50
+          disabled: true
         }
       },
       {
-        key: 'reportDistribution',
+        key: 'reportDistributionPerCompany',
         type: 'radio',
         templateOptions: {
           label: 'Report Distribution?',
@@ -3641,6 +3579,7 @@ export class BranchFormService {
             { value: '1', label: 'Per Company' },
             { value: '2', label: 'Per Company\'s Branch' }
           ],
+          disabled: true
         },
 
       },
@@ -3711,20 +3650,11 @@ export class BranchFormService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-          //   return model['isAtmDebit'];
-          // },
-          // 'templateOptions.disabled': (model: any, formState: any) => {
-          //   return !model['isAtmDebit'];
-          // }
+
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          maxLength: 3,
-          disabled: true,
-        },
-        validators: {
-          validation: ['numeric'],
+          disabled: true
         }
       },
       {
@@ -3732,16 +3662,10 @@ export class BranchFormService {
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-          //   return model['isAtmDebit'];
-          // },
-          // 'templateOptions.disabled': (model: any, formState: any) => {
-          //   return !model['isAtmDebit'];
-          // }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$',
           disabled: true
         }
       }
@@ -3764,16 +3688,10 @@ export class BranchFormService {
         className: 'flex-6',
         type: 'input',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-          //   return model['isSmGiftCard'];
-          // },
-          // 'templateOptions.disabled': (model: any, formState: any) => {
-          //   return !model['isSmGiftCard'];
-          // }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$',
           disabled: true
         }
       }
@@ -3796,16 +3714,10 @@ export class BranchFormService {
         className: 'flex-6',
         type: 'input',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-          //   return model['isSmShopCard'];
-          // },
-          // 'templateOptions.disabled': (model: any, formState: any) => {
-          //   return !model['isSmShopCard'];
-          // }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$',
           disabled: true
         }
       }
@@ -3828,38 +3740,22 @@ export class BranchFormService {
         type: 'input',
         key: 'numberOfDebitTidCashAgad',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-          //   return model['isCashAgad'];
-          // },
-          // 'templateOptions.disabled': (model: any, formState: any) => {
-          //   return !model['isCashAgad'];
-          // }
+
         },
         templateOptions: {
           label: 'No. of Debit TIDs',
-          maxLength: 3,
           disabled: true
         }
-        // ,
-        // validators: {
-        //   validation: ['numeric'],
-        // }
       },
       {
         key: 'mdrCashAgad',
         className: 'flex-3',
         type: 'input',
         expressionProperties: {
-          // 'templateOptions.required': (model: any, formState: any) => {
-          //   return model['isCashAgad'];
-          // },
-          // 'templateOptions.disabled': (model: any, formState: any) => {
-          //   return !model['isCashAgad'];
-          // }
+
         },
         templateOptions: {
           label: 'MDR',
-          pattern: '^\\d{1,4}\\.\\d{2}$',
           disabled: true
         }
       }
@@ -3899,20 +3795,6 @@ export class BranchFormService {
             options: this._dropDownService.getDropdown('MCC'),
             labelProp: 'value',
             valueProp: 'code',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',  // decimal format   // conditional mandatory
-          type: 'input',
-          key: 'INTES Code for Diners',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            type: 'number',
-            label: 'INTES Code for Diners',
-            placeholder: 'INTES Code for Diners',
             disabled: true
           }
         }
@@ -3955,20 +3837,6 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'select',
-          key: 'defaultTransactionSource',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            options: this._dropDownService.getDropdown('MTSRC'),
-            labelProp: 'value',
-            valueProp: 'code',
-            disabled: true
-          }
-        },
-        {
           className: 'flex-1',
           type: 'input',
           key: 'mcAssignedId',
@@ -3982,7 +3850,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',// dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -3990,7 +3858,7 @@ export class BranchFormService {
           },
           templateOptions: {
             label: 'Area Mall Code',
-            options: this._dropDownService.getDropdown('AMC'),
+            options: this._dropDownService.getDropdown('MALLS'),
             labelProp: 'value',
             valueProp: 'code',
             disabled: true
@@ -4126,8 +3994,6 @@ export class BranchFormService {
         },
         templateOptions: {
           label: 'Hold-out Amount',
-          placeholder: '9999999999999999999',
-          // pattern: '^\\d{1,19}$',
           disabled: true
         }
       }
@@ -4177,8 +4043,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'DCC Rebate Rate',
             placeholder: 'DCC Rebate Rate',
-            pattern: '^\\d+\\.\\d{2}$',
-            // disabled: true
+            disabled: true
           }
         },
         {
@@ -4188,8 +4053,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Third Party CASA',
             placeholder: 'Third Party CASA',
-            pattern: '^[^\\d]$',
-            // disabled: true
+            disabled: true
           }
         }
       ]
@@ -4204,7 +4068,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Other Email Address',
             placeholder: 'Other Email Address',
-            // disabled: true
+            disabled: true
           }
         },
         {
@@ -4214,7 +4078,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Other Mobile Number',
             placeholder: 'Other Mobile Number',
-            // disabled: true
+            disabled: true
           }
         }
       ]
@@ -4230,7 +4094,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Type of Related Party',
             placeholder: 'Type of Related Party',
-            // disabled: true
+            disabled: true
           }
         },
         {
@@ -4240,7 +4104,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Ri-Name / Relation',
             placeholder: 'Ri-Name / Relation',
-            // disabled: true
+            disabled: true
           }
         },
         {
@@ -4250,7 +4114,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Name of PEP',
             placeholder: 'Name of PEP',
-            // disabled: true
+            disabled: true
           }
         }
       ]
@@ -4262,11 +4126,11 @@ export class BranchFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'fraudToolProviderId',
+          key: 'fraudToolProvider',
           templateOptions: {
             label: 'Fraud Tool Provider',
             placeholder: 'Fraud Tool Provider',
-            // disabled: true
+            disabled: true
           }
         },
         {
@@ -4276,7 +4140,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'CNP Orientation Date',
             placeholder: 'CNP Orientation Date',
-            // disabled: true
+            disabled: true
           }
         }
       ]
@@ -4286,12 +4150,13 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'checkbox',
           key: 'directPaymentLink',
           templateOptions: {
             label: 'Direct Payment Link',
             placeholder: 'Direct Payment Link',
-            // disabled: true
+            disabled: true,
+            indeterminate: false
           }
         },
         {
@@ -4301,7 +4166,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Gateway Integration Type',
             placeholder: 'Gateway Integration Type',
-            // disabled: true
+            disabled: true
           }
         }
       ]
@@ -4317,7 +4182,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'CRTE Issued By',
             placeholder: 'CRTE Issued By',
-            // disabled: true
+            disabled: true
           }
         },
         {
@@ -4327,7 +4192,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Tax Exempt Classification',
             placeholder: 'Tax Exempt Classification',
-            // disabled: true
+            disabled: true
           }
         }
       ]
@@ -4338,29 +4203,1288 @@ export class BranchFormService {
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'validFrom',
+          key: 'cnpValidFrom',
           templateOptions: {
             label: 'Valid From',
             placeholder: 'Valid From',
-            // disabled: true
+            disabled: true
           }
         },
         {
           className: 'flex-1',
           type: 'calendar',
-          key: 'validUntil',
+          key: 'cnpValidUntil',
           templateOptions: {
             label: 'Valid Until',
             placeholder: 'Valid Until',
-            // disabled: true
+            disabled: true
           }
         }
       ]
     }
-  ];//#endregion
+  ];
 
   //#region mdcs-checker field
   mdcsChecker: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'dbaName',
+          templateOptions: {
+            label: 'DBA Name(DBA/Trade Name)',
+            placeholder: 'DBA Name(DBA/Trade Name)',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'adminContactPerson',
+          templateOptions: {
+            label: 'Administrator(Contact Person)',
+            placeholder: 'Administrator(Contact Person)',
+            disabled: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress1',
+        templateOptions: {
+          label: 'DBA(Branch/Outlet Address )',
+          placeholder: 'DBA(Branch/Outlet Address )',
+          disabled: true
+        },
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress2',
+        templateOptions: {
+          disabled: true
+        },
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress3',
+        templateOptions: {
+          disabled: true
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress4',
+        templateOptions: {
+          disabled: true
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'select',
+        key: 'dbaCity',
+        templateOptions: {
+          label: 'DBA City',
+          disabled: true,
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'select',
+        key: 'dbaZipCode',
+        templateOptions: {
+          label: 'Zipcode',
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
+          required: true
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'branchPhoneNumber',
+        templateOptions: {
+          label: 'Branch/Outlet Phone Number',
+          placeholder: 'Branch/Outlet Phone Number'
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'branchMobileNumber',
+        templateOptions: {
+          label: 'Mobile Number',
+          placeholder: 'Mobile Number'
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'branchEmailAddress',
+        templateOptions: {
+          label: 'E-Mail Address',
+          type: 'email',
+          placeholder: 'E-Mail Address'
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'branchWebsite',
+        templateOptions: {
+          label: 'Website',
+          placeholder: 'Website'
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          key: 'paymentMethodCreditFac',
+          type: 'radio',
+          templateOptions: {
+            label: 'Payment Method',
+            options: [
+              { value: 'CTA', label: 'Credit to Account' },
+              { value: 'CP', label: 'Check Payment' }
+            ]
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'settlementAcctNo',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['paymentMethodCreditFac'] === 'CTA';
+            }
+          },
+          templateOptions: {
+            label: 'Settle Account Number (For Crediting Payment)',
+            placeholder: 'Settle Account Number (For Crediting Payment)'
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'taxCode',
+          templateOptions: {
+            label: 'Tax Code',
+            required: true,
+            options: this._dropDownService.getDropdown('TC'),
+            labelProp: 'value',
+            valueProp: 'code',
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'taxType',
+          templateOptions: {
+            required: true,
+            label: 'Tax Type',
+            options: this._dropDownService.getDropdown('TT'),
+            labelProp: 'value',
+            valueProp: 'code',
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          template: '<span class="mat-subheading-1">Tax Exempt Validity(mm/dd/yyyy):</span>',
+        },
+        {
+          className: 'flex-1 mat-form-field-infix',
+          type: 'calendar',
+          key: 'taxExemptValidityFrom',
+          templateOptions: {
+            label: 'Date From',
+            placeholder: 'Date From'
+          }
+        },
+        {
+          className: 'flex-1 mat-form-field-infix',
+          type: 'calendar',
+          key: 'taxExemptValidityTo',
+          templateOptions: {
+            label: 'Date To',
+            placeholder: 'Date To'
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'taxExemptCertIssuedBy',
+        expressionProperties: {
+        },
+        templateOptions: {
+          label: 'Tax Exempt Certificate Issued By',
+          placeholder: 'Tax Exempt Certificate Issued By'
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'taxExemptClass',
+        expressionProperties: {
+        },
+        templateOptions: {
+          label: 'Tax Exempt Classification',
+          placeholder: 'Tax Exempt Classification',
+          disabled: true
+        }
+      }
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'tin',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Tax Identification Number (TIN)',
+          placeholder: 'Tax Identification Number (TIN)',
+          required: true,
+          maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd1',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Special Mailing Address',
+          placeholder: 'Special Mailing Address',
+          maxLength: 30
+        },
+      },
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd2',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 30
+        },
+      },
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd3',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 30
+        },
+      },
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd4',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 30
+        },
+      },
+      ]
+    },
+    // dropdown
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'select',
+        key: 'specialMailingCity',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Special Mailing Address City',
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'select',
+        key: 'specialMailingZipCode',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Special Mailing Address ZipCode',
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
+        }
+      }
+      ]
+    },
+
+    {
+      template: '<span class="mat-subheading-1">With Existing Acquirer?</span>',
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        type: 'checkbox',
+        key: 'withExistingAcquirer',
+        defaultValue: false,
+        templateOptions: {
+          label: 'Yes',
+          indeterminate: false
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'nameOfAcquirer',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Name of Acquirer',
+          placeholder: 'Name of Acquirer',
+          maxLength: 50
+        }
+      }
+      ]
+    },
+
+    {
+      template: '<span class="mat-headline">Storage Of Cardholder Information</span>',
+    },
+
+    {
+      template: '<span class="mat-subheading-1">With Installed Electronic Cash Register?*</span>',
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          key: 'withInstalledECR',
+          className: 'flex-1',
+          type: 'radio',
+          templateOptions: {
+            required: true,
+            options: [
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' }
+            ],
+          },
+
+        },
+        {
+          className: 'flex-6',
+          type: 'input',
+          key: 'serviceProvider',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return !model['withInstalledECR'];
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['withInstalledECR'];
+            }
+          },
+          templateOptions: {
+            label: 'If Yes, Indicate The Name Of Service Provider',
+            placeholder: 'If Yes, Indicate The Name Of Service Provider'
+          },
+        },
+      ]
+    },
+    {
+      type: 'printDebit'
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'settlementAccNoForDebit',
+        expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['paymentMethodCreditFac'] === 'CTA';
+          }
+        },
+        templateOptions: {
+          label: 'Settlement Account Number for Debit Facility(If CTA)',
+          placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
+          maxLength: 20
+        },
+        validators: {
+          validation: ['numeric'],
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'payeesName',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Payees Name(if check payment)',
+          placeholder: 'Payees Name(if check payment)',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'emailAddressForReportDist',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Email Address For Report Distribution',
+          placeholder: 'Email Address For Report Distribution',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'mailingAddressForPaymentDel',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Mailing Address for Payment Delivery and Other Reports',
+          placeholder: 'Mailing Address for Payment Delivery and Other Reports',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'select',
+        key: 'reportSetting',
+        templateOptions: {
+          label: 'Report Setting',
+          placeholder: 'Report Setting',
+          options: [{
+            value: 1, label: 'E-MAIL'
+          },
+          {
+            value: 2, label: 'PRINT'
+          }],
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'emailAddressForReportSetting',
+        expressionProperties: {
+        },
+        templateOptions: {
+          label: 'Email Address for Report Setting',
+          placeholder: 'Email Address for Report Setting',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'storeId',
+        templateOptions: {
+          label: 'Store ID',
+          placeholder: 'Store ID',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'debitFacilityRemarks',
+        templateOptions: {
+          label: 'Remarks',
+          placeholder: 'Remarks',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      template: '<span class="mat-headline">Cash Agad Facility Instructions</span>',
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'nameAuthorizedSoaRecip',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Name of Authorized SOA Recipient',
+          placeholder: 'Name of Authorized SOA Recipient',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'soaEmailAddress',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Email Address',
+          placeholder: 'Email Address',
+          disabled: true
+        }
+      },
+      {
+        key: 'reportDistributionPerCompany',
+        type: 'radio',
+        templateOptions: {
+          label: 'Report Distribution?',
+          options: [
+            { value: '1', label: 'Per Company' },
+            { value: '2', label: 'Per Company\'s Branch' }
+          ],
+          disabled: true
+        },
+
+      },
+      ]
+    },
+
+    {
+      template: '<span class="mat-headline">Principal Details (Required For Single Proprietorship)</span>',
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'ownerName',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
+          required: true
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'calendar',
+        key: 'ownerBirthday',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Date of Birth (mm/dd/yyyy)',
+          placeholder: 'Date of Birth (mm/dd/yyyy)'
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'spouseName',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
+        }
+      },
+      ]
+    },
+    {
+      template: '<span class="mat-headline">Other Details</span>',
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'checkbox',
+        key: 'isAtmDebit',
+        templateOptions: {
+          label: 'ATM/Debit',
+          disabled: true,
+          indeterminate: false
+        },
+      },
+      {
+        key: 'numberOfDebitTidAtm',
+        className: 'flex-3',
+        type: 'input',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'No. of Debit TIDs',
+          disabled: true
+        }
+      },
+      {
+        key: 'mdrAtm',
+        className: 'flex-3',
+        type: 'input',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'MDR',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'checkbox',
+        key: 'isSmGiftCard',
+        templateOptions: {
+          label: 'SM Gift Card',
+          disabled: true,
+          indeterminate: false
+        }
+      },
+      {
+        key: 'mdrSmGiftCard',
+        className: 'flex-6',
+        type: 'input',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'MDR',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'checkbox',
+        key: 'isSmShopCard',
+        templateOptions: {
+          label: 'SM Shop Card',
+          disabled: true,
+          indeterminate: false
+        },
+      },
+      {
+        key: 'mdrSmShopCard',
+        className: 'flex-6',
+        type: 'input',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'MDR',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'checkbox',
+        key: 'isCashAgad',
+        templateOptions: {
+          label: 'Cash Agad',
+          disabled: true,
+          indeterminate: false
+        },
+      },
+      {
+        className: 'flex-3',
+        type: 'input',
+        key: 'numberOfDebitTidCashAgad',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'No. of Debit TIDs',
+          disabled: true
+        }
+      },
+      {
+        key: 'mdrCashAgad',
+        className: 'flex-3',
+        type: 'input',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'MDR',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',  // decimal format   // conditional mandatory
+          type: 'input',
+          key: 'merchDiscountRateDebitCrd',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            type: 'number',
+            label: 'Merchant Discount Rate For Debit Cards',
+            placeholder: 'Merchant Discount Rate For Debit Cards',
+            disabled: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [  // conditional mandatory
+        {
+          className: 'flex-1', // dropdown
+          type: 'select',
+          key: 'mcc',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'MCC',
+            options: this._dropDownService.getDropdown('MCC'),
+            labelProp: 'value',
+            valueProp: 'code',
+            disabled: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex', // conditional mandatory
+      fieldGroup: [
+        {
+          className: 'flex-1', // not yet
+          type: 'input',
+          key: 'tppOnly',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Fee Account(TPP Only)',
+            placeholder: '(TPP Only)',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'strategicMerchant',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Strategic Merchant',
+            options: this._dropDownService.getDropdown('SM'),
+            labelProp: 'value',
+            valueProp: 'code',
+            disabled: true
+          },
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'mcAssignedId',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'MC Assigned Id',
+            placeholder: 'MC Assigned Id',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1', // dropdown
+          type: 'select',
+          key: 'areaMallCode',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Area Mall Code',
+            options: this._dropDownService.getDropdown('MALLS'),
+            labelProp: 'value',
+            valueProp: 'code',
+            disabled: true
+          }
+        }
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterName',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter Name',
+          placeholder: 'Imprinter Name',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterNumber',
+        defaultValue: 'R',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter Number(Sales Slip Handling)',
+          placeholder: 'Imprinter Number(Sales Slip Handling)',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterAmex',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter AMEX (MID Capping)',
+          placeholder: 'Imprinter AMEX (MID Capping)',
+          disabled: true
+        }
+      }
+      ]
+    },
+
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterDc',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter DC (Top Corporation/Ecom)',
+          placeholder: 'Imprinter DC (Top Corporation/Ecom)',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterJcb',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter JCB',
+          placeholder: 'Imprinter JCB',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterOthers',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter Others(Class Code)',
+          placeholder: 'Imprinter Others(Class Code)',
+          disabled: true
+        }
+      },
+      ]
+    },
+
+    { // numeric
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'totalNumberOfManualImprinters',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Total Number Of Manual Imprinters',
+          placeholder: 'Total Number Of Manual Imprinters',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'holdOutAccountNumber',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Hold-out Account Number',
+          placeholder: 'Hold-out Account Number',
+          disabled: true
+        }
+      },
+      { // numeric
+        className: 'flex-1',
+        type: 'input',
+        key: 'holdOutAmount',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Hold-out Amount',
+          disabled: true
+        }
+      }
+      ]
+    },
+
+    { // numeric
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'payDelayDays',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Pay Delay Days',
+          placeholder: 'Pay Delay Days',
+          disabled: true
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'otherDetailsRemarks',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Remarks',
+          placeholder: 'Remarks',
+          disabled: true
+        }
+      }
+      ]
+    },
+    {
+      type: 'printAdmrc'
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'dccRebateRate',
+          templateOptions: {
+            label: 'DCC Rebate Rate',
+            placeholder: 'DCC Rebate Rate',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'thirdPartyCasa',
+          templateOptions: {
+            label: 'Third Party CASA',
+            placeholder: 'Third Party CASA',
+            disabled: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'otherEmailAddress',
+          templateOptions: {
+            label: 'Other Email Address',
+            placeholder: 'Other Email Address',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'otherMobileNumber',
+          templateOptions: {
+            label: 'Other Mobile Number',
+            placeholder: 'Other Mobile Number',
+            disabled: true
+          }
+        }
+      ]
+    },
+    { template: '<span class="mat-headline">AMLA / RP Tagging (ADMRC Fields)</span>' },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'typeOfRelatedParty',
+          templateOptions: {
+            label: 'Type of Related Party',
+            placeholder: 'Type of Related Party',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'riNameRelation',
+          templateOptions: {
+            label: 'Ri-Name / Relation',
+            placeholder: 'Ri-Name / Relation',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'nameOfPep',
+          templateOptions: {
+            label: 'Name of PEP',
+            placeholder: 'Name of PEP',
+            disabled: true
+          }
+        }
+      ]
+    },
+    { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'fraudToolProvider',
+          templateOptions: {
+            label: 'Fraud Tool Provider',
+            placeholder: 'Fraud Tool Provider',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'cnpOrientationDate',
+          templateOptions: {
+            label: 'CNP Orientation Date',
+            placeholder: 'CNP Orientation Date',
+            disabled: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'checkbox',
+          key: 'directPaymentLink',
+          templateOptions: {
+            label: 'Direct Payment Link',
+            placeholder: 'Direct Payment Link',
+            disabled: true,
+            indeterminate: false
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'gatewayIntegrationType',
+          templateOptions: {
+            label: 'Gateway Integration Type',
+            placeholder: 'Gateway Integration Type',
+            disabled: true
+          }
+        }
+      ]
+    },
+    { template: '<span class="mat-headline">Tax Exempt Details CNP Orientation Date (ADMRC Fields)</span>' },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'crteIssuedByCnp',
+          templateOptions: {
+            label: 'CRTE Issued By',
+            placeholder: 'CRTE Issued By',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'taxExemptClassCnp',
+          templateOptions: {
+            label: 'Tax Exempt Classification',
+            placeholder: 'Tax Exempt Classification',
+            disabled: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'cnpValidFrom',
+          templateOptions: {
+            label: 'Valid From',
+            placeholder: 'Valid From',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'cnpValidUntil',
+          templateOptions: {
+            label: 'Valid Until',
+            placeholder: 'Valid Until',
+            disabled: true
+          }
+        }
+      ]
+    }
+  ];
+
+
+
+
+  xxxmdcsChecker: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -4500,7 +5624,7 @@ export class BranchFormService {
         }
       },
       {
-        className: 'flex-1',//dropdown
+        className: 'flex-1', // dropdown
         type: 'select',
         key: 'areaMallCode',
         expressionProperties: {
@@ -4689,8 +5813,10 @@ export class BranchFormService {
           label: 'Tax Identification Number (TIN)',
           placeholder: 'Tax Identification Number (TIN)',
           required: true,
-          pattern: '^\d{15}$',
           maxLength: 15
+        },
+        validators: {
+          validation: ['numeric'],
         }
       }
       ]
@@ -4760,7 +5886,7 @@ export class BranchFormService {
       },
       ]
     },
-    //dropdown
+    // dropdown
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
@@ -5021,7 +6147,7 @@ export class BranchFormService {
           label: 'Report Distribution?',
           options: [
             { value: '1', label: 'Per Company' },
-            { value: '2', label: "Per Company's Branch" }
+            { value: '2', label: 'Per Company\'s Branch' }
           ],
         },
 
@@ -5042,8 +6168,8 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          label: "Owner's Name",
-          placeholder: "Owner's Name",
+          label: 'Owner\'s Name',
+          placeholder: 'Owner\'s Name',
           required: true
         },
       },
@@ -5067,8 +6193,8 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          label: "Spouse's Name",
-          placeholder: "Spouse's Name"
+          label: 'Spouse\'s Name',
+          placeholder: 'Spouse\'s Name'
         }
       },
       ]
@@ -5228,7 +6354,7 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'merchDiscountRateDebitCrd',
           expressionProperties: {
@@ -5245,9 +6371,9 @@ export class BranchFormService {
     },
     {
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [  //conditional mandatory
+      fieldGroup: [  // conditional mandatory
         {
-          className: 'flex-1', //dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'MCC_Id',
           expressionProperties: {
@@ -5265,7 +6391,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',  //decimal format   //conditional mandatory
+          className: 'flex-1',  // decimal format   // conditional mandatory
           type: 'input',
           key: 'INTES Code for Diners',
           expressionProperties: {
@@ -5280,7 +6406,7 @@ export class BranchFormService {
       ]
     },
     {
-      fieldGroupClassName: 'display-flex', //conditional mandatory
+      fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
           className: 'flex-1', // not yet
@@ -5316,7 +6442,7 @@ export class BranchFormService {
           },
         },
         {
-          className: 'flex-1', //not yet
+          className: 'flex-1', // not yet
           type: 'select',
           key: 'defaultTransactionSource',
           expressionProperties: {
@@ -5343,7 +6469,7 @@ export class BranchFormService {
           }
         },
         {
-          className: 'flex-1',//dropdown
+          className: 'flex-1', // dropdown
           type: 'select',
           key: 'areaMallCode',
           expressionProperties: {
@@ -5474,7 +6600,7 @@ export class BranchFormService {
           placeholder: 'Hold-out Account Number'
         }
       },
-      { //numeric
+      { // numeric
         className: 'flex-1',
         type: 'input',
         key: 'holdOutAmount',
@@ -5712,437 +6838,439 @@ export class BranchFormService {
   ];
   //#endregion
 
- //#region veriScreen field
- veriScreen: FormlyFieldConfig[] = [
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'dbaName',
-        templateOptions: {
-          label: 'DBA Name(DBA/Trade Name)',
-          placeholder: 'DBA Name(DBA/Trade Name)',
-          required: true,
-          maxLength: 22
+  //#region veriScreen field
+  veriScreen: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'dbaName',
+          templateOptions: {
+            label: 'DBA Name(DBA/Trade Name)',
+            placeholder: 'DBA Name(DBA/Trade Name)',
+            required: true,
+            maxLength: 22
+          }
         }
-      }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'dbaAddress1',
-      templateOptions: {
-        label: 'DBA(Branch/Outlet Address )',
-        placeholder: 'DBA(Branch/Outlet Address )',
-        required: true,
-        maxLength: 30
-      },
-    }]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'dbaAddress2',
-      templateOptions: {
-        maxLength: 30
-      },
-    }]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'dbaAddress3',
-      templateOptions: {
-        maxLength: 30
-      }
-    }]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'dbaAddress4',
-      templateOptions: {
-        maxLength: 30
-      }
-    }]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'select',
-      key: 'dbaCity',
-      templateOptions: {
-        label: 'DBA City',
-        options: this._dropDownService.getDropdown('CY'),
-        labelProp: 'value',
-        valueProp: 'code',
-        required: true
-      }
+      ]
     },
     {
-      className: 'flex-1',
-      type: 'select',
-      key: 'dbaZipCode',
-      templateOptions: {
-        label: 'Zipcode',
-        options: this._dropDownService.getDropdown('ZC'),
-        labelProp: 'value',
-        valueProp: 'code',
-        required: true
-      }
-    },
-    {
-      className: 'flex-1',//dropdown
-      type: 'select',
-      key: 'areaMallCode',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Area Mall Code',
-        options: this._dropDownService.getDropdown('AMC'),
-        labelProp: 'value',
-        valueProp: 'code'
-      }
-    }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'branchPhoneNumber',
-      templateOptions: {
-        label: 'Branch/Outlet Phone Number',
-        placeholder: 'Branch/Outlet Phone Number',
-        maxLength: 20
-      }
-    },
-    {
-      className: 'flex-1',
-      type: 'input',
-      key: 'branchMobileNumber',
-      templateOptions: {
-        label: 'Mobile Number',
-        placeholder: 'Mobile Number',
-        maxLength: 15
-      }
-    }]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'emailAddress',
-      templateOptions: {
-        label: 'E-Mail Address',
-        placeholder: 'E-Mail Address'
-      }
-    },
-    {
-      className: 'flex-1',
-      type: 'input',
-      key: 'website',
-      templateOptions: {
-        label: 'Website',
-        placeholder: 'Website'
-      }
-    }]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
         className: 'flex-1',
         type: 'input',
-        key: 'creditSettlementAcctNo',
+        key: 'dbaAddress1',
         templateOptions: {
-          label: 'Settle Account Number (For Crediting Payment)',
-          placeholder: 'Settle Account Number (For Crediting Payment)',
-          maxLength: 20
+          label: 'DBA(Branch/Outlet Address )',
+          placeholder: 'DBA(Branch/Outlet Address )',
+          required: true,
+          maxLength: 30
+        },
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress2',
+        templateOptions: {
+          maxLength: 30
+        },
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress3',
+        templateOptions: {
+          maxLength: 30
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress4',
+        templateOptions: {
+          maxLength: 30
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'select',
+        key: 'dbaCity',
+        templateOptions: {
+          label: 'DBA City',
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
+          required: true
         }
       },
       {
         className: 'flex-1',
         type: 'select',
-        key: 'taxCode',
+        key: 'dbaZipCode',
         templateOptions: {
-          label: 'Tax Code',
-          options: this._dropDownService.getDropdown('TC'),
+          label: 'Zipcode',
+          options: this._dropDownService.getDropdown('ZC'),
           labelProp: 'value',
           valueProp: 'code',
           required: true
         }
-      }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
-        template: '<span class="mat-subheading-1">Tax Exempt Validity(mm/dd/yyyy):</span>',
       },
       {
-        className: 'flex-1 mat-form-field-infix',
-        type: 'calendar',
-        key: 'taxExemptFrom',
+        className: 'flex-1', // dropdown
+        type: 'select',
+        key: 'areaMallCode',
+        expressionProperties: {
+
+        },
         templateOptions: {
-          label: 'Date From',
-          placeholder: 'Date From'
-        }
-      },
-      {
-        className: 'flex-1 mat-form-field-infix',
-        type: 'calendar',
-        key: 'taxExemptTo',
-        templateOptions: {
-          label: 'Date To',
-          placeholder: 'Date To'
+          label: 'Area Mall Code',
+          options: this._dropDownService.getDropdown('AMC'),
+          labelProp: 'value',
+          valueProp: 'code'
         }
       }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'taxExemptIssuedBy',
-      expressionProperties: {
-       // 'templateOptions.required': (model: any, formState: any) => {
-
-       //   return model['taxCode'] == '2';
-       // }
-      },
-      templateOptions: {
-        label: 'Tax Exempt Certificate Issued By',
-        placeholder: 'Tax Exempt Certificate Issued By',
-        maxLength: 20
-      },
+      ]
     },
     {
-      className: 'flex-1',
-      type: 'input',
-      key: 'taxExemptClass',
-      expressionProperties: {
-      //  'templateOptions.required': (model: any, formState: any) => {
-
-      //    return model['taxCode'] == '2';
-      //  }
-      },
-      templateOptions: {
-        label: 'Tax Exempt Classification',
-        placeholder: 'Tax Exempt Classification',
-        maxLength: 30
-      }
-    },
-    {
-      className: 'flex-1',
-      type: 'input',
-      key: 'tin',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Tax Identification Number (TIN)',
-        placeholder: 'Tax Identification Number (TIN)',
-        required: true,
-        //pattern: '^\d{15}$',
-        maxLength: 15,          
-      }
-    }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'mailingAddress1',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Special Mailing Address',
-        placeholder: 'Special Mailing Address',
-        maxLength: 30
-      },
-    },
-    ]
-  },
-
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'mailingAddress2',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        maxLength: 30
-      },
-    },
-    ]
-  },
-
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'mailingAddress3',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        maxLength: 30
-      },
-    },
-    ]
-  },
-
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'mailingAddress4',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        maxLength: 30
-      },
-    },
-    ]
-  },
-  //dropdown
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'select',
-      key: 'mailingCity',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Special Mailing Address City',
-        options: this._dropDownService.getDropdown('CY'),
-        labelProp: 'value',
-        valueProp: 'code',
-      },
-    },
-    {
-      className: 'flex-1',
-      type: 'select',
-      key: 'mailingAddressZipCode',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Special Mailing Address ZipCode',
-        options: this._dropDownService.getDropdown('ZC'),
-        labelProp: 'value',
-        valueProp: 'code',
-      }
-    }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'debitSettlementAcctNo',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Settlement Account Number for Debit Facility(If CTA)',
-        placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
-        //pattern: '^\d{20}$',
-        maxLength: 20
-      }
-    },
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
         className: 'flex-1',
         type: 'input',
-        key: 'storeId',
+        key: 'branchPhoneNumber',
         templateOptions: {
-          label: 'Store ID',
-          placeholder: 'Store ID',
-          //pattern: '^\d+$'
-        },
-        validators: {
-          validation: ['numeric'],
+          label: 'Branch/Outlet Phone Number',
+          placeholder: 'Branch/Outlet Phone Number',
+          maxLength: 20
         }
       },
       {
         className: 'flex-1',
         type: 'input',
-        key: 'merchantNumber',
+        key: 'branchMobileNumber',
         templateOptions: {
-          label: 'Merchant Number',
-          placeholder: 'Merchant Number'
+          label: 'Mobile Number',
+          placeholder: 'Mobile Number',
+          maxLength: 15
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'branchEmailAddress',
+        templateOptions: {
+          label: 'E-Mail Address',
+          placeholder: 'E-Mail Address'
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'branchWebsite',
+        templateOptions: {
+          label: 'Website',
+          placeholder: 'Website'
+        }
+      }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'settleAccountNumber',
+          templateOptions: {
+            label: 'Settle Account Number (For Crediting Payment)',
+            placeholder: 'Settle Account Number (For Crediting Payment)',
+            maxLength: 20
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'taxCode',
+          templateOptions: {
+            label: 'Tax Code',
+            options: this._dropDownService.getDropdown('TC'),
+            labelProp: 'value',
+            valueProp: 'code',
+            required: true
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          template: '<span class="mat-subheading-1">Tax Exempt Validity(mm/dd/yyyy):</span>',
+        },
+        {
+          className: 'flex-1 mat-form-field-infix',
+          type: 'calendar',
+          key: 'taxExemptValidityFrom',
+          templateOptions: {
+            label: 'Date From',
+            placeholder: 'Date From'
+          }
+        },
+        {
+          className: 'flex-1 mat-form-field-infix',
+          type: 'calendar',
+          key: 'taxExemptValidityTo',
+          templateOptions: {
+            label: 'Date To',
+            placeholder: 'Date To'
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'taxExemptCertIssuedBy',
+        expressionProperties: {
+          // 'templateOptions.required': (model: any, formState: any) => {
+
+          //   return model['taxCode'] == '2';
+          // }
+        },
+        templateOptions: {
+          label: 'Tax Exempt Certificate Issued By',
+          placeholder: 'Tax Exempt Certificate Issued By',
+          maxLength: 20
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'taxExemptClass',
+        expressionProperties: {
+          //  'templateOptions.required': (model: any, formState: any) => {
+
+          //    return model['taxCode'] == '2';
+          //  }
+        },
+        templateOptions: {
+          label: 'Tax Exempt Classification',
+          placeholder: 'Tax Exempt Classification',
+          maxLength: 30
+        }
+      },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'tin',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Tax Identification Number (TIN)',
+          placeholder: 'Tax Identification Number (TIN)',
+          required: true,
+          maxLength: 15
         },
         validators: {
           validation: ['numeric'],
         }
       }
-    ]
-  },
-/*  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'smShopCard',
-      templateOptions: {
-        label: 'SM Shop Card',
-        placeholder: 'SM Shop Card',
-        pattern: '^\\d+\\.\\d{2}$',
-        maxLength: 4
-      }
+      ]
     },
     {
-      className: 'flex-1',
-      type: 'input',
-      key: 'smGiftCard',
-      templateOptions: {
-        label: 'SM Gift Card',
-        placeholder: 'SM Gift Card',
-        pattern: '^\\d+\\.\\d{2}$',
-        maxLength: 4
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd1',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Special Mailing Address',
+          placeholder: 'Special Mailing Address',
+          maxLength: 30
+        },
+      },
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd2',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 30
+        },
+      },
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd3',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 30
+        },
+      },
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'specialMailingAdd4',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 30
+        },
+      },
+      ]
+    },
+    // dropdown
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'select',
+        key: 'specialMailingCity',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Special Mailing Address City',
+          options: this._dropDownService.getDropdown('CY'),
+          labelProp: 'value',
+          valueProp: 'code',
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'select',
+        key: 'specialMailingZipCode',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Special Mailing Address ZipCode',
+          options: this._dropDownService.getDropdown('ZC'),
+          labelProp: 'value',
+          valueProp: 'code',
+        }
       }
-    } 
-    ]
-  }, */
-  //*
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [/*{
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'settlementAccNoForDebit',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Settlement Account Number for Debit Facility(If CTA)',
+          placeholder: 'Settlement Account Number for Debit Facility(If CTA)',
+          // pattern: '^\d{20}$',
+          maxLength: 20
+        }
+      },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'storeId',
+          templateOptions: {
+            label: 'Store ID',
+            placeholder: 'Store ID',
+            // pattern: '^\d+$'
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'merchantNumber',
+          templateOptions: {
+            label: 'Merchant Number',
+            placeholder: 'Merchant Number'
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        }
+      ]
+    },
+    /*  {
+        fieldGroupClassName: 'display-flex',
+        fieldGroup: [{
+          className: 'flex-1',
+          type: 'input',
+          key: 'smShopCard',
+          templateOptions: {
+            label: 'SM Shop Card',
+            placeholder: 'SM Shop Card',
+            pattern: '^\\d+\\.\\d{2}$',
+            maxLength: 4
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'smGiftCard',
+          templateOptions: {
+            label: 'SM Gift Card',
+            placeholder: 'SM Gift Card',
+            pattern: '^\\d+\\.\\d{2}$',
+            maxLength: 4
+          }
+        } 
+        ]
+      }, */
+    //*
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [/*{
       className: 'flex-1',
       type: 'input',
       key: 'forMoto',
@@ -6152,573 +7280,573 @@ export class BranchFormService {
         disabled: true
       }
     },*/
-    {
-      className: 'flex-1',
-      type: 'select',
-      key: 'bdoPayRating',
-      templateOptions: {
-        label: 'BDO Pay Rating',
-        options: [],
-        labelProp: 'value',
-        valueProp: 'code',
-      },
-      lifecycle: {
-        onInit: (form, field) => {
-          field.templateOptions.options = this._dropDownService.getDropdown('BPR');
-        }
-      }
-    }
-    ]
-  },
-
-/*    {
-    template: '<span class="mat-headline">Cash Agad Facility Instructions</span>',
-  },
-
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'soaRecipients',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Name of Authorized SOA Recipient',
-        placeholder: 'Name of Authorized SOA Recipient',
-        maxLength: 120
-      }
-    },
-    {
-      className: 'flex-1',
-      type: 'input',
-      key: 'soaEmailAddress',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Email Address',
-        placeholder: 'Email Address',
-        maxLength: 250
-      }
-    },
-    {
-      className: 'flex-1',
-      key: 'reportDistribution',
-      type: 'radio',
-      templateOptions: {
-        label: 'Report Distribution?',
-        options: [
-          { value: '1', label: 'Per Company' },
-          { value: '2', label: "Per Company's Branch" }
-        ],
-      },
-
-    },
-    ]
-  },
-*/
-/*
-  {
-    template: '<span class="mat-headline">Principal Details (Required For Single Proprietorship)</span>',
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'ownerName',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: "Owner's Name",
-        placeholder: "Owner's Name",
-        required: true
-      },
-    },
-    {
-      className: 'flex-1',
-      type: 'calendar',
-      key: 'ownerBirthday',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Date of Birth (mm/dd/yyyy)',
-        placeholder: 'Date of Birth (mm/dd/yyyy)'
-      }
-    },
-    {
-      className: 'flex-1',
-      type: 'input',
-      key: 'spouseName',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: "Spouse's Name",
-        placeholder: "Spouse's Name"
-      }
-    },
-    ]
-  }, */
-  {
-    template: '<span class="mat-headline">Other Details</span>',
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-  {
-      className: 'flex-1',
-      type: 'checkbox',
-      key: 'isAtmDebit',
-      templateOptions: {
-        label: 'ATM/Debit',
-        indeterminate: false
-      },
-      lifecycle: {
-        onInit: (form, field) => {
-          field.formControl.valueChanges.subscribe(v => {
-            if (!v) {
-              form.get('numberOfDebitTidAtm').patchValue(undefined);
-              form.get('mdrAtm').patchValue(undefined);
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'bdoPayRating',
+          templateOptions: {
+            label: 'BDO Pay Rating',
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('BPR');
             }
-          });
-        }
-      }
-    },
-    {
-      key: 'numberOfDebitTidAtm',
-      className: 'flex-3',
-      type: 'input',
-      expressionProperties: {
-        'templateOptions.required': (model: any, formState: any) => {
-          return model['isAtmDebit'];
-        },
-        'templateOptions.disabled': (model: any, formState: any) => {
-          return !model['isAtmDebit'];
-        }
-      },
-      templateOptions: {
-        label: 'No. of Debit TIDs',
-        maxLength: 3,
-      },
-      validators: {
-        validation: ['numeric'],
-      }
-    },
-    {
-      key: 'mdrAtm',
-      className: 'flex-3',
-      type: 'input',
-      expressionProperties: {
-        'templateOptions.required': (model: any, formState: any) => {
-          return model['isAtmDebit'];
-        },
-        'templateOptions.disabled': (model: any, formState: any) => {
-          return !model['isAtmDebit'];
-        }
-      },
-      templateOptions: {
-        label: 'MDR',
-        pattern: '^\\d{1,4}\\.\\d{2}$'
-      }
-    },
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'checkbox',
-      key: 'isSmGiftCard',
-      templateOptions: {
-        label: 'SM Gift Card',
-        indeterminate: false
-      },
-      lifecycle: {
-        onInit: (form, field) => {
-          field.formControl.valueChanges.subscribe(v => {
-            if (!v) {
-              form.get('mdrSmGiftCard').patchValue(undefined);
-            }
-          });
-        }
-      }
-    },
-    {
-      key: 'mdrSmGiftCard',
-      className: 'flex-6',
-      type: 'input',
-      expressionProperties: {
-        'templateOptions.required': (model: any, formState: any) => {
-          return model['isSmGiftCard'];
-        },
-        'templateOptions.disabled': (model: any, formState: any) => {
-          return !model['isSmGiftCard'];
-        }
-      },
-      templateOptions: {
-        label: 'MDR',
-        pattern: '^\\d{1,4}\\.\\d{2}$'
-      }
-    }
-    ]
-  },
-{
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'checkbox',
-      key: 'isSmShopCard',
-      templateOptions: {
-        label: 'SM Shop Card',
-        indeterminate: false
-      },
-      lifecycle: {
-        onInit: (form, field) => {
-          field.formControl.valueChanges.subscribe(v => {
-            if (!v) {
-              form.get('mdrSmShopCard').patchValue(undefined);
-            }
-          });
-        }
-      }
-    },
-    {
-      key: 'mdrSmShopCard',
-      className: 'flex-6',
-      type: 'input',
-      expressionProperties: {
-        'templateOptions.required': (model: any, formState: any) => {
-          return model['isSmShopCard'];
-        },
-        'templateOptions.disabled': (model: any, formState: any) => {
-          return !model['isSmShopCard'];
-        }
-      },
-      templateOptions: {
-        label: 'MDR',
-        pattern: '^\\d{1,4}\\.\\d{2}$'
-      }
-    }
-    ]
-  },
-    {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'checkbox',
-      key: 'isCashAgad',
-      templateOptions: {
-        label: 'Cash Agad',
-        indeterminate: false
-      },
-      lifecycle: {
-        onInit: (form, field) => {
-          field.formControl.valueChanges.subscribe(v => {
-            if (!v) {
-              form.get('numberOfDebitTidCashAgad').patchValue(undefined);
-              form.get('mdrCashAgad').patchValue(undefined);
-            }
-          });
-        }
-      }
-    },
-    {
-      key: 'mdrCashAgad',
-      className: 'flex-6',
-      type: 'input',
-      expressionProperties: {
-        'templateOptions.required': (model: any, formState: any) => {
-          return model['isCashAgad'];
-        },
-        'templateOptions.disabled': (model: any, formState: any) => {
-          return !model['isCashAgad'];
-        }
-      },
-      templateOptions: {
-        label: 'MDR',
-        pattern: '^\\d{1,4}\\.\\d{2}$'
-      }
-    }
-    ]
-  },
-
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [  //conditional mandatory
-      {
-        className: 'flex-1', //dropdown
-        type: 'select',
-        key: 'mcc',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'MCC',
-          options: this._dropDownService.getDropdown('MCC'),
-          labelProp: 'value',
-          valueProp: 'code',
-          required: true
-        }
-      },
-      {
-        className: 'flex-1',  //decimal format   //conditional mandatory
-        type: 'input',
-        key: 'IntesCodeForDiners',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'INTES Code for Diners',
-          placeholder: 'INTES Code for Diners',
-          maxLength: 4
-        },
-        validators: {
-          validation: ['numeric'],
-        }
-      }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex', //conditional mandatory
-    fieldGroup: [
-      {
-        className: 'flex-1', // not yet
-        type: 'input',
-        key: 'tppOnly',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Fee Account(TPP Only)',
-          placeholder: '(TPP Only)',
-          maxLength:20
-        }
-      },
-      {
-        className: 'flex-1',
-        type: 'select',
-        key: 'strategicMerchant',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Strategic Merchant',
-          options: this._dropDownService.getDropdown('SM'),
-          labelProp: 'value',
-          valueProp: 'code',
-        },
-      }
-    ]
-  },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'mcAssignedId',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'MC Assigned Id',
-          placeholder: 'MC Assigned Id',
-          maxLength: 6
-        }
-      },
-      {
-        className: 'flex-1',
-        type: 'select',
-        key: 'amexRiskIndicator',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Amex Risk Indicator',
-          options: [],
-          labelProp: 'value',
-          valueProp: 'code',
-        },
-        lifecycle: {
-          onInit: (form, field) => {
-            field.templateOptions.options = this._dropDownService.getDropdown('ARI');
           }
         }
-      }
-    ]
-  },
+      ]
+    },
 
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
+    /*    {
+        template: '<span class="mat-headline">Cash Agad Facility Instructions</span>',
+      },
+    
       {
-        className: 'flex-1',
-        type: 'input',
-        key: 'imprinterNumber',
-        expressionProperties: {
-
+        fieldGroupClassName: 'display-flex',
+        fieldGroup: [{
+          className: 'flex-1',
+          type: 'input',
+          key: 'nameAuthorizedSoaRecip',
+          expressionProperties: {
+    
+          },
+          templateOptions: {
+            label: 'Name of Authorized SOA Recipient',
+            placeholder: 'Name of Authorized SOA Recipient',
+            maxLength: 120
+          }
         },
-        templateOptions: {
-          label: 'Imprinter Number(Sales Slip Handling)',
-          placeholder: 'Imprinter Number(Sales Slip Handling)',
-          maxLength: 10
-        }
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'soaEmailAddress',
+          expressionProperties: {
+    
+          },
+          templateOptions: {
+            label: 'Email Address',
+            placeholder: 'Email Address',
+            maxLength: 250
+          }
+        },
+        {
+          className: 'flex-1',
+          key: 'reportDistribution',
+          type: 'radio',
+          templateOptions: {
+            label: 'Report Distribution?',
+            options: [
+              { value: '1', label: 'Per Company' },
+              { value: '2', label: "Per Company's Branch" }
+            ],
+          },
+    
+        },
+        ]
+      },
+    */
+    /*
+      {
+        template: '<span class="mat-headline">Principal Details (Required For Single Proprietorship)</span>',
       },
       {
-        className: 'flex-1',
-        type: 'input',
-        key: 'imprinterAmex',
-        expressionProperties: {
-
+        fieldGroupClassName: 'display-flex',
+        fieldGroup: [{
+          className: 'flex-1',
+          type: 'input',
+          key: 'ownerName',
+          expressionProperties: {
+    
+          },
+          templateOptions: {
+            label: "Owner's Name",
+            placeholder: "Owner's Name",
+            required: true
+          },
         },
-        templateOptions: {
-          label: 'Imprinter AMEX (MID Capping)',
-          placeholder: 'Imprinter AMEX (MID Capping)',
-          maxLength: 13
-        }
-      }
-    ]
-  },
-
-
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [{
-      className: 'flex-1',
-      type: 'input',
-      key: 'imprinterDc',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Imprinter DC (Top Corporation/Ecom)',
-        placeholder: 'Imprinter DC (Top Corporation/Ecom)',
-        maxLength: 13
-      }
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'ownerBirthday',
+          expressionProperties: {
+    
+          },
+          templateOptions: {
+            label: 'Date of Birth (mm/dd/yyyy)',
+            placeholder: 'Date of Birth (mm/dd/yyyy)'
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'spouseName',
+          expressionProperties: {
+    
+          },
+          templateOptions: {
+            label: "Spouse's Name",
+            placeholder: "Spouse's Name"
+          }
+        },
+        ]
+      }, */
+    {
+      template: '<span class="mat-headline">Other Details</span>',
     },
     {
-      className: 'flex-1',
-      type: 'input',
-      key: 'imprinterOthers',
-      expressionProperties: {
-
-      },
-      templateOptions: {
-        label: 'Imprinter Others(Class Code)',
-        placeholder: 'Imprinter Others(Class Code)',
-        maxLength: 12
-      }
-    },
-    ]
-  },
-
-  { // numeric
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'holdOutAccountNumber',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Hold-out Account Number',
-          placeholder: 'Hold-out Account Number',
-          maxLength: 20
-        }
-      },
-      { //numeric
-        className: 'flex-1',
-        type: 'input',
-        key: 'holdOutAmount',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Hold-out Amount',
-          placeholder: 'Hold-out Amount',
-          maxLength: 19
-        },
-        validators: {
-          validation: ['numeric'],
-        }
-      }
-    ]
-  },
-
-  { //numeric
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'remarks',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Remarks',
-          placeholder: 'Remarks'
-        }
-      }
-    ]
-  },
-
-  { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
-  {
-    fieldGroupClassName: 'display-flex',
-    fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'fraudToolProvider',
-        templateOptions: {
-          label: 'Fraud Tool Provider',
-          options: [],
-          labelProp: 'value',
-          valueProp: 'code',
-        },
-        lifecycle: {
-          onInit: (form, field) => {
-            field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'checkbox',
+          key: 'isAtmDebit',
+          templateOptions: {
+            label: 'ATM/Debit',
+            indeterminate: false
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (!v) {
+                  form.get('numberOfDebitTidAtm').patchValue(undefined);
+                  form.get('mdrAtm').patchValue(undefined);
+                }
+              });
+            }
           }
-        }
-      },
-      {
+        },
+        {
+          key: 'numberOfDebitTidAtm',
+          className: 'flex-3',
+          type: 'input',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isAtmDebit'];
+            },
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return !model['isAtmDebit'];
+            }
+          },
+          templateOptions: {
+            label: 'No. of Debit TIDs',
+            maxLength: 3,
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        },
+        {
+          key: 'mdrAtm',
+          className: 'flex-3',
+          type: 'input',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isAtmDebit'];
+            },
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return !model['isAtmDebit'];
+            }
+          },
+          templateOptions: {
+            label: 'MDR',
+            pattern: '^\\d{1,4}\\.\\d{2}$'
+          }
+        },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
         className: 'flex-1',
         type: 'checkbox',
-        key: 'directPaymentLink',
+        key: 'isSmGiftCard',
         templateOptions: {
-          label: 'Direct Payment Link',
+          label: 'SM Gift Card',
           indeterminate: false
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('mdrSmGiftCard').patchValue(undefined);
+              }
+            });
+          }
+        }
+      },
+      {
+        key: 'mdrSmGiftCard',
+        className: 'flex-6',
+        type: 'input',
+        expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isSmGiftCard'];
+          },
+          'templateOptions.disabled': (model: any, formState: any) => {
+            return !model['isSmGiftCard'];
+          }
+        },
+        templateOptions: {
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'checkbox',
+        key: 'isSmShopCard',
+        templateOptions: {
+          label: 'SM Shop Card',
+          indeterminate: false
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('mdrSmShopCard').patchValue(undefined);
+              }
+            });
+          }
+        }
+      },
+      {
+        key: 'mdrSmShopCard',
+        className: 'flex-6',
+        type: 'input',
+        expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isSmShopCard'];
+          },
+          'templateOptions.disabled': (model: any, formState: any) => {
+            return !model['isSmShopCard'];
+          }
+        },
+        templateOptions: {
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
+        }
+      }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'checkbox',
+        key: 'isCashAgad',
+        templateOptions: {
+          label: 'Cash Agad',
+          indeterminate: false
+        },
+        lifecycle: {
+          onInit: (form, field) => {
+            field.formControl.valueChanges.subscribe(v => {
+              if (!v) {
+                form.get('numberOfDebitTidCashAgad').patchValue(undefined);
+                form.get('mdrCashAgad').patchValue(undefined);
+              }
+            });
+          }
+        }
+      },
+      {
+        key: 'mdrCashAgad',
+        className: 'flex-3',
+        type: 'input',
+        expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isCashAgad'];
+          },
+          'templateOptions.disabled': (model: any, formState: any) => {
+            return !model['isCashAgad'];
+          }
+        },
+        templateOptions: {
+          label: 'MDR',
+          pattern: '^\\d{1,4}\\.\\d{2}$'
+        }
+      }
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [  // conditional mandatory
+        {
+          className: 'flex-1', // dropdown
+          type: 'select',
+          key: 'mcc',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'MCC',
+            options: this._dropDownService.getDropdown('MCC'),
+            labelProp: 'value',
+            valueProp: 'code',
+            required: true
+          }
+        },
+        {
+          className: 'flex-1',  // decimal format   // conditional mandatory
+          type: 'input',
+          key: 'IntesCodeForDiners',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'INTES Code for Diners',
+            placeholder: 'INTES Code for Diners',
+            maxLength: 4
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex', // conditional mandatory
+      fieldGroup: [
+        {
+          className: 'flex-1', // not yet
+          type: 'input',
+          key: 'tppOnly',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Fee Account(TPP Only)',
+            placeholder: '(TPP Only)',
+            maxLength: 20
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'strategicMerchant',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Strategic Merchant',
+            options: this._dropDownService.getDropdown('SM'),
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+        }
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'mcAssignedId',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'MC Assigned Id',
+            placeholder: 'MC Assigned Id',
+            maxLength: 6
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'amexRiskIndicator',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Amex Risk Indicator',
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('ARI');
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'imprinterNumber',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Imprinter Number(Sales Slip Handling)',
+            placeholder: 'Imprinter Number(Sales Slip Handling)',
+            maxLength: 10
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'imprinterAmex',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Imprinter AMEX (MID Capping)',
+            placeholder: 'Imprinter AMEX (MID Capping)',
+            maxLength: 13
+          }
+        }
+      ]
+    },
+
+
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'imprinterDc',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Imprinter DC (Top Corporation/Ecom)',
+          placeholder: 'Imprinter DC (Top Corporation/Ecom)',
+          maxLength: 13
         }
       },
       {
         className: 'flex-1',
-        type: 'select',
-        key: 'gatewayIntegrationType',
-        templateOptions: {
-          label: 'Gateway Integration Type',
-          options: [],
-          labelProp: 'value',
-          valueProp: 'code',
+        type: 'input',
+        key: 'imprinterOthers',
+        expressionProperties: {
+
         },
-        lifecycle: {
-          onInit: (form, field) => {
-            field.templateOptions.options = this._dropDownService.getDropdown('GIT');
+        templateOptions: {
+          label: 'Imprinter Others(Class Code)',
+          placeholder: 'Imprinter Others(Class Code)',
+          maxLength: 12
+        }
+      },
+      ]
+    },
+
+    { // numeric
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'holdOutAccountNumber',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Hold-out Account Number',
+            placeholder: 'Hold-out Account Number',
+            maxLength: 20
           }
         },
-      }
-    ]
-  },
-];
-//#endregion 
+        { // numeric
+          className: 'flex-1',
+          type: 'input',
+          key: 'holdOutAmount',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Hold-out Amount',
+            placeholder: 'Hold-out Amount',
+            maxLength: 19
+          },
+          validators: {
+            validation: ['numeric'],
+          }
+        }
+      ]
+    },
+
+    { // numeric
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'otherDetailsRemarks',
+          expressionProperties: {
+
+          },
+          templateOptions: {
+            label: 'Remarks',
+            placeholder: 'Remarks'
+          }
+        }
+      ]
+    },
+
+    { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'fraudToolProvider',
+          templateOptions: {
+            label: 'Fraud Tool Provider',
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
+            }
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'checkbox',
+          key: 'directPaymentLink',
+          templateOptions: {
+            label: 'Direct Payment Link',
+            indeterminate: false
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'gatewayIntegrationType',
+          templateOptions: {
+            label: 'Gateway Integration Type',
+            options: [],
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.templateOptions.options = this._dropDownService.getDropdown('GIT');
+            }
+          },
+        }
+      ]
+    },
+  ];
+  //#endregion 
 
 
 

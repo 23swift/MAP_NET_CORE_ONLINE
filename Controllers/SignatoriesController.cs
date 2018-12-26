@@ -66,7 +66,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<SignatoriesViewModel, Signatories>(signatories, currentSigna);
 
-            signatoriesService.Update(currentSigna);
+            await signatoriesService.Update(currentSigna);
             await signatoriesService.SaveChangesAsync();
 
             return Ok(currentSigna);
@@ -80,7 +80,7 @@ namespace MAP_Web.Controllers
             if (currentSigna == null)
                 return NotFound();
 
-            signatoriesService.Delete(currentSigna);
+            await signatoriesService.Delete(currentSigna);
             await signatoriesService.SaveChangesAsync();
 
             return Ok();

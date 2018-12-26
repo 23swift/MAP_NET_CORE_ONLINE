@@ -396,6 +396,9 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'] || model['premiseStatus'] === 'OWNED';
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return !model['isWaved'] && model['premiseStatus'] === 'RENTED';
             }
           }
         },
@@ -977,7 +980,7 @@ export class OifFormModalService {
               return model['isWaved'];
             },
             'templateOptions.required': (model: any, formState: any) => {
-              return model['overAllRating'] === false;
+              return !model['isWaved'] && model['overAllRating'] === false;
             },
           }
         },
@@ -1014,7 +1017,7 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['adverseFindings'] === false || model['incompleteReportDueTo'] === 3;
             }
           }
         },

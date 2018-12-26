@@ -30,6 +30,9 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
   ngOnInit() {
     this._branchService.getByNewAffiliationId(this.requestId).subscribe(data => {
       this.dataSource = data.items;
+      //console.log(this.requestId);
+      console.log(data.items);
+      //console.log(data.items['id'] + 'd');
     });
     //this.fields = this._branchInfoService.getBranchFields();
     this.userGroup = 'approver';

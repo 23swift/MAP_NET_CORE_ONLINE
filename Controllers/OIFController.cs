@@ -73,7 +73,7 @@ namespace MAP_Web.Controllers
             await oifService.InsertAsync(oif);
             await oifService.SaveChangesAsync();
 
-            return Ok(oif);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -92,7 +92,7 @@ namespace MAP_Web.Controllers
             await oifService.Update(currentOif);
             await oifService.SaveChangesAsync();
 
-            return Ok(currentOif);
+            return Ok();
         }
     }
 }

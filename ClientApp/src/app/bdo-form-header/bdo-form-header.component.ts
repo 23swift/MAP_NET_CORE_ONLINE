@@ -61,7 +61,7 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showRequestFlowOptions = true;
       }
       if (this.mode.match(/create/i)) {
-        this.showCreateOptions = false;
+        this.showCreateOptions = true;
       }
       if (this.mode.match(/mdmUser/i)) {
         this.showWelcomeLetter = true;
@@ -111,7 +111,13 @@ export class BdoFormHeaderComponent implements OnInit {
 
     dialog.afterClosed().subscribe(d => {
       this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
-       // this._router.navigateByUrl('/home/aoChecker');
+        const snackBarRef = this._snackBar.open('Request', 'Returned', {
+          duration: 1000
+        });
+
+        snackBarRef.afterDismissed().subscribe(s => {
+          this._router.navigateByUrl('/home/aoChecker');
+        })
       });
     });
   }
@@ -119,8 +125,8 @@ export class BdoFormHeaderComponent implements OnInit {
   submittoApprover(): void {
     this._maefFormService.SubmitToApprover(this.newAffiliationId).subscribe(data => {
       const snackBarRef = this._snackBar.open('Submitted To Approver', 'Saved', {
-        duration: 1000      
+        duration: 1000
+      });
     });
-  });   
   }
 }

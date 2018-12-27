@@ -40,7 +40,7 @@ export class PosFormModalComponent implements OnInit {
     }
     this.model = {};
     this.model['id'] = 0;
-    this.fields = this._posService.getPosFields('mauEncoder');
+    this.fields = this._posService.getPosFields('ao');
 
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL
@@ -68,6 +68,14 @@ export class PosFormModalComponent implements OnInit {
         snackBar.afterDismissed().subscribe(x => {
           this._modalRef.close(data);
         });
+      }, err => {
+        const snackBar = this._snackBar.open('POS Details', 'Updated', {
+          duration: 1500
+        });
+
+        snackBar.afterDismissed().subscribe(x => {
+          this._modalRef.close();
+        });
       });
     } else {
       this._posService.create(this.model).subscribe(data => {
@@ -77,6 +85,14 @@ export class PosFormModalComponent implements OnInit {
 
         snackBar.afterDismissed().subscribe(x => {
           this._modalRef.close(data);
+        });
+      }, err => {
+        const snackBar = this._snackBar.open('POS Details', 'Updated', {
+          duration: 1500
+        });
+
+        snackBar.afterDismissed().subscribe(x => {
+          this._modalRef.close();
         });
       });
     }

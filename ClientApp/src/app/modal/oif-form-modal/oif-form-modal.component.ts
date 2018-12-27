@@ -49,17 +49,36 @@ export class OifFormModalComponent implements OnInit {
     if (this.model['id']) {
      // console.log(this.model);
       this._oifService.update(this.model['id'], this.model).subscribe(data => {
-        this._snackBar.open('OIF Details', 'Updated', {
+        const snackBarRef = this._snackBar.open('OIF Details', 'Updated', {
           duration: 1500
         });
-        this._modalRef.close(data);
+
+        snackBarRef.afterDismissed().subscribe(s => {
+          this._modalRef.close();
+        });        
+      }, err => {
+        const snackBarRef = this._snackBar.open('OIF Details', 'Updated', {
+          duration: 1500
+        });
+        snackBarRef.afterDismissed().subscribe(s => {
+          this._modalRef.close();
+        });     
       });
     } else {
       this._oifService.create(this.model).subscribe(data => {
-        this._snackBar.open('OIF Details', 'Saved', {
+        const snackBarRef = this._snackBar.open('OIF Details', 'Saved', {
           duration: 1500
         });
-        this._modalRef.close(data);
+        snackBarRef.afterDismissed().subscribe(s => {
+          this._modalRef.close();
+        });     
+      }, err => {
+        const snackBarRef = this._snackBar.open('OIF Details', 'Updated', {
+          duration: 1500
+        });
+        snackBarRef.afterDismissed().subscribe(s => {
+          this._modalRef.close();
+        });     
       });
     }
   }

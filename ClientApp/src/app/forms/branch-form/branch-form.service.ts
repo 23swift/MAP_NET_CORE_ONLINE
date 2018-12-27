@@ -4127,9 +4127,14 @@ export class BranchFormService {
           className: 'flex-1',
           type: 'input',
           key: 'fraudToolProvider',
+          expressionProperties: {
+  
+          },
           templateOptions: {
             label: 'Fraud Tool Provider',
-            placeholder: 'Fraud Tool Provider',
+            options: this._dropDownService.getDropdown('FTPID'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -4165,7 +4170,9 @@ export class BranchFormService {
           key: 'gatewayIntegrationType',
           templateOptions: {
             label: 'Gateway Integration Type',
-            placeholder: 'Gateway Integration Type',
+            options: this._dropDownService.getDropdown('GIT'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -4223,7 +4230,7 @@ export class BranchFormService {
       ]
     }
   ];
-
+  
   //#region mdcs-checker field
   mdcsChecker: FormlyFieldConfig[] = [
     {

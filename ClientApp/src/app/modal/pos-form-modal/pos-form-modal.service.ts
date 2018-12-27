@@ -198,7 +198,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Requester\'s Contact Number / Cellphone Number',
-            pattern: '^\(\\d{2}\)-\\d{3}-\\d{2}-\\d{2}$|^\\d+$',
+            pattern: '^\\(\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$|^\\d+$',
             maxLength: 50,
           }
         }
@@ -549,7 +549,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Contact Number (Outlet / Branch) Landline / Mobile Phone)',
-            pattern: '^\(\\d{2}\)-\\d{3}-\\d{2}-\\d{2}$|^\\d{4}-.\\d{7}$',
+            pattern: '^\\(\\d{2}\\)-\\d{3}-\\d{2}-\\d{2}$|^\\d+$',
             maxLength: 50,
           }
         },

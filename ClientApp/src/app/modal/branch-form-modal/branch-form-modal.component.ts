@@ -34,7 +34,7 @@ export class BranchFormModalComponent implements OnInit {
         this.fields = this._branchService.getBranchFields(this.data['userGroup']);
       });
     } else {
-      this.model = data['branch'];
+      this.model = Object.assign({}, data['branch']);
       this.fields = this._branchService.getBranchFields(this.data['userGroup']);
     }
   }

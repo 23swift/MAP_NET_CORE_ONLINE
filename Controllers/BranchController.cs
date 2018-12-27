@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MAP_Web.Models.ViewModels;
 using AutoMapper;
+using System.Collections.Generic;
 
 namespace MAP_Web.Controllers
 {
@@ -28,7 +29,9 @@ namespace MAP_Web.Controllers
             if (branch == null)
                 return NotFound();
 
-            return Ok(branch);
+            var mappedBranch = mapper.Map<Branch, BranchViewModel>(branch);
+
+            return Ok(mappedBranch);
         }
 
         [HttpGet("newAffiliation/{id}")]
@@ -39,7 +42,9 @@ namespace MAP_Web.Controllers
             if (branch == null)
                 return NotFound();
 
-            return Ok(branch);
+            var mappedBranch = mapper.Map<IList<Branch>, IList<BranchViewModel>>(branch.Items);
+
+            return Ok(mappedBranch);
         }
 
         [HttpGet("branchAutoPopulate/{id}")]

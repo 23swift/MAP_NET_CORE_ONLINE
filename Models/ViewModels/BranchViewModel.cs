@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MAP_Web.Models.ViewModels
 {
@@ -22,6 +23,7 @@ namespace MAP_Web.Models.ViewModels
         public string branchWebsite { get; set; }
         public Nullable<bool> isAtmDebit { get; set; }
         public Nullable<int> numberOfDebitTidAtm { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
         public Nullable<decimal> mdrAtm { get; set; }
         public Nullable<bool> isSmGiftCard { get; set; }
         public Nullable<decimal> mdrSmGiftCard { get; set; }

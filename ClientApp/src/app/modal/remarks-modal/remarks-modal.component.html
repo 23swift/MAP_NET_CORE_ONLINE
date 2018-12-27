@@ -3,7 +3,7 @@
         <div class="contt" fxLayout="row" fxLayoutAlign="end center">
             <div class="con" style="width:20%">
               <div fxLayoutAlign="end center">
-        <a (click)="editRemarks()" style="margin-right:20px" mat-mini-fab color="primary" [hidden]="true" >
+        <a (click)="editRemarks()" style="margin-right:20px" mat-mini-fab color="primary" *ngIf="showEdit">
           <mat-icon style="color:white;">edit</mat-icon>
         </a> 
       </div>
@@ -22,7 +22,7 @@
       <div fxLayoutAlign="start center">
         <button color="primary" mat-raised-button (click)="save()" style="margin-right:3px" [disabled]="form.invalid">Save</button>
 
-        <button color="accent" mat-raised-button (click)="submit()">Cancel</button>
+        <button color="accent" mat-raised-button (click)="cancel()">Cancel</button>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
   <div class="contt" fxLayout="row" fxLayoutAlign="end center" style="margin-top:10px">
     <div class="con" style="width:20%">
       <div fxLayoutAlign="start center">
-        <button color="primary" mat-raised-button (click)="update()" [disabled]="form.invalid" >Return to AO</button>
+        <button color="primary" mat-raised-button (click)="update()" [disabled]="showSubmit" >{{data.action}}</button>
       </div>
     </div>
   </div>

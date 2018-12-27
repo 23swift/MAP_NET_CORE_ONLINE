@@ -1,6 +1,6 @@
 <span class="mat-headline">Branches</span>
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let items of dataSource; trackBy: items?.id;">
+  <mat-expansion-panel *ngFor="let items of dataSource">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{items.dbaName}}
@@ -9,17 +9,17 @@
         <!-- DBA Name Ortigas -->
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-branch-form [branchId]="items.id" [displayMode]="true"></app-branch-form>
+    <app-branch-form [branchId]="items.id" [displayMode]="this.displayMode"></app-branch-form>
     <mat-card>
       <mat-tab-group>
         <mat-tab label="OIF">
           <app-ocular-inspection-form [branchId]="items.id" [showButton]="false"></app-ocular-inspection-form>
         </mat-tab>
         <mat-tab label="POS">
-          <app-pos-list [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
+          <app-pos-list [displayMode]="this.displayMode" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
         </mat-tab>
         <mat-tab label="MID">
-          <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="true" [showDelete]="false"></app-mid>
+          <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="!this.displayMode" [showDelete]="false"></app-mid>
         </mat-tab>
       </mat-tab-group>
     </mat-card>

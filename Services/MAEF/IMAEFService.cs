@@ -17,7 +17,9 @@ namespace MAP_Web.Services
 
          Task InsertRemarksAsync(History history);
 
-        Task<History> FindRemarksAsync(int id);
+        Task<History> FindRemarksAsync(int id, string action);
+
+        Task<History> CheckRemarksAsync(int id, string action);
 
          
     }

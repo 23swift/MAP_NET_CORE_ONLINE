@@ -97,7 +97,8 @@ namespace MAP_Web
             services.AddScoped<IBdoFormHeaderService, BdoFormHeaderService>();
             services.AddScoped<IPSServicingDashboardService, PSServicingDashboardService>();
             services.AddScoped<IMDCSEncoderDashboardService, MDCSEncoderDashboardService>();
-            services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
+            services.AddScoped<IApproverDashboardService, ApproverDashboardService>();
+           // services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
 
 
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>

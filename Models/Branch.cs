@@ -105,8 +105,13 @@ namespace MAP_Web.Models
         public Nullable<int> regionCode { get; set; }
         public Nullable<int> checkDeliveryCode { get; set; }
         public string paymentMode { get; set; }
+
+        public string creditSettlementAcctNo { get; set; }
+
         public string merchantGroupCode { get; set; }
+
         public string tin { get; set; }
+
         public Nullable<bool> withTax { get; set; }
         public Nullable<int> cardPlan { get; set; }
         public Nullable<bool> isActive { get; set; }
@@ -122,6 +127,15 @@ namespace MAP_Web.Models
         public string specialMailingCity { get; set; }
         public string specialMailingZipCode { get; set; }
 
+        public string mailingAddress2 { get; set; }
+
+        public string mailingAddress3 { get; set; }
+
+        public string mailingAddress4 { get; set; }
+
+        public string mailingCity { get; set; }
+
+        public string mailingAddressZipCode { get; set; }
         public Nullable<System.DateTime> taxExemptValidityFrom { get; set; }
 
         public Nullable<System.DateTime> taxExemptValidityTo { get; set; }
@@ -149,7 +163,7 @@ namespace MAP_Web.Models
 
         public string emailAddressForReportDist { get; set; }
 
-        public string SOARecipients { get; set; }
+        //public string soaRecipients { get; set; }
 
         public string soaEmailAddress { get; set; }
 
@@ -295,6 +309,10 @@ namespace MAP_Web.Models
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         public string legalName { get; set; }
+
+
+        public string merchantNumber { get; set; }   
+
         public string paymentMethodCreditFac { get; set; }
         public Nullable<bool> withExistingAcquirer { get; set; }
         public string mailingAddressForPaymentDel { get; set; }

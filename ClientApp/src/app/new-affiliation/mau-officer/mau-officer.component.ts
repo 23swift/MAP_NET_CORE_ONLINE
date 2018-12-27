@@ -8,8 +8,8 @@ import { AppBaseComponent } from '../../app-base/app-base.component';
   styleUrls: ['./mau-officer.component.css']
 })
 export class MauOfficerComponent extends AppBaseComponent implements OnInit {
-  title: string = 'Merchant Affiliation & Maintenance Pre-screening and Evaluation';
-  @Input() displayMode: boolean = false;
+  title: string;
+  @Input() displayMode: boolean;
   mode: string;
   subTitle: string = '';
   constructor(public route: ActivatedRoute,
@@ -18,7 +18,20 @@ export class MauOfficerComponent extends AppBaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.mode = this.route.snapshot.params.mode;
+    //this.mode = this.route.snapshot.params.mode;
+    this.mode = "approver"; //user type 8
+    //this.mode = "mauEncoder";  // 7
+
+    if(this.mode = "approver")
+    {
+      this.title = 'Merchant Affiliation & Maintenance Approval';
+      this.displayMode = true;
+    }
+    else if(this.mode = "mauEncoder")
+    {
+      this.title = 'Merchant Affiliation & Maintenance Pre-screening and Evaluation';
+      this.displayMode = false;
+    }
   }
   Submit() {
     

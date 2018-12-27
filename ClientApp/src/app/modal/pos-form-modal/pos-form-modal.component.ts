@@ -17,6 +17,7 @@ export class PosFormModalComponent implements OnInit {
   userGroup: string;
   model: Object;
   branchId: number;
+  displayMode: boolean;
   showMid = true;
   showTerminalUpdate = true;
   showTerminalAdd = true;
@@ -38,6 +39,7 @@ export class PosFormModalComponent implements OnInit {
     if (this._dialogData['showTerminalAdd'] !== undefined) {
       this.showTerminalAdd = this._dialogData['showTerminalAdd'];
     }
+    this.displayMode = this._dialogData['displayMode'];
     this.model = {};
     this.model['id'] = 0;
     this.fields = this._posService.getPosFields('ao');

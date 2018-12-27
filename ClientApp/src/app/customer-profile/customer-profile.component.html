@@ -3,7 +3,7 @@
     <form [formGroup]="form" style="margin-top: 10px;" (ngSubmit)="submit()">
         <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
             <div *ngIf="!displayMode" fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
-                <button type="submit" color="primary" mat-raised-button [disabled]="form.invalid">Save</button>
+                <button type="submit" color="primary" mat-raised-button [disabled]="form.invalid" *ngIf="!this.displayMode">Save</button>
                 <button type="button" color="accent" mat-raised-button (click)="backToHome()">Cancel</button>
             </div>
         </formly-form>
@@ -11,8 +11,8 @@
 </div>
 
 <div style="margin: 20px 0px">
-    <app-owners-list [displayMode]="false" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-owners-list>
+    <app-owners-list [displayMode]="this.displayMode" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-owners-list>
 </div>
 <div style="margin: 20px 0px">
-    <app-signatories-list [displayMode]="false" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-signatories-list>
+    <app-signatories-list [displayMode]="this.displayMode" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-signatories-list>
 </div>

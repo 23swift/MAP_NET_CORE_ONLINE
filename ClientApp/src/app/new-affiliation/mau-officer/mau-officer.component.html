@@ -2,7 +2,7 @@
 <app-request-header></app-request-header>
 <mat-tab-group>
   <mat-tab label="Verification Screen"><app-verification-screen></app-verification-screen></mat-tab> 
-  <mat-tab label="MAEF"><app-maef-form [displayMode]="false"></app-maef-form></mat-tab> 
-  <mat-tab label="Documents"><app-document-check-list ></app-document-check-list></mat-tab> 
+  <mat-tab label="MAEF"><app-maef-form [displayMode]="this.displayMode"></app-maef-form></mat-tab> 
+  <mat-tab label="Documents"><app-document-check-list [displayMode]="this.displayMode"></app-document-check-list></mat-tab> 
  <!-- <mat-tab label="Documents"><app-document-check-list-form></app-document-check-list-form></mat-tab> -->
 </mat-tab-group>

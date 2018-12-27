@@ -50,8 +50,8 @@ export class MdcsUserDashboardComponent implements OnInit {
     return 'FOR CREATION';
   }
 
-  getItem() {
-    this._router.navigateByUrl('na/mdcsUser');
+  getItem(id) {
+    this._router.navigateByUrl('na/mdcsUser/' + id);
   }
 
   openSearchDialog() {

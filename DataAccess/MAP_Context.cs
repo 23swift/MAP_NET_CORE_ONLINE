@@ -37,6 +37,7 @@ namespace MAP_Web.DataAccess
         public virtual DbSet<Models.BUMaintenance> BUMaintenance { get; set; }
         public virtual DbSet<Models.ServiceFeeContract> ServiceFeeContract { get; set; }
         public virtual DbSet<Models.TerminalMaintenance> TerminalMaintenance { get; set; }
+        public virtual DbSet<Models.ApprovalCount> ApprovalCount { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

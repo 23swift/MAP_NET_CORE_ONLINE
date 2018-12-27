@@ -281,7 +281,7 @@ const routes: Routes = [
   },
   { path: 'na/mauOfficer/:id', component: MauOfficerComponent }, // 1
   { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, //story7
-  { path: 'na/mdcsUser', component: MdcsUserComponent },
+  { path: 'na/mdcsUser/:id', component: MdcsUserComponent },
   {
     path: 'na/mdmUser', component: MdmUserComponent, children: [
       { path: '', component: DocumentCheckListComponent, outlet: 'docForm' },

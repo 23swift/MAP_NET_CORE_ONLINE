@@ -27,8 +27,10 @@ export class RemarksModalComponent implements OnInit {
   action: string;
   remarks: string;
   date: string;
-  request: Object;
+  ifWithRemarks: Object;
   disable: boolean;
+  showSubmit: boolean = true;
+  showEdit: boolean = false;
 
   constructor(private _modalRef: MatDialogRef<RemarksModalComponent>, private _remarksModalService: RemarksModalService, private _maefFormService: MaefFormService, @Inject(MAT_DIALOG_DATA) public data: any,
   private _snackBar: MatSnackBar,) {
@@ -37,56 +39,96 @@ export class RemarksModalComponent implements OnInit {
     });
 
     this.date = new Date().toLocaleDateString();
-    this._maefFormService.getRemarks(5).subscribe(data => {
-      this.model= data;
-      this.form.controls['remarks'].setValue(this.model['remarks']);
-    });
+   
+    this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
+      this.ifWithRemarks= data;
+          if (this.ifWithRemarks == true)
+          {
+            this._maefFormService.getRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
+            this.model= data;
+            this.form.controls['remarks'].setValue(this.model['remarks']);
+             }); 
+             this.form.get('remarks').disable();
+             this.showSubmit = false;
+             this.showEdit = true;
+          }
+    });    
+    
+
+
 
 
   }
 
   ngOnInit() {
-    this.model = { remarks: '', requestId: this.data, user: '', groupCode: '', action: '', date: '' };
+    this.model = { remarks: '', requestId: this.data['newAffiliationId'], user: '', groupCode: '', action: '', date: '' };
     
-   if (this.form.value['remarks'] == '')
-   { 
-    this.form.get('remarks').disable();
-   }
   }
 
   save() {
     this.model['remarks'] = this.form.value['remarks'];
     this.model['user'] = 'user';
     this.model['groupCode'] = 'mauEncoder';
-    this.model['action'] ='Return Request';
+    this.model['action'] =this.data['action'];
     this.model['date'] =  this.date;
     this.model['id'] = undefined;
-    console.log(this.model);
     this._remarksModalService.create(this.model).subscribe(data => {
-      const snackBarRef = this._snackBar.open('Return Request Details', 'Saved', {
+      const snackBarRef = this._snackBar.open( this.data['action'] + ' Details', 'Saved', {
         duration: 1000
       });
-
+      this.showSubmit = false;
+      this.showEdit = true;
+      this.form.get('remarks').disable();      
       snackBarRef.afterDismissed().subscribe(s => {
-        this._modalRef.close(data);
+        //this._modalRef.close(data);
       });
     }); 
   }
 
   update() {
-    this._maefFormService.ReturntoAO(this.data).subscribe(data => {
-      const snackBarRef = this._snackBar.open('Return To AO', 'Saved', {
+    if (this.data['action'] == 'Return To AO')
+    {
+    this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
+      const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
         duration: 1000      
     });
     snackBarRef.afterDismissed().subscribe(s => {
       this._modalRef.close(data);
     });
   }); 
+    }
+    else if(this.data['action'] == 'Return To MAMO')
+    {
+      this._maefFormService.ReturntoMAMO(this.data['newAffiliationId']).subscribe(data => {
+        const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+          duration: 1000      
+      });
+      snackBarRef.afterDismissed().subscribe(s => {
+        this._modalRef.close(data);
+      });
+    });
+    }
+    else if(this.data['action'] == 'Decline')
+    {
+      this._maefFormService.Decline(this.data['newAffiliationId']).subscribe(data => {
+        const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+          duration: 1000      
+      });
+      snackBarRef.afterDismissed().subscribe(s => {
+        this._modalRef.close(data);
+      });
+    });
+    }
 
   }
 
+
   editRemarks() {
     this.form.get('remarks').enable(); 
+  }
+
+  cancel() {
+    this._modalRef.close();
   }
 
 

@@ -20,6 +20,7 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   dataSource;
   documentList = [];
   @Input() newAffiliationId: number;
+  @Input() displayMode?: boolean;
   constructor(private _route: ActivatedRoute, private _router: Router, private _docService: DocumentCheckListService,
     private _dialog: MatDialog, private _changeDetectRef: ChangeDetectorRef, private _documentList: DocumentListService) { 
       this._documentList.get().subscribe(dl => {

@@ -17,6 +17,7 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
   @Input() showPos?= true;
   @Input() showMid?= true;
   @Input() requestId: number;
+  userGroup: string;
   
 
   dataSource: Object[];
@@ -24,9 +25,6 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
   constructor(public route: ActivatedRoute,
     public router: Router, private _branchService: BranchListService, private _branchInfoService: BranchInfoService) {
     super(route, router);
-
-
-
   }
 
   ngOnInit() {
@@ -37,6 +35,15 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
       //console.log(data.items['id'] + 'd');
     });
     //this.fields = this._branchInfoService.getBranchFields();
+    this.userGroup = 'approver';
+    if(this.userGroup == 'mauEncoder')
+    {
+      this.displayMode = false;
+    }
+    else if(this.userGroup == 'approver')
+    {
+      this.displayMode = true;
+    } 
   }
 
   trackById(index, branch) {

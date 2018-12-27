@@ -202,10 +202,11 @@ export class MidFormModalService {
             type: 'select',
             expressionProperties: {
               'templateOptions.disabled': (model: any, formState: any) => {
-                return model['majorPurchase'] && model['serviceFeeRate'] > 0;
+                return model['majorPurchase'] || model['serviceFeeRate'] > 0;
               },
               'templateOptions.required': (model: any, formState: any) => {
-                return !model['majorPurchase'] && (model['serviceFeeRate'] === 0 || model['serviceFeeRate'] === '');
+                return !model['majorPurchase'] && (model['serviceFeeRate'] === 0 || model['serviceFeeRate'] === ''
+                || model['serviceFeeRate'] === undefined);
               }
             },
             templateOptions: {
@@ -238,10 +239,10 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'serviceFeeRate',
             type: 'input',
-            defaultValue: '99.99',
+            defaultValue: '0',
             expressionProperties: {
               'templateOptions.disabled': (model: any, formState: any) => {
-                return !model['majorPurchase'] && model['serviceFeeStraight'] !== undefined;
+                return model['majorPurchase'] || model['serviceFeeStraight'] !== undefined;
               },
               'templateOptions.required': (model: any, formState: any) => {
                 return model['serviceFeeStraight'] === undefined;
@@ -297,9 +298,9 @@ export class MidFormModalService {
             key: 'merchantPromotionsGroup',
             type: 'select',
             expressionProperties: {
-              // 'templateOptions.required': (model: any, formState: any) => {
-              //   return model['monitorCode'] === 2 || model['monitorCode'] === 3 || model['monitorCode'] === 6;
-              // }
+              'templateOptions.required': (model: any, formState: any) => {
+                return model['majorPurchase'];
+              }
             },
             templateOptions: {
               label: 'Merchant Promotions Group',

@@ -63,6 +63,5 @@ export class MdcsUserDashboardComponent implements OnInit {
       }
     });
 
-
   }
 }

@@ -63,7 +63,7 @@ export class AoEncoderComponent implements OnInit {
     } else if (form === 'branch') {
       // FOR FORM BRANCH
       this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
-        if (data.items.length) {
+        if (data.length) {
           this.isOif = true;
 
           stepper.selected.completed = true;

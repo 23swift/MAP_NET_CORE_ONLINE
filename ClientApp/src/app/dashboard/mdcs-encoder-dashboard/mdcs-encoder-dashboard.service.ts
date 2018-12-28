@@ -38,6 +38,6 @@ export class MdcsEncoderDashboardService implements OnInit {
   }
 
   filterDashboard(searchCriteria): Observable<any> {
-    return this._http.post(ApiConstants.mdcsDashboard, searchCriteria);
+    return this._http.put(ApiConstants.mdcsDashboard + '/filter', searchCriteria);
   }
 }

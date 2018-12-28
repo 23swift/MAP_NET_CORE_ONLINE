@@ -55,6 +55,18 @@ export class MdcsEncoderDashboardComponent implements OnInit {
       }
     });
 
-    
+    dialogRef.afterClosed().subscribe(filter => {
+      this._service.filterDashboard(filter).subscribe(filteredList => {
+        this.dataSource = new MatTableDataSource(filteredList);
+        this.dataSource.sort = this.sort;
+  
+        this.dataSource.sortingDataAccessor = (item, property) => {
+          switch (property) {
+            case 'requestDate': return new Date(item.requestedDate);
+            default: return item[property];
+          }
+        };
+      });
+    });
   }
 }

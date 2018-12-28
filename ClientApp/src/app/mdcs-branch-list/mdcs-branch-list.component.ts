@@ -18,7 +18,7 @@ export class MdcsBranchListComponent implements OnInit {
     this._requestId = +this._route.snapshot.params['id'];
 
     this._service.getByNewAffiliationId(this._requestId).subscribe(b => {
-      this.dataSource = b.items;
+      this.dataSource = b;
     });
   }
 

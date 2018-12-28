@@ -3252,7 +3252,9 @@ export class BranchFormService {
         type: 'input',
         key: 'specialMailingAdd1',
         expressionProperties: {
-
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['imprinterOthers'] !== '';
+            }
         },
         templateOptions: {
           label: 'Special Mailing Address',
@@ -3318,7 +3320,9 @@ export class BranchFormService {
         type: 'select',
         key: 'specialMailingCity',
         expressionProperties: {
-
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['imprinterOthers'] !== '';
+            }
         },
         templateOptions: {
           label: 'Special Mailing Address City',
@@ -3332,7 +3336,9 @@ export class BranchFormService {
         type: 'select',
         key: 'specialMailingZipCode',
         expressionProperties: {
-
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['imprinterOthers'] !== '';
+            }
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',

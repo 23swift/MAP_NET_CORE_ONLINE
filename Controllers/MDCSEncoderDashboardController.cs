@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using MAP_Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using MAP_Web.Models.ViewModels;
 
 namespace MAP_Web.Controllers
 {
@@ -17,6 +18,17 @@ namespace MAP_Web.Controllers
         public async Task<IActionResult> GetRequests()
         {
             var requests = await _service.FindAsync();
+
+            return Ok(requests);
+        }
+
+        [HttpPut("filter")]
+        public async Task<IActionResult> GetRequests([FromBody] FilterCriteriaViewModel filter)
+        {
+            var requests = await _service.FilterAsync(filter);
+
+            if (requests.Count == 0) 
+                return NotFound();
 
             return Ok(requests);
         }

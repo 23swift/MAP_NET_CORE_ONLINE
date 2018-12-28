@@ -6,6 +6,7 @@ import { AppBaseComponent } from '../../app-base/app-base.component';
 import { BranchFormService } from '../branch-form/branch-form.service';
 import { FormlyFieldConfigService } from '../../services/formly-field-config.service';
 import { MatSnackBar } from '@angular/material';
+import { PaddingDecimalFieldsService } from 'src/app/services/padding-decimal-fields.service';
 
 @Component({
   selector: 'app-branch-form',
@@ -31,7 +32,8 @@ export class BranchFormComponent implements OnInit {
   mode: string;
   backUrl: string;
   constructor(private _branchService: BranchFormService, public route: ActivatedRoute,
-    public router: Router, private _formService: FormlyFieldConfigService, private _snackBar: MatSnackBar) {
+    public router: Router, private _formService: FormlyFieldConfigService, private _snackBar: MatSnackBar,
+    private _decimalService: PaddingDecimalFieldsService) {
   }
 
 
@@ -41,6 +43,7 @@ export class BranchFormComponent implements OnInit {
 
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;
+      this._decimalService.modifyDecimalFields(this.model);
       this.fields = this._branchService.getBranchFields(this.userGroup);
     });
   }

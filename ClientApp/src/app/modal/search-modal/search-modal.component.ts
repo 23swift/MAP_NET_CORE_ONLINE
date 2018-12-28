@@ -20,12 +20,12 @@ export class SearchModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)public dialogData: any,
     private _service: SearchModalService) {
       this.userGroup = this.dialogData['userGroup'];
+      this.model = {};
       this.fields = this._service.getFields(this.userGroup);
     }
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.model = {};
   }
 
   closeDialog() {

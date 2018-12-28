@@ -46,14 +46,14 @@ export class MidListModalComponent implements OnInit {
       this.dataSource = fjData[0].items;
       this.monitorCodeList = fjData[1];
       this.cardPlansList = fjData[2];
+
+      this.midContainer = new Array<number>(this.dataSource.length);
+      this.tidContainer = new Array<string>(this.dataSource.length);
     });
   }
 
   ngOnInit() {
-    this.dataSource = [];
     this.form = new FormGroup({});
-    this.midContainer = new Array<number>(this.dataSource.length);
-    this.tidContainer = new Array<string>(this.dataSource.length);
     this.displayedColumns = this._midService.getTableFields('');
     this.midInput = new FormControl('');
     this.tidInput = new FormControl('');
@@ -168,6 +168,6 @@ export class MidListModalComponent implements OnInit {
   }
 
   getStatus(s) {
-    return this._midService.getStatus().find(m => m.value === s).label;
+    return this._midService.getStatus().find(m => m.code === s).value;
   }
 }

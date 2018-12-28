@@ -6,7 +6,7 @@
   </a>
 </div>
 
-<div fxLayout="row">
+<div fxLayout="row" *ngIf="dataSource">
   <table mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="PosTrackingNumber">
       <th mat-header-cell *matHeaderCellDef> POS Tracking Number </th>

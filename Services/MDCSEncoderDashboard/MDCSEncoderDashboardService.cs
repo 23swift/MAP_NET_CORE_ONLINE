@@ -52,27 +52,40 @@ namespace MAP_Web.Services
                                 .Include(rr => rr.NewAffiliation.Branches),
                                 orderBy: x => x.OrderByDescending(y => y.Id),
                             predicate: r => criteria.status != 0 ? r.Status == criteria.status : true &&
-                            criteria.trackingNo != "" ? r.TrackingNo == criteria.trackingNo : true &&
+                            criteria.trackingNo != null ? r.TrackingNo == criteria.trackingNo : true &&
                             criteria.createdDate != null ? r.CreatedDate == criteria.createdDate : true &&
-                            criteria.legalName != "" ? r.NewAffiliation.CustomerProfile.legalName == criteria.legalName : true &&
+                            criteria.legalName != null ? r.NewAffiliation.CustomerProfile.legalName == criteria.legalName : true &&
                             criteria.requestType != 0 ? r.RequestType == criteria.requestType : true);
 
-            List<Request> reqList = new List<Request>();
+            IList<Request> reqList = new List<Request>();
 
-            foreach (var item in requests.Items)
+            if (criteria.dbaName != null)
             {
-                foreach (var branch in item.NewAffiliation.Branches)
+                foreach (var item in requests.Items)
                 {
-                    if (criteria.dbaName != "")
+                    bool isAdded = false;
+                    foreach (var branch in item.NewAffiliation.Branches)
                     {
-                        if (branch.dbaName == criteria.dbaName)
                         {
-                            reqList.Add(item);
-                            break;
+                            if (branch.dbaName == criteria.dbaName)
+                            {
+                                isAdded = true;
+                                break;
+                            }
                         }
+                    }
+
+                    if (isAdded)
+                    {
+                        reqList.Add(item);
                     }
                 }
             }
+            else
+            {
+                reqList = requests.Items;
+            }
+
 
             foreach (var item in reqList)
             {

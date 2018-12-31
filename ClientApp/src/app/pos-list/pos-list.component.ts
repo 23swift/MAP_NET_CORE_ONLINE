@@ -84,6 +84,7 @@ export class PosListComponent implements OnInit {
         showMid: this.showMid,
         showTerminalUpdate: this.showTerminalUpdate,
         showTerminalAdd: this.showTerminalAdd,
+        displayMode: this.displayMode
       }
     });
 

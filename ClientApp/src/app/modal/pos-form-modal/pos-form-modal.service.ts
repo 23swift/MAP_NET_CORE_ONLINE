@@ -18,6 +18,11 @@ export class PosFormModalService {
           type: 'checkbox',
           key: 'isWaved',
           defaultValue: false,
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['displayMode'];
+            }
+          },
           templateOptions: {
             indeterminate: false,
             label: 'Waive POS'
@@ -27,6 +32,11 @@ export class PosFormModalService {
           className: 'flex-1',
           type: 'checkbox',
           key: 'isShared',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['displayMode'];
+            }
+          },
           templateOptions: {
             indeterminate: false,
             label: 'Shared POS'
@@ -716,7 +726,7 @@ export class PosFormModalService {
           key: 'remarksSpecialInstructions',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance';
+              return model['natureOfRequest'] === 'TID Issuance' || model['displayMode'];
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'];

@@ -169,7 +169,7 @@ export class MidComponent implements OnInit {
 
   getDropdownValues(list: Object[]) {
     list.forEach(item => {
-      console.log(item,this.monitorCodeList);    
+      console.log(item, this.monitorCodeList);
       item['monitorCode'] = this.monitorCodeList.find(n => n.code === item['monitorCode']).value;
       item['cardPlans'] = this.cardPlansList.find(n => n.code === item['cardPlans']).value;
       item['status'] = this._midService.getStatus().find(n => n.code === item['status']).value;

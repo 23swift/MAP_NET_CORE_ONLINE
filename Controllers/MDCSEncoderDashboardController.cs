@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using MAP_Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using MAP_Web.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace MAP_Web.Controllers
 {
@@ -28,7 +29,7 @@ namespace MAP_Web.Controllers
             var requests = await _service.FilterAsync(filter);
 
             if (requests.Count == 0) 
-                return NotFound();
+                requests = new List<DashboardViewModel>();
 
             return Ok(requests);
         }

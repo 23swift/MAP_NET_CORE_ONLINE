@@ -7,6 +7,7 @@ import { BranchFormService } from '../branch-form/branch-form.service';
 import { FormlyFieldConfigService } from '../../services/formly-field-config.service';
 import { MatSnackBar } from '@angular/material';
 import { PaddingDecimalFieldsService } from 'src/app/services/padding-decimal-fields.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-branch-form',
@@ -41,8 +42,33 @@ export class BranchFormComponent implements OnInit {
     this.title = 'Branch';
     this.form = new FormGroup({});
 
+    if (this.userGroup === 'mdcsEncoder' || this.userGroup === 'mdcsChecker') {
+      this._branchService.verifyCustomerOwnership(this.branchId).subscribe(isSingleProp => {
+        if (isSingleProp) {
+          forkJoin([
+            this._branchService.getFirstOrDefaultOwnerByBranch(this.branchId),
+            this._branchService.get(this.branchId)
+          ]).subscribe(fjData => {
+            const owner = fjData[0];
+            this.model = fjData[1];
+            this.model['ownerName'] = owner['name'];
+            this.model['isSingleProp'] = isSingleProp;
+            this._decimalService.modifyDecimalFields(this.model);
+            this.fields = this._branchService.getBranchFields(this.userGroup);
+          });
+        } else {
+          this.getBranch();
+        }
+      });
+    } else {
+      this.getBranch();
+    }
+  }
+
+  getBranch() {
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;
+      this.model['isSingleProp'] = false;
       this._decimalService.modifyDecimalFields(this.model);
       this.fields = this._branchService.getBranchFields(this.userGroup);
     });

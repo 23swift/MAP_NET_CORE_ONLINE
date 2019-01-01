@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
@@ -12,12 +13,17 @@ namespace MAP_Web.Services
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<Request> requestRepo;
+        private readonly IRepository<CustomerProfile> customerRepo;
+        private readonly IRepository<Owners> ownersRepo;
+        
         public BranchService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
+            this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
+            this.ownersRepo = this.unitOfWork.GetRepository<Owners>();
         }
 
         public async Task InsertAsync(Branch branch)
@@ -137,6 +143,33 @@ namespace MAP_Web.Services
         public async Task<IPagedList<Branch>> FindByNewAffiliationAsync(int id)
         {
             return await branchRepo.GetPagedListAsync(predicate: x => x.NewAffiliationId == id);
+        }
+
+        public async Task<bool> ValidateSinglePropOwnership(int id)
+        {
+            bool isSingleProp = false;
+            var branch = await branchRepo.FindAsync(id);
+
+            // Branch.NewAffiliationId === Customer.Id
+            var customer = await customerRepo.FindAsync(branch.NewAffiliationId);
+
+            if (customer.ownership == "SP")
+            {
+                isSingleProp = true;
+            }
+
+            return isSingleProp;
+        }
+
+
+        public async Task<Owners> GetFirstOrDefaultOwnerByBranchAsync(int id)
+        {
+            var branch = await branchRepo.FindAsync(id);
+
+            // Branch.NewAffiliationId === Owners.CustomerProfileId
+            var owner = await ownersRepo.GetPagedListAsync(predicate: o => o.CustomerProfileId == branch.NewAffiliationId);
+
+            return owner.Items.FirstOrDefault();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
@@ -10,6 +11,7 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Owners> ownersRepo;
+        private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<CustomerProfile> customerRepo;
         public OwnersService(IUnitOfWork unitOfWork)
@@ -18,6 +20,7 @@ namespace MAP_Web.Services
             this.ownersRepo = this.unitOfWork.GetRepository<Owners>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
             this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
+            this.branchRepo = this.unitOfWork.GetRepository<Branch>();
         }
 
         public async Task InsertAsync(Owners owner)

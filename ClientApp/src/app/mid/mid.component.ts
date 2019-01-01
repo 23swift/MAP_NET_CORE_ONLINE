@@ -33,7 +33,7 @@ export class MidComponent implements OnInit {
   @Input() showAdd = true;
   @Input() showUpdate = true;
   @Input() branchId;
-  @Input() showDelete: boolean;  
+  @Input() showDelete: boolean;
 
   monitorCodeList = [];
   cardPlansList = [];
@@ -42,29 +42,28 @@ export class MidComponent implements OnInit {
     private _dialog: MatDialog,
     private _changeDetectRef: ChangeDetectorRef,
     private _dropDownService: DropDownService) {
-
-    forkJoin([
-      // this._midService.getByBranchId(this.branchId),
-      this._dropDownService.getDropdown('MC'),
-      this._dropDownService.getDropdown('CP')
-    ]).subscribe(fjData => {
-      // this.dataSource = fjData[0].items;
-      this.monitorCodeList = fjData[0];
-      this.cardPlansList = fjData[1];
-    });
   }
 
   ngOnInit() {
-    this.dataSource = [];
     this.form = new FormGroup({});
-    this.midContainer = new Array<number>(this.dataSource.length);
-    this.tidContainer = new Array<string>(this.dataSource.length);
     this.displayedColumns = this._midService.getTableFields('');
     this.midInput = new FormControl('');
     this.tidInput = new FormControl('');
 
-    this._midService.getByBranchId(this.branchId).subscribe(d => {
-      this.dataSource = d.items;
+
+    forkJoin([
+      this._midService.getByBranchId(this.branchId),
+      this._dropDownService.getDropdown('MC'),
+      this._dropDownService.getDropdown('CP')
+    ]).subscribe(fjData => {
+      this.dataSource = fjData[0].items;
+      this.monitorCodeList = fjData[0];
+      this.cardPlansList = fjData[1];
+
+      // this.getDropdownValues(this.dataSource);
+
+      this.midContainer = new Array<number>(this.dataSource.length);
+      this.tidContainer = new Array<string>(this.dataSource.length);
     });
   }
 
@@ -168,15 +167,12 @@ export class MidComponent implements OnInit {
     });
   }
 
-  getMonitorCode(mc) {
-    return this.monitorCodeList.find(m => m.code === mc).value;
-  }
-
-  getCardPlans(cp) {
-    return this.cardPlansList.find(m => m.code === cp).value;
-  }
-
-  getStatus(s) {
-    return this._midService.getStatus().find(m => m.value === s).label;
+  getDropdownValues(list: Object[]) {
+    list.forEach(item => {
+      console.log(item, this.monitorCodeList);
+      item['monitorCode'] = this.monitorCodeList.find(n => n.code === item['monitorCode']).value;
+      item['cardPlans'] = this.cardPlansList.find(n => n.code === item['cardPlans']).value;
+      item['status'] = this._midService.getStatus().find(n => n.code === item['status']).value;
+    });
   }
 }

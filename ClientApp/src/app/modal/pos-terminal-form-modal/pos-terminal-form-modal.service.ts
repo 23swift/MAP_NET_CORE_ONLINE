@@ -43,7 +43,6 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             type: 'select',
             key: 'terminalModelRequested',
-            defaultValue: 'Terminal Model Requested',
             templateOptions: {
               label: 'Terminal Model Requested',
               required: true,

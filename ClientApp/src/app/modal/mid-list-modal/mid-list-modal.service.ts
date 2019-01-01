@@ -31,8 +31,8 @@ export class MidListModalService {
 
   getStatus() {
     return [
-      { value: 1, label: 'Active' },
-      { value: 2, label: 'Inactive' }
+      { code: 1, value: 'Active' },
+      { code: 2, value: 'Inactive' }
     ];
   }
 

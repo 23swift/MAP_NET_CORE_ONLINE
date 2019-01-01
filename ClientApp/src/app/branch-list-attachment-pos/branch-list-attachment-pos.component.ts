@@ -34,7 +34,7 @@ export class BranchListAttachmentPOSComponent implements OnInit, AfterContentIni
 
   ngAfterContentInit() {
     this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
-      this.dataSource = data.items;
+      this.dataSource = data;
       this._changeDetectRef.detectChanges();
     });
   }

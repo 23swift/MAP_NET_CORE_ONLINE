@@ -12,6 +12,7 @@ namespace MAP_Web.Services
         private readonly IRepository<CustomerProfile> customerRepo;
         private readonly IRepository<Request> requestRepo;
         private readonly IRepository<DocumentList> documentListRepo;
+        private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
         public CustomerProfileService(IUnitOfWork unitOfWork)
         {
@@ -19,6 +20,7 @@ namespace MAP_Web.Services
             this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
             this.documentListRepo = this.unitOfWork.GetRepository<DocumentList>();
+            this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
         public async Task InsertAsync(CustomerProfile customerProfile)

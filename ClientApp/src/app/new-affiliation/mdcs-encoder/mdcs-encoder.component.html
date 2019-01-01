@@ -3,7 +3,9 @@
 <div style="margin: 0px 10px">
   <app-customer-profile [displayMode]="false" [userGroup]="'mdcs'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 </div>
-<app-mdcs-branch-list></app-mdcs-branch-list>
+<div style="margin-bottom: 10px;">
+  <app-mdcs-branch-list></app-mdcs-branch-list>
+</div>
 <!-- <mat-tab-group>
     <mat-tab label="Branch"> -->
 <!-- <mat-accordion>

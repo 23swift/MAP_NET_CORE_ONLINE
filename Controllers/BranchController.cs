@@ -54,7 +54,7 @@ namespace MAP_Web.Controllers
 
             if (branch == null)
                 return NotFound();
-            
+
             var mappedFields = mapper.Map<Branch, BranchAutoPopulateFields>(branch);
 
             return Ok(mappedFields);
@@ -67,7 +67,7 @@ namespace MAP_Web.Controllers
 
             if (branch == null)
                 return NotFound();
-            
+
             var mappedFields = mapper.Map<Branch, BranchViewModel>(branch);
 
             return Ok(mappedFields);
@@ -116,6 +116,27 @@ namespace MAP_Web.Controllers
             await branchService.SaveChangesAsync();
 
             return Ok();
+        }
+
+
+        [HttpGet("getFirstOrDefaultOwnerByBranch/{id}")]
+        public async Task<IActionResult> getFirstOrDefaultOwnerByBranch(int id)
+        {
+            var currentOwner = await branchService.GetFirstOrDefaultOwnerByBranchAsync(id);
+
+            if (currentOwner == null)
+                return NotFound();
+
+            return Ok(currentOwner);
+        }
+
+
+        [HttpGet("validateSinglePropOwnership/{branchId}")]
+        public async Task<IActionResult> ValidateSinglePropOwnershipByBranch(int branchId)
+        {
+            bool isSingleProp = await branchService.ValidateSinglePropOwnership(branchId);
+
+            return Ok(isSingleProp);
         }
     }
 }

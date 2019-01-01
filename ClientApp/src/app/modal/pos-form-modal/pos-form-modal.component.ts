@@ -53,6 +53,7 @@ export class PosFormModalComponent implements OnInit {
       });
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
+      this.model['displayMode'] = this.displayMode;
     }
   }
 

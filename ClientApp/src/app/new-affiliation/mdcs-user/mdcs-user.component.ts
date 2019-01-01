@@ -12,6 +12,8 @@ export class MdcsUserComponent implements OnInit {
   subTitle: string;
   mode: string;
   showOif: boolean;
+  displayMode: boolean;
+  newAffiliationId: number;
   constructor() { }
 
   ngOnInit() {
@@ -19,9 +21,15 @@ export class MdcsUserComponent implements OnInit {
     this.subTitle = 'APPROVED';
     this.mode = 'forCadencie';
     this.showOif = false;
+    this.displayMode = true;
   }
 
   Submit() {
     
   }
+
+  getNewAffiliationId(id) {
+    this.newAffiliationId = id;
+  }
+  
 }

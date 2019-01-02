@@ -30,7 +30,7 @@ export class BranchFormModalComponent implements OnInit {
     this.model['id'] = 0;
     if (this.data['newAffiliationId']) {
       this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
-        this.model = data;
+        this.model = data['branch'];
         this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
 
         this.fields = this._branchService.getBranchFields(this.data['userGroup']);

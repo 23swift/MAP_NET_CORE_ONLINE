@@ -7,6 +7,8 @@ namespace MAP_Web.Services
     {
         Task UpdateRequest(Request request, int status);
         Task<Request> FindAsync(int id);
+        bool ValidateFieldsForMdcs(Request request);
+        Task<Request> FindWithNavigationAsync(int id);
         Task SaveChangesAsync();
     }
 }

@@ -76,6 +76,7 @@ export class BranchListComponent implements OnInit, AfterViewInit {
       width: '98%',
       height: 'auto',
       data: {
+        branch: this.branchAddModel,
         newAffiliationId: this.newAffiliationId,
         userGroup: this.userGroup
       }

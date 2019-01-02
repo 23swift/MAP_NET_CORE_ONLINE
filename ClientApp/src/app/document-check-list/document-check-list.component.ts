@@ -95,6 +95,6 @@ export class DocumentCheckListComponent implements OnInit, AfterViewInit {
   }
 
   getDocumentName(docId) {
-    return this.documentList.find(dl => dl.id === docId).description;
+    return this.documentList.length > 0 ? this.documentList.find(dl => dl.id === docId).description : '';
   }
 }

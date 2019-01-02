@@ -63,14 +63,11 @@ namespace MAP_Web
             services.AddDbContext<DataAccess.MAP_Context>(options => options.UseSqlServer(Configuration.GetConnectionString("MAP_DB")))
             .AddHttpClient()
             .AddUnitOfWork<DataAccess.MAP_Context>();
-
             services.AddAutoMapper();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IAOMaintenanceService, AOMaintenanceService>();
             services.AddScoped<IMauOfficerDashboardService, MauOfficerDashboardService>();
             services.AddScoped<IAOListModalService, AOListModalService>();
-
-
             services.AddScoped<IBranchService, BranchService>();
             services.AddScoped<ICustomerProfileService, CustomerProfileService>();
             services.AddScoped<IDocumentChecklistService, DocumentChecklistService>();
@@ -100,8 +97,6 @@ namespace MAP_Web
             services.AddScoped<IApproverDashboardService, ApproverDashboardService>();
             services.AddScoped<IMDCSCheckerDashboardService, MDCSCheckerDashboardService>();
            // services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
-
-
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Log_DB")));
             services.AddTransient<IAuditLogService,AuditLogService>();

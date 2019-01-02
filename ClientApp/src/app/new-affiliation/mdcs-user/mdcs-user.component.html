@@ -4,33 +4,3 @@
     <app-customer-profile [displayMode]="false" [userGroup]="'mdcsUser'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 </div>
 <app-mdcs-branch-list></app-mdcs-branch-list>
-<!-- <mat-tab-group>
-    <mat-tab label="Customer Profile">
-        <app-customer-profile [displayMode]="true"></app-customer-profile>
-    </mat-tab>
-    <mat-tab label="Branch">
-        <mat-accordion>
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        Ortigas Branch
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        DBA Name Ortigas
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <app-branch-form [displayMode]="true"></app-branch-form>
-                <mat-tab-group>
-                    <mat-tab label="POS">
-                        <div style="overflow: hidden">
-                            <app-pos-form [displayMode]="true"></app-pos-form>
-                        </div>
-                    </mat-tab>
-                    <mat-tab label="MID">
-                        <app-mid [update]="true" [action]="false"></app-mid>
-                    </mat-tab>
-                </mat-tab-group>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </mat-tab>
-</mat-tab-group> -->

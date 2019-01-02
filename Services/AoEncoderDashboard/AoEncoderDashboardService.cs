@@ -12,10 +12,13 @@ namespace MAP_Web.Services
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
-        public AoEncoderDashboardService(IUnitOfWork unitOfWork)
+        private readonly IStatusService statusService;
+        
+        public AoEncoderDashboardService(IUnitOfWork unitOfWork, IStatusService statusService)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
+            this.statusService = statusService;
         }
 
         public void DeleteRequest(Request request)
@@ -48,7 +51,7 @@ namespace MAP_Web.Services
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo, //item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
                     requestedBy = "Test User",
-                    status = item.Status == 1 ? "DRAFT" : "FOR AO CHECKER'S REVIEW",
+                    status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });
             }
@@ -74,9 +77,7 @@ namespace MAP_Web.Services
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo, //item.Id.ToString().PadLeft(7, '0') + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Year.ToString().PadLeft(4, '0'),
                     requestedBy = "Test User",
-                    status = item.Status == 1 ? "DRAFT" : 
-                    item.Status == 2 ? "FOR AO CHECKER'S REVIEW" :
-                    item.Status == 3 ? "FOR ENCODER CHECKER REVIEW" : "",
+                    status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });
             }

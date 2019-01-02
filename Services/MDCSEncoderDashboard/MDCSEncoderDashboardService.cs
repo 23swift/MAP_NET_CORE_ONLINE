@@ -12,10 +12,13 @@ namespace MAP_Web.Services
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
-        public MDCSEncoderDashboardService(IUnitOfWork unitOfWork)
+        private readonly IStatusService statusService;
+        
+        public MDCSEncoderDashboardService(IUnitOfWork unitOfWork, IStatusService statusService)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
+            this.statusService = statusService;
         }
         public async Task<List<DashboardViewModel>> FindAsync()
         {
@@ -25,7 +28,7 @@ namespace MAP_Web.Services
                                 .ThenInclude(n => n.CustomerProfile)
                                 .Include(rr => rr.NewAffiliation.Branches),
                                 orderBy: x => x.OrderByDescending(y => y.Id),
-                            predicate: r => r.Status == 3);
+                            predicate: r => r.Status == 3 || r.Status == 4);
 
             foreach (var item in requests.Items)
             {
@@ -36,6 +39,7 @@ namespace MAP_Web.Services
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo,
                     requestedBy = "Test User",
+                    status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });
             }
@@ -96,6 +100,7 @@ namespace MAP_Web.Services
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo,
                     requestedBy = "Test User",
+                    status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });
             }

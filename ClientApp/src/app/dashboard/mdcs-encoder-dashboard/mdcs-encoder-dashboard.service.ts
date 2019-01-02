@@ -22,11 +22,11 @@ export class MdcsEncoderDashboardService implements OnInit {
   }
 
   getRequest(): Observable<any> {
-    return this._http.get(ApiConstants.mdcsDashboard);
+    return this._http.get(ApiConstants.mdcsEncoderDashboard);
   }
 
   get(id): Observable<any> {
-    return this._http.get(ApiConstants.mdcsDashboard + '/' + id);
+    return this._http.get(ApiConstants.mdcsEncoderDashboard + '/' + id);
   }
 
   create(): void {
@@ -38,6 +38,6 @@ export class MdcsEncoderDashboardService implements OnInit {
   }
 
   filterDashboard(searchCriteria): Observable<any> {
-    return this._http.put(ApiConstants.mdcsDashboard + '/filter', searchCriteria);
+    return this._http.put(ApiConstants.mdcsEncoderDashboard + '/filter', searchCriteria);
   }
 }

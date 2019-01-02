@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace MAP_Web.Controllers
 {
-    [Route("/api/mdcsEncoderDashboard")]
-    public class MDCSEncoderDashboardController : Controller
+    [Route("/api/mdcsCheckerDashboard")]
+    public class MDCSCheckerDashboardController : Controller
     {
-        private readonly IMDCSEncoderDashboardService _service;
-        public MDCSEncoderDashboardController(IMDCSEncoderDashboardService _service)
+        private readonly IMDCSCheckerDashboardService _service;
+        public MDCSCheckerDashboardController(IMDCSCheckerDashboardService _service)
         {
             this._service = _service;
         }

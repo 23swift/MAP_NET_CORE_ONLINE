@@ -8,11 +8,12 @@ using System;
 
 namespace MAP_Web.Services
 {
-    public class MDCSEncoderDashboardService : IMDCSEncoderDashboardService
+    public class MDCSCheckerDashboardService : IMDCSCheckerDashboardService
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
-        public MDCSEncoderDashboardService(IUnitOfWork unitOfWork)
+
+        public MDCSCheckerDashboardService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
@@ -25,7 +26,7 @@ namespace MAP_Web.Services
                                 .ThenInclude(n => n.CustomerProfile)
                                 .Include(rr => rr.NewAffiliation.Branches),
                                 orderBy: x => x.OrderByDescending(y => y.Id),
-                            predicate: r => r.Status == 3);
+                            predicate: r => r.Status == 4);
 
             foreach (var item in requests.Items)
             {

@@ -24,7 +24,8 @@ export namespace ApiConstants {
     
 
     export const psServicingDashboardApi = '/api/psServicingDashboard';
-    export const mdcsDashboard = '/api/mdcsDashboard';
+    export const mdcsEncoderDashboard = '/api/mdcsEncoderDashboard';
+    export const mdcsCheckerDashboard = '/api/mdcsCheckerDashboard';
     export const mdcsUserDashboard = '/api/mdcsUserDashboard'
 
 

@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 const apiUrl = '';
 @Injectable()
@@ -16,17 +18,15 @@ export class MdcsCheckerDashboardService implements OnInit {
   }
 
   getTableFields() {
-    console.log(this._dashboard);
-    return this._dashboard.MdcsFields;
+    return this._dashboard.Fields;
   }
   
-  getAll() {
-    return this._http.get(apiUrl);
+  getRequest(): Observable<any> {
+    return this._http.get(ApiConstants.mdcsCheckerDashboard);
   }
 
-  get(id) {
-    // return this._http.get(apiUrl + id);
-    return this._dashboard.MdcsData;
+  get(id): Observable<any> {
+    return this._http.get(ApiConstants.mdcsCheckerDashboard + '/' + id);
   }
 
   create(): void {
@@ -35,5 +35,9 @@ export class MdcsCheckerDashboardService implements OnInit {
 
   update(): void {
     this._http.put(apiUrl, {});
+  }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.put(ApiConstants.mdcsCheckerDashboard + '/filter', searchCriteria);
   }
 }

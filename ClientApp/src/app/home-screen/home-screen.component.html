@@ -32,8 +32,13 @@
 <div *ngIf="userGroup == 'mdcsEncoder'">
     <app-mdcs-encoder-dashboard></app-mdcs-encoder-dashboard>
 </div>
-<!-- <app-mdcs-checker-dashboard></app-mdcs-checker-dashboard> -->
-<!-- <app-mdcs-user-dashboard></app-mdcs-user-dashboard>  -->
+<div *ngIf="userGroup == 'mdcsChecker'">
+    <app-mdcs-checker-dashboard></app-mdcs-checker-dashboard>
+</div>
+<div *ngIf="userGroup == 'mauOfficer'">
+    <app-mau-officer-dashboard></app-mau-officer-dashboard>
+</div>
+
 <!-- <app-mdm-user-dashboard></app-mdm-user-dashboard>-->
 
 <!-- <app-mqr-dashboard></app-mqr-dashboard> -->

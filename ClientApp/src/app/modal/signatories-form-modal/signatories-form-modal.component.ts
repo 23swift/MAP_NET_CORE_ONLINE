@@ -42,8 +42,9 @@ export class SignatoriesFormModalComponent implements OnInit {
         this._dropDown.getDropdown('OW')
       ]).subscribe(fjData => {
         const singleAndForeign = fjData[1].find(w => w['code'] === 'FISP');
-
-        if (fjData[0]['ownership'] === singleAndForeign['code']) {
+        const single = fjData[1].find(w => w['code'] === 'SP');
+        
+        if (fjData[0]['ownership'] === singleAndForeign['code'] || fjData[0]['ownership'] === single['code']) {
           this.model['name'] = fjData[0]['legalName'];
           this.model['signingAuthority'] = 'Singly';
           this.model['position'] = 'Proprietor';

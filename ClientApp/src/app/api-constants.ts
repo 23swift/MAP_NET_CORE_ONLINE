@@ -20,7 +20,8 @@ export namespace ApiConstants {
     export const approveWithReqReasonApi = '/api/approveWithReqReason';
     export const approveWithExceptDetailsApi = '/api/approveWithExceptDetails';
     export const historyApi = '/api/history';
-    export const approverDashboardApi = '/api/approverDashboard';    
+    export const approverDashboardApi = '/api/approverDashboard';
+    export const requestApi = '/api/request';
     
 
     export const psServicingDashboardApi = '/api/psServicingDashboard';

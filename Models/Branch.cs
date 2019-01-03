@@ -140,7 +140,7 @@ namespace MAP_Web.Models
 
         public Nullable<System.DateTime> taxExemptValidityTo { get; set; }
 
-        public Nullable<int> taxExemptCertIssuedBy { get; set; }
+        public string taxExemptCertIssuedBy { get; set; }
         public string taxExemptClass { get; set; }
 
         public string registeredBusinessNo { get; set; }
@@ -332,6 +332,13 @@ namespace MAP_Web.Models
         public string taxExemptClassCnp { get; set; }
         public Nullable<DateTime> cnpValidFrom { get; set; }     
         public Nullable<DateTime> cnpValidUntil { get; set; }  
+
+
+
+
+        public string ownerName { get; set; }  
+        public Nullable<DateTime> ownerBirthday { get; set; } 
+        public string spouseName { get; set; }
         public virtual POSRequest POSRequest { get; set; }
         public virtual OIF OIF { get; set; }
         public virtual ICollection<POS> POS { get; set; }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges, SimpleChange, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, OnChanges, SimpleChanges, SimpleChange, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFormOptions, FormlyFieldConfig, FieldArrayType } from '@ngx-formly/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -8,6 +8,7 @@ import { FormlyFieldConfigService } from '../../services/formly-field-config.ser
 import { MatSnackBar } from '@angular/material';
 import { PaddingDecimalFieldsService } from 'src/app/services/padding-decimal-fields.service';
 import { forkJoin } from 'rxjs';
+import { BranchListAttachmentPOSRequestComponent } from 'src/app/branch-list-attachment-posrequest/branch-list-attachment-posrequest.component';
 
 @Component({
   selector: 'app-branch-form',
@@ -42,7 +43,7 @@ export class BranchFormComponent implements OnInit {
     this.title = 'Branch';
     this.form = new FormGroup({});
 
-    if (this.userGroup === 'mdcsEncoder' || this.userGroup === 'mdcsChecker') {
+    if (this.userGroup === 'mdcs') {
       this._branchService.verifyCustomerOwnership(this.branchId).subscribe(isSingleProp => {
         if (isSingleProp) {
           forkJoin([
@@ -51,7 +52,7 @@ export class BranchFormComponent implements OnInit {
           ]).subscribe(fjData => {
             const owner = fjData[0];
             this.model = fjData[1];
-            this.model['ownerName'] = owner['name'];
+            this.model['ownerName'] = this.model['ownerName'] === '' ? owner['name'] : this.model['ownerName'];
             this.model['isSingleProp'] = isSingleProp;
             this._decimalService.modifyDecimalFields(this.model);
             this.fields = this._branchService.getBranchFields(this.userGroup);

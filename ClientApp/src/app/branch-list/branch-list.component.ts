@@ -54,7 +54,7 @@ export class BranchListComponent implements OnInit, AfterViewInit {
 
   private refresh() {
     this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
-      this.dataSource = data.items;
+      this.dataSource = data;
 
       if (this.dataSource.length > 0) {
         this._branchService.getBranchAutoPopulateFields(this.dataSource[0]['id']).subscribe(branchData => {

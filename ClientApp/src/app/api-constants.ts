@@ -20,11 +20,13 @@ export namespace ApiConstants {
     export const approveWithReqReasonApi = '/api/approveWithReqReason';
     export const approveWithExceptDetailsApi = '/api/approveWithExceptDetails';
     export const historyApi = '/api/history';
-    export const approverDashboardApi = '/api/approverDashboard';    
+    export const approverDashboardApi = '/api/approverDashboard';
+    export const requestApi = '/api/request';
     
 
     export const psServicingDashboardApi = '/api/psServicingDashboard';
-    export const mdcsDashboard = '/api/mdcsDashboard';
+    export const mdcsEncoderDashboard = '/api/mdcsEncoderDashboard';
+    export const mdcsCheckerDashboard = '/api/mdcsCheckerDashboard';
     export const mdcsUserDashboard = '/api/mdcsUserDashboard'
 
 

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
+import { PaddingDecimalFieldsService } from 'src/app/services/padding-decimal-fields.service';
 
 @Component({
   selector: 'app-branch-form-modal',
@@ -23,18 +24,20 @@ export class BranchFormModalComponent implements OnInit {
 
   constructor(private _modalRef: MatDialogRef<BranchFormModalComponent>, private _branchService: BranchFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar, private _customerProfileService: CustomerProfileService) {
+    private _snackBar: MatSnackBar, private _customerProfileService: CustomerProfileService,
+    private _decimalService: PaddingDecimalFieldsService) {
     this.model = {};
     this.model['id'] = 0;
     if (this.data['newAffiliationId']) {
       this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
-        this.model = data;
+        this.model = data['branch'];
         this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
 
         this.fields = this._branchService.getBranchFields(this.data['userGroup']);
       });
     } else {
-      this.model = data['branch'];
+      this.model = Object.assign({}, data['branch']);
+      this._decimalService.modifyDecimalFields(this.model);
       this.fields = this._branchService.getBranchFields(this.data['userGroup']);
     }
   }

@@ -63,7 +63,7 @@ namespace MAP_Web.DataAccess
                 property.Relational().ColumnType = "decimal(18,6)";
             }
 
-            
+            //base.OnModelCreating(modelBuilder);
             // modelBuilder.Entity<Models.POSRequest>()
             //     .HasOne(n => n.POS)
             //     .WithOne(c => c.POSRequest)

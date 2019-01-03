@@ -67,8 +67,16 @@ namespace MAP_Web.Controllers
         [HttpPut("mdcsEncoder/{id}")]
         public async Task<IActionResult> UpdateRequestForMdcsEncoder(int id)
         {
-            var request = await newAffiliationService.FindAsync(id);
-            await newAffiliationService.UpdateRequest(request, 4);
+            var request = await newAffiliationService.FindWithNavigationAsync(id);
+
+            if (request.Status == 3) {
+                bool isValid = newAffiliationService.ValidateFieldsForMdcs(request);
+
+                if (!isValid)
+                    return BadRequest();
+            }
+            
+            await newAffiliationService.UpdateRequest(request, ++request.Status);
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();
@@ -77,8 +85,28 @@ namespace MAP_Web.Controllers
         [HttpPut("mdcsChecker/{id}")]
         public async Task<IActionResult> UpdateRequestForMdcsChecker(int id)
         {
+            var request = await newAffiliationService.FindWithNavigationAsync(id);
+
+            if (request.Status == 3) {
+                bool isValid = newAffiliationService.ValidateFieldsForMdcs(request);
+
+                if (!isValid)
+                    return BadRequest();
+            }
+            
+            await newAffiliationService.UpdateRequest(request, ++request.Status);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("mauOfficer/{id}")]
+        public async Task<IActionResult> UpdateRequestForMauOfficer(int id)
+        {
             var request = await newAffiliationService.FindAsync(id);
-            await newAffiliationService.UpdateRequest(request, 5);
+
+            
+            await newAffiliationService.UpdateRequest(request, 6);
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();

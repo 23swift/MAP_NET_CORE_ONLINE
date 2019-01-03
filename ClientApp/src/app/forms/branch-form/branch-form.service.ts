@@ -2968,7 +2968,7 @@ export class BranchFormService {
 
   //#region mdcs-encoder field
 
-  mdcsEncoder: FormlyFieldConfig[] = [
+  mdcs: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -2979,7 +2979,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'DBA Name(DBA/Trade Name)',
             placeholder: 'DBA Name(DBA/Trade Name)',
-            disabled: true
+            readonly: true
           }
         },
         {
@@ -3116,20 +3116,31 @@ export class BranchFormService {
         {
           className: 'flex-1',
           key: 'paymentMethodCreditFac',
-          type: 'radio',
+          type: 'select',
           templateOptions: {
             label: 'Payment Method',
-            options: [
-              { value: 'CTA', label: 'Credit to Account' },
-              { value: 'CP', label: 'Check Payment' }
-            ]
+            options: this._dropDownService.getDropdown('PMCF'),
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v !== 'CTA') {
+                  form.get('settlementAcctNo').patchValue(undefined);
+                }
+              });
+            }
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settlementAcctNo',
+          key: 'creditSettlementAcctNo',
           expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['paymentMethodCreditFac'] !== 'CTA';
+            },
             'templateOptions.required': (model: any, formState: any) => {
               return model['paymentMethodCreditFac'] === 'CTA';
             }
@@ -3154,6 +3165,18 @@ export class BranchFormService {
             options: this._dropDownService.getDropdown('TC'),
             labelProp: 'value',
             valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v !== 'NTTR') {
+                  form.get('taxExemptValidityFrom').patchValue(undefined);
+                  form.get('taxExemptValidityTo').patchValue(undefined);
+                  form.get('taxExemptCertIssuedBy').patchValue(undefined);
+                  form.get('taxExemptClass').patchValue(undefined);
+                }
+              });
+            }
           }
         },
         {
@@ -3180,6 +3203,11 @@ export class BranchFormService {
           className: 'flex-1 mat-form-field-infix',
           type: 'calendar',
           key: 'taxExemptValidityFrom',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['taxCode'] === 'NTTR';
+            }
+          },
           templateOptions: {
             label: 'Date From',
             placeholder: 'Date From'
@@ -3189,6 +3217,11 @@ export class BranchFormService {
           className: 'flex-1 mat-form-field-infix',
           type: 'calendar',
           key: 'taxExemptValidityTo',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['taxCode'] === 'NTTR';
+            }
+          },
           templateOptions: {
             label: 'Date To',
             placeholder: 'Date To'
@@ -3203,6 +3236,9 @@ export class BranchFormService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['taxCode'] === 'NTTR';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
@@ -3214,11 +3250,13 @@ export class BranchFormService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['taxCode'] === 'NTTR';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
-          placeholder: 'Tax Exempt Classification',
-          disabled: true
+          placeholder: 'Tax Exempt Classification'
         }
       }
       ]
@@ -3252,7 +3290,9 @@ export class BranchFormService {
         type: 'input',
         key: 'specialMailingAdd1',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['imprinterOthers'] !== '';
+          }
         },
         templateOptions: {
           label: 'Special Mailing Address',
@@ -3318,7 +3358,9 @@ export class BranchFormService {
         type: 'select',
         key: 'specialMailingCity',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['imprinterOthers'] !== '';
+          }
         },
         templateOptions: {
           label: 'Special Mailing Address City',
@@ -3332,7 +3374,9 @@ export class BranchFormService {
         type: 'select',
         key: 'specialMailingZipCode',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['imprinterOthers'] !== '';
+          }
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
@@ -3350,28 +3394,44 @@ export class BranchFormService {
 
     {
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        type: 'checkbox',
-        key: 'withExistingAcquirer',
-        defaultValue: false,
-        templateOptions: {
-          label: 'Yes',
-          indeterminate: false
+      fieldGroup: [
+        {
+          key: 'withExistingAcquirer',
+          className: 'flex-1',
+          type: 'radio',
+          defaultValue: false,
+          templateOptions: {
+            required: true,
+            options: [
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' }
+            ],
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === false) {
+                  form.get('nameOfAcquirer').patchValue(undefined);
+                }
+              });
+            }
+          }
         },
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'nameOfAcquirer',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Name of Acquirer',
-          placeholder: 'Name of Acquirer',
-          maxLength: 50
+        {
+          className: 'flex-6',
+          type: 'input',
+          key: 'nameOfAcquirer',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return !model['withExistingAcquirer'];
+            },
+          },
+          templateOptions: {
+            label: 'Name of Acquirer',
+            placeholder: 'Name of Acquirer',
+            maxLength: 50
+          }
         }
-      }
       ]
     },
 
@@ -3596,12 +3656,14 @@ export class BranchFormService {
         type: 'input',
         key: 'ownerName',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isSingleProp'];
+          }
         },
         templateOptions: {
           label: 'Owner\'s Name',
           placeholder: 'Owner\'s Name',
-          required: true
+          maxLength: 50
         },
       },
       {
@@ -3609,7 +3671,9 @@ export class BranchFormService {
         type: 'calendar',
         key: 'ownerBirthday',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isSingleProp'];
+          }
         },
         templateOptions: {
           label: 'Date of Birth (mm/dd/yyyy)',
@@ -3625,7 +3689,8 @@ export class BranchFormService {
         },
         templateOptions: {
           label: 'Spouse\'s Name',
-          placeholder: 'Spouse\'s Name'
+          placeholder: 'Spouse\'s Name',
+          maxLength: 50
         }
       },
       ]
@@ -4127,9 +4192,14 @@ export class BranchFormService {
           className: 'flex-1',
           type: 'input',
           key: 'fraudToolProvider',
+          expressionProperties: {
+
+          },
           templateOptions: {
             label: 'Fraud Tool Provider',
-            placeholder: 'Fraud Tool Provider',
+            options: this._dropDownService.getDropdown('FTPID'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -4165,7 +4235,9 @@ export class BranchFormService {
           key: 'gatewayIntegrationType',
           templateOptions: {
             label: 'Gateway Integration Type',
-            placeholder: 'Gateway Integration Type',
+            options: this._dropDownService.getDropdown('GIT'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -4437,6 +4509,11 @@ export class BranchFormService {
           className: 'flex-1 mat-form-field-infix',
           type: 'calendar',
           key: 'taxExemptValidityFrom',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['taxCode'] === 'No Tax Type Required';
+            }
+          },
           templateOptions: {
             label: 'Date From',
             placeholder: 'Date From'
@@ -4446,6 +4523,11 @@ export class BranchFormService {
           className: 'flex-1 mat-form-field-infix',
           type: 'calendar',
           key: 'taxExemptValidityTo',
+          expressionProperties: {
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['taxCode'] === 'No Tax Type Required';
+            }
+          },
           templateOptions: {
             label: 'Date To',
             placeholder: 'Date To'
@@ -4460,6 +4542,9 @@ export class BranchFormService {
         type: 'input',
         key: 'taxExemptCertIssuedBy',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['taxCode'] === 'No Tax Type Required';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
@@ -4471,6 +4556,9 @@ export class BranchFormService {
         type: 'input',
         key: 'taxExemptClass',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['taxCode'] === 'No Tax Type Required';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
@@ -4509,7 +4597,9 @@ export class BranchFormService {
         type: 'input',
         key: 'specialMailingAdd1',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['imprinterOthers'] !== '';
+          }
         },
         templateOptions: {
           label: 'Special Mailing Address',
@@ -4575,7 +4665,9 @@ export class BranchFormService {
         type: 'select',
         key: 'specialMailingCity',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['imprinterOthers'] !== '';
+          }
         },
         templateOptions: {
           label: 'Special Mailing Address City',
@@ -4589,7 +4681,9 @@ export class BranchFormService {
         type: 'select',
         key: 'specialMailingZipCode',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['imprinterOthers'] !== '';
+          }
         },
         templateOptions: {
           label: 'Special Mailing Address ZipCode',
@@ -5384,9 +5478,14 @@ export class BranchFormService {
           className: 'flex-1',
           type: 'input',
           key: 'fraudToolProvider',
+          expressionProperties: {
+
+          },
           templateOptions: {
             label: 'Fraud Tool Provider',
-            placeholder: 'Fraud Tool Provider',
+            options: this._dropDownService.getDropdown('FTPID'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -5422,7 +5521,9 @@ export class BranchFormService {
           key: 'gatewayIntegrationType',
           templateOptions: {
             label: 'Gateway Integration Type',
-            placeholder: 'Gateway Integration Type',
+            options: this._dropDownService.getDropdown('GIT'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -7852,8 +7953,8 @@ export class BranchFormService {
 
   getBranchFields(userGroup): FormlyFieldConfig[] {
     let fields;
-    if (userGroup === 'mdcsEncoder') {
-      fields = this.mdcsEncoder;
+    if (userGroup === 'mdcs') {
+      fields = this.mdcs;
     } else if (userGroup === 'mauEncoder') {
       fields = this.veriScreen;
     } else if (userGroup === 'approver') {
@@ -7882,4 +7983,14 @@ export class BranchFormService {
   delete(id): Observable<any> {
     return this._http.delete(ApiConstants.branchApi + '/' + id);
   }
+
+  verifyCustomerOwnership(id) {
+    return this._http.get(ApiConstants.branchApi + '/validateSinglePropOwnership/' + id);
+  }
+
+  getFirstOrDefaultOwnerByBranch(id) {
+    return this._http.get(ApiConstants.branchApi + '/getFirstOrDefaultOwnerByBranch/' + id);
+  }
+
 }
+

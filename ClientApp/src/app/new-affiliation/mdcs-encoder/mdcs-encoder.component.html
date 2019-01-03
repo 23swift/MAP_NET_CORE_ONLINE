@@ -1,9 +1,13 @@
-<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="submit"></app-bdo-form-header>
+<div *ngIf="showHeader">
+    <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="submit"></app-bdo-form-header>
+  </div>
 <app-request-header></app-request-header>
 <div style="margin: 0px 10px">
   <app-customer-profile [displayMode]="false" [userGroup]="'mdcs'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 </div>
-<app-mdcs-branch-list></app-mdcs-branch-list>
+<div style="margin-bottom: 10px;">
+  <app-mdcs-branch-list></app-mdcs-branch-list>
+</div>
 <!-- <mat-tab-group>
     <mat-tab label="Branch"> -->
 <!-- <mat-accordion>

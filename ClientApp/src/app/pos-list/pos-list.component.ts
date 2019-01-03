@@ -8,6 +8,7 @@ import { PosFormModalComponent } from '../modal/pos-form-modal/pos-form-modal.co
 import { PosTerminalBrandListModalComponent } from '../modal/pos-terminal-brand-list-modal/pos-terminal-brand-list-modal.component';
 import { DeleteModalComponent } from '../modal/delete-modal/delete-modal.component';
 import { DropDownService } from '../services/drop-down.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-pos-list',
@@ -31,15 +32,23 @@ export class PosListComponent implements OnInit {
     private _overlay: Overlay,
     private _changeDetectRef: ChangeDetectorRef,
     private _dropDownService: DropDownService) {
-      this._dropDownService.getDropdown('NR').subscribe(nr => {
-        this.natureOfRequestList = nr;
-      });
-    }
+    // this._posService.getByBranch(this.branchId).subscribe(data => {
+    //   this.dataSource = data;
+    // });
+    //   this._dropDownService.getDropdown('NR').subscribe(nr => {
+    //     this.natureOfRequestList = nr;
+    //   });
+  }
 
   ngOnInit() {
     this.displayedColumns = this._posService.getTableFields();
-    this._posService.getByBranch(this.branchId).subscribe(data => {
-      this.dataSource = data.items;
+
+    forkJoin([
+      this._dropDownService.getDropdown('NR'),
+      this._posService.getByBranch(this.branchId)
+    ]).subscribe(fjData => {
+      this.natureOfRequestList = fjData[0];
+      this.dataSource = fjData[1].items;
     });
     console.log(this.displayMode + 'pos list');
   }

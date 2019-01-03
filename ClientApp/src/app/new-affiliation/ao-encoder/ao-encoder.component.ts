@@ -63,7 +63,7 @@ export class AoEncoderComponent implements OnInit {
     } else if (form === 'branch') {
       // FOR FORM BRANCH
       this._branchService.getByNewAffiliationId(this.newAffiliationId).subscribe(data => {
-        if (data.items.length) {
+        if (data.length) {
           this.isOif = true;
 
           stepper.selected.completed = true;
@@ -84,7 +84,7 @@ export class AoEncoderComponent implements OnInit {
           stepper.selected.completed = true;
           stepper.next();
         } else {
-          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no OIF',
+          this._snackBar.open('NEXT', 'FAILED: One or more Branch has no OIF',
             {
               duration: 1000
             });
@@ -99,7 +99,7 @@ export class AoEncoderComponent implements OnInit {
           stepper.selected.completed = true;
           stepper.next();
         } else {
-          this._snackBar.open('NEXT', 'FAILED: One or More Branch has no POS', {
+          this._snackBar.open('NEXT', 'FAILED: One or more Branch has no POS', {
             duration: 1000
           });
         }
@@ -113,7 +113,7 @@ export class AoEncoderComponent implements OnInit {
           stepper.selected.completed = true;
           stepper.next();
         } else {
-          this._snackBar.open('NEXT', 'FAILED: Not all documents were updated', {
+          this._snackBar.open('NEXT', 'FAILED:  One or more Documents were updated', {
             duration: 1000
           });
         }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { PaddingDecimalFieldsService } from 'src/app/services/padding-decimal-fields.service';
 
 @Component({
   selector: 'app-mid-form-modal',
@@ -24,9 +25,11 @@ export class MidFormModalComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _midService: MidFormModalService,
   private _modalRef: MatDialogRef<MidFormModalComponent>,
-  @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
+  @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar,
+  private _decimalService: PaddingDecimalFieldsService) {
     if (dialogData['mid']) {
       this.model = Object.assign({}, dialogData['mid']);
+      this._decimalService.modifyDecimalFields(this.model);
     } else {
       this.model = {
         branchId: this.dialogData['branchId']

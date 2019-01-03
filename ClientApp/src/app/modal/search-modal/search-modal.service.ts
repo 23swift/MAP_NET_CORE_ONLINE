@@ -116,7 +116,7 @@ export class SearchModalService {
   getFields(userGroup): FormlyFieldConfig[] {
     let fields = [];
 
-    if (userGroup === 'mdcsEncoder') {
+    if (userGroup === 'mdcsEncoder' || userGroup === 'mdcsChecker') {
       fields = this.mdcsEncoder;
     } else if (userGroup === 'mqr') {
       fields = this.mqr;

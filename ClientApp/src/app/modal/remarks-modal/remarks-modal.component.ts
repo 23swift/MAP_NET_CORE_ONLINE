@@ -33,13 +33,18 @@ export class RemarksModalComponent implements OnInit {
   showEdit: boolean = false;
 
   constructor(private _modalRef: MatDialogRef<RemarksModalComponent>, private _remarksModalService: RemarksModalService, private _maefFormService: MaefFormService, @Inject(MAT_DIALOG_DATA) public data: any,
-  private _snackBar: MatSnackBar,) {
+    private _snackBar: MatSnackBar, ) {
     this.form = new FormGroup({
       remarks: new FormControl('')
     });
 
     this.date = new Date().toLocaleDateString();
+    // this._maefFormService.getRemarks(5).subscribe(data => {
+    //   this.model = data;
+    //   this.form.controls['remarks'].setValue(this.model['remarks']);
+    // });
    
+<<<<<<< HEAD
     this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['actionCode']).subscribe(data => {
       this.ifWithRemarks= data;
           if (this.ifWithRemarks == true)
@@ -53,6 +58,21 @@ export class RemarksModalComponent implements OnInit {
              this.showEdit = true;
           }
     });    
+=======
+    // this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
+    //   this.ifWithRemarks= data;
+    //       if (this.ifWithRemarks == true)
+    //       {
+    //         this._maefFormService.getRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
+    //         this.model= data;
+    //         this.form.controls['remarks'].setValue(this.model['remarks']);
+    //          }); 
+    //          this.form.get('remarks').disable();
+    //          this.showSubmit = false;
+    //          this.showEdit = true;
+    //       }
+    // });    
+>>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
     
 
 
@@ -61,8 +81,11 @@ export class RemarksModalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.model = { remarks: '', requestId: this.data['newAffiliationId'], user: '', groupCode: '', action: '', date: '' };
-    
+    this.model = { remarks: '', requestId: this.data, user: '', groupCode: '', action: '', date: '' };
+
+    if (this.form.value['remarks'] == '') {
+      this.form.get('remarks').disable();
+    }
   }
 
   save() {
@@ -83,10 +106,11 @@ export class RemarksModalComponent implements OnInit {
       snackBarRef.afterDismissed().subscribe(s => {
         //this._modalRef.close(data);
       });
-    }); 
+    });
   }
 
   update() {
+<<<<<<< HEAD
     if (this.data['actionCode'] == 'Return To AO')
     {
     this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
@@ -120,12 +144,58 @@ export class RemarksModalComponent implements OnInit {
       });
     });
     }
+=======
+    // this._maefFormService.ReturntoAO(this.data).subscribe(data => {
+    //   const snackBarRef = this._snackBar.open('Return To AO', 'Saved', {
+    //     duration: 1000
+    //   });
+
+      // snackBarRef.afterDismissed().subscribe(s => {
+        this._modalRef.close();
+      // });
+    // });
+    
+    
+  //   if (this.data['action'] == 'Return To AO')
+  //   {
+  //   this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
+  //     const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+  //       duration: 1000      
+  //   });
+  //   snackBarRef.afterDismissed().subscribe(s => {
+  //     this._modalRef.close(data);
+  //   });
+  // }); 
+  //   }
+  //   else if(this.data['action'] == 'Return To MAMO')
+  //   {
+  //     this._maefFormService.ReturntoMAMO(this.data['newAffiliationId']).subscribe(data => {
+  //       const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+  //         duration: 1000      
+  //     });
+  //     snackBarRef.afterDismissed().subscribe(s => {
+  //       this._modalRef.close(data);
+  //     });
+  //   });
+  //   }
+  //   else if(this.data['action'] == 'Decline')
+  //   {
+  //     this._maefFormService.Decline(this.data['newAffiliationId']).subscribe(data => {
+  //       const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+  //         duration: 1000      
+  //     });
+  //     snackBarRef.afterDismissed().subscribe(s => {
+  //       this._modalRef.close(data);
+  //     });
+  //   });
+  //   }
+>>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
 
   }
 
 
   editRemarks() {
-    this.form.get('remarks').enable(); 
+    this.form.get('remarks').enable();
   }
 
   cancel() {

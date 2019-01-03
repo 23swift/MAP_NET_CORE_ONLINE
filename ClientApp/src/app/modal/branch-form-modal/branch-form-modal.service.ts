@@ -1146,14 +1146,9 @@ export class BranchFormModalService {
           },
           templateOptions: {
             label: 'MCC',
-            options: [],
+            options: this._dropDownService.getDropdown('MCC'),
             labelProp: 'value',
             valueProp: 'code',
-          },
-          lifecycle: {
-            onInit: (form, field) => {
-              field.templateOptions.options = this._dropDownService.getDropdown('MCC');
-            }
           }
         }
       ]
@@ -1800,14 +1795,9 @@ export class BranchFormModalService {
           templateOptions: {
             label: 'MCC',
             required: true,
-            options: [],
+            options: this._dropDownService.getDropdown('MCC'),
             labelProp: 'value',
             valueProp: 'code',
-          },
-          lifecycle: {
-            onInit: (form, field) => {
-              field.templateOptions.options = this._dropDownService.getDropdown('MCC');
-            }
           }
         }
         // ,
@@ -2067,14 +2057,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Fraud Tool Provider',
-          options: [],
+          options: this._dropDownService.getDropdown('FTPID'),
           labelProp: 'value',
           valueProp: 'code',
-        },
-        lifecycle: {
-          onInit: (form, field) => {
-            field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
-          }
         }
       },
       {
@@ -2086,14 +2071,9 @@ export class BranchFormModalService {
         },
         templateOptions: {
           label: 'Gateway Integration Type',
-          options: [],
+          options: this._dropDownService.getDropdown('GIT'),
           labelProp: 'value',
           valueProp: 'code',
-        },
-        lifecycle: {
-          onInit: (form, field) => {
-            field.templateOptions.options = this._dropDownService.getDropdown('GIT');
-          }
         }
       }
       ]
@@ -4191,9 +4171,14 @@ export class BranchFormModalService {
           className: 'flex-1',
           type: 'input',
           key: 'fraudToolProvider',
+          expressionProperties: {
+  
+          },
           templateOptions: {
             label: 'Fraud Tool Provider',
-            placeholder: 'Fraud Tool Provider',
+            options: this._dropDownService.getDropdown('FTPID'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         },
@@ -4229,7 +4214,9 @@ export class BranchFormModalService {
           key: 'gatewayIntegrationType',
           templateOptions: {
             label: 'Gateway Integration Type',
-            placeholder: 'Gateway Integration Type',
+            options: this._dropDownService.getDropdown('GIT'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }
@@ -5526,7 +5513,9 @@ export class BranchFormModalService {
           key: 'gatewayIntegrationType',
           templateOptions: {
             label: 'Gateway Integration Type',
-            placeholder: 'Gateway Integration Type',
+            options: this._dropDownService.getDropdown('GIT'),
+            labelProp: 'value',
+            valueProp: 'code',
             disabled: true
           }
         }

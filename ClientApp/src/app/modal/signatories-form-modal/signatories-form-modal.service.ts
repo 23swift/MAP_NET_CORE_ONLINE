@@ -60,16 +60,6 @@ export class SignatoriesFormModalService {
                   { label: 'Branch <DBA Name>', value: 2 }
                 ]
               }
-            },
-            {
-              className: 'flex-1',
-              type: 'input',
-              key: 'dbaName',
-              hideExpression: 'model.applicableTo !== 2',
-              templateOptions: {
-                label: 'DBA Name',
-                maxLength: 50
-              }
             }
           ]
         }

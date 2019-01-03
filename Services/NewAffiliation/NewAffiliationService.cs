@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
@@ -22,6 +23,28 @@ namespace MAP_Web.Services
         {
             return await requestRepo.FindAsync(id);
         }
+
+
+        public async Task<Request> FindWithNavigationAsync(int id)
+        {
+            return await requestRepo.GetFirstOrDefaultAsync(predicate: r => r.Id == id, include: r => r.Include(rr => rr.NewAffiliation)
+                                                                                        .ThenInclude(rr => rr.Branches));
+        }
+
+        public bool ValidateFieldsForMdcs(Request request)
+        {
+            bool isValid = true;
+            foreach (var item in request.NewAffiliation.Branches) {
+                if (item.taxCode == null) {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            return isValid;
+        }
+
+
         public async Task UpdateRequest(Request request, int status)
         {
             await historyRepo.InsertAsync(new History

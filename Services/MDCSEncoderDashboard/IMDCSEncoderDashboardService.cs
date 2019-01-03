@@ -7,5 +7,6 @@ namespace MAP_Web.Services
     public interface IMDCSEncoderDashboardService
     {
          Task<List<DashboardViewModel>> FindAsync();
+         Task<List<DashboardViewModel>> FilterAsync(FilterCriteriaViewModel criteria);
     }
 }

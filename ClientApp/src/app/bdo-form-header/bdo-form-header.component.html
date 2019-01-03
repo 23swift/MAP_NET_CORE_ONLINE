@@ -5,7 +5,8 @@
     <div style="margin-left:10px;">
         <span class="mat-title">{{text}}</span>
         <br>
-        <span style="color:orange" class="mat-subheading-2" *ngIf="showPsCheckerButton">{{sub_text}}</span>
+        <!-- <span style="color:orange" class="mat-subheading-2" *ngIf="showPsCheckerButton">{{sub_text}}</span> -->
+        <span style="color:orange" class="mat-subheading-2">{{sub_text}}</span>
     </div>
     <span fxFlex></span>
 
@@ -15,7 +16,7 @@
             <span fxFlex></span>
            <button *ngIf="showRequestFlowOptions" (click)="returntoAO()" mat-flat-button color="primary" matTooltip="Return Request">
                 <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request</button>
-            <button *ngIf="showRequestFlowOptions" (click)="submittoApprover()" mat-flat-button color="primary" matTooltip="Submit Request">
+            <button *ngIf="showRequestFlowOptions" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit Request">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
                 
             <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">

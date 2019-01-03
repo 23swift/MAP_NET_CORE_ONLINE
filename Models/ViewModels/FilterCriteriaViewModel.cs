@@ -14,7 +14,7 @@ namespace MAP_Web.Models.ViewModels
         public string aoName { get; set; }
         public string trackingNo { get; set; }
         public int requestType { get; set; }
-        public DateTime createdDate { get; set; }
+        public Nullable<DateTime> createdDate { get; set; }
         public int status { get; set; }
     }
 }

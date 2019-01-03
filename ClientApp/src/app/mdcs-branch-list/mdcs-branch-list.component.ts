@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { BranchListService } from '../branch-list/branch-list.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,12 +13,15 @@ export class MdcsBranchListComponent implements OnInit {
   dataSource: Object[];
   branchId: number;
   showInfo = false;
+  branchCounter: number;
+
   private _requestId: number;
   constructor(private _route: ActivatedRoute, private _service: BranchListService) {
     this._requestId = +this._route.snapshot.params['id'];
+    this.branchCounter = 0;
 
     this._service.getByNewAffiliationId(this._requestId).subscribe(b => {
-      this.dataSource = b.items;
+      this.dataSource = b;
     });
   }
 
@@ -35,5 +38,4 @@ export class MdcsBranchListComponent implements OnInit {
   backToList() {
     this.showInfo = false;
   }
-
 }

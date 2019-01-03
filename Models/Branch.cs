@@ -109,6 +109,7 @@ namespace MAP_Web.Models
         public string paymentMode { get; set; }
 
         public string creditSettlementAcctNo { get; set; }
+        public string settlementAcctNo { get; set; }
 
          public Nullable<System.DateTime> taxExemptFrom { get; set; }
 
@@ -151,6 +152,10 @@ namespace MAP_Web.Models
 
         public Nullable<System.DateTime> taxExemptValidityTo { get; set; }
 
+<<<<<<< HEAD
+=======
+        public string taxExemptCertIssuedBy { get; set; }
+>>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
         public string taxExemptClass { get; set; }
 
         public string registeredBusinessNo { get; set; }
@@ -344,6 +349,13 @@ namespace MAP_Web.Models
         public string taxExemptClassCnp { get; set; }
         public Nullable<DateTime> cnpValidFrom { get; set; }     
         public Nullable<DateTime> cnpValidUntil { get; set; }  
+
+
+
+
+        public string ownerName { get; set; }  
+        public Nullable<DateTime> ownerBirthday { get; set; } 
+        public string spouseName { get; set; }
         public virtual POSRequest POSRequest { get; set; }
         public virtual OIF OIF { get; set; }
         public virtual ICollection<POS> POS { get; set; }

@@ -24,8 +24,8 @@ namespace MAP_Web.Models.ViewModels
         public string productsOfferedSold { get; set; }
         public string numberOfYearsOperating { get; set; }
         public string businessHours { get; set; }
-        public int noOfFulltimeEmployees { get; set; }
-        public int contractual { get; set; }
+        public Nullable<int> noOfFulltimeEmployees { get; set; }
+        public Nullable<int> contractual { get; set; }
         public string premiseStatus { get; set; }
         public string monthlyRent { get; set; }
         public string lengthOfStay { get; set; }
@@ -40,7 +40,7 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<bool> withHighCardTraffic { get; set; }
         public string surroundingEstablishment { get; set; }
         public string otherMarketingChannelSource { get; set; }
-        public int averageNoOfTransactionMonth { get; set; }
+        public Nullable<int> averageNoOfTransactionMonth { get; set; }
         public string nameOfEvent { get; set; }
         public string venue { get; set; }
         public string typeOfEvent { get; set; }

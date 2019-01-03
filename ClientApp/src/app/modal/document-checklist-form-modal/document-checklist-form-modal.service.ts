@@ -59,6 +59,9 @@ export class DocumentChecklistFormModalService {
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
                 return !model['submitted'];
+              },
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['submitted'];
               }
             },
             templateOptions: {

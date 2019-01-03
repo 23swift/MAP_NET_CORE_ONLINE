@@ -2979,7 +2979,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'DBA Name(DBA/Trade Name)',
             placeholder: 'DBA Name(DBA/Trade Name)',
-            disabled: true
+            readonly: true
           }
         },
         {
@@ -3136,7 +3136,7 @@ export class BranchFormService {
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settlementAcctNo',
+          key: 'creditSettlementAcctNo',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['paymentMethodCreditFac'] !== 'CTA';

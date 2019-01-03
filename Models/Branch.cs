@@ -107,6 +107,7 @@ namespace MAP_Web.Models
         public string paymentMode { get; set; }
 
         public string creditSettlementAcctNo { get; set; }
+        public string settlementAcctNo { get; set; }
 
         public string merchantGroupCode { get; set; }
 

@@ -41,6 +41,7 @@ namespace MAP_Web.Models.ViewModels
         public string imprinterDc { get; set; }
         public string imprinterJcb { get; set; }
         public string imprinterOthers { get; set; }
+        public string intesCodeForDiners { get; set; }
         public Nullable<int> totalNumberOfManualImprinters { get; set; }
         public string holdOutAccountNumber { get; set; }
         public Nullable<bool> directPaymentLink { get; set; }
@@ -57,12 +58,9 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<System.DateTime> dateClosed { get; set; }
 
-<<<<<<< HEAD
 
         // public Nullable<int> payDelayDays { get; set; }
-=======
         public Nullable<int> closedreason { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string owningMerchant { get; set; }
 
@@ -144,15 +142,12 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<bool> withInstalledECR { get; set; }
 
-<<<<<<< HEAD
          public string emailAddress { get; set; }
 
          public string mailingAddress1 { get; set; }
-=======
         public string settlementAccNoForDebit { get; set; }
 
         public string payeesName { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string emailAddressForReportDist { get; set; }
 
@@ -160,11 +155,8 @@ namespace MAP_Web.Models.ViewModels
 
         public string soaEmailAddress { get; set; }
 
-<<<<<<< HEAD
-         public string website { get; set; }
-=======
+         public string Branchwebsite { get; set; }
         public Nullable<bool> reportDistributionPerCompany { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public Nullable<bool> reportPerBranch { get; set; }
 
@@ -174,11 +166,7 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<int> principalCivilStatus { get; set; }
 
-<<<<<<< HEAD
-         public string dbaZipCode { get; set; }
-=======
         public string principalPhoneNo { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string principalPermanentAddress { get; set; }
 
@@ -186,19 +174,12 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<int> principalZipCode { get; set; }
 
-<<<<<<< HEAD
          public string creditSettlementAcctNo { get; set; }
-=======
         public Nullable<int> principalHomeOwnership { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string spouseAddress { get; set; }
 
-<<<<<<< HEAD
-         public string tin { get; set; }
-=======
         public Nullable<int> spouseCity { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string spouseFirstName { get; set; }
 
@@ -214,7 +195,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string accountFacility { get; set; }
 
-<<<<<<< HEAD
          public string mailingAddress2 { get; set; }
 
          public string mailingAddress3 { get; set; }
@@ -231,8 +211,6 @@ namespace MAP_Web.Models.ViewModels
 
          public Nullable<int> taxExemptIssuedBy { get; set; }
 
-        public string taxExemptClass { get; set; }   
-=======
         public string acctLoanNo { get; set; }
 
         public string loanTerm { get; set; }
@@ -248,7 +226,6 @@ namespace MAP_Web.Models.ViewModels
         public string ftpDir { get; set; }
 
         public Nullable<bool> genPayment { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public Nullable<bool> computeCWT { get; set; }
 
@@ -256,7 +233,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string customerNo { get; set; }
 
-<<<<<<< HEAD
         // public Nullable<bool> withAcquirer { get; set; }
 
         // public string acquirerInstitutionName { get; set; }
@@ -323,7 +299,6 @@ namespace MAP_Web.Models.ViewModels
 
         // public decimal discountDebitRate { get; set; }
 
-         public string storeId { get; set; }
 
         // public string reportPerCompanysBranch { get; set; }
 
@@ -338,9 +313,7 @@ namespace MAP_Web.Models.ViewModels
         // public string customerNo { get; set; }
 
         // public Nullable<int> amexRating { get; set; }
-=======
         public Nullable<int> amexRating { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string bdoPayRating { get; set; }
 
@@ -358,10 +331,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string holdOutAcctNo { get; set; }
 
-<<<<<<< HEAD
-         public string remarks { get; set; }
-=======
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public string remarks { get; set; }
 
@@ -425,12 +394,9 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
-<<<<<<< HEAD
         // public string legalName { get; set; }
-         public string taxCode { get; set; } 
 
          public string merchantNumber { get; set; }  
-=======
         public string legalName { get; set; }
         public string paymentMethodCreditFac { get; set; }
         public Nullable<bool> withExistingAcquirer { get; set; }
@@ -451,7 +417,6 @@ namespace MAP_Web.Models.ViewModels
         public string taxExemptClassCnp { get; set; }
         public Nullable<DateTime> cnpValidFrom { get; set; }     
         public Nullable<DateTime> cnpValidUntil { get; set; }
->>>>>>> ce43dad0f84a351843bae8a5240b48338253e75a
 
         public Nullable<int> NewAffiliationId { get; set; }
         public virtual NewAffiliation NewAffiliation { get; set; }

@@ -40,11 +40,11 @@ export class RemarksModalComponent implements OnInit {
 
     this.date = new Date().toLocaleDateString();
    
-    this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
+    this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['actionCode']).subscribe(data => {
       this.ifWithRemarks= data;
           if (this.ifWithRemarks == true)
           {
-            this._maefFormService.getRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
+            this._maefFormService.getRemarks(this.data['newAffiliationId'], this.data['actionCode']).subscribe(data => {
             this.model= data;
             this.form.controls['remarks'].setValue(this.model['remarks']);
              }); 
@@ -69,11 +69,12 @@ export class RemarksModalComponent implements OnInit {
     this.model['remarks'] = this.form.value['remarks'];
     this.model['user'] = 'user';
     this.model['groupCode'] = 'mauEncoder';
-    this.model['action'] =this.data['action'];
+    this.model['action'] =this.data['actionCode'] + ':Save Remarks';
+    this.model['actionCode'] =this.data['actionCode'];
     this.model['date'] =  this.date;
     this.model['id'] = undefined;
     this._remarksModalService.create(this.model).subscribe(data => {
-      const snackBarRef = this._snackBar.open( this.data['action'] + ' Details', 'Saved', {
+      const snackBarRef = this._snackBar.open( this.data['actionCode'] + ' Details', 'Saved', {
         duration: 1000
       });
       this.showSubmit = false;
@@ -86,10 +87,10 @@ export class RemarksModalComponent implements OnInit {
   }
 
   update() {
-    if (this.data['action'] == 'Return To AO')
+    if (this.data['actionCode'] == 'Return To AO')
     {
     this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
-      const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+      const snackBarRef = this._snackBar.open( this.data['actionCode'], 'Saved', {
         duration: 1000      
     });
     snackBarRef.afterDismissed().subscribe(s => {
@@ -97,10 +98,10 @@ export class RemarksModalComponent implements OnInit {
     });
   }); 
     }
-    else if(this.data['action'] == 'Return To MAMO')
+    else if(this.data['actionCode'] == 'Return To MAMO')
     {
       this._maefFormService.ReturntoMAMO(this.data['newAffiliationId']).subscribe(data => {
-        const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+        const snackBarRef = this._snackBar.open( this.data['actionCode'], 'Saved', {
           duration: 1000      
       });
       snackBarRef.afterDismissed().subscribe(s => {
@@ -108,10 +109,10 @@ export class RemarksModalComponent implements OnInit {
       });
     });
     }
-    else if(this.data['action'] == 'Decline')
+    else if(this.data['actionCode'] == 'Decline')
     {
       this._maefFormService.Decline(this.data['newAffiliationId']).subscribe(data => {
-        const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
+        const snackBarRef = this._snackBar.open( this.data['actionCode'], 'Saved', {
           duration: 1000      
       });
       snackBarRef.afterDismissed().subscribe(s => {

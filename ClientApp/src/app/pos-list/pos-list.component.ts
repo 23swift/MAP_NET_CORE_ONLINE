@@ -41,6 +41,7 @@ export class PosListComponent implements OnInit {
     this._posService.getByBranch(this.branchId).subscribe(data => {
       this.dataSource = data.items;
     });
+    console.log(this.displayMode + 'pos list');
   }
 
   private refresh() {
@@ -75,6 +76,7 @@ export class PosListComponent implements OnInit {
         showMid: this.showMid,
         showTerminalUpdate: this.showTerminalUpdate,
         showTerminalAdd: this.showTerminalAdd,
+        displayMode: this.displayMode
       }
     });
 

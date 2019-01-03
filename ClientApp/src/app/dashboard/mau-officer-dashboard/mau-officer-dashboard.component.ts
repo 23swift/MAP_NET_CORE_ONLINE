@@ -4,13 +4,13 @@ import { MatDialog, MatSnackBar, MatSort, MatTableDataSource } from '../../../..
 import { AoListModalComponent } from '../../modal/ao-list-modal/ao-list-modal.component';
 import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
 import { SearchModalComponent } from 'src/app/modal/search-modal/search-modal.component';
-import { MapWebNotificationService } from 'src/app/map-web-notification/map-web-notification.service';
+// import { MapWebNotificationService } from 'src/app/map-web-notification/map-web-notification.service';
 
 @Component({
   selector: 'app-mau-officer-dashboard',
   templateUrl: './mau-officer-dashboard.component.html',
   styleUrls: ['./mau-officer-dashboard.component.css'],
-  providers: [MauOfficerDashboardService, MapWebNotificationService]
+  providers: [MauOfficerDashboardService]
 })
 export class MauOfficerDashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
@@ -25,20 +25,18 @@ export class MauOfficerDashboardComponent implements OnInit {
     private _dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private _route: ActivatedRoute,
-    private _router: Router,
-    private _mapWebNotifService: MapWebNotificationService) { }
+    private _router: Router)
+  {
+    this.refresh();
+  }
+  // private _mapWebNotifService: MapWebNotificationService) { }
 
   ngOnInit() {
-    this._mapWebNotifService.openBottomSheet();
-    this.displayedColumns = ['ReferenceNo', 'RequestedDate', 'RequestType',
-      'BusinessName', 'DBAName', 'RequestedBy',
-      'RequestStatus', 'TAT', 'Operation']
-    
-    this._service.Get().subscribe(x => {
-      this.dataSource = new MatTableDataSource(x);
-      this.dataSource.sort = this.sort;
-      this._mapWebNotifService.dismissBottomSheet(false);
-    });
+    //this._mapWebNotifService.openBottomSheet();
+    this.displayedColumns = ['referenceNo', 'requestedDate', 'requestType',
+      'businessName', 'requestedBy',
+      'status', 'tat', 'Operation']
+
 
     this.mode = '';
     this.title = '';
@@ -66,6 +64,20 @@ export class MauOfficerDashboardComponent implements OnInit {
           this.dataSource = x;
         });
       }
+    });
+  }
+
+  refresh() {
+
+    this._service.Get().subscribe(x => {
+      this.dataSource = new MatTableDataSource(x);
+      this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
     });
   }
 

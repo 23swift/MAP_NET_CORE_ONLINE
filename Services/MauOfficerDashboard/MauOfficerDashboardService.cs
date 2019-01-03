@@ -26,15 +26,13 @@ namespace MAP_Web.Services
         public async Task<List<MauOfficerDashboardViewModel>> FindAsync()
         {
             var dashboardContainer = new List<MauOfficerDashboardViewModel>();
-            var requests = await _requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(ss => ss.Branches).ThenInclude(rr => rr.NewAffiliation.CustomerProfile), orderBy: x => x.OrderByDescending(y => y.Id));
+            var requests = await _requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(ss => ss.CustomerProfile), orderBy: x => x.OrderByDescending(y => y.Id));
             //var branch = await _branchRepo.GetPagedListAsync(include: x => x.Include(xx => xx.Request));
             var testUser = "a012001164";
             var getRequestedBy = await _aoMaintenanceRepo.GetFirstOrDefaultAsync(predicate: x => x.userId == testUser);
             foreach (var item in requests.Items)
             {
                 var requestedBy = getRequestedBy == null ? "None" : getRequestedBy.firstName + " " + getRequestedBy.lastName;
-                foreach (var item2 in item.NewAffiliation.Branches)
-                {
                     dashboardContainer.Add(new MauOfficerDashboardViewModel
                     {
                         RequestId = item.Id,
@@ -46,11 +44,9 @@ namespace MAP_Web.Services
                         Status = item.Owner == null ? "For Evaluation" : "For Re-Evaluation", //For Testing Purposes Only
                         isOwned = testUser == item.Owner ? true : false,
                         UserName = item.Owner,
-                        DBAName = item2.dbaName,
                         BusinessName = item.NewAffiliation.CustomerProfile.legalName,
                         RequestType = "NEW AFFILIATION"
                     });
-                }
             }
             return dashboardContainer;
         }

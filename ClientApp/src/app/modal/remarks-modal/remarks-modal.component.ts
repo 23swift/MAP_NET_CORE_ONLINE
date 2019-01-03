@@ -110,7 +110,6 @@ export class RemarksModalComponent implements OnInit {
   }
 
   update() {
-<<<<<<< HEAD
     if (this.data['actionCode'] == 'Return To AO')
     {
     this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
@@ -144,52 +143,6 @@ export class RemarksModalComponent implements OnInit {
       });
     });
     }
-=======
-    // this._maefFormService.ReturntoAO(this.data).subscribe(data => {
-    //   const snackBarRef = this._snackBar.open('Return To AO', 'Saved', {
-    //     duration: 1000
-    //   });
-
-      // snackBarRef.afterDismissed().subscribe(s => {
-        this._modalRef.close();
-      // });
-    // });
-    
-    
-  //   if (this.data['action'] == 'Return To AO')
-  //   {
-  //   this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
-  //     const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
-  //       duration: 1000      
-  //   });
-  //   snackBarRef.afterDismissed().subscribe(s => {
-  //     this._modalRef.close(data);
-  //   });
-  // }); 
-  //   }
-  //   else if(this.data['action'] == 'Return To MAMO')
-  //   {
-  //     this._maefFormService.ReturntoMAMO(this.data['newAffiliationId']).subscribe(data => {
-  //       const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
-  //         duration: 1000      
-  //     });
-  //     snackBarRef.afterDismissed().subscribe(s => {
-  //       this._modalRef.close(data);
-  //     });
-  //   });
-  //   }
-  //   else if(this.data['action'] == 'Decline')
-  //   {
-  //     this._maefFormService.Decline(this.data['newAffiliationId']).subscribe(data => {
-  //       const snackBarRef = this._snackBar.open( this.data['action'], 'Saved', {
-  //         duration: 1000      
-  //     });
-  //     snackBarRef.afterDismissed().subscribe(s => {
-  //       this._modalRef.close(data);
-  //     });
-  //   });
-  //   }
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
 
   }
 

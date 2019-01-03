@@ -157,11 +157,8 @@ namespace MAP_Web.Models.ViewModels
 
         public string soaEmailAddress { get; set; }
 
-<<<<<<< HEAD
          public string Branchwebsite { get; set; }
-=======
          public string website { get; set; }
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
         public Nullable<bool> reportDistributionPerCompany { get; set; }
 
         public Nullable<bool> reportPerBranch { get; set; }
@@ -172,10 +169,7 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<int> principalCivilStatus { get; set; }
 
-<<<<<<< HEAD
-=======
-         
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
+
         public string principalPhoneNo { get; set; }
 
         public string principalPermanentAddress { get; set; }
@@ -189,10 +183,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string spouseAddress { get; set; }
 
-<<<<<<< HEAD
-=======
-        
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
         public Nullable<int> spouseCity { get; set; }
 
         public string spouseFirstName { get; set; }
@@ -313,10 +303,7 @@ namespace MAP_Web.Models.ViewModels
 
         // public decimal discountDebitRate { get; set; }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
         // public string reportPerCompanysBranch { get; set; }
 
         // public string ftpDir { get; set; }
@@ -348,10 +335,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string holdOutAcctNo { get; set; }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
         public string remarks { get; set; }
 
         public string preparedBy { get; set; }
@@ -415,12 +398,8 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         // public string legalName { get; set; }
-<<<<<<< HEAD
 
          public string merchantNumber { get; set; }  
-=======
-        public string merchantNumber { get; set; }  
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
         public string legalName { get; set; }
         public string paymentMethodCreditFac { get; set; }
         public Nullable<bool> withExistingAcquirer { get; set; }
@@ -441,14 +420,11 @@ namespace MAP_Web.Models.ViewModels
         public string taxExemptClassCnp { get; set; }
         public Nullable<DateTime> cnpValidFrom { get; set; }     
         public Nullable<DateTime> cnpValidUntil { get; set; }
-<<<<<<< HEAD
-=======
 
         
         public string ownerName { get; set; }  
         public Nullable<DateTime> ownerBirthday { get; set; } 
         public string spouseName { get; set; }
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
 
         public Nullable<int> NewAffiliationId { get; set; }
         public virtual NewAffiliation NewAffiliation { get; set; }

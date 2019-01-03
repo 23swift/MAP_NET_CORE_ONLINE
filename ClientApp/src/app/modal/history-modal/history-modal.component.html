@@ -7,11 +7,7 @@
         <mat-list-item *ngFor="let item of history | async">
           <mat-icon mat-list-icon class="icon-color">error</mat-icon>
           <h4 mat-line>{{ item.date | date:'ddMMMyy' }} | {{ item.user }} - &lt;{{item.action}}&gt;</h4>
-<<<<<<< HEAD
-          <h4 mat-line>{{item.remarks}}</h4>
-=======
           <h5 mat-line *ngIf="item.remarks">Remarks: {{ item.remarks }}</h5>
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
           <mat-divider></mat-divider>
         </mat-list-item>
       </mat-list>

@@ -96,7 +96,7 @@ namespace MAP_Web
             services.AddScoped<IMDCSEncoderDashboardService, MDCSEncoderDashboardService>();
             services.AddScoped<IApproverDashboardService, ApproverDashboardService>();
             services.AddScoped<IMDCSCheckerDashboardService, MDCSCheckerDashboardService>();
-           // services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
+            services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Log_DB")));
             services.AddTransient<IAuditLogService,AuditLogService>();

@@ -39,6 +39,7 @@ namespace MAP_Web.Services
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo,
                     requestedBy = "Test User",
+                    requestType = "NEW AFFILIATION",
                     status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });
@@ -100,6 +101,7 @@ namespace MAP_Web.Services
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo,
                     requestedBy = "Test User",
+                    requestType = "NEW AFFILIATION",
                     status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });

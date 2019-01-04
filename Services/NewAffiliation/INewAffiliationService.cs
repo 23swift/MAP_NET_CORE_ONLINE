@@ -10,6 +10,7 @@ namespace MAP_Web.Services
         Task<Request> FindAsync(int id);
         Task<IEnumerable<Branch>> FindPosByRequestAsync(int id);
         void UpdatePOSForMdcsChecker(IEnumerable<Branch> Branches);
+        void UpdatePOSForPSServicing(IEnumerable<Branch> Branches);
         bool ValidateFieldsForMdcs(Request request);
         Task<Request> FindWithNavigationAsync(int id);
         Task SaveChangesAsync();

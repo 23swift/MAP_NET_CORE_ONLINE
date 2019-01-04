@@ -84,6 +84,20 @@ namespace MAP_Web.Services
                 foreach (var pos in branch.POS)
                 {
                     pos.dateAndTimeEndorsedToMAU = DateTime.Now;
+                    pos.dateTimeEndorsedPaymentSolutionsOperations = DateTime.Now;
+
+                    posRepo.Update(pos);
+                }
+            }
+        }
+
+        public void UpdatePOSForPSServicing(IEnumerable<Branch> Branches)
+        {
+            foreach (var branch in Branches)
+            {
+                foreach (var pos in branch.POS)
+                {
+                    pos.dateTimeAssignedPSProfiling = DateTime.Now;
 
                     posRepo.Update(pos);
                 }

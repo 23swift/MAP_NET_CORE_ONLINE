@@ -37,7 +37,7 @@
   <mat-tab-group>
     <mat-tab label="Branch">
       <div style="overflow: hidden">
-        <app-branch-form [branchId]="branchId" [userGroup]="'mdcs'"></app-branch-form>
+        <app-branch-form [branchId]="branchId" [userGroup]="'mdcs'" [displayMode]="true"></app-branch-form>
       </div>
     </mat-tab>
      <mat-tab label="POS">
@@ -46,7 +46,7 @@
       </div>
     </mat-tab>
     <mat-tab label="MID">
-      <app-mid [branchId]="branchId" [showAdd]="false" [showUpdate]="false"></app-mid>
+      <app-mid [branchId]="branchId" [showAdd]="false" [showUpdate]="false" [update]="update"></app-mid>
     </mat-tab>
   </mat-tab-group> 
 </div>

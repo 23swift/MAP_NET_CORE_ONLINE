@@ -8,22 +8,66 @@ namespace MAP_Web.Services
             switch (status)
             {
                 case 1:
-                stat = "DRAFT";
-                break;
+                    stat = "DRAFT";
+                    break;
                 case 2:
-                stat = "FOR AO CHECKER'S REVIEW";
-                break;
+                    stat = "FOR AO CHECKER'S REVIEW";
+                    break;
                 case 3:
-                stat = "FOR ENCODING";
-                break;
+                    stat = "FOR ENCODING";
+                    break;
                 case 4:
-                stat = "FOR ENCODER CHECKER REVIEW";
-                break;
+                    stat = "FOR ENCODER CHECKER REVIEW";
+                    break;
                 case 5:
-                stat = "FOR EVALUATION";
-                break;
+                    stat = "FOR EVALUATION";
+                    break;
+                case 6:
+                    stat = "FOR RE-EVALUATION";
+                    break;
+                case 7:
+                    stat = "FOR PRE-SCREEN";
+                    break;
+                case 8:
+                    stat = "FOR APPROVAL";
+                    break;
+                case 9:
+                    stat = "RETURNED TO AO";
+                    break;
+                case 10:
+                    stat = "RETURNED TO MAMO";
+                    break;
+                case 11:
+                    stat = "APPROVED";
+                    break;
+                case 12:
+                    stat = "DECLINED";
+                    break;
+                case 13:
+                    stat = "APPROVED WR";
+                    break;
+                case 14:
+                    stat = "APPROVED PC";
+                    break;
+                case 15:
+                    stat = "APPROVED WE";
+                    break;
+                case 16:
+                    stat = "APPROVED WRWEPC";
+                    break;
+                case 17:
+                    stat = "APPROVED WRPC";
+                    break;
+                case 18:
+                    stat = "APPROVED WRWE";
+                    break;
+                case 19:
+                    stat = "FOR PROCESSING";
+                    break;
+                case 20:
+                    stat = "FOR CREATION";
+                    break;
             }
-
             return stat;
         }
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BranchListService } from '../branch-list/branch-list.service';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
   providers: [BranchListService]
 })
 export class MdcsBranchListComponent implements OnInit {
+  @Input() displayMode: boolean = true;
+  @Input() update: boolean =  false;
   displayedColumns: string[] = ['DBAName', 'DBAAddress', 'Attachment'];
   dataSource: Object[];
   branchId: number;

@@ -90,6 +90,9 @@ export class BdoFormHeaderComponent implements OnInit {
       if (this.mode.match(/mauEncoder/i)) {
         this.showRequestFlowOptions = true;
       }
+      if (this.mode.match(/mdcsUser/i)) {
+        this.showPosProcessingButton = true;
+      }
     }
   }
 

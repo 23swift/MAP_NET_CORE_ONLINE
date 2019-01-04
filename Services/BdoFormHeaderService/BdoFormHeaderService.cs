@@ -36,11 +36,23 @@ namespace MAP_Web.Services
             requestRepo.Update(request);
         }
 
-        public async Task<int> ApprovalCountAsync(int requestId)
+        public async Task<int> ApproveCountAsync(int requestId)
         {   
             var approvalCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
-            return approvalCount.Items.Select(a => a.user).Distinct().Count();
+            return approvalCount.Items.Where(a => a.approve == true).Select(a => a.user).Distinct().Count();
         }
+
+        public async Task<int> DeclineCountAsync(int requestId)
+        {   
+            var approvalCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
+            return approvalCount.Items.Where(a => a.approve == false).Select(a => a.user).Distinct().Count();
+        }
+
+ /*       public async Task<int> IsApproveCountAsync(int requestId)
+        {
+            var isApproveCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
+            return isApproveCount.Items.Where(a => a.approve == true).Select(a => a.user).Distinct().Count();
+        } */
 
         public async Task InsertAsync(ApprovalCount approvalCount)
         {

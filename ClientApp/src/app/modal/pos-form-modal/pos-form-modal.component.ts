@@ -40,6 +40,7 @@ export class PosFormModalComponent implements OnInit {
       this.showTerminalAdd = this._dialogData['showTerminalAdd'];
     }
     this.displayMode = this._dialogData['displayMode'];
+    console.log(this.displayMode + 'POS form');
     this.model = {};
     this.model['id'] = 0;
     this.fields = this._posService.getPosFields('ao');

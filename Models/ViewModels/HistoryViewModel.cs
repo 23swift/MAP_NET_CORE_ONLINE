@@ -8,6 +8,8 @@ namespace MAP_Web.Models.ViewModels
 
         public string action { get; set; }
 
+        public string actionCode { get; set; }
+
         public string user { get; set; }
 
         public string groupCode { get; set; }

@@ -16,7 +16,7 @@ export class VerificationScreenComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.userGroup = 'approver';
+     this.userGroup = 'mauEncoder';
      if(this.userGroup == 'mauEncoder')
      {
        this.displayMode = false;

@@ -108,7 +108,7 @@ export class BdoFormHeaderComponent implements OnInit {
       width: '50%',
       data: {
         newAffiliationId : this.newAffiliationId,
-        action : 'Return To AO'
+        actionCode : 'Return To AO'
       }
     });
 
@@ -139,7 +139,7 @@ export class BdoFormHeaderComponent implements OnInit {
       width: '50%',
       data: {
       newAffiliationId : this.newAffiliationId,
-      action : 'Return To MAMO'
+      actionCode : 'Return To MAMO'
     }
     });
 
@@ -152,7 +152,7 @@ export class BdoFormHeaderComponent implements OnInit {
       width: '50%',
       data: {
         newAffiliationId : this.newAffiliationId,
-        action : 'Decline'
+        actionCode : 'Decline'
       }
     });
 

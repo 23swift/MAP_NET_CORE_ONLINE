@@ -588,19 +588,21 @@ export class PosFormModalService {
         },
         {
           className: 'flex-1',
-          type: 'input',
+          type: 'select',
           key: 'reasonForThreeSlipsPrinting',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao'
+             || model['numberOfPrintedSlips'] < 3;
             },
             'templateOptions.required': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
+              return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false && model['numberOfPrintedSlips'] > 2;
             }
           },
           templateOptions: {
             label: 'Reason For 3 Slips Printing',
-            maxLength: 50
+            maxLength: 50,
+            options: this._dropDownService.getDropdown('RTSP')
           }
         }
       ]
@@ -786,15 +788,11 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateAndTimeEndorsedToMAU',
           expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['userGroup'] !== 'ao';
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
+            
           },
           templateOptions: {
             label: 'Date and Time Endorsed To MAU',
+            disabled: true
           }
         }
       ]
@@ -860,15 +858,11 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateTimeEndorsedPaymentSolutionsOperations',
           expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['userGroup'] !== 'mmu';
-            },
-            'templateOptions.required': (model: any, formState: any) => {
-              return model['isWaved'] === false;
-            }
+            
           },
           templateOptions: {
             label: 'Date and Time Endorsed to Payment Solutions Operations',
+            disabled: true
           }
         },
         {
@@ -1049,12 +1043,7 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateTimeAssignedPSProfiling',
           expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['userGroup'] !== 'psp' && model['userGroup'] !== 'pss';
-            }
-            // 'templateOptions.required': (model: any, formState: any) => {
-            //   return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
-            // }
+            
           },
           templateOptions: {
             label: 'Date and Time Assigned to PS Profiling',

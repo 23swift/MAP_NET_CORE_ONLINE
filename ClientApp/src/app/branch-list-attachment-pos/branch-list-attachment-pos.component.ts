@@ -17,6 +17,7 @@ export interface BranchDisplayInfo {
 })
 export class BranchListAttachmentPOSComponent implements OnInit, AfterContentInit {
   @Input() newAffiliationId: number;
+  @Input() userGroup: string;
   branchId = 0;
   showBranchList = true;
   displayedColumns: string[] = ['DBAName', 'DBAAddress', 'Attachment'];

@@ -26,6 +26,7 @@ export class PosListComponent implements OnInit {
   @Input() showTerminalAdd?: boolean;
   @Input() showDelete: boolean;
   @Input() displayMode?: boolean;
+  @Input() userGroup: string;
   natureOfRequestList = [];
 
   constructor(private _posService: PosListService, private _route: ActivatedRoute, private _dialog: MatDialog,
@@ -66,6 +67,7 @@ export class PosListComponent implements OnInit {
       data: {
         branchId: this.branchId,
         displayMode: this.displayMode,
+        userGroup: this.userGroup
       }
     });
 
@@ -84,7 +86,8 @@ export class PosListComponent implements OnInit {
         showMid: this.showMid,
         showTerminalUpdate: this.showTerminalUpdate,
         showTerminalAdd: this.showTerminalAdd,
-        displayMode: this.displayMode
+        displayMode: this.displayMode,
+        userGroup: this.userGroup
       }
     });
 

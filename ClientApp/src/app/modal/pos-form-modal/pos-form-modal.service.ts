@@ -20,7 +20,7 @@ export class PosFormModalService {
           defaultValue: false,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['displayMode'];
+              return model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -34,7 +34,7 @@ export class PosFormModalService {
           key: 'isShared',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['displayMode'];
+              return model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -54,7 +54,7 @@ export class PosFormModalService {
           defaultValue: 'Installation',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -127,7 +127,7 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' ||
-                model['natureOfRequest'] === 'Installation' || model['isWaved'];
+                model['natureOfRequest'] === 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' ||
@@ -169,7 +169,7 @@ export class PosFormModalService {
           key: 'requestersName',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -186,7 +186,7 @@ export class PosFormModalService {
           key: 'requestersBusinessUnit',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -203,7 +203,7 @@ export class PosFormModalService {
           key: 'requestersContactNumber',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -224,7 +224,7 @@ export class PosFormModalService {
           defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
@@ -244,7 +244,7 @@ export class PosFormModalService {
           defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
@@ -263,7 +263,7 @@ export class PosFormModalService {
           key: 'businessTypeOfAccount',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -287,7 +287,7 @@ export class PosFormModalService {
           key: 'businessUnitAO',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
@@ -306,7 +306,7 @@ export class PosFormModalService {
           key: 'segment',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
@@ -328,7 +328,8 @@ export class PosFormModalService {
           key: 'approvedBy',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return (model['natureOfRequest'] !== 'Installation' && model['natureOfRequest'] !== 'TID Issuance') || model['isWaved'];
+              return (model['natureOfRequest'] !== 'Installation' && model['natureOfRequest'] !== 'TID Issuance') || model['isWaved']
+                    || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && model['natureOfRequest'] === 'TID Issuance' && model['isWaved'] === false;
@@ -345,7 +346,7 @@ export class PosFormModalService {
           key: 'merchantLegalName',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -362,7 +363,7 @@ export class PosFormModalService {
           key: 'merchantDBAName',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -384,7 +385,7 @@ export class PosFormModalService {
           key: 'merchantNameOnSignage',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -398,7 +399,7 @@ export class PosFormModalService {
           key: 'merchantDbaAddress',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -415,7 +416,8 @@ export class PosFormModalService {
           key: 'merchantDbaAddressOld',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'] || model['natureOfRequest'] === 'Installation' || model['natureOfRequest'] === 'TID Issuance';
+              return model['isWaved'] || model['natureOfRequest'] === 'Installation' || model['natureOfRequest'] === 'TID Issuance'
+              || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false && model['natureOfRequest'] !== 'Installation' && model['natureOfRequest'] !== 'TID Issuance';
@@ -437,7 +439,7 @@ export class PosFormModalService {
           key: 'merchantDbaCity',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -455,7 +457,7 @@ export class PosFormModalService {
           defaultValue: true,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false && model['natureOfRequest'] !== 'TID Issuance';
@@ -476,7 +478,7 @@ export class PosFormModalService {
           defaultValue: false,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -498,7 +500,7 @@ export class PosFormModalService {
           key: 'merchantCategoryCode',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -518,7 +520,7 @@ export class PosFormModalService {
           key: 'nsp',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -535,7 +537,7 @@ export class PosFormModalService {
           key: 'contactPerson',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -554,7 +556,7 @@ export class PosFormModalService {
           key: 'contactNumber',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -570,7 +572,7 @@ export class PosFormModalService {
           defaultValue: '2',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
@@ -590,7 +592,7 @@ export class PosFormModalService {
           key: 'reasonForThreeSlipsPrinting',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
@@ -612,7 +614,7 @@ export class PosFormModalService {
           key: 'requiredDateAndTimeOfDispatch',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false && model['natureOfRequest'] !== 'TID Issuance';
@@ -628,7 +630,7 @@ export class PosFormModalService {
           key: 'installationTerm',
           expressionProperties: {
                'templateOptions.disabled': (model: any, formState: any) => {
-                 return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
+                 return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
                },
                'templateOptions.required': (model: any, formState: any) => {
                  return model['isWaved'] === false;
@@ -649,7 +651,8 @@ export class PosFormModalService {
           key: 'requestPullOutDateForTempPOSTerminals',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['installationTerm'] === 'Permanent';
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['installationTerm'] === 'Permanent'
+              || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return !model['isWaved'] && model['installationTerm'] !== 'Permanent';
@@ -670,7 +673,8 @@ export class PosFormModalService {
           key: 'reasonForPermanentGPRSInstallation',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['installationTerm'] !== 'Permanent';
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['installationTerm'] !== 'Permanent'
+              || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && !model['isWaved'] && model['installationTerm'] === 'Permanent';
@@ -687,7 +691,7 @@ export class PosFormModalService {
           key: 'otherRequiredProfilingFacility',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -702,7 +706,7 @@ export class PosFormModalService {
           defaultValue: 0,
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false;
@@ -726,7 +730,7 @@ export class PosFormModalService {
           key: 'remarksSpecialInstructions',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['displayMode'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'];
@@ -783,7 +787,7 @@ export class PosFormModalService {
           key: 'dateAndTimeEndorsedToMAU',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -804,7 +808,7 @@ export class PosFormModalService {
           key: 'merchantLoyalty',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -818,7 +822,7 @@ export class PosFormModalService {
           key: 'merchantPrepaid',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -836,9 +840,9 @@ export class PosFormModalService {
           type: 'input',
           key: 'emailSubject',
           expressionProperties: {
-            // 'templateOptions.disabled': (model: any, formState: any) => {
-            //   return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
-            // }
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['userGroup'] !== 'psp' && model['userGroup'] !== 'pss';
+            }
           },
           templateOptions: {
             label: 'Email Subject',
@@ -857,7 +861,7 @@ export class PosFormModalService {
           key: 'dateTimeEndorsedPaymentSolutionsOperations',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              return model['isWaved'] || model['userGroup'] !== 'mmu';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false;
@@ -1020,7 +1024,7 @@ export class PosFormModalService {
           key: 'dateAndTimeTidIssued',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'psp';
             }
           },
           templateOptions: {
@@ -1045,9 +1049,9 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateTimeAssignedPSProfiling',
           expressionProperties: {
-            // 'templateOptions.disabled': (model: any, formState: any) => {
-            //   return model['natureOfRequest'] !== 'Installation' || model['isWaved'];
-            // },
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['userGroup'] !== 'psp' && model['userGroup'] !== 'pss';
+            }
             // 'templateOptions.required': (model: any, formState: any) => {
             //   return model['natureOfRequest'] === 'Installation' && model['isWaved'] === false;
             // }

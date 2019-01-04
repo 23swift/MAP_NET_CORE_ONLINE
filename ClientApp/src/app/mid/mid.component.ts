@@ -34,6 +34,7 @@ export class MidComponent implements OnInit {
   @Input() showUpdate = true;
   @Input() branchId;
   @Input() showDelete: boolean;
+  @Input() update: boolean;
 
   monitorCodeList = [];
   cardPlansList = [];

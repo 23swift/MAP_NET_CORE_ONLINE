@@ -19,7 +19,7 @@ export class MdcsUserComponent implements OnInit {
   ngOnInit() {
     this.title = 'New Affiliation';
     this.subTitle = 'APPROVED';
-    this.mode = 'forCadencie';
+    this.mode = 'mdcsUser';
     this.showOif = false;
     this.displayMode = true;
   }

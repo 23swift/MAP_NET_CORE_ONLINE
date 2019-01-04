@@ -82,7 +82,7 @@ namespace MAP_Web.Controllers
 
             if (request.Status == 5)
             {
-                var branches = newAffiliationService.FindPosByRequestAsync(id);
+                var branches = await newAffiliationService.FindPosByRequestAsync(id);
                 newAffiliationService.UpdatePOSForMdcsChecker(branches);
             }
 
@@ -107,7 +107,7 @@ namespace MAP_Web.Controllers
 
             if (request.Status == 5)
             {
-                var branches = newAffiliationService.FindPosByRequestAsync(id);
+                var branches = await newAffiliationService.FindPosByRequestAsync(id);
                 newAffiliationService.UpdatePOSForMdcsChecker(branches);
             }            
 

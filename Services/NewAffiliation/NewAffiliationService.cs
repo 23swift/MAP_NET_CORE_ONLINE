@@ -77,9 +77,9 @@ namespace MAP_Web.Services
             return request.NewAffiliation.Branches;
         }
 
-        public void UpdatePOSForMdcsChecker(Task<IEnumerable<Branch>> Branches)
+        public void UpdatePOSForMdcsChecker(IEnumerable<Branch> Branches)
         {
-            foreach (var branch in Branches.Result)
+            foreach (var branch in Branches)
             {
                 foreach (var pos in branch.POS)
                 {

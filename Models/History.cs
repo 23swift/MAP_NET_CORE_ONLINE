@@ -15,6 +15,8 @@ namespace MAP_Web.Models
 
         public string remarks { get; set; }
 
+        public string actionCode { get; set; }
+
         public string action { get; set; }
 
         public string user { get; set; }

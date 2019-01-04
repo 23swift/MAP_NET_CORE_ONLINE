@@ -9,7 +9,7 @@
     <table mat-table [dataSource]="dataSource">
         <ng-container matColumnDef="Date">
             <th mat-header-cell *matHeaderCellDef style="width: 15%"> Date </th>
-            <td mat-cell *matCellDef="let element"> {{element.awerdDate}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.awerdDate | date: 'ddMMMyy'}} </td>
         </ng-container>
         <ng-container matColumnDef="Requirements">
             <th mat-header-cell *matHeaderCellDef style="width: 15%"> Requirements </th>

@@ -11,7 +11,8 @@ namespace MAP_Web.Services
         Task SaveChangesAsync();
         Task<Request> FindAsync(int id);
         void Update(Request request, int status);
-        Task<int> ApprovalCountAsync(int requestId);
+        Task<int> ApproveCountAsync(int requestId);
+        Task<int> DeclineCountAsync(int requestId);
         Task InsertAsync(ApprovalCount approvalCount);
     }
 

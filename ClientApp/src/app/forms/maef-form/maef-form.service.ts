@@ -634,6 +634,18 @@ export class  MaefFormService {
           templateOptions: {
             label: 'Approve'
           },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === true) {
+                  form.get('chkApprovePendingCust').patchValue(false);
+                  form.get('chkWithReq').patchValue(false);
+                  form.get('chkWithException').patchValue(false);
+                  form.get('chkDecline').patchValue(false);
+                } 
+              });
+            }
+          },
         }, 
         {
           className: 'flex-1',
@@ -654,7 +666,7 @@ export class  MaefFormService {
           key: 'chkWithReq',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'] || model['chkDecline'];
+              return (model['chkApprove'] || model['chkDecline']) || model['id'] === 0;
           },
         },
           templateOptions: {
@@ -679,7 +691,7 @@ export class  MaefFormService {
           key: 'chkWithException',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'] || model['chkDecline'];
+              return (model['chkApprove'] || model['chkDecline']) || model['id'] === 0;
           },
         },
           templateOptions: {
@@ -919,12 +931,12 @@ export class  MaefFormService {
     return this._http.get(ApiConstants.maefApi + '/' + id);
   }
 
-  getRemarks(id, action): Observable<any> {
-    return this._http.get(ApiConstants.maefApi + '/history/' + id + '/' + action);
+  getRemarks(id, actionCode): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/history/' + id + '/' + actionCode);
   }
 
-  checkRemarks(id, action): Observable<any> {
-    return this._http.get(ApiConstants.maefApi + '/historyCheck/' + id + '/' + action);
+  checkRemarks(id, actionCode): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/historyCheck/' + id + '/' + actionCode);
   }
 
   ReturntoAO(id): Observable<any> {

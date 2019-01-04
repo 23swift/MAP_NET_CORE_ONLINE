@@ -50,6 +50,7 @@ export class PosListComponent implements OnInit {
       this.natureOfRequestList = fjData[0];
       this.dataSource = fjData[1].items;
     });
+    console.log(this.displayMode + 'pos list');
   }
 
   private refresh() {

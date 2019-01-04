@@ -17,7 +17,7 @@
     <app-pos-terminal-brand-list [showAdd]="showAction"></app-pos-terminal-brand-list>
   </div> -->
   <div style="margin-top: 20px;" *ngIf="model['id']">
-    <app-pos-terminal-brand-list-modal [showUpdate]="showTerminalUpdate" [showAdd]="showTerminalAdd"></app-pos-terminal-brand-list-modal>
+    <app-pos-terminal-brand-list-modal [showDelete]="!this.displayMode" [showUpdate]="showTerminalUpdate" [showAdd]="showTerminalAdd"></app-pos-terminal-brand-list-modal>
   </div>
   
   <div style="margin-top: 20px;" *ngIf="showMid">

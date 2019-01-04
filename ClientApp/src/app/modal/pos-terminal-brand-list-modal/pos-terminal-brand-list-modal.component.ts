@@ -18,6 +18,7 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   posId: number;
   @Input() showUpdate = true;
   @Input() showAdd = true;
+  @Input() showDelete = true;
   terminalBrandList = [];
   terminalTypeList = [];
   terminalModelList = [];
@@ -49,7 +50,7 @@ export class PosTerminalBrandListModalComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._terminalService.getTableFields();
-
+    console.log(this.showDelete);
     // this._route.data.subscribe(data => {
     //   if (data['showAddTerminal'] !== undefined) {
     //     this.showAddTerminal = data['showAddTerminal'];

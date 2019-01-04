@@ -43,6 +43,7 @@ namespace MAP_Web.Models.ViewModels
         public string imprinterDc { get; set; }
         public string imprinterJcb { get; set; }
         public string imprinterOthers { get; set; }
+        public string intesCodeForDiners { get; set; }
         public Nullable<int> totalNumberOfManualImprinters { get; set; }
         public string holdOutAccountNumber { get; set; }
         public Nullable<bool> directPaymentLink { get; set; }
@@ -156,6 +157,7 @@ namespace MAP_Web.Models.ViewModels
 
         public string soaEmailAddress { get; set; }
 
+         public string Branchwebsite { get; set; }
          public string website { get; set; }
         public Nullable<bool> reportDistributionPerCompany { get; set; }
 
@@ -167,7 +169,7 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<int> principalCivilStatus { get; set; }
 
-         
+
         public string principalPhoneNo { get; set; }
 
         public string principalPermanentAddress { get; set; }
@@ -181,7 +183,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string spouseAddress { get; set; }
 
-        
         public Nullable<int> spouseCity { get; set; }
 
         public string spouseFirstName { get; set; }
@@ -302,6 +303,7 @@ namespace MAP_Web.Models.ViewModels
 
         // public decimal discountDebitRate { get; set; }
 
+
         // public string reportPerCompanysBranch { get; set; }
 
         // public string ftpDir { get; set; }
@@ -396,7 +398,8 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
         // public string legalName { get; set; }
-        public string merchantNumber { get; set; }  
+
+         public string merchantNumber { get; set; }  
         public string legalName { get; set; }
         public string paymentMethodCreditFac { get; set; }
         public Nullable<bool> withExistingAcquirer { get; set; }

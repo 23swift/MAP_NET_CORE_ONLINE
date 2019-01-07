@@ -44,21 +44,6 @@ export class RemarksModalComponent implements OnInit {
     //   this.form.controls['remarks'].setValue(this.model['remarks']);
     // });
    
-<<<<<<< HEAD
-    this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['actionCode']).subscribe(data => {
-      this.ifWithRemarks= data;
-          if (this.ifWithRemarks == true)
-          {
-            this._maefFormService.getRemarks(this.data['newAffiliationId'], this.data['actionCode']).subscribe(data => {
-            this.model= data;
-            this.form.controls['remarks'].setValue(this.model['remarks']);
-             }); 
-             this.form.get('remarks').disable();
-             this.showSubmit = false;
-             this.showEdit = true;
-          }
-    });    
-=======
     // this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['action']).subscribe(data => {
     //   this.ifWithRemarks= data;
     //       if (this.ifWithRemarks == true)
@@ -72,12 +57,7 @@ export class RemarksModalComponent implements OnInit {
     //          this.showEdit = true;
     //       }
     // });    
->>>>>>> 8f4c8b7cadba346951e973be6a46e03ecd3ba4f9
     
-
-
-
-
   }
 
   ngOnInit() {

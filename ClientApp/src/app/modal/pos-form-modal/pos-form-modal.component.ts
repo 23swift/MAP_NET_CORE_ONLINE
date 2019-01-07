@@ -21,13 +21,15 @@ export class PosFormModalComponent implements OnInit {
   showMid = true;
   showTerminalUpdate = true;
   showTerminalAdd = true;
+  showTerminalDelete = true;
   options: FormlyFormOptions = {
     showError: () => {
       return true;
     }
   };
 
-  constructor(private _posService: PosFormModalService, private _modalRef: MatDialogRef<PosFormModalComponent>,
+  constructor(private _posService: PosFormModalService,
+    private _modalRef: MatDialogRef<PosFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public _dialogData: any,
     private _snackBar: MatSnackBar) {
     if (this._dialogData['showMid'] !== undefined) {
@@ -39,8 +41,11 @@ export class PosFormModalComponent implements OnInit {
     if (this._dialogData['showTerminalAdd'] !== undefined) {
       this.showTerminalAdd = this._dialogData['showTerminalAdd'];
     }
+    if (this._dialogData['showTerminalDelete'] !== undefined) {
+      this.showTerminalDelete = this._dialogData['showTerminalDelete'];
+    }
+    
     this.displayMode = this._dialogData['displayMode'];
-    console.log(this.displayMode + 'POS form');
     this.model = {};
     this.model['id'] = 0;
     this.fields = this._posService.getPosFields('ao');
@@ -74,13 +79,15 @@ export class PosFormModalComponent implements OnInit {
           this._modalRef.close(data);
         });
       }, err => {
-        const snackBar = this._snackBar.open('POS Details', 'Updated', {
-          duration: 1500
-        });
-
-        snackBar.afterDismissed().subscribe(x => {
-          this._modalRef.close();
-        });
+        if (err['status'] === 200) {
+          const snackBar = this._snackBar.open('POS Details', 'Updated', {
+            duration: 1500
+          });
+  
+          snackBar.afterDismissed().subscribe(x => {
+            this._modalRef.close();
+          });
+        }
       });
     } else {
       this._posService.create(this.model).subscribe(data => {
@@ -92,13 +99,15 @@ export class PosFormModalComponent implements OnInit {
           this._modalRef.close(data);
         });
       }, err => {
-        const snackBar = this._snackBar.open('POS Details', 'Updated', {
-          duration: 1500
-        });
-
-        snackBar.afterDismissed().subscribe(x => {
-          this._modalRef.close();
-        });
+        if (err['status'] === 200) {
+          const snackBar = this._snackBar.open('POS Details', 'Updated', {
+            duration: 1500
+          });
+  
+          snackBar.afterDismissed().subscribe(x => {
+            this._modalRef.close();
+          });
+        }
       });
     }
   }

@@ -6,6 +6,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { RemarksModalComponent } from '../modal/remarks-modal/remarks-modal.component';
 import { NewAffiliationRequestService } from '../services/new-affiliation-request.service';
 import { MaefFormService } from '../forms/maef-form/maef-form.service';
+import { PsServicingService } from '../new-affiliation/ps-servicing/ps-servicing.service';
 
 
 
@@ -26,6 +27,7 @@ export class BdoFormHeaderComponent implements OnInit {
   showMdcsChecking: boolean;
   showPreScreen: boolean;
   newAffiliationId: number;
+  requestId: number;
   @Input() mode: string;
   @Input() text: string;
   @Input() sub_text: string;
@@ -33,9 +35,11 @@ export class BdoFormHeaderComponent implements OnInit {
   @Input() disabled: boolean;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar,
-    private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService, private _maefFormService: MaefFormService) {
+    private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService, private _maefFormService: MaefFormService,
+    private _psService: PsServicingService) {
     this._route.params.subscribe(param => {
       this.newAffiliationId = param['id'];
+      this.requestId = param['id'];
     });
   }
 

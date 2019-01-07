@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MdmUserDashboardService } from './mdm-user-dashboard.service';
 import { IRequestDisplay } from '../../temp/interface/irequest-display';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-mdm-user-dashboard',
@@ -10,24 +11,40 @@ import { Router } from '@angular/router';
   providers: [MdmUserDashboardService]
 })
 export class MdmUserDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[];
-  dataSource: IRequestDisplay[];
+  dataSource: MatTableDataSource<any>;
 
   mode: string;
   title: string;
   subTitle: string;
-  constructor(private _service: MdmUserDashboardService, private _router: Router) { }
+
+  constructor(private _route: ActivatedRoute, private _router: Router, private _service: MdmUserDashboardService) { }
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this.dataSource = this._service.get(0);
+    this._service.get().subscribe(dd => {
+      this.dataSource = new MatTableDataSource(dd);
+      this.dataSource.sort = this.sort;
 
-    this.mode = ' ';
-    this.title = ' ';
-    this.subTitle = ' ';
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
+    });
+
+    this.mode = '';
+    this.title = '';
+    this.subTitle = '';
   }
 
-  getItem(id) {
-    this._router.navigateByUrl('na/mdmUser');
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getItem(requestId, branchId) {
+    this._router.navigateByUrl('na/mdm/' + requestId);
   }
 }

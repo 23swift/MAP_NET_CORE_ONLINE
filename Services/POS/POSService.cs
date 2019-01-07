@@ -124,5 +124,28 @@ namespace MAP_Web.Services
 
             return pos;
         }
+
+        public async Task<bool> ValidatePosForPsServicingAsync(int id)
+        {
+            var request = await requestRepo.GetFirstOrDefaultAsync(predicate: r => r.Id == id, include: r => r.Include(rr => rr.NewAffiliation)
+                                                                                                            .ThenInclude(n => n.Branches)
+                                                                                                                .ThenInclude(b => b.POS));
+
+            bool isValid = true;
+
+            foreach (var branch in request.NewAffiliation.Branches)
+            {
+                foreach (var pos in branch.POS)
+                {
+                    if (pos.emailSubject == null)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+
+            return isValid;
+        }
     }
 }

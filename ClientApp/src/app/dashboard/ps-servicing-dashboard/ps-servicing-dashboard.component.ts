@@ -22,9 +22,7 @@ export class PsServicingDashboardComponent implements OnInit {
     private _router: Router) { }
 
   ngOnInit() {
-    this.displayedColumns = ['ReferenceNo', 'RequestersName', 'RequestType',
-      'DBAName', 'DateRequested',
-      'Status', 'NatureOfRequest', 'Operation'];
+    this.displayedColumns = this._service.getTableFields();
     this.mode = '';
     this.title = '';
     this.subTitle = '';
@@ -32,11 +30,18 @@ export class PsServicingDashboardComponent implements OnInit {
     this._service.getAll().subscribe(x => {
       this.dataSource = new MatTableDataSource(x);
       this.dataSource.sort = this.sort;
+
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
     })
   }
 
   getItem(requestId, branchId) {
-    this._router.navigateByUrl('na/psServicing' + '/' + requestId + '/' + branchId);
+    this._router.navigateByUrl('na/pss/' + requestId);
   }
 
   applyFilter(filterValue: string) {

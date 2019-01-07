@@ -20,6 +20,7 @@ export class PosListContainerComponent implements OnInit, AfterViewInit {
   model: Object;
   options = {};
   @Input() showBranchInfo = true;
+  @Input() userGroup: string;
 
   constructor(private _service: PosListContainerService, private _router: Router, private _branchService: BranchFormService,
     private _formlyFieldConfigService: FormlyFieldConfigService) {

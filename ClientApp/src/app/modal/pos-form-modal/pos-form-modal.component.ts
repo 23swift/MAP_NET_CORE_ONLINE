@@ -51,10 +51,11 @@ export class PosFormModalComponent implements OnInit {
       this._posService.getPosAutoPopulate(this.branchId).subscribe(p => {
         this.model = p;
         this.model['branchId'] = this._dialogData['branchId'];
+        this.model['userGroup'] = this._dialogData['userGroup'];
       });
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
-      this.model['displayMode'] = this.displayMode;
+      this.model['userGroup'] = this._dialogData['userGroup'];
     }
   }
 

@@ -58,10 +58,10 @@ export class MidComponent implements OnInit {
       this._dropDownService.getDropdown('CP')
     ]).subscribe(fjData => {
       this.dataSource = fjData[0].items;
-      this.monitorCodeList = fjData[0];
-      this.cardPlansList = fjData[1];
+      this.monitorCodeList = fjData[1];
+      this.cardPlansList = fjData[2];
 
-      // this.getDropdownValues(this.dataSource);
+      this.getDropdownValues(this.dataSource);
 
       this.midContainer = new Array<number>(this.dataSource.length);
       this.tidContainer = new Array<string>(this.dataSource.length);
@@ -170,7 +170,6 @@ export class MidComponent implements OnInit {
 
   getDropdownValues(list: Object[]) {
     list.forEach(item => {
-      console.log(item, this.monitorCodeList);
       item['monitorCode'] = this.monitorCodeList.find(n => n.code === item['monitorCode']).value;
       item['cardPlans'] = this.cardPlansList.find(n => n.code === item['cardPlans']).value;
       item['status'] = this._midService.getStatus().find(n => n.code === item['status']).value;

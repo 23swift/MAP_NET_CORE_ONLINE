@@ -1406,19 +1406,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          maxLength: 2
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -4067,19 +4055,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          disabled: true
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -5353,19 +5329,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          disabled: true
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -6718,19 +6682,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          disabled: true
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',

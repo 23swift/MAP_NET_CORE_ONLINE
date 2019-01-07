@@ -42,7 +42,7 @@
       <span class="mat-subheading-1">POS Request for Branches</span>
     </ng-template>
     <div *ngIf="isPos">
-      <app-branch-list-attachment-pos [newAffiliationId]="newAffiliationId"></app-branch-list-attachment-pos>
+      <app-branch-list-attachment-pos [newAffiliationId]="newAffiliationId" [userGroup]="'ao'"></app-branch-list-attachment-pos>
     </div>
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'docs');">Next
       <mat-icon color="primary">navigate_next</mat-icon>

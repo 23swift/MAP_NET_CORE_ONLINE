@@ -51,4 +51,8 @@ export class MidListModalService {
   delete(id): Observable<any> {
     return this._http.delete(ApiConstants.midApi + '/' + id);
   }
+
+  validateByBranchId(id): Observable<any> {
+    return this._http.get(ApiConstants.midApi + '/validate/' + id);
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectorRef, ViewChildren, QueryList, ElementRef, Inject } from '@angular/core';
 import { MidListModalService } from './mid-list-modal.service';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MidFormModalComponent } from '../mid-form-modal/mid-form-modal.component';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
@@ -36,7 +36,8 @@ export class MidListModalComponent implements OnInit {
     private _dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public modalData: any,
     private _changeDetectRef: ChangeDetectorRef,
-    private _dropDownService: DropDownService) {
+    private _dropDownService: DropDownService,
+    private _snackBar: MatSnackBar) {
 
     forkJoin([
       this._midService.getByBranchId(this.modalData['branchId']),
@@ -67,17 +68,26 @@ export class MidListModalComponent implements OnInit {
   }
 
   addMid() {
-    const dialog = this._dialog.open(MidFormModalComponent, {
-      width: '80%',
-      height: 'auto',
-      data: {
-        branchId: this.modalData['branchId']
+    this._midService.validateByBranchId(this.modalData['branchId']).subscribe(v => {
+      if (v) {
+        const dialog = this._dialog.open(MidFormModalComponent, {
+          width: '80%',
+          height: 'auto',
+          data: {
+            branchId: this.modalData['branchId']
+          }
+        });
+    
+        dialog.afterClosed().subscribe(data => {
+          this.refresh();
+        });
+      } else {
+        const snackBarRef = this._snackBar.open('Cannot add more than 10 MIDs', 'Failed', {
+          duration: 1000
+        });
       }
     });
-
-    dialog.afterClosed().subscribe(data => {
-      this.refresh();
-    });
+    
   }
 
   updateMidDetails(mid) {

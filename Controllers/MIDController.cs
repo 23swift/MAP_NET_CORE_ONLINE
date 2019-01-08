@@ -86,5 +86,13 @@ namespace MAP_Web.Controllers
 
             return Ok();
         }
+
+        [HttpGet("validate/{id}")]
+        public async Task<IActionResult> ValidateMID(int id)
+        {
+            bool isValid = await midService.ValidateMIDCount(id);
+
+            return Ok(isValid);
+        }
     }
 }

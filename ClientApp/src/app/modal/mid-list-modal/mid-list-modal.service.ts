@@ -51,4 +51,12 @@ export class MidListModalService {
   delete(id): Observable<any> {
     return this._http.delete(ApiConstants.midApi + '/' + id);
   }
+
+  saveMid(val, Id): Observable<any> {
+    return this._http.post(ApiConstants.midApi + '/mid' + '/' + val + '/' + Id, {});
+  }
+
+  saveTid(val, Id): Observable<any> {
+    return this._http.post(ApiConstants.midApi + '/tid' + '/' + val + '/' + Id, {});
+  }
 }

@@ -28,8 +28,7 @@ export namespace ApiConstants {
     export const mdcsEncoderDashboard = '/api/mdcsEncoderDashboard';
     export const mdcsCheckerDashboard = '/api/mdcsCheckerDashboard';
     export const mdcsUserDashboard = '/api/mdcsUserDashboard'
-
-
+    export const mdcsUser = '/api/mdcsUser'
     // REQUESTS
     export const newAffiliationApi = 'api/newAffiliation';
 }

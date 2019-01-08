@@ -27,7 +27,7 @@ namespace MAP_Web.Services
             var dashboardContainer = new List<DashboardViewModel>();
             var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile),
                                                                     orderBy: x => x.OrderByDescending(y => y.Id)
-                                                                   ,predicate: z => z.Status == 19 || z.Status == 20);
+                                                                   ,predicate: z => z.Status == 20 || z.Status == 22);
             foreach (var item in requests.Items)
             {
                     dashboardContainer.Add(new DashboardViewModel

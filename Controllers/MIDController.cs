@@ -86,5 +86,21 @@ namespace MAP_Web.Controllers
 
             return Ok();
         }
+
+        [HttpPost("mid/{val}/{Id}")]
+        public async Task<IActionResult> SaveMid(string val,int Id)
+        {
+            await midService.SaveMid(val, Id);
+            await midService.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("tid/{val}/{Id}")]
+        public async Task<IActionResult> SaveTid(string val, int Id)
+        {
+            await midService.SaveTid(val, Id);
+            await midService.SaveChangesAsync();
+            return Ok();
+        }
     }
 }

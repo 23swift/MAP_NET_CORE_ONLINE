@@ -29,5 +29,8 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public int BranchId { get; set; }
         public BranchViewModel Branch { get; set; }
+
+        public string merchId { get; set; }
+        public string tid { get; set; }
     }
 }

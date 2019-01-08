@@ -67,6 +67,12 @@ namespace MAP_Web.Services
                 case 20:
                     stat = "FOR CREATION";
                     break;
+                case 21:
+                    stat = "RE-SUBMITTED";
+                    break;
+                case 22:
+                    stat = "FOR POS PROCESSING";
+                    break;
             }
             return stat;
         }

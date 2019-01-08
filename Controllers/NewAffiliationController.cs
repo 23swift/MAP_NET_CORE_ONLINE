@@ -127,5 +127,16 @@ namespace MAP_Web.Controllers
 
             return Ok();
         }
+
+        [HttpPut("mdcsUser/{id}")]
+        public async Task<IActionResult> UpdateRequestForMdcsUser(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+            await newAffiliationService.UpdateRequest(request, 22);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

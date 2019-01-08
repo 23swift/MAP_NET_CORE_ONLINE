@@ -41,7 +41,7 @@
         <ng-container matColumnDef="Operation">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-                <a *ngIf="element.status !== 'FOR PROCESSING'" (click)="getItem(element.requestId)" mat-mini-fab color="primary">
+                <a *ngIf="element.status !== 'FOR POS PROCESSING'" (click)="getItem(element.requestId)" mat-mini-fab color="primary">
                     <mat-icon style="color: white;">edit</mat-icon>
                 </a>
             </td>

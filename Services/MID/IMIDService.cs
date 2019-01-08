@@ -13,5 +13,7 @@ namespace MAP_Web.Services
         void SaveChanges();
         Task Update(MID mid);
         Task Delete(MID mid);
+        Task SaveMid(string value, int id);
+        Task SaveTid(string value, int id);
     }
 }

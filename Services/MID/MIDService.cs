@@ -23,7 +23,8 @@ namespace MAP_Web.Services
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Added",
                 groupCode = "Test Group Code",
@@ -54,7 +55,8 @@ namespace MAP_Web.Services
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
-             await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Updated",
                 groupCode = "Test Group Code",
@@ -71,7 +73,8 @@ namespace MAP_Web.Services
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Deleted",
                 groupCode = "Test Group Code",
@@ -85,6 +88,44 @@ namespace MAP_Web.Services
         public async Task<IPagedList<MID>> FindByBranchAsync(int id)
         {
             return await midRepo.GetPagedListAsync(predicate: x => x.BranchId == id);
+        }
+
+        public async Task SaveMid(string value, int id)
+        {
+            var currentMid = midRepo.Find(id);
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == currentMid.BranchId);
+            
+            await historyRepo.InsertAsync(new History
+            {
+                date = DateTime.Now,
+                action = "MID -" + "''" + value +"''" + "for Branch: " + branch.dbaName + " Has been Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
+            });
+
+            currentMid.merchId = value;
+            midRepo.Update(currentMid);
+        }
+
+        public async Task SaveTid(string value, int id)
+        {
+            var currentTid = midRepo.Find(id);
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == currentTid.BranchId);
+
+            await historyRepo.InsertAsync(new History
+            {
+                date = DateTime.Now,
+                action = "DebitTID -" + "''" + value + "''" + "for Branch: " + branch.dbaName + " Has been Added",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
+            });
+
+            currentTid.tid = value;
+            midRepo.Update(currentTid);
         }
     }
 }

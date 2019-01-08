@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
@@ -33,6 +34,19 @@ namespace MAP_Web.Services
                 AuditLogGroupId = branch.AuditLogGroupId
             });
             await midRepo.InsertAsync(mid);
+        }
+
+        public async Task<bool> ValidateMIDCount(int id)
+        {
+            bool isValid = true;
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == id, include: b => b.Include(bb => bb.MIDs));
+
+            if (branch.MIDs.Count == 10)
+            {
+                isValid = false;
+            }
+
+            return isValid;
         }
 
         public async Task<MID> FindAsync(int id)

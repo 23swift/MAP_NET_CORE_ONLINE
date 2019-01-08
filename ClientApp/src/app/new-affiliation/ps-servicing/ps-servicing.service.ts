@@ -4,7 +4,9 @@ import { ApiConstants } from 'src/app/api-constants';
 import { Observable } from 'rxjs';
 
 const apiUrl = '';
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PsServicingService {
 
   constructor(private _http: HttpClient) { }
@@ -17,6 +19,10 @@ export class PsServicingService {
     return this._http.get(ApiConstants.psServicingDashboardApi + '/' + requestId + '/' + branchId);
   }
 
+  validateForPsServicing(id): Observable<any> {
+    return this._http.get(ApiConstants.posApi + '/validateForPsServicing/' + id);
+  }
+
   create(): void {
     this._http.post(apiUrl, {});
   }
@@ -24,4 +30,5 @@ export class PsServicingService {
   update(): void {
     this._http.put(apiUrl, {});
   }
+  
 }

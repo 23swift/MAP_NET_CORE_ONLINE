@@ -50,16 +50,6 @@ export class PosTerminalBrandListModalComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._terminalService.getTableFields();
-    console.log(this.showDelete);
-    // this._route.data.subscribe(data => {
-    //   if (data['showAddTerminal'] !== undefined) {
-    //     this.showAddTerminal = data['showAddTerminal'];
-    //   } else {
-    //     this.showAddTerminal = this.showAdd;
-    //   }
-    // });
-
-
   }
 
   private refresh() {

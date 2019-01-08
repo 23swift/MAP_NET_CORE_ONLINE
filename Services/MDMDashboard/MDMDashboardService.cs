@@ -28,8 +28,9 @@ namespace MAP_Web.Services
                             include: r => r.Include(rr => rr.NewAffiliation)
                                 .ThenInclude(n => n.CustomerProfile)
                                 .Include(rr => rr.NewAffiliation.Branches),
-                                orderBy: x => x.OrderByDescending(y => y.Id),
-                            predicate: r => r.Status == 3 || r.Status == 4);
+                                orderBy: x => x.OrderByDescending(y => y.Id));
+                            //     ,
+                            // predicate: r => r.Status == 3 || r.Status == 4);
 
             foreach (var item in requests.Items)
             {

@@ -355,6 +355,19 @@ export class MidFormModalService {
         fieldGroupClassName: 'display-flex',
         fieldGroup: [
           {
+            className: 'flex-1', // not yet
+            type: 'input',
+            key: 'tppOnly',
+            expressionProperties: {
+  
+            },
+            templateOptions: {
+              label: 'Fee Account(TPP Only)',
+              placeholder: '(TPP Only)',
+              maxLength: 20
+            }
+          },
+          {
             className: 'flex-1',
             key: 'dccMarkupRate',
             type: 'input',

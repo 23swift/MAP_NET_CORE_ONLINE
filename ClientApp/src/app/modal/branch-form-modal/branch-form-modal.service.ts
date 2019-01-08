@@ -1162,19 +1162,6 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            maxLength: 20
-          }
-        },
-        {
           className: 'flex-1',
           type: 'select',
           key: 'strategicMerchant',
@@ -1814,19 +1801,6 @@ export class BranchFormModalService {
     {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
-        {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            maxLength: 20
-          }
-        },
         {
           className: 'flex-1',
           type: 'select',
@@ -3820,19 +3794,6 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            disabled: true
-          }
-        },
-        {
           className: 'flex-1',
           type: 'select',
           key: 'strategicMerchant',
@@ -5087,25 +5048,6 @@ export class BranchFormModalService {
         //     disabled: true
         //   }
         // }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex', // conditional mandatory
-      fieldGroup: [
-        {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            disabled: true
-          }
-        }
-
       ]
     },
     {

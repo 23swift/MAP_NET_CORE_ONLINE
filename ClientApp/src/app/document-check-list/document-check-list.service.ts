@@ -37,7 +37,7 @@ export class DocumentCheckListService {
     return this._documentListService.get();
   }
 
-  validateDocuments(id): Observable<any> {
+  validateByNewAffiliationId(id): Observable<any> {
     return this._http.get(ApiConstants.documentChecklistApi + '/validate/' + id);
   }
 

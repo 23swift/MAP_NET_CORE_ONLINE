@@ -7,5 +7,6 @@ namespace MAP_Web.Services
     public interface IPSServicingDashboardService
     {
         Task<List<PSServicingDashboardViewModel>> FindAsync();
+        Task<List<DashboardViewModel>> FindRequestAsync();
     }
 }

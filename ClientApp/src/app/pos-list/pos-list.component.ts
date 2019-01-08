@@ -27,18 +27,13 @@ export class PosListComponent implements OnInit {
   @Input() showDelete: boolean;
   @Input() displayMode?: boolean;
   @Input() userGroup: string;
+  @Input() showTerminalDelete: boolean;
   natureOfRequestList = [];
 
   constructor(private _posService: PosListService, private _route: ActivatedRoute, private _dialog: MatDialog,
     private _overlay: Overlay,
     private _changeDetectRef: ChangeDetectorRef,
     private _dropDownService: DropDownService) {
-    // this._posService.getByBranch(this.branchId).subscribe(data => {
-    //   this.dataSource = data;
-    // });
-    //   this._dropDownService.getDropdown('NR').subscribe(nr => {
-    //     this.natureOfRequestList = nr;
-    //   });
   }
 
   ngOnInit() {
@@ -51,7 +46,10 @@ export class PosListComponent implements OnInit {
       this.natureOfRequestList = fjData[0];
       this.dataSource = fjData[1].items;
     });
+<<<<<<< HEAD
     //console.log(this.displayMode + 'pos list');
+=======
+>>>>>>> cde2111d3aeb7b900b79c58de47eda5c4dbe3f67
   }
 
   private refresh() {
@@ -87,6 +85,7 @@ export class PosListComponent implements OnInit {
         showMid: this.showMid,
         showTerminalUpdate: this.showTerminalUpdate,
         showTerminalAdd: this.showTerminalAdd,
+        showTerminalDelete: this.showTerminalDelete,
         displayMode: this.displayMode,
         userGroup: this.userGroup
       }

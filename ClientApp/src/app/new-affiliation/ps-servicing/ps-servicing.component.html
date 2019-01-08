@@ -1,17 +1,28 @@
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false"></app-bdo-form-header>
 <app-request-header></app-request-header>
-<span class="mat-headline"> Customer Profile </span>
-<app-customer-profile [displayMode]="true" [userGroup]="'psServicing'"></app-customer-profile>
-<div class="m-bottom"><span class="mat-headline"> POS </span></div>
-<mat-card class="mat-card-accordion">
-    <mat-accordion>
-        <mat-expansion-panel>
-            <mat-expansion-panel-header>
-                <mat-panel-title class="color-orange">
-                    Test Branch Name
-                </mat-panel-title>
-            </mat-expansion-panel-header>
-            <app-pos-form [displayMode]="false" [userGroup]="'psServicing'"></app-pos-form>
-        </mat-expansion-panel>
-    </mat-accordion>
-</mat-card>
+
+<app-customer-profile [displayMode]="true" [userGroup]="'ao'"></app-customer-profile>
+<mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [completed]="false">
+      <ng-template matStepLabel>
+        <span class="mat-subheading-1">POS</span>
+      </ng-template>
+      <app-branch-list-attachment-pos [newAffiliationId]="requestId" [userGroup]="'pss'" [showAdd]="false"
+          [showDelete]="false" [displayMode]="false" [showTerminalUpdate]="false" [showTerminalAdd]="false"
+          [showTerminalDelete]="false"></app-branch-list-attachment-pos>
+      <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper)">Next
+        <mat-icon color="primary">navigate_next</mat-icon>
+      </button>
+    </mat-step>
+    <mat-step state="done">
+      <ng-template matStepLabel>
+        <span class="mat-subheading-1">Done!</span>
+      </ng-template>
+  
+      <span class="mat-subheading-1">You are now done. Would you like to submit the Request?</span>
+      <div xLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="3px">
+        <button style="margin-top:3px" mat-stroked-button color="primary" (click)="Submit()">Yes</button>
+        <a mat-stroked-button routerLink="/" color="accent">No</a>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>

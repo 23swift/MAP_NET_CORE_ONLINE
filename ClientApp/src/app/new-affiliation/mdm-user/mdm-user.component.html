@@ -1,17 +1,5 @@
-<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode"></app-bdo-form-header>
+<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false"></app-bdo-form-header>
 <app-request-header></app-request-header>
-<!-- <span class="mat-headline">Please follow the steps:</span> -->
-<mat-divider></mat-divider>
-<div class="mat-title color-orange m-left-5px">Customer Profile</div>
-<app-customer-profile [displayMode]="true"></app-customer-profile>
-<mat-divider></mat-divider>
-<div class="m-left-5px m-top-20px">
-    <app-branch-list></app-branch-list>
-</div>
 
-<mat-divider></mat-divider>
-<!-- <div class="mat-subheading-1 color-orange m-left-5px">Document Checklist</div> -->
-<div style="padding: 10px; margin-top: 5px">
-    <!-- <app-document-check-list></app-document-check-list> -->
-    <router-outlet name="docForm"></router-outlet>
-</div>
+<app-customer-profile [displayMode]="true" [userGroup]="'ao'"></app-customer-profile>
+<app-document-check-list [newAffiliationId]="requestId"></app-document-check-list>

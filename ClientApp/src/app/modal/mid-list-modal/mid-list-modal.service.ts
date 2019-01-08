@@ -59,4 +59,8 @@ export class MidListModalService {
   saveTid(val, Id): Observable<any> {
     return this._http.post(ApiConstants.midApi + '/tid' + '/' + val + '/' + Id, {});
   }
+
+  validateByBranchId(id): Observable<any> {
+    return this._http.get(ApiConstants.midApi + '/validate/' + id);
+  }
 }

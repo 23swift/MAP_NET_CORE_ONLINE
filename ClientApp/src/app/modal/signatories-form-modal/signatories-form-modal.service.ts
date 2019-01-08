@@ -84,8 +84,7 @@ export class SignatoriesFormModalService {
               key: 'signingAuthority',
               templateOptions: {
                 label: 'Signing Authority',
-                maxLength: 50,
-                disabled: true
+                maxLength: 50
               }
             }
           ]
@@ -99,8 +98,7 @@ export class SignatoriesFormModalService {
               key: 'position',
               templateOptions: {
                 label: 'Position',
-                maxLength: 22,
-                disabled: true
+                maxLength: 22
               }
             },
             {
@@ -113,19 +111,7 @@ export class SignatoriesFormModalService {
                 options: [
                   { label: 'Legal Name', value: 1 },
                   { label: 'Branch <DBA Name>', value: 2 }
-                ],
-                disabled: true
-              }
-            },
-            {
-              className: 'flex-1',
-              type: 'input',
-              key: 'dbaName',
-              hideExpression: 'model.applicableTo !== 2',
-              templateOptions: {
-                label: 'DBA Name',
-                maxLength: 50,
-                disabled: true
+                ]
               }
             }
           ]

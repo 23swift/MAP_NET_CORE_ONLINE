@@ -1,6 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 const apiUrl = '';
 @Injectable()
@@ -12,20 +14,20 @@ export class MdmUserDashboardService implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   getTableFields() {
     return this._dashboard.Fields;
   }
-  
+
   getAll() {
     return this._http.get(apiUrl);
   }
 
-  get(id) {
+  get(): Observable<any> {
     // return this._http.get(apiUrl + id);
-    return this._dashboard.ElementData;
+    return this._http.get(ApiConstants.mdmUserDashboard);
   }
 
   create(): void {

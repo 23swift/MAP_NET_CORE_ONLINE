@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace MAP_Web.Controllers
 {
-    [Route("/api/mdmDashboard")]
+    [Route("/api/mdmUserDashboard")]
     public class MDMDashboardController : Controller
     {
         private readonly IMDMDashboardService _service;

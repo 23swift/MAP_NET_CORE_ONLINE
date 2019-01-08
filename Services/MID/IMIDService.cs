@@ -15,5 +15,6 @@ namespace MAP_Web.Services
         Task Delete(MID mid);
         Task SaveMid(string value, int id);
         Task SaveTid(string value, int id);
+        Task<bool> ValidateMIDCount(int id);
     }
 }

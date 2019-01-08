@@ -144,6 +144,8 @@ const routes: Routes = [
   { path: 'na/aoChecker/:id', component: AoCheckerComponent },
   { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent },
   { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent },
+  { path: 'na/mdm/:id', component: MdmUserComponent },
+  { path: 'na/pss/:id', component: PsServicingComponent },
   {
     path: 'na/aoEncoder/:mode', component: AoEncoderComponent,
     children: [

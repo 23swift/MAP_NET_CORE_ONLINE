@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from '../api-constants';
 
 interface IPosTerminalFields {
   TerminalBrand: string;
@@ -15,48 +18,19 @@ interface IPosTerminalFields {
 @Injectable()
 export class PosTerminalBrandListService {
 
-  constructor() { }
+  constructor(private _http: HttpClient) { }
 
   getTableFields() {
     return ['TerminalBrand', 'TerminalType', 'TerminalModel', 'NumberOfTerminalsRequested', 'TelcoProvider', 'SimType', 'TipAdjust',
       'HotelSetupFacility', 'ManualKeyInFacility', 'Action'];
   }
 
-  get(): IPosTerminalFields[] {
-    return [
-      {
-        TerminalBrand: 'VERIFONE',
-        TerminalType: 'IP-DIAL UP',
-        TerminalModel: 'VX520 COMBO',
-        NumberOfTerminalsRequested: '5',
-        TelcoProvider: 'PLDT',
-        SimType: 'GLOBE',
-        TipAdjust: 'NO',
-        HotelSetupFacility: 'NO',
-        ManualKeyInFacility: 'NO'
-      },
-      {
-        TerminalBrand: 'CASTLES',
-        TerminalType: 'TRI-MODE COUNTERTOP',
-        TerminalModel: 'V5000S',
-        NumberOfTerminalsRequested: '3',
-        TelcoProvider: 'PLDT',
-        SimType: 'GLOBE',
-        TipAdjust: 'NO',
-        HotelSetupFacility: 'NO',
-        ManualKeyInFacility: 'NO'
-      },
-      {
-        TerminalBrand: 'INGENICO',
-        TerminalType: 'WIRED GPRS',
-        TerminalModel: 'ICT250 GEM CL',
-        NumberOfTerminalsRequested: '1',
-        TelcoProvider: 'PLDT',
-        SimType: 'GLOBE',
-        TipAdjust: 'NO',
-        HotelSetupFacility: 'NO',
-        ManualKeyInFacility: 'NO'
-      }
-    ];
+  getByPos(posId): Observable<any> {
+    return this._http.get(ApiConstants.terminalDetailsApi + '/pos/' + posId);
   }
+
+  delete(id): Observable<any> {
+    return this._http.delete(ApiConstants.terminalDetailsApi + '/' + id);
+  }
+
 }

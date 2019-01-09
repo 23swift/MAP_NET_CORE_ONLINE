@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,5 +15,6 @@ namespace MAP_Web.Services
         Task Update(MID mid);
         Task Delete(MID mid);
         Task<bool> ValidateMIDCount(int id);
+        IList<string> FindExistingMonitorCodes(IList<MID> mids);
     }
 }

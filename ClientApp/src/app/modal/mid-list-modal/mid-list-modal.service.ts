@@ -55,4 +55,8 @@ export class MidListModalService {
   validateByBranchId(id): Observable<any> {
     return this._http.get(ApiConstants.midApi + '/validate/' + id);
   }
+
+  getExistingMonitorCodes(id): Observable<any> {
+    return this._http.get(ApiConstants.midApi + '/existingMonitorCodes/' + id);
+  }
 }

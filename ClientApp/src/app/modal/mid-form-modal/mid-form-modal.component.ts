@@ -29,17 +29,19 @@ export class MidFormModalComponent implements OnInit {
   private _decimalService: PaddingDecimalFieldsService) {
     if (dialogData['mid']) {
       this.model = Object.assign({}, dialogData['mid']);
-      this._decimalService.modifyDecimalFields(this.model);
+      this.model['serviceFeeRate'] = this._decimalService.modifyDecimalFields(this.model['serviceFeeRate']);
+      this.model['dccMarkupRate'] = this._decimalService.modifyDecimalFields(this.model['dccMarkupRate']);
+      this.model['dccMerchantRebate'] = this._decimalService.modifyDecimalFields(this.model['dccMerchantRebate']);
     } else {
       this.model = {
         branchId: this.dialogData['branchId']
       };
     }
+    this.fields = this._midService.getFormlyFields();
   }
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.fields = this._midService.getFormlyFields();
   }
 
   submit() {

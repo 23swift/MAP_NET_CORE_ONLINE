@@ -37,7 +37,12 @@ export class BranchFormModalComponent implements OnInit {
       });
     } else {
       this.model = Object.assign({}, data['branch']);
-      this._decimalService.modifyDecimalFields(this.model);
+      this.model['mdrAtm'] = this._decimalService.modifyDecimalFields(this.model['mdrAtm']);
+      this.model['mdrSmGiftCard'] = this._decimalService.modifyDecimalFields(this.model['mdrSmGiftCard']);
+      this.model['mdrSmShopCard'] = this._decimalService.modifyDecimalFields(this.model['mdrSmShopCard']);
+      this.model['mdrCashAgad'] = this._decimalService.modifyDecimalFields(this.model['mdrCashAgad']);
+      this.model['discountDebitRate'] = this._decimalService.modifyDecimalFields(this.model['discountDebitRate']);
+      this.model['merchDiscountRateDebitCrd'] = this._decimalService.modifyDecimalFields(this.model['merchDiscountRateDebitCrd']);
       this.fields = this._branchService.getBranchFields(this.data['userGroup']);
     }
   }

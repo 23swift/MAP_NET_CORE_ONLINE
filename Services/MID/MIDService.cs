@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MAP_Web.Services
 {
@@ -99,6 +100,16 @@ namespace MAP_Web.Services
         public async Task<IPagedList<MID>> FindByBranchAsync(int id)
         {
             return await midRepo.GetPagedListAsync(predicate: x => x.BranchId == id);
+        }
+
+        public IList<string> FindExistingMonitorCodes(IList<MID> mids)
+        {
+            IList<string> midList = new List<string>();
+
+            foreach (var mid in mids)
+                midList.Add(mid.monitorCode);
+
+            return midList;
         }
     }
 }

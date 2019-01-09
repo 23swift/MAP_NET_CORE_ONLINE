@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using MAP_Web.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace MAP_Web.Controllers
 {
@@ -93,6 +94,15 @@ namespace MAP_Web.Controllers
             bool isValid = await midService.ValidateMIDCount(id);
 
             return Ok(isValid);
+        }
+
+        [HttpGet("existingMonitorCodes/{id}")]
+        public async Task<IActionResult> GetExistingMonitorCodes(int id)
+        {
+            var mids = await midService.FindByBranchAsync(id);
+            IList<string> midList = midService.FindExistingMonitorCodes(mids.Items);
+
+            return Ok(midList);
         }
     }
 }

@@ -26,7 +26,12 @@ namespace MAP_Web.Models
         public Nullable<decimal> dccMarkupRate { get; set; }
         public  Nullable<decimal> dccMerchantRebate { get; set; }
         public Nullable<Guid> AuditLogGroupId { get; set; }
+<<<<<<< HEAD
         public string feeAccount { get; set; }
+=======
+        public string merchId { get; set; }
+        public string tid { get; set; }
+>>>>>>> 19fc30f7eacf9108a69a80c4e0f0bfef8ec92280
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
     }

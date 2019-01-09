@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiConstants } from 'src/app/api-constants';
 
 const apiUrl = '';
 @Injectable()
@@ -21,5 +23,9 @@ export class MdcsUserService {
 
   update(): void {
     this._http.put(apiUrl, {});
+  }
+
+  validateMID(id): Observable<any> { 
+    return this._http.get(ApiConstants.mdcsUser + "/validateMid/" + id);
   }
 }

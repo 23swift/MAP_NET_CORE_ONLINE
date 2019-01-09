@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MdcsUserService } from './mdcs-user.service';
+import { RequestService } from 'src/app/services/request.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-mdcs-user',
@@ -14,22 +18,28 @@ export class MdcsUserComponent implements OnInit {
   showOif: boolean;
   displayMode: boolean;
   newAffiliationId: number;
-  constructor() { }
+
+  constructor( private _route: ActivatedRoute) {
+    this.newAffiliationId = +this._route.snapshot.params['id'];
+  }
+
 
   ngOnInit() {
     this.title = 'New Affiliation';
-    this.subTitle = 'APPROVED';
-    this.mode = 'forCadencie';
+    this.subTitle = '';
+    this.mode = 'mdcsUser';
     this.showOif = false;
     this.displayMode = true;
   }
 
-  Submit() {
-    
-  }
 
   getNewAffiliationId(id) {
     this.newAffiliationId = id;
   }
-  
+
+  submit() {
+   
+
+  }
+
 }

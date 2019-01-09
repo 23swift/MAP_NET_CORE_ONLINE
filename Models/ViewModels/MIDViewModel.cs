@@ -30,5 +30,8 @@ namespace MAP_Web.Models.ViewModels
         public string feeAccount { get; set; }
         public int BranchId { get; set; }
         public BranchViewModel Branch { get; set; }
+
+        public string merchId { get; set; }
+        public string tid { get; set; }
     }
 }

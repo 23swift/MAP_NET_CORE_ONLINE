@@ -22,13 +22,10 @@ export class MdcsUserDashboardComponent implements OnInit {
   constructor(private _service: MdcsUserDashboardService, private _router: Router, private _matDialog: MatDialog) { }
 
   ngOnInit() {
-    this.displayedColumns = ['referenceNo', 'requestDate', 'requestType',
-      'businessName', 'dbaName', 'requestedBy',
-      'status', 'tat', 'Operation']
+    this.displayedColumns = ['referenceNo', 'requestDate', 'requestType', 'businessName', 'requestedBy', 'status', 'tat', 'Operation'];
     this._service.getAll().subscribe(d => {
       this.dataSource = new MatTableDataSource(d);
       this.dataSource.sort = this.sort;
-
       this.dataSource.sortingDataAccessor = (item, property) => {
         switch (property) {
           case 'requestDate': return new Date(item.requestedDate);
@@ -46,9 +43,9 @@ export class MdcsUserDashboardComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getStatus() {
-    return 'FOR CREATION';
-  }
+  // getStatus() {
+  //   return 'FOR CREATION';
+  // }
 
   getItem(id) {
     this._router.navigateByUrl('na/mdcsUser/' + id);

@@ -6,6 +6,7 @@ import { MatSnackBar, MatDialog } from '@angular/material';
 import { RemarksModalComponent } from '../modal/remarks-modal/remarks-modal.component';
 import { NewAffiliationRequestService } from '../services/new-affiliation-request.service';
 import { MaefFormService } from '../forms/maef-form/maef-form.service';
+import { MdcsUserService } from '../new-affiliation/mdcs-user/mdcs-user.service';
 import { PsServicingService } from '../new-affiliation/ps-servicing/ps-servicing.service';
 
 
@@ -36,7 +37,7 @@ export class BdoFormHeaderComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar,
     private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService, private _maefFormService: MaefFormService,
-    private _psService: PsServicingService) {
+    private _psService: PsServicingService, private _mdcsUserService: MdcsUserService) {
     this._route.params.subscribe(param => {
       this.newAffiliationId = param['id'];
       this.requestId = param['id'];
@@ -94,6 +95,9 @@ export class BdoFormHeaderComponent implements OnInit {
       if (this.mode.match(/mauEncoder/i)) {
         this.showRequestFlowOptions = true;
       }
+      if (this.mode.match(/mdcsUser/i)) {
+        this.showPosProcessingButton = true;
+      }
     }
   }
 
@@ -111,8 +115,8 @@ export class BdoFormHeaderComponent implements OnInit {
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
       data: {
-        newAffiliationId : this.newAffiliationId,
-        actionCode : 'Return To AO'
+        newAffiliationId: this.newAffiliationId,
+        actionCode: 'Return To AO'
       }
     });
 
@@ -142,9 +146,9 @@ export class BdoFormHeaderComponent implements OnInit {
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
       data: {
-      newAffiliationId : this.newAffiliationId,
-      actionCode : 'Return To MAMO'
-    }
+        newAffiliationId: this.newAffiliationId,
+        actionCode: 'Return To MAMO'
+      }
     });
 
     dialog.afterClosed().subscribe(d => {
@@ -155,22 +159,49 @@ export class BdoFormHeaderComponent implements OnInit {
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
       data: {
-        newAffiliationId : this.newAffiliationId,
-        actionCode : 'Decline'
+        newAffiliationId: this.newAffiliationId,
+        actionCode: 'Decline'
       }
     });
 
     dialog.afterClosed().subscribe(d => {
 
-    });   
+    });
   }
 
   approve(): void {
     this._maefFormService.Approve(this.newAffiliationId).subscribe(data => {
       const snackBarRef = this._snackBar.open('Approved', 'Saved', {
-        duration: 1000      
+        duration: 1000
+      });
     });
-  });   
+  }
+
+  submitForPOSProcessing(): void {
+    this._mdcsUserService.validateMID(this.newAffiliationId).subscribe(isValid => {
+      if (isValid) {
+        this._newAffiliationService.updateRequestForMdcsUser(this.newAffiliationId).subscribe(x => {
+          const snackBarSub = this._snackBar.open('New Affiliation Request', 'Submitted For POS Processing', {
+            duration: 2000
+          });
+
+          snackBarSub.afterDismissed().subscribe(() => {
+            this._router.navigateByUrl('/home/mdcsUser');
+          });
+        }, err => {
+          if (err['status'] === 400) {
+            const snackBarSub = this._snackBar.open('One or More Branches Were Not Updated', 'Failed', {
+              duration: 2000
+            });
+          }
+        });
+      }
+      else { 
+        const snackBarSub = this._snackBar.open('One or More Branches does not have MID / DebitTID Supplied!', 'Failed', {
+          duration: 2000
+        });
+      }
+    });
   }
 
 }

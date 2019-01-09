@@ -105,7 +105,6 @@ namespace MAP_Web.Services
             return await midRepo.GetPagedListAsync(predicate: x => x.BranchId == id);
         }
 
-<<<<<<< HEAD
         public IList<string> FindExistingMonitorCodes(IList<MID> mids)
         {
             IList<string> midList = new List<string>();
@@ -114,7 +113,6 @@ namespace MAP_Web.Services
                 midList.Add(mid.monitorCode);
 
             return midList;
-=======
         public async Task SaveMid(string value, int id)
         {
             var currentMid = midRepo.Find(id);
@@ -151,7 +149,6 @@ namespace MAP_Web.Services
 
             currentTid.tid = value;
             midRepo.Update(currentTid);
->>>>>>> 19fc30f7eacf9108a69a80c4e0f0bfef8ec92280
         }
     }
 }

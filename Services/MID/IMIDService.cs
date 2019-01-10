@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
+using MAP_Web.Models.ViewModels;
 
 namespace MAP_Web.Services
 {
@@ -17,6 +18,8 @@ namespace MAP_Web.Services
         Task SaveMid(string value, int id);
         Task SaveTid(string value, int id);
         Task<bool> ValidateMIDCount(int id);
+        Task<bool> ValidateAndInsertMidAsync(MID mid);
+        Task<bool> ValidateAndUpdateMidAsync(MIDViewModel mid, int id);
         IList<string> FindExistingMonitorCodes(IList<MID> mids);
     }
 }

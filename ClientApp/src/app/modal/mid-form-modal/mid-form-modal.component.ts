@@ -47,21 +47,33 @@ export class MidFormModalComponent implements OnInit {
   submit() {
     if (this.model['id']) {
       this._midService.update(this.model['id'], this.model).subscribe(data => {
+        if (data !== false) {
         const snackBarRef = this._snackBar.open('MID Details', 'Updated', {
           duration: 1000
         });
         snackBarRef.afterDismissed().subscribe(x => {
           this._modalRef.close(data);
         });
+      } else {
+        const snackBarRef = this._snackBar.open('MID will exceed to maximum count of 10, delete entry or choose between PHP or USD.', 'Failed', {
+          duration: 1000
+        });
+      }
       });
     } else {
       this._midService.create(this.model).subscribe(data => {
+        if (data !== false) {
         const snackBarRef = this._snackBar.open('MID Details', 'Saved', {
           duration: 1000
         });
         snackBarRef.afterDismissed().subscribe(x => {
           this._modalRef.close(data);
         });
+      } else {
+        const snackBarRef = this._snackBar.open('MID will exceed to maximum count of 10, delete entry or choose between PHP or USD.', 'Failed', {
+          duration: 1000
+        });
+      }
       });
     }
   }

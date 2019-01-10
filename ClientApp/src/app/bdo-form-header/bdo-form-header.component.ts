@@ -14,7 +14,8 @@ import { PsServicingService } from '../new-affiliation/ps-servicing/ps-servicing
 @Component({
   selector: 'app-bdo-form-header',
   templateUrl: './bdo-form-header.component.html',
-  styleUrls: ['./bdo-form-header.component.css']
+  styleUrls: ['./bdo-form-header.component.css'],
+  providers: [MdcsUserService]
 })
 export class BdoFormHeaderComponent implements OnInit {
   showApprovalOptions: boolean;

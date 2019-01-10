@@ -49,8 +49,16 @@ namespace MAP_Web.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await midService.InsertAsync(mid);
-            await midService.SaveChangesAsync();
+            bool isValid = await midService.ValidateAndInsertMidAsync(mid);
+
+            if (isValid)
+            {
+                await midService.SaveChangesAsync();
+            }
+            else
+            {
+                return Ok(isValid);
+            }
 
             return Ok(mid);
         }
@@ -61,15 +69,16 @@ namespace MAP_Web.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var currentMid = await midService.FindAsync(id);
+            bool isValid = await midService.ValidateAndUpdateMidAsync(mid, id);
 
-            if (currentMid == null)
-                return NotFound();
-
-            mapper.Map<MIDViewModel, MID>(mid, currentMid);
-
-            await midService.Update(currentMid);
-            await midService.SaveChangesAsync();
+            if (isValid)
+            {
+                await midService.SaveChangesAsync();
+            }
+            else
+            {
+                return Ok(isValid);
+            }
 
             return Ok(mid);
         }

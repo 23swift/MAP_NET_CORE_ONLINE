@@ -1,9 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using MAP_Web.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using AutoMapper;
 
 namespace MAP_Web.Services
 {
@@ -13,12 +15,15 @@ namespace MAP_Web.Services
         private readonly IRepository<MID> midRepo;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
-        public MIDService(IUnitOfWork unitOfWork)
+        private readonly IMapper mapper;
+
+        public MIDService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
             this.midRepo = this.unitOfWork.GetRepository<MID>();
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.mapper = mapper;
         }
         public async Task InsertAsync(MID mid)
         {
@@ -113,15 +118,17 @@ namespace MAP_Web.Services
                 midList.Add(mid.monitorCode);
 
             return midList;
+        }
+
         public async Task SaveMid(string value, int id)
         {
             var currentMid = midRepo.Find(id);
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == currentMid.BranchId);
-            
+
             await historyRepo.InsertAsync(new History
             {
                 date = DateTime.Now,
-                action = "MID -" + "''" + value +"''" + "for Branch: " + branch.dbaName + " Has been Added",
+                action = "MID -" + "''" + value + "''" + "for Branch: " + branch.dbaName + " Has been Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
                 RequestId = branch.NewAffiliationId,
@@ -149,6 +156,96 @@ namespace MAP_Web.Services
 
             currentTid.tid = value;
             midRepo.Update(currentTid);
+        }
+
+        public async Task<bool> ValidateAndInsertMidAsync(MID mid)
+        {
+            bool isValid = false;
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId, include: b => b.Include(bb => bb.MIDs));
+            int midCount = branch.MIDs.Count;
+
+            if (mid.currencyPhp.HasValue && mid.currencyUsd.HasValue)
+            {
+                if (mid.currencyPhp.Value && mid.currencyUsd.Value)
+                {
+                    if (midCount < 9)
+                    {
+                        isValid = true;
+                        MID midPhpModel = new MID();
+                        mapper.Map<MID, MID>(mid, midPhpModel);
+                        midPhpModel.currencyUsd = false;
+
+                        MID midUsdModel = new MID();
+                        mapper.Map<MID, MID>(mid, midUsdModel);
+                        midUsdModel.currencyPhp = false;
+
+                        await InsertAsync(midPhpModel);
+                        await InsertAsync(midUsdModel);
+                    }
+                }
+            }
+            else
+            {
+                isValid = true;
+                await InsertAsync(mid);
+            }
+
+            return isValid;
+        }
+
+        public async Task<bool> ValidateAndUpdateMidAsync(MIDViewModel mid, int id)
+        {
+            var currentMid = await FindAsync(id);
+
+            bool isValid = false;
+            var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId, include: b => b.Include(bb => bb.MIDs));
+            int midCount = branch.MIDs.Count;
+
+            if (mid.currencyPhp.Value && mid.currencyUsd.Value)
+            {
+                if (midCount < 10)
+                {
+                    isValid = true;
+                    MID midPhpModel = new MID();
+                    MID midUsdModel = new MID();
+
+                    if (currentMid.currencyPhp.HasValue)
+                    {
+                        if (currentMid.currencyPhp.Value)
+                        {
+                            mapper.Map<MIDViewModel, MID>(mid, currentMid);
+                            currentMid.currencyUsd = false;
+                            await Update(currentMid);
+
+                            mapper.Map<MIDViewModel, MID>(mid, midUsdModel);
+                            midUsdModel.Id = 0;
+                            midUsdModel.BranchId = currentMid.BranchId;
+                            midUsdModel.currencyPhp = false;
+                            await InsertAsync(midUsdModel);
+                        }
+                        else
+                        {
+                            mapper.Map<MIDViewModel, MID>(mid, currentMid);
+                            currentMid.currencyPhp = false;
+                            await Update(currentMid);
+                            
+                            mapper.Map<MIDViewModel, MID>(mid, midPhpModel);
+                            midPhpModel.Id = 0;
+                            midPhpModel.BranchId = currentMid.BranchId;
+                            midPhpModel.currencyUsd = false;
+                            await InsertAsync(midPhpModel);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                isValid = true;
+                mapper.Map<MIDViewModel, MID>(mid, currentMid);
+                await Update(currentMid);
+            }
+
+            return isValid;
         }
     }
 }

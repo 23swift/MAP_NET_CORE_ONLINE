@@ -67,4 +67,8 @@ export class MidListModalService {
   getExistingMonitorCodes(id): Observable<any> {
     return this._http.get(ApiConstants.midApi + '/existingMonitorCodes/' + id);
   }
+
+  getDefaultMonitorCodes(): Observable<any> {
+    return this._http.get(ApiConstants.midApi + '/defaultMonitorCodes');
+  }
 }

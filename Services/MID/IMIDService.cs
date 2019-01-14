@@ -20,6 +20,7 @@ namespace MAP_Web.Services
         Task<bool> ValidateMIDCount(int id);
         Task<bool> ValidateAndInsertMidAsync(MID mid);
         Task<bool> ValidateAndUpdateMidAsync(MIDViewModel mid, int id);
-        IList<string> FindExistingMonitorCodes(IList<MID> mids);
+        Task<IList<string>> FindExistingMonitorCodesAsync(IList<MID> mids);
+        Task<IList<string>> FindDefaultMonitorCodesAsync();
     }
 }

@@ -1801,6 +1801,24 @@ export class BranchFormModalService {
     {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
+          {
+            className: 'flex-1',
+            type: 'input',
+            key: 'feeAccount',
+            expressionProperties: {
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['monitorCodeList'] !== undefined ? !model['monitorCodeList'].match(/tpp/i) : true;
+              },
+              'templateOptions.required': (model: any, formState: any) => {
+                return model['monitorCodeList'] !== undefined ? model['monitorCodeList'].match(/tpp/i) : false;
+              }
+            },
+            templateOptions: {
+              label: 'Fee Account(TPP Only)',
+              placeholder: '(TPP Only)',
+              maxLength: 20
+            }
+          },
         {
           className: 'flex-1',
           type: 'select',

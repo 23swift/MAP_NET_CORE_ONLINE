@@ -125,7 +125,15 @@ namespace MAP_Web.Controllers
         public async Task<IActionResult> GetExistingMonitorCodes(int id)
         {
             var mids = await midService.FindByBranchAsync(id);
-            IList<string> midList = midService.FindExistingMonitorCodes(mids.Items);
+            IList<string> midList = await midService.FindExistingMonitorCodesAsync(mids.Items);
+
+            return Ok(midList);
+        }
+
+        [HttpGet("defaultMonitorCodes")]
+        public async Task<IActionResult> GetDefaultMonitorCodes()
+        {
+            IList<string> midList = await midService.FindDefaultMonitorCodesAsync();
 
             return Ok(midList);
         }

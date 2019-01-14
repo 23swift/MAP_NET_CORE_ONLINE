@@ -339,24 +339,6 @@ export class MidFormModalService {
         fieldGroupClassName: 'display-flex',
         fieldGroup: [
           {
-            className: 'flex-1', // not yet
-            type: 'input',
-            key: 'feeAccount',
-            expressionProperties: {
-              'templateOptions.disabled': (model: any, formState: any) => {
-                return model['monitorCode'] !== undefined ? !model['monitorCode'].match(/tpp/i) : true;
-              },
-              'templateOptions.required': (model: any, formState: any) => {
-                return model['monitorCode'] !== undefined ? model['monitorCode'].match(/tpp/i) : false;
-              }
-            },
-            templateOptions: {
-              label: 'Fee Account(TPP Only)',
-              placeholder: '(TPP Only)',
-              maxLength: 20
-            }
-          },
-          {
             className: 'flex-1',
             key: 'dccMarkupRate',
             type: 'input',

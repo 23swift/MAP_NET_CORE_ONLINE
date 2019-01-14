@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
+using System.Collections.ObjectModel;
 
 namespace MAP_Web.Services
 {
@@ -16,14 +17,15 @@ namespace MAP_Web.Services
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IMapper mapper;
-
-        public MIDService(IUnitOfWork unitOfWork, IMapper mapper)
+        private readonly IDropdownService dropdownService;
+        public MIDService(IUnitOfWork unitOfWork, IMapper mapper, IDropdownService dropdownService)
         {
             this.unitOfWork = unitOfWork;
             this.midRepo = this.unitOfWork.GetRepository<MID>();
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
             this.mapper = mapper;
+            this.dropdownService = dropdownService;
         }
         public async Task InsertAsync(MID mid)
         {
@@ -110,12 +112,78 @@ namespace MAP_Web.Services
             return await midRepo.GetPagedListAsync(predicate: x => x.BranchId == id);
         }
 
-        public IList<string> FindExistingMonitorCodes(IList<MID> mids)
+        public async Task<IList<string>> FindExistingMonitorCodesAsync(IList<MID> mids)
         {
             IList<string> midList = new List<string>();
+            var monitorCodes = await dropdownService.GetDropdown("MC");
 
             foreach (var mid in mids)
-                midList.Add(mid.monitorCode);
+            {
+                MaintenanceDetails monitorDesc = monitorCodes.MaintenanceDetails.SingleOrDefault(m => m.Code == mid.monitorCode);
+                midList.Add(monitorDesc.Value);
+            }
+
+            return midList;
+        }
+
+        public async Task<IList<string>> FindDefaultMonitorCodesAsync()
+        {
+            IList<string> midList = new List<string>();
+            var monitorCodes = await dropdownService.GetDropdown("MC");
+
+            ICollection<MID> defaultMIDs = new Collection<MID>();
+            defaultMIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "OTC",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = false,
+                serviceFeeRate = 99.99M,
+                status = 1,
+            });
+            defaultMIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "REGULAR INSTALLMENT",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = 0.00M,
+                status = 1,
+            });
+            defaultMIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "Installment Zero",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = 0.00M,
+                status = 1,
+            });
+            defaultMIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "BNPL Reg",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = 0.00M,
+                status = 1,
+            });
+            defaultMIDs.Add(new MID
+            {
+                currencyPhp = true,
+                monitorCode = "0% BNPL",
+                cardPlans = "MCVCJCACCC - 1",
+                majorPurchase = true,
+                serviceFeeRate = 0.00M,
+                status = 1,
+            });
+
+
+            foreach (var mid in defaultMIDs)
+            {
+                MaintenanceDetails monitorDesc = monitorCodes.MaintenanceDetails.SingleOrDefault(m => m.Code == mid.monitorCode);
+                midList.Add(monitorDesc.Value);
+            }
 
             return midList;
         }
@@ -228,7 +296,7 @@ namespace MAP_Web.Services
                             mapper.Map<MIDViewModel, MID>(mid, currentMid);
                             currentMid.currencyPhp = false;
                             await Update(currentMid);
-                            
+
                             mapper.Map<MIDViewModel, MID>(mid, midPhpModel);
                             midPhpModel.Id = 0;
                             midPhpModel.BranchId = currentMid.BranchId;

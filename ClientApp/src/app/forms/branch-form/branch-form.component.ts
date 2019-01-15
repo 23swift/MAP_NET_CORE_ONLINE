@@ -54,7 +54,8 @@ export class BranchFormComponent implements OnInit {
             this.model = fjData[1];
             this.model['ownerName'] = this.model['ownerName'] === '' ? owner['name'] : this.model['ownerName'];
             this.model['isSingleProp'] = isSingleProp;
-            this._decimalService.modifyDecimalFields(this.model);
+            this.modifyDecimalFields(this.model);
+
             this.fields = this._branchService.getBranchFields(this.userGroup);
           });
         } else {
@@ -66,11 +67,14 @@ export class BranchFormComponent implements OnInit {
     }
   }
 
+  
+
   getBranch() {
     this._branchService.get(this.branchId).subscribe(b => {
       this.model = b;
       this.model['isSingleProp'] = false;
-      this._decimalService.modifyDecimalFields(this.model);
+      
+      this.modifyDecimalFields(this.model);
       this.fields = this._branchService.getBranchFields(this.userGroup);
     });
   }
@@ -86,5 +90,14 @@ export class BranchFormComponent implements OnInit {
   cancel() {
     //this.router.navigateByUrl(this.backUrl);
     this.router.navigateByUrl('/home/mauEncoder');
+  }
+
+  modifyDecimalFields(model) {
+    model['mdrAtm'] = this._decimalService.modifyDecimalFields(model['mdrAtm']);
+    model['mdrSmGiftCard'] = this._decimalService.modifyDecimalFields(model['mdrSmGiftCard']);
+    model['mdrSmShopCard'] = this._decimalService.modifyDecimalFields(model['mdrSmShopCard']);
+    model['mdrCashAgad'] = this._decimalService.modifyDecimalFields(model['mdrCashAgad']);
+    model['discountDebitRate'] = this._decimalService.modifyDecimalFields(model['discountDebitRate']);
+    model['merchDiscountRateDebitCrd'] = this._decimalService.modifyDecimalFields(model['merchDiscountRateDebitCrd']);
   }
 }

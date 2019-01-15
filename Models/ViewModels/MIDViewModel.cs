@@ -27,7 +27,11 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<decimal> dccMarkupRate { get; set; }
         public  Nullable<decimal> dccMerchantRebate { get; set; }
         public Nullable<Guid> AuditLogGroupId { get; set; }
+        public string feeAccount { get; set; }
         public int BranchId { get; set; }
         public BranchViewModel Branch { get; set; }
+
+        public string merchId { get; set; }
+        public string tid { get; set; }
     }
 }

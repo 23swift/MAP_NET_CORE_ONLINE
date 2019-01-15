@@ -57,6 +57,14 @@ namespace MAP_Web.Controllers
             return Ok(isValid);
         }
 
+        [HttpGet("validateForPsServicing/{id}")]
+        public async Task<IActionResult> ValidateForPsServicing(int id)
+        {
+            var isValid = await posService.ValidatePosForPsServicingAsync(id);
+
+            return Ok(isValid);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePOS([FromBody] POS pos)
         {

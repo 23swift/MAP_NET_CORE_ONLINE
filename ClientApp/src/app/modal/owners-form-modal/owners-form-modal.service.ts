@@ -89,8 +89,7 @@ export class OwnersFormModalService {
               key: 'percentOfOwnership',
               templateOptions: {
                 label: '% of Ownership',
-                pattern: '^\\d{1,2}$|100',
-                disabled: true
+                pattern: '^\\d{1,2}$|100'
               }
             }
           ]
@@ -107,8 +106,7 @@ export class OwnersFormModalService {
                 label: 'Type of Related Party',
                 options: this._dropDownService.getDropdown('TORP'),
                 labelProp: 'value',
-                valueProp: 'code',
-                disabled: true
+                valueProp: 'code'
               }
             },
             {

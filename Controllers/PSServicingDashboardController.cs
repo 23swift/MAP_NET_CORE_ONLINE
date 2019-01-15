@@ -20,7 +20,7 @@ namespace MAP_Web.Controllers
         [HttpGet()]
         public async Task<IActionResult> GetRequests()
         {
-            var requests = await _service.FindAsync();
+            var requests = await _service.FindRequestAsync();
             return Ok(requests);
         }
     }

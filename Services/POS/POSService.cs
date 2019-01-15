@@ -30,7 +30,8 @@ namespace MAP_Web.Services
             pos.AuditLogGroupId = request.AuditLogGroupId;
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "POS for Branch: " + branch.dbaName + " Added",
                 groupCode = "Test Group Code",
@@ -56,7 +57,8 @@ namespace MAP_Web.Services
             var branch = await branchRepo.FindAsync(pos.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "POS for Branch: " + branch.dbaName + " Updated",
                 groupCode = "Test Group Code",
@@ -72,7 +74,8 @@ namespace MAP_Web.Services
             var branch = await branchRepo.FindAsync(pos.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+            await historyRepo.InsertAsync(new History
+            {
                 date = DateTime.Now,
                 action = "POS for Branch: " + branch.dbaName + " Deleted",
                 groupCode = "Test Group Code",
@@ -91,12 +94,28 @@ namespace MAP_Web.Services
         public bool ValidatePOS(int id)
         {
             bool isValid = true;
-            var newAff = newAffRepo.GetFirstOrDefault(predicate: x => x.Id == id, include: x => x.Include(y => y.Branches).ThenInclude(b => b.POS));
+            var newAff = newAffRepo.GetFirstOrDefault(predicate: x => x.Id == id, include: x => x.Include(y => y.Branches)
+                                                                                                    .ThenInclude(b => b.POS)
+                                                                                                        .ThenInclude(b => b.TerminalDetails));
 
-            foreach (var item in newAff.Branches)
+            foreach (var branch in newAff.Branches)
             {
-                if (item.POS.Count == 0)
+                if (branch.POS.Count == 0)
+                {
                     isValid = false;
+                    break;
+                }
+                else
+                {
+                    foreach (var pos in branch.POS)
+                    {
+                        if (pos.TerminalDetails.Count == 0)
+                        {
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
             }
 
             return isValid;
@@ -108,8 +127,9 @@ namespace MAP_Web.Services
                                         include: b => b.Include(bb => bb.OIF)
                                             .Include(r => r.NewAffiliation)
                                                 .ThenInclude(r => r.CustomerProfile));
-            
-            POSAutoPopulateFields pos = new POSAutoPopulateFields {
+
+            POSAutoPopulateFields pos = new POSAutoPopulateFields
+            {
                 approvedBy = "",
                 businessUnitAO = "",
                 requestersBusinessUnit = "",
@@ -123,6 +143,29 @@ namespace MAP_Web.Services
             };
 
             return pos;
+        }
+
+        public async Task<bool> ValidatePosForPsServicingAsync(int id)
+        {
+            var request = await requestRepo.GetFirstOrDefaultAsync(predicate: r => r.Id == id, include: r => r.Include(rr => rr.NewAffiliation)
+                                                                                                            .ThenInclude(n => n.Branches)
+                                                                                                                .ThenInclude(b => b.POS));
+
+            bool isValid = true;
+
+            foreach (var branch in request.NewAffiliation.Branches)
+            {
+                foreach (var pos in branch.POS)
+                {
+                    if (pos.emailSubject == null)
+                    {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+
+            return isValid;
         }
     }
 }

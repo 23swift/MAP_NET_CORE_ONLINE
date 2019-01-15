@@ -42,4 +42,12 @@ export class NewAffiliationRequestService {
   updateRequestForMauOfficer(id): Observable<any> {
     return this._http.put(ApiConstants.newAffiliationApi + '/mauOfficer/' + id, {});
   }
+
+  updateRequestForMdcsUser(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mdcsUser/' + id, {});
+  }
+  
+  updateRequestForPsServicing(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/psServicing/' + id, {});
+  }
 }

@@ -98,8 +98,9 @@ namespace MAP_Web
             services.AddScoped<IMDCSCheckerDashboardService, MDCSCheckerDashboardService>();
             services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
             services.AddScoped<IRequestService, RequestService>();
-           // services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
-
+            services.AddScoped<IMDMDashboardService, MDMDashboardService>();
+            // services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
+            services.AddScoped<IMDCSUserService, MDCSUserService>();
 
 
 

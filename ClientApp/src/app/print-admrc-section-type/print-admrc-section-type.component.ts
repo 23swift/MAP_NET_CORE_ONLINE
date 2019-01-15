@@ -12,4 +12,8 @@ export class PrintAdmrcSectionTypeComponent implements OnInit {
   ngOnInit() {
   }
 
+  print() {
+    window.print();
+  }
+
 }

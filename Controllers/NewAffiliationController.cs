@@ -59,6 +59,8 @@ namespace MAP_Web.Controllers
         {
             var request = await newAffiliationService.FindAsync(id);
             await newAffiliationService.UpdateRequest(request, 3);
+
+
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();
@@ -77,6 +79,13 @@ namespace MAP_Web.Controllers
             }
             
             await newAffiliationService.UpdateRequest(request, ++request.Status);
+
+            if (request.Status == 5)
+            {
+                var branches = await newAffiliationService.FindPosByRequestAsync(id);
+                newAffiliationService.UpdatePOSForMdcsChecker(branches);
+            }
+
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();
@@ -95,6 +104,13 @@ namespace MAP_Web.Controllers
             }
             
             await newAffiliationService.UpdateRequest(request, ++request.Status);
+
+            if (request.Status == 5)
+            {
+                var branches = await newAffiliationService.FindPosByRequestAsync(id);
+                newAffiliationService.UpdatePOSForMdcsChecker(branches);
+            }            
+
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();
@@ -107,6 +123,34 @@ namespace MAP_Web.Controllers
 
             
             await newAffiliationService.UpdateRequest(request, 6);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("mdcsUser/{id}")]
+        public async Task<IActionResult> UpdateRequestForMdcsUser(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+            await newAffiliationService.UpdateRequest(request, 22);
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("psServicing/{id}")]
+        public async Task<IActionResult> UpdateRequestForPsServicing(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+            
+            await newAffiliationService.UpdateRequest(request, 20); // DUMMY STATUS FOR POS - INVENTORY CHECKING
+
+
+            var branches = await newAffiliationService.FindPosByRequestAsync(id);
+            newAffiliationService.UpdatePOSForPSServicing(branches);
+
             await newAffiliationService.SaveChangesAsync();
 
             return Ok();

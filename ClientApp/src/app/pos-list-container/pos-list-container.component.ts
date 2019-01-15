@@ -20,6 +20,13 @@ export class PosListContainerComponent implements OnInit, AfterViewInit {
   model: Object;
   options = {};
   @Input() showBranchInfo = true;
+  @Input() userGroup: string;
+  @Input() showAdd: boolean;
+  @Input() showDelete: boolean;
+  @Input() displayMode: boolean;
+  @Input() showTerminalUpdate: boolean;
+  @Input() showTerminalAdd: boolean;
+  @Input() showTerminalDelete: boolean;
 
   constructor(private _service: PosListContainerService, private _router: Router, private _branchService: BranchFormService,
     private _formlyFieldConfigService: FormlyFieldConfigService) {

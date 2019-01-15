@@ -33,7 +33,6 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<int> numberOfDebitTidCashAgad { get; set; }
         public Nullable<decimal> mdrCashAgad { get; set; }
         public string mcc { get; set; }
-        public string tppOnly { get; set; }
         public string strategicMerchant { get; set; }
         public string mcAssignedId { get; set; }
         public string areaMallCode { get; set; }
@@ -326,8 +325,6 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<int> bdoPaySegment { get; set; }
 
         public string aoCode { get; set; }
-
-        public string feeAccount { get; set; }
 
         public string forMoto { get; set; }
 

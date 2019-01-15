@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using MAP_Web.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace MAP_Web.Controllers
 {
@@ -48,8 +49,16 @@ namespace MAP_Web.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            await midService.InsertAsync(mid);
-            await midService.SaveChangesAsync();
+            bool isValid = await midService.ValidateAndInsertMidAsync(mid);
+
+            if (isValid)
+            {
+                await midService.SaveChangesAsync();
+            }
+            else
+            {
+                return Ok(isValid);
+            }
 
             return Ok(mid);
         }
@@ -60,15 +69,16 @@ namespace MAP_Web.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var currentMid = await midService.FindAsync(id);
+            bool isValid = await midService.ValidateAndUpdateMidAsync(mid, id);
 
-            if (currentMid == null)
-                return NotFound();
-
-            mapper.Map<MIDViewModel, MID>(mid, currentMid);
-
-            await midService.Update(currentMid);
-            await midService.SaveChangesAsync();
+            if (isValid)
+            {
+                await midService.SaveChangesAsync();
+            }
+            else
+            {
+                return Ok(isValid);
+            }
 
             return Ok(mid);
         }
@@ -85,6 +95,47 @@ namespace MAP_Web.Controllers
             await midService.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpPost("mid/{val}/{Id}")]
+        public async Task<IActionResult> SaveMid(string val,int Id)
+        {
+            await midService.SaveMid(val, Id);
+            await midService.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("tid/{val}/{Id}")]
+        public async Task<IActionResult> SaveTid(string val, int Id)
+        {
+            await midService.SaveTid(val, Id);
+            await midService.SaveChangesAsync();
+            return Ok();
+        }
+        
+        [HttpGet("validate/{id}")]
+        public async Task<IActionResult> ValidateMID(int id)
+        {
+            bool isValid = await midService.ValidateMIDCount(id);
+
+            return Ok(isValid);
+        }
+
+        [HttpGet("existingMonitorCodes/{id}")]
+        public async Task<IActionResult> GetExistingMonitorCodes(int id)
+        {
+            var mids = await midService.FindByBranchAsync(id);
+            IList<string> midList = await midService.FindExistingMonitorCodesAsync(mids.Items);
+
+            return Ok(midList);
+        }
+
+        [HttpGet("defaultMonitorCodes")]
+        public async Task<IActionResult> GetDefaultMonitorCodes()
+        {
+            IList<string> midList = await midService.FindDefaultMonitorCodesAsync();
+
+            return Ok(midList);
         }
     }
 }

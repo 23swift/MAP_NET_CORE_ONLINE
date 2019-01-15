@@ -29,37 +29,51 @@ export class MidFormModalComponent implements OnInit {
   private _decimalService: PaddingDecimalFieldsService) {
     if (dialogData['mid']) {
       this.model = Object.assign({}, dialogData['mid']);
-      this._decimalService.modifyDecimalFields(this.model);
+      this.model['serviceFeeRate'] = this._decimalService.modifyDecimalFields(this.model['serviceFeeRate']);
+      this.model['dccMarkupRate'] = this._decimalService.modifyDecimalFields(this.model['dccMarkupRate']);
+      this.model['dccMerchantRebate'] = this._decimalService.modifyDecimalFields(this.model['dccMerchantRebate']);
     } else {
       this.model = {
         branchId: this.dialogData['branchId']
       };
     }
+    this.fields = this._midService.getFormlyFields();
   }
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.fields = this._midService.getFormlyFields();
   }
 
   submit() {
     if (this.model['id']) {
       this._midService.update(this.model['id'], this.model).subscribe(data => {
+        if (data !== false) {
         const snackBarRef = this._snackBar.open('MID Details', 'Updated', {
           duration: 1000
         });
         snackBarRef.afterDismissed().subscribe(x => {
           this._modalRef.close(data);
         });
+      } else {
+        const snackBarRef = this._snackBar.open('MID will exceed to maximum count of 10, delete entry or choose between PHP or USD.', 'Failed', {
+          duration: 1000
+        });
+      }
       });
     } else {
       this._midService.create(this.model).subscribe(data => {
+        if (data !== false) {
         const snackBarRef = this._snackBar.open('MID Details', 'Saved', {
           duration: 1000
         });
         snackBarRef.afterDismissed().subscribe(x => {
           this._modalRef.close(data);
         });
+      } else {
+        const snackBarRef = this._snackBar.open('MID will exceed to maximum count of 10, delete entry or choose between PHP or USD.', 'Failed', {
+          duration: 1000
+        });
+      }
       });
     }
   }

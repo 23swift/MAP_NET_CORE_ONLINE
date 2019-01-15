@@ -58,10 +58,6 @@ export class RemarksModalComponent implements OnInit {
     });    
    
     
-
-
-
-
   }
 
   ngOnInit() {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Renderer2, ElementRef, ViewChildren, QueryList, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MidService } from './mid.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { MidFormModalComponent } from '../modal/mid-form-modal/mid-form-modal.component';
 import { MidModalComponent } from '../modal/mid-modal/mid-modal.component';
 import { FormControl, FormGroup } from '../../../node_modules/@angular/forms';
@@ -24,7 +24,7 @@ export class MidComponent implements OnInit {
   dataSource: Object[];
   form: FormGroup;
   midIndex: number; // ROW WHERE ADDING OR UPDATE OF MID IS CLICKED
-  midContainer: number[]; // CONTAINER OF ALL MIDs
+  midContainer: string[]; // CONTAINER OF ALL MIDs
   midInput: FormControl; // FORM CONTROL FOR MID INPUTTED
   tidIndex: number; // ROW WHERE ADDING OR UPDATE OF TID IS CLICKED
   tidContainer: string[]; // CONTAINER OF ALL TIDs
@@ -34,6 +34,7 @@ export class MidComponent implements OnInit {
   @Input() showUpdate = true;
   @Input() branchId;
   @Input() showDelete: boolean;
+  @Input() update: boolean;
 
   monitorCodeList = [];
   cardPlansList = [];
@@ -41,12 +42,13 @@ export class MidComponent implements OnInit {
   constructor(private _midService: MidListModalService,
     private _dialog: MatDialog,
     private _changeDetectRef: ChangeDetectorRef,
-    private _dropDownService: DropDownService) {
+    private _dropDownService: DropDownService,
+    private _matSnackbar: MatSnackBar) {
   }
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.displayedColumns = this._midService.getTableFields('');
+    this.displayedColumns = ['Currency', 'MonitorCode', 'CardPlans', 'Status', 'Mid', 'DebitTid', 'Action'];
     this.midInput = new FormControl('');
     this.tidInput = new FormControl('');
 
@@ -57,20 +59,21 @@ export class MidComponent implements OnInit {
       this._dropDownService.getDropdown('CP')
     ]).subscribe(fjData => {
       this.dataSource = fjData[0].items;
-      this.monitorCodeList = fjData[0];
-      this.cardPlansList = fjData[1];
-
-      // this.getDropdownValues(this.dataSource);
-
-      this.midContainer = new Array<number>(this.dataSource.length);
+      this.monitorCodeList = fjData[1];
+      this.cardPlansList = fjData[2];
+      this.getDropdownValues(this.dataSource);
+      this.midContainer = new Array<string>(this.dataSource.length);
       this.tidContainer = new Array<string>(this.dataSource.length);
     });
+
+
   }
 
   private refresh() {
     this._midService.getByBranchId(this.branchId).subscribe(data => {
       this.dataSource = data.items;
       this._changeDetectRef.detectChanges();
+      this.getDropdownValues(this.dataSource);
     });
   }
 
@@ -102,26 +105,33 @@ export class MidComponent implements OnInit {
     });
   }
 
-  showMidUpdateButton(index) {
+  showMidUpdateButton(mid, index) {
     this.midIndex = index;
     if (this.midContainer[index] !== undefined) {
-      this.midInput.setValue(this.midContainer[index]);
+      this.midInput.setValue(mid);
     } else {
-      this.midInput.setValue(undefined);
+      this.midInput.setValue('');
     }
   }
 
-  saveMid(element, index) {
+  saveMid(element, id,index) {
     const value = element.value;
-    if (value.match(/^\d{10}$|^$/)) {
-      if (value === '') {
-        this.midContainer.splice(index, 1);
-      } else {
-        this.midContainer.splice(index, 1, +value);
+    if (value !== '') {
+      if (value.match(/^\d{10}$|^$/)) {
+        this._midService.saveMid(value, id).subscribe(x => {
+          this._matSnackbar.open(value, 'Inputted!', {
+            duration: 1000
+          })
+          this.midIndex = undefined;
+          this.refresh();
+        });
+        
       }
-      this.midIndex = undefined;
-    } else {
-      console.log('Invalid MIDs Inputted!');
+      else {
+        this._matSnackbar.open('Invalid MID"s Inputted!', value, {
+          duration: 1000
+        });
+      }
     }
   }
 
@@ -130,27 +140,31 @@ export class MidComponent implements OnInit {
     this.tidIndex = undefined;
   }
 
-  showTidUpdateButton(index) {
+  showTidUpdateButton(tid, index) {
     this.tidIndex = index;
 
     if (this.tidContainer[index] !== undefined) {
-      this.tidInput.setValue(this.tidContainer[index]);
+      this.tidInput.setValue(tid);
     } else {
-      this.tidInput.setValue(undefined);
+      this.tidInput.setValue('');
     }
   }
 
-  saveTid(element, index) {
+  saveTid(element, id, index) {
     const value = element.value;
-    if (value.match(/^\d{10}(,\d{10})*$/)) {
-      if (value === '') {
-        this.tidContainer.splice(index, 1);
-      } else {
-        this.tidContainer.splice(index, 1, value);
+    if (value !== '') {
+      if (value.match(/^\d{1,10}(,\d{1,10})*$/)) {
+        this._midService.saveTid(value, id).subscribe(x => { 
+          this._matSnackbar.open(value, 'Inputted!', {
+            duration: 1000
+          })
+          this.refresh();
+          this.tidIndex = undefined;
+        });
       }
-      this.tidIndex = undefined;
-    } else {
-      console.log('Invalid TIDs Inputted!');
+      else {
+        console.log('Invalid TID"s Inputted!');
+      }
     }
   }
 
@@ -169,7 +183,6 @@ export class MidComponent implements OnInit {
 
   getDropdownValues(list: Object[]) {
     list.forEach(item => {
-      console.log(item, this.monitorCodeList);
       item['monitorCode'] = this.monitorCodeList.find(n => n.code === item['monitorCode']).value;
       item['cardPlans'] = this.cardPlansList.find(n => n.code === item['cardPlans']).value;
       item['status'] = this._midService.getStatus().find(n => n.code === item['status']).value;

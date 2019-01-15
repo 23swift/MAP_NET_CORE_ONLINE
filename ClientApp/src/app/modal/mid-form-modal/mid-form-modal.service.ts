@@ -4,11 +4,15 @@ import { ApiConstants } from 'src/app/api-constants';
 import { Observable } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { DropDownService } from 'src/app/services/drop-down.service';
+import { MidListModalService } from '../mid-list-modal/mid-list-modal.service';
+import { FormlyErrorStateMatcher } from '@ngx-formly/material/form-field/formly.error-state-matcher';
+import { forEach } from '@angular/router/src/utils/collection';
 
 const apiUrl = '';
 @Injectable()
 export class MidFormModalService {
-  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) {
+  }
 
   getFormlyFields() {
     return [
@@ -51,25 +55,6 @@ export class MidFormModalService {
                   } else {
                     form.get('forMoto').patchValue(undefined);
                   }
-                //   if (v === 3 || v === 5) {
-                //     form.get('merchantGroupCode').patchValue(4);
-                //   } else if (v === 2 || v === 4) {
-                //     form.get('merchantGroupCode').patchValue(3);
-                //   }
-
-                //   if (v === 2 || v === 3 || v === 6) {
-                //     form.get('serviceFeeRate').patchValue('99.99');
-                //     form.get('majorPurchase').patchValue(true);
-                //   }
-
-                //   if (v === 6) {
-                //     form.get('merchantPromotionsGroup').patchValue(1);
-                //     form.get('defaultMpPromotion').patchValue(1);
-                //   }
-
-                //   if (v !== 5) {
-                //     form.get('status').patchValue(1);
-                //   }
                 });
               }
             }
@@ -139,7 +124,7 @@ export class MidFormModalService {
                     form.get('serviceFeeRate').patchValue('99.99');
                     form.get('serviceFeeStraight').patchValue(undefined);
                   } else {
-                    form.get('serviceFeeRate').patchValue('0');
+                    form.get('serviceFeeRate').patchValue(undefined);
                     form.get('merchantGroupCode').patchValue(undefined);
                   }
                 });
@@ -205,7 +190,7 @@ export class MidFormModalService {
                 return model['majorPurchase'] || model['serviceFeeRate'] > 0;
               },
               'templateOptions.required': (model: any, formState: any) => {
-                return !model['majorPurchase'] && (model['serviceFeeRate'] === 0 || model['serviceFeeRate'] === ''
+                return !model['majorPurchase'] && (model['serviceFeeRate'] === '0' || model['serviceFeeRate'] === ''
                 || model['serviceFeeRate'] === undefined);
               }
             },
@@ -239,13 +224,12 @@ export class MidFormModalService {
             className: 'flex-1',
             key: 'serviceFeeRate',
             type: 'input',
-            defaultValue: '0',
             expressionProperties: {
               'templateOptions.disabled': (model: any, formState: any) => {
-                return model['majorPurchase'] || model['serviceFeeStraight'] !== undefined;
+                return model['majorPurchase'] || (model['serviceFeeStraight'] !== undefined && model['serviceFeeStraight'] !== null);
               },
               'templateOptions.required': (model: any, formState: any) => {
-                return model['serviceFeeStraight'] === undefined;
+                return model['serviceFeeStraight'] === undefined || model['serviceFeeStraight'] === null;
               }
             },
             templateOptions: {

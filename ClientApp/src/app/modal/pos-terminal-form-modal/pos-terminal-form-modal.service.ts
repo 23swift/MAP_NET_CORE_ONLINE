@@ -161,6 +161,11 @@ export class PosTerminalFormModalService {
             className: 'flex-1',
             type: 'input',
             key: 'creditStraightTid',
+            expressionProperties: {
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['userGroup'] !== 'psp';
+              }
+            },
             templateOptions: {
               label: 'Credit Straight TID'
             }

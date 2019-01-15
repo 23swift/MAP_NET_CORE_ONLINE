@@ -1,6 +1,8 @@
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="submit"></app-bdo-form-header>
 <app-request-header></app-request-header>
 <div style="margin: 0px 10px">
-    <app-customer-profile [displayMode]="false" [userGroup]="'mdcsUser'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
+    <app-customer-profile [displayMode]="true" [userGroup]="'mdcs'" (newAffiliationId)="getNewAffiliationId($event)"></app-customer-profile>
 </div>
-<app-mdcs-branch-list></app-mdcs-branch-list>
+<mat-card>
+    <app-mdcs-branch-list [displayMode]="true" [update]="true"></app-mdcs-branch-list>
+</mat-card>

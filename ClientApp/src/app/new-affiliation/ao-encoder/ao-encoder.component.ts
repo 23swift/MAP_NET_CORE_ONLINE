@@ -99,14 +99,14 @@ export class AoEncoderComponent implements OnInit {
           stepper.selected.completed = true;
           stepper.next();
         } else {
-          this._snackBar.open('NEXT', 'FAILED: One or more Branch has no POS', {
+          this._snackBar.open('NEXT', 'FAILED: One or more Branch has no POS/Terminal Details', {
             duration: 1000
           });
         }
       });
     } else if (form === 'docs') {
       // FOR DOCUMENTS
-      this._documentChecklistService.validateDocuments(this.newAffiliationId).subscribe(d => {
+      this._documentChecklistService.validateByNewAffiliationId(this.newAffiliationId).subscribe(d => {
         if (d) {
           this.isDone = true;
 

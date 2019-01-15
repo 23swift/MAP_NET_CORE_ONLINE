@@ -28,6 +28,7 @@ namespace MAP_Web.Services
             Request request = new Request();
             request.AuditLogGroupId = Guid.NewGuid();
             request.Status = 1;
+            request.MAEF = new MAEF();
             request.NewAffiliation = new NewAffiliation();
             request.NewAffiliation.AuditLogGroupId = request.AuditLogGroupId;
             request.NewAffiliation.CustomerProfile = customerProfile;

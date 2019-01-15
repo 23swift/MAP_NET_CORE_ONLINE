@@ -34,12 +34,6 @@ export class PosListComponent implements OnInit {
     private _overlay: Overlay,
     private _changeDetectRef: ChangeDetectorRef,
     private _dropDownService: DropDownService) {
-    // this._posService.getByBranch(this.branchId).subscribe(data => {
-    //   this.dataSource = data;
-    // });
-    //   this._dropDownService.getDropdown('NR').subscribe(nr => {
-    //     this.natureOfRequestList = nr;
-    //   });
   }
 
   ngOnInit() {
@@ -52,7 +46,6 @@ export class PosListComponent implements OnInit {
       this.natureOfRequestList = fjData[0];
       this.dataSource = fjData[1].items;
     });
-    console.log(this.displayMode + 'pos list');
   }
 
   private refresh() {

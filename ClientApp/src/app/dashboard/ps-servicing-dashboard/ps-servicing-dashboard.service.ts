@@ -18,7 +18,7 @@ export class PsServicingDashboardService implements OnInit {
   }
 
   getTableFields() {
-    return this._dashboard.PosFields;
+    return this._dashboard.Fields;    
   }
   
   getAll(): Observable<any> {

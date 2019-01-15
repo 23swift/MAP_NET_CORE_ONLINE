@@ -1195,19 +1195,6 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            maxLength: 20
-          }
-        },
-        {
           className: 'flex-1',
           type: 'select',
           key: 'strategicMerchant',
@@ -1406,19 +1393,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          maxLength: 2
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -1785,19 +1760,6 @@ export class BranchFormService {
     {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
-        {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            maxLength: 20
-          }
-        },
         {
           className: 'flex-1',
           type: 'select',
@@ -3869,19 +3831,6 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            disabled: true
-          }
-        },
-        {
           className: 'flex-1',
           type: 'select',
           key: 'strategicMerchant',
@@ -4067,19 +4016,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          disabled: true
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -5155,19 +5092,6 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
         {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            disabled: true
-          }
-        },
-        {
           className: 'flex-1',
           type: 'select',
           key: 'strategicMerchant',
@@ -5353,19 +5277,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          disabled: true
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -6507,24 +6419,6 @@ export class BranchFormService {
       ]
     },
     {
-      fieldGroupClassName: 'display-flex', // conditional mandatory
-      fieldGroup: [
-        {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)'
-          }
-        }
-
-      ]
-    },
-    {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
         {
@@ -6718,19 +6612,7 @@ export class BranchFormService {
 
     { // numeric
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        className: 'flex-1',
-        type: 'input',
-        key: 'payDelayDays',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Pay Delay Days',
-          placeholder: 'Pay Delay Days',
-          disabled: true
-        }
-      },
+      fieldGroup: [
       {
         className: 'flex-1',
         type: 'input',
@@ -7713,19 +7595,6 @@ export class BranchFormService {
     {
       fieldGroupClassName: 'display-flex', //conditional mandatory
       fieldGroup: [
-        {
-          className: 'flex-1', // not yet
-          type: 'input',
-          key: 'tppOnly',
-          expressionProperties: {
-  
-          },
-          templateOptions: {
-            label: 'Fee Account(TPP Only)',
-            placeholder: '(TPP Only)',
-            maxLength:20
-          }
-        },
         {
           className: 'flex-1',
           type: 'select',

@@ -44,13 +44,37 @@ export class ApproverDashboardComponent implements OnInit {
   }
 
   getStatus(s) {
-    if(s == '5'){ return 'For Approval'}  
+    if(s == '8'){ return 'For Approval'}  
   }
 
   openSearchDialog() {
     const dialogRef = this._matDialog.open(SearchModalComponent, {
       autoFocus: false,
-      width: '40%'
+      width: '40%',
+      data: {
+        userGroup: 'mdcsChecker'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(filter => {
+      if (filter) {
+        this._service.filterDashboard(filter).subscribe(filteredList => {
+          this.dataSource = new MatTableDataSource(filteredList);
+          this.dataSource.sort = this.sort;
+
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              case 'requestDate': return new Date(item.requestedDate);
+              default: return item[property];
+            }
+          };
+        });
+      } else {
+          this._service.getRequests().subscribe(data => {
+          this.dataSource = new MatTableDataSource(data);
+          this.dataSource.sort = this.sort;
+        });
+      }
     });
   }
 

@@ -14,9 +14,9 @@
 
         <div fxLayout="row" fxLayoutGap="6px" fxLayoutAlign="space-around center">
             <span fxFlex></span>
-           <button *ngIf="showRequestFlowOptions" (click)="returntoAO()" mat-flat-button color="primary" matTooltip="Return Request">
+           <button *ngIf="showRequestFlowOptions" (click)="returnToAOByMAMO()" mat-flat-button color="primary" matTooltip="Return Request">
                 <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request</button>
-            <button *ngIf="showRequestFlowOptions" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit Request">
+            <button *ngIf="showRequestFlowOptions" (click)="submittoApprover()" mat-flat-button color="primary" matTooltip="Submit Request">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
                 
             <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">
@@ -28,7 +28,7 @@
             <button *ngIf="showPsCheckerButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Inventory Checking">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Inventory Checking</button>
             <!--   approval -> -->
-             <button *ngIf="showApprovalOptions" (click)="returntoAO()" mat-flat-button color="primary" matTooltip="Return to AO"> Return to AO</button>
+             <button *ngIf="showApprovalOptions" (click)="returnToAOByApprover()" mat-flat-button color="primary" matTooltip="Return to AO"> Return to AO</button>
             <button *ngIf="showApprovalOptions" (click)="returntoMAMO()" mat-flat-button color="primary" matTooltip="Return to MAMO"> Return to MAMO</button>
             <button *ngIf="showApprovalOptions" (click)="approve()" mat-flat-button color="primary" matTooltip="Approve"> Approve</button>
             <button *ngIf="showApprovalOptions" (click)="decline()" mat-flat-button color="primary" matTooltip="Decline"> Decline</button> 
@@ -44,8 +44,18 @@
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Checking</button>
             <button *ngIf="showPreScreen" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Evaluation">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Evaluation</button>
-           <button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
-                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
+           <!--<button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Requestc</button> -->
+           <button *ngIf="showReturnRequestChecker" (click)="reSubmitRequestChecker()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>    
+           <button *ngIf="showReturnRequestMAMO" (click)="reSubmitRequestMAMO()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>   
+            <button *ngIf="showReturnRequestApprover" (click)="reSubmitRequestApprover()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>   
+            <button *ngIf="showReturnRequestMQR" (click)="reSubmitRequestMQR()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>                   
+
+
         </div>
     </mat-toolbar>
 
@@ -87,9 +97,12 @@
                     <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Evaluation</button>
                 <button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
                     <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
+                    <button *ngIf="showReturnRequestApprover" (click)="reSubmitRequestApprover()" mat-flat-button matTooltip="Submit Request">
+                        <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>   
             </div>
         </mat-menu>
 
     </div>
 
 </div>
+

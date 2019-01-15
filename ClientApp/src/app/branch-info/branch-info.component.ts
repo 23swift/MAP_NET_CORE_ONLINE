@@ -13,6 +13,7 @@ import { BranchInfoService } from './branch-info.service';
 export class BranchInfoComponent extends AppBaseComponent implements OnInit {
   // export class BranchInfoComponent implements OnInit {
   @Input() displayMode: boolean;
+  @Input() mode: string;
   @Input() showOif?= true;
   @Input() showPos?= true;
   @Input() showMid?= true;
@@ -29,14 +30,11 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
 
   ngOnInit() {
     this._branchService.getByNewAffiliationId(this.requestId).subscribe(data => {
-      this.dataSource = data.items;
- 
-      console.log(data.items);
-      console.log(!this.displayMode + 'branchInfo');
+      this.dataSource = data;
 
     });
 
-    this.userGroup = 'mauEncoder';
+   /* this.userGroup = 'mauEncoder';
     if(this.userGroup == 'mauEncoder')
     {
       this.displayMode = false;
@@ -44,7 +42,7 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
     else if(this.userGroup == 'approver')
     {
       this.displayMode = true;
-    } 
+    } */
   }
 
   trackById(index, branch) {

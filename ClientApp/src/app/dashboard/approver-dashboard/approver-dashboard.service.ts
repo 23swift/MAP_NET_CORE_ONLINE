@@ -17,11 +17,15 @@ export class ApproverDashboardService {
   }
 
   getTableFields() {
-    return this._dashboard.Fields;
+    return this._dashboard.ApproverFields;
   }
 
   getRequests(): Observable<any> {
     return this._http.get(ApiConstants.approverDashboardApi);
+  }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.put(ApiConstants.approverDashboardApi+ '/filter', searchCriteria);
   }
 
 }

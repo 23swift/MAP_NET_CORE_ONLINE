@@ -84,6 +84,7 @@ export class BranchFormComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigateByUrl(this.backUrl);
+    //this.router.navigateByUrl(this.backUrl);
+    this.router.navigateByUrl('/home/mauEncoder');
   }
 }

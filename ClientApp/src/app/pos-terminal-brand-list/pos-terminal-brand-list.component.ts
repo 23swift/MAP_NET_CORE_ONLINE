@@ -15,6 +15,7 @@ export class PosTerminalBrandListComponent implements OnInit {
   displayedColumns;
   dataSource;
   @Input() showAdd: boolean;
+  @Input() showDelete: boolean;
   showAddTerminal: boolean;
 
   constructor(private _service: PosTerminalBrandListService, private _dialog: MatDialog, private _route: ActivatedRoute) { }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
@@ -7,6 +7,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./verification-screen.component.css']
 })
 export class VerificationScreenComponent implements OnInit {
+  @Input() mode: string;
   reqId: number;
   displayMode: boolean;
   userGroup: string;
@@ -16,12 +17,11 @@ export class VerificationScreenComponent implements OnInit {
   }
 
   ngOnInit() {
-     this.userGroup = 'mauEncoder';
-     if(this.userGroup == 'mauEncoder')
+    if(this.mode == 'mauEncoder')
      {
        this.displayMode = false;
      }
-     else if(this.userGroup == 'approver')
+     else if(this.mode == 'approver')
      {
        this.displayMode = true;
      } 

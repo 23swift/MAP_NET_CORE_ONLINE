@@ -37,5 +37,10 @@ export class MauEncoderDashboardService implements OnInit {
   update(): void {
     this._http.put(apiUrl, {});
   }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.put(ApiConstants.mauEncoderDashboardApi+ '/filter', searchCriteria);
+  }
+
 }
 

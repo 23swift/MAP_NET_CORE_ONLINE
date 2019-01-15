@@ -14,5 +14,6 @@ namespace MAP_Web.Models.ViewModels
         public string status { get; set; }
         public int tat { get; set; }
         public string userName { get; set; }
+        public string processedBy { get; set;}
     }
 }

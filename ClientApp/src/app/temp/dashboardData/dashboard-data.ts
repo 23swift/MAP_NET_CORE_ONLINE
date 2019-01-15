@@ -38,6 +38,9 @@ export class DashboardData {
     Fields = ['referenceNo', 'requestDate', 'requestType', 'businessName',
     'requestedBy', 'status', 'tat', 'Operation'];
 
+    ApproverFields = ['referenceNo', 'requestDate', 'requestType', 'businessName',
+    'requestedBy', 'processedBy' , 'status', 'tat', 'Operation'];
+
     MdcsFields = ['ReferenceNo', 'RequestDate', 'RequestType', 'BusinessName',
     'DBAName', 'RequestedBy', 'Status', 'TAT', 'Operation'];
 

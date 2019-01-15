@@ -37,7 +37,7 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
       this.reqId = +this.route.snapshot.paramMap.get('id');    
       this._maefFormService.getMAEF(this.reqId).subscribe(data => {
         this.model = data;
-
+        this.model.displayMode = this.displayMode;
        console.log(this.model);
         this.getFields();
       });
@@ -50,7 +50,7 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
   }
 
   public cancel() {
-    this.router.navigateByUrl('/naStep/create');
+    this.router.navigateByUrl('/home/mauEncoder');
   }
 
 
@@ -79,5 +79,6 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
     }
 
   }
+
 
 }

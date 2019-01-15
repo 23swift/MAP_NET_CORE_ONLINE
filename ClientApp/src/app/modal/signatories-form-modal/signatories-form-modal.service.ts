@@ -11,7 +11,7 @@ export class SignatoriesFormModalService {
 
   getFormlyFields(userGroup): FormlyFieldConfig[] {
     let fields = [];
-    if (userGroup === 'ao') {
+    if (userGroup === 'ao' || userGroup === 'mauEncoder' || userGroup === 'approver') {
       fields = [
         {
           fieldGroupClassName: 'display-flex',

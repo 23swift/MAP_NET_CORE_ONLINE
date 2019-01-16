@@ -14,7 +14,7 @@
       <mat-tab-group>
         <mat-tab label="OIF">
           <app-ocular-inspection-form [branchId]="items.id" [showButton]="false"></app-ocular-inspection-form>
-        </mat-tab>
+        </mat-tab> 
         <mat-tab label="POS">
           <ng-container *ngIf="displayMode == false">
               <app-pos-list [displayMode]="!this.displayMode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>

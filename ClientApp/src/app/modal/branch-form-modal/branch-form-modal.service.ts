@@ -1806,12 +1806,12 @@ export class BranchFormModalService {
             type: 'input',
             key: 'feeAccount',
             expressionProperties: {
-              'templateOptions.disabled': (model: any, formState: any) => {
+             /* 'templateOptions.disabled': (model: any, formState: any) => {
                 return model['monitorCodeList'] !== undefined ? !model['monitorCodeList'].match(/tpp/i) : true;
               },
               'templateOptions.required': (model: any, formState: any) => {
                 return model['monitorCodeList'] !== undefined ? model['monitorCodeList'].match(/tpp/i) : false;
-              }
+              } */
             },
             templateOptions: {
               label: 'Fee Account(TPP Only)',

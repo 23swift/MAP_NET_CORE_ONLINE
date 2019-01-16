@@ -75,6 +75,7 @@ export class BranchFormComponent implements OnInit {
       this.model['isSingleProp'] = false;
       
       this.modifyDecimalFields(this.model);
+      console.log(this.model);
       this.fields = this._branchService.getBranchFields(this.userGroup);
     });
   }

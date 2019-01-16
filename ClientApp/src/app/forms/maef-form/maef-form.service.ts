@@ -485,7 +485,7 @@ export class  MaefFormService {
           key: 'nameOfRp',
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['rptClass'] == 'Other RP';
+              return model['rptClass'] == 'DOSRI';
             }
           },
           templateOptions: {

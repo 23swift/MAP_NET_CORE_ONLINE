@@ -334,7 +334,7 @@ const routes: Routes = [
   { path: 'aoMaintenance', component: AoMaintenanceComponent },
   { path: 'sfcc', component: ServiceFeeContractComponent },
   { path: 'request/:mode/:id', component: RequestComponent },
-  { path: 'request', component: RequestComponent },
+  { path: 'request/:id', component: RequestComponent },
   { path: 'branchForm', component: BranchFormComponent },
   { path: 'defaultMIDMaintenance', component: DefaultMidMaintenanceComponent },
   { path: 'debitTid', component: DebitTidComponent },

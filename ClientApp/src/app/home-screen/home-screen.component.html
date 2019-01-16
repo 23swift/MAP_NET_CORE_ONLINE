@@ -25,7 +25,9 @@
 <div *ngIf="userGroup == 'mdcsUser'">
     <app-mdcs-user-dashboard></app-mdcs-user-dashboard>
 </div>
-<!-- <app-approver-dashboard></app-approver-dashboard> -->
+<div *ngIf="userGroup == 'approver'">
+    <app-approver-dashboard></app-approver-dashboard>
+   </div> 
 <!-- <app-mau-checker-dashboard></app-mau-checker-dashboard> -->
 <!-- <app-mau-encoder-dashboard></app-mau-encoder-dashboard>   -->
 <!-- <app-mau-officer-dashboard></app-mau-officer-dashboard> -->

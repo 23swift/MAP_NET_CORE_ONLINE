@@ -1,6 +1,12 @@
-<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit"></app-bdo-form-header>
+<ng-container *ngIf="showHeader">
+  <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit"></app-bdo-form-header>
+</ng-container>
 <app-request-header></app-request-header>
 <mat-tab-group>
-  <mat-tab label="Request"><app-request-form></app-request-form></mat-tab>
-  <mat-tab label="Document Checklist"><app-document-check-list-form></app-document-check-list-form></mat-tab>
+  <mat-tab label="Request">
+    <app-customer-profile [displayMode]="this.displayMode" [userGroup]="'ao'"></app-customer-profile>
+  </mat-tab>
+  <mat-tab label="Documents">
+    <app-document-check-list [displayMode]="this.displayMode" [newAffiliationId]="reqId"></app-document-check-list>
+  </mat-tab>
 </mat-tab-group>

@@ -9,14 +9,20 @@
         <!-- DBA Name Ortigas -->
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <app-branch-form [branchId]="items.id" [displayMode]="this.displayMode" [userGroup]="this.userGroup"></app-branch-form>
+    <app-branch-form [branchId]="items.id" [displayMode]="this.displayMode" [userGroup]="this.mode"></app-branch-form>
     <mat-card>
       <mat-tab-group>
         <mat-tab label="OIF">
           <app-ocular-inspection-form [branchId]="items.id" [showButton]="false"></app-ocular-inspection-form>
         </mat-tab>
         <mat-tab label="POS">
-          <app-pos-list [displayMode]="!this.displayMode" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
+          <ng-container *ngIf="displayMode == false">
+              <app-pos-list [displayMode]="!this.displayMode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
+          </ng-container>
+          <ng-container *ngIf="displayMode">
+              <app-pos-list [displayMode]="!this.displayMode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="false" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
+          </ng-container>
+          
         </mat-tab>
         <mat-tab label="MID">
           <app-mid [branchId]="items.id" [showAdd]="false" [showUpdate]="!this.displayMode" [showDelete]="false"></app-mid>

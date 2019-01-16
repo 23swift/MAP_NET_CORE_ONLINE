@@ -12,15 +12,17 @@ export class MauOfficerComponent extends AppBaseComponent implements OnInit {
     @Input() displayMode: boolean;
     mode: string;
     subTitle: string = '';
+    reqId: number;
     constructor(public route: ActivatedRoute,
         public router: Router) {
         super(route, router);
+        this.reqId = +this.route.snapshot.params['id'];  
     }
 
     ngOnInit() {
         //this.mode = this.route.snapshot.params.mode;
-        //  this.mode = "approver"; //user type 8  
-        this.mode = "mauEncoder";  // 7
+          this.mode = "approver"; //user type 8  
+      //    this.mode = "mauEncoder";  // 7
 
         if (this.mode === "approver") {
             this.title = 'Merchant Affiliation & Maintenance Approval';

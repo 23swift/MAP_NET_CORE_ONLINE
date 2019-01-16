@@ -1,2 +1,2 @@
-<app-customer-profile [displayMode]="this.displayMode" [userGroup]="'ao'"></app-customer-profile>
-<app-branch-info [requestId]="this.reqId"></app-branch-info> <!--5 -->
+<app-customer-profile [displayMode]="this.displayMode" [userGroup]="this.mode"></app-customer-profile>
+<app-branch-info [displayMode]="this.displayMode" [mode]="this.mode" [requestId]="this.reqId"></app-branch-info> <!--5 -->

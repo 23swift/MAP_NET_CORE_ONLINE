@@ -25,6 +25,10 @@ export class BdoFormHeaderComponent implements OnInit {
   showCadencieProcessingButton: boolean;
   showPosProcessingButton: boolean;
   showPsCheckerButton: boolean;
+  showReturnRequestChecker:boolean;
+  showReturnRequestMAMO:boolean;
+  showReturnRequestApprover:boolean;
+  showReturnRequestMQR:boolean;
   showMqrUserProcessingButton: boolean;
   showMdcsChecking: boolean;
   showPreScreen: boolean;
@@ -56,46 +60,64 @@ export class BdoFormHeaderComponent implements OnInit {
     this.showMqrUserProcessingButton = false;
     this.showMdcsChecking = false;
     this.showPreScreen = false;
+    this.showReturnRequestChecker = false;
+    this.showReturnRequestMAMO = false;
+    this.showReturnRequestApprover = false;
+    this.showReturnRequestMQR = false;
 
     this.mode = this.mode ? this.mode : 'create';
 
     if (this._router.url !== '/home') {
-      if (this.mode.match(/approver/i)) {
+      if (this.mode.match(/^approver$$/i)) {
         this.showApprovalOptions = true;
       }
-      if (this.mode.match(/aoChecker/i) /*|| this.mode.match(/approval/)*/) {
+      if (this.mode.match(/^aoChecker$/i) /*|| this.mode.match(/^approval/)*/) {
         this.showRequestFlowOptions = true;
       }
-      if (this.mode.match(/create/i)) {
+      if (this.mode.match(/^create$/i)) {
         this.showCreateOptions = true;
       }
-      if (this.mode.match(/mdmUser/i)) {
+      if (this.mode.match(/^mdmUser$/i)) {
         this.showWelcomeLetter = true;
       }
-      if (this.mode.match(/forCadencie/i)) {
+      if (this.mode.match(/^forCadencie$/i)) {
         this.showCadencieProcessingButton = true;
       }
-      if (this.mode.match(/forPos/i)) {
+      if (this.mode.match(/^forPos$/i)) {
         this.showPosProcessingButton = true;
       }
-      if (this.mode.match(/forPsChecker/i)) {
+      if (this.mode.match(/^forPsChecker$/i)) {
         this.showPsCheckerButton = true;
       }
-      if (this.mode.match(/mqrUser/i)) {
+      if (this.mode.match(/^mqrUser$/i)) {
         this.showMqrUserProcessingButton = true;
       }
-      if (this.mode.match(/forMdcsChecking/i)) {
+      if (this.mode.match(/^forMdcsChecking$/i)) {
         this.showMdcsChecking = true;
       }
-      if (this.mode.match(/forPreScreening/)) {
+      if (this.mode.match(/^forPreScreening/)) {
         this.showPreScreen = true;
       }
-      if (this.mode.match(/mauOfficer/i)) {
+      if (this.mode.match(/^mauOfficer$/i)) {
         this.showRequestFlowOptions = true;
       }
-      if (this.mode.match(/mauEncoder/i)) {
+      if (this.mode.match(/^mauEncoder$/i)) {
         this.showRequestFlowOptions = true;
       }
+      if (this.mode.match(/^returnRequestChecker$/i)) {
+        this.showReturnRequestChecker = true;
+      }
+      if (this.mode.match(/^returnRequestMAMO$/i)) {
+        this.showReturnRequestMAMO = true;
+      }
+      if (this.mode.match(/^returnRequestApprover$/i)) {  
+        this.showReturnRequestApprover = true;
+      }
+      if (this.mode.match(/^returnRequestMQR$/i)) {
+        this.showReturnRequestMQR = true;
+      }
+
+      console.log(this.mode, this.showReturnRequestApprover);
       if (this.mode.match(/mdcsUser/i)) {
         this.showPosProcessingButton = true;
       }
@@ -112,6 +134,92 @@ export class BdoFormHeaderComponent implements OnInit {
     }
   }
 
+  reSubmitRequestChecker() {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      actionCode : 'Re-submit To Checker'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+    });   
+  }
+
+  reSubmitRequestMAMO() {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      actionCode : 'Re-submit To MAMO'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+    });   
+  }
+
+  reSubmitRequestApprover() {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      actionCode : 'Re-submit To Approver'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+    });   
+  }
+
+  reSubmitRequestMQR() {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      actionCode : 'Re-submit To MQR'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+    });   
+  }
+
+  returnToAOByMAMO() {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      actionCode : 'Return To AO By MAMO'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+      if(d === null)
+      {
+        this._router.navigateByUrl('/home/mauEncoder');
+      }      
+    });   
+  }
+
+  returnToAOByApprover() {
+    const dialog = this._dialog.open(RemarksModalComponent, {
+      width: '50%',
+      data: {
+      newAffiliationId : this.newAffiliationId,
+      actionCode : 'Return To AO By Approver'
+    }
+    });
+
+    dialog.afterClosed().subscribe(d => {
+      if(d === null)
+      {
+      this._router.navigateByUrl('/home/approver');
+      }
+    });   
+  }
+
   returntoAO(): void {
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
@@ -122,7 +230,7 @@ export class BdoFormHeaderComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(d => {
-      this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
+     /* this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
         const snackBarRef = this._snackBar.open('Request', 'Returned', {
           duration: 1000
         });
@@ -130,8 +238,9 @@ export class BdoFormHeaderComponent implements OnInit {
         snackBarRef.afterDismissed().subscribe(s => {
           this._router.navigateByUrl('/home/aoChecker');
         })
-      });
-    });
+      }); */
+
+    }); 
   }
 
   submittoApprover(): void {
@@ -139,7 +248,10 @@ export class BdoFormHeaderComponent implements OnInit {
       const snackBarRef = this._snackBar.open('Submitted To Approver', 'Saved', {
         duration: 1000
       });
+      this._router.navigateByUrl('/home/mauEncoder');      
     });
+
+    
   }
 
 
@@ -153,6 +265,10 @@ export class BdoFormHeaderComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(d => {
+      if(d === null)
+      {
+      this._router.navigateByUrl('/home/approver');
+      }
     });
   }
 
@@ -166,8 +282,11 @@ export class BdoFormHeaderComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(d => {
-
-    });
+      if(d === null)
+      {
+      this._router.navigateByUrl('/home/approver');
+      }
+    });   
   }
 
   approve(): void {

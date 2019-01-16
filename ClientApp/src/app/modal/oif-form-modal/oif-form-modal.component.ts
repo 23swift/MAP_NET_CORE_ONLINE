@@ -42,7 +42,7 @@ export class OifFormModalComponent implements OnInit {
         this.model['monitorCodeList'] = fjData[2];
         this.model['branchId'] = this.dialogData['branchId'];
       }
-      this.fields = this._oifService.getOIFFields();
+      this.fields = this._oifService.getOIFFields('');
     });
   }
 

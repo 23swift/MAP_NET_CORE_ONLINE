@@ -15,6 +15,7 @@ import { forkJoin } from 'rxjs';
 export class OcularInspectionFormComponent extends AppBaseComponent implements OnInit {
   @Input()branchId:number;
   @Input()showButton:boolean;
+  @Input() userGroup: string;
   form: FormGroup;
   fields: FormlyFieldConfig[];
   model: Object;
@@ -35,8 +36,6 @@ export class OcularInspectionFormComponent extends AppBaseComponent implements O
     this.form = new FormGroup({});
     this._oifFormModalService.getByBranch(this.branchId).subscribe(data => {
       this.model = data;
-      this.model['monitorCodeList'] = [];
-console.log(this.model);
       this.getFields();
     });  
   }
@@ -53,7 +52,7 @@ console.log(this.model);
   }
 
   public getFields() {
-    this.fields = this._oifFormModalService.getOIFFields();
+    this.fields = this._oifFormModalService.getOIFFields(this.userGroup);
   }
 
 }

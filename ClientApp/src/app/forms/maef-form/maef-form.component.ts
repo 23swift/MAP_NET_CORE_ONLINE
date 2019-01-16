@@ -5,6 +5,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { AppBaseComponent } from '../../app-base/app-base.component';
 import { MaefFormService } from '../maef-form/maef-form.service';
 import { MatSnackBar } from '@angular/material';
+import { FormlyFieldConfigService } from 'src/app/services/formly-field-config.service';
 
 
 @Component({
@@ -31,14 +32,13 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
   private _maefFormService: MaefFormService;
 
   constructor(private maefFormService: MaefFormService, public route: ActivatedRoute,
-    public router: Router, private _snackBar: MatSnackBar) { 
+    public router: Router, private _snackBar: MatSnackBar, private _formlyConfig: FormlyFieldConfigService) { 
       super(route, router);
       this._maefFormService = maefFormService;
       this.reqId = +this.route.snapshot.paramMap.get('id');    
       this._maefFormService.getMAEF(this.reqId).subscribe(data => {
         this.model = data;
         this.model.displayMode = this.displayMode;
-       console.log(this.model);
         this.getFields();
       });
 
@@ -56,6 +56,9 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
 
   public getFields() {
     this.fields = this._maefFormService.getMaefFields();
+    if (this.displayMode) {
+      this._formlyConfig.disabled(this.fields);
+    }
   }
 
   submit() {

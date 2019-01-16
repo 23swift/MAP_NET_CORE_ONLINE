@@ -21,6 +21,9 @@ export class PosFormComponent implements OnInit {
   @Input() displayMode: boolean;
   @Input() branchId: number;
   fields = [];
+  form: FormGroup;
+  model: any;
+  options: any;
   constructor(private _posFormService: PosFormService, private _route: ActivatedRoute,
     private _router: Router, private _formService: FormlyFieldConfigService, private _posListService: PosListService) {
     this.fields = this._posFormService.getPosFields(this.userGroup);

@@ -677,20 +677,24 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/moto/i)) {
-                  isDisabled = false;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
               return model['isWaved'] || isDisabled;
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/moto/i)) {
-                  isRequired = true;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
               return isRequired;
             }
           },
@@ -718,20 +722,24 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/event/i)) {
-                  isDisabled = false;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
               return model['isWaved'] || isDisabled;
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/event/i)) {
-                  isRequired = true;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
               return isRequired;
             }
           }
@@ -747,20 +755,24 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/event/i)) {
-                  isDisabled = false;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
               return model['isWaved'] || isDisabled;
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/event/i)) {
-                  isRequired = true;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
               return isRequired;
             }
           }
@@ -778,20 +790,24 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/event/i)) {
-                  isDisabled = false;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
               return model['isWaved'] || isDisabled;
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/event/i)) {
-                  isRequired = true;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
               return isRequired;
             }
           },
@@ -1221,7 +1237,7 @@ export class OifFormModalService {
     } else {
       return this.fields;
     }
-    
+
   }
 
   getByBranch(id): Observable<any> {

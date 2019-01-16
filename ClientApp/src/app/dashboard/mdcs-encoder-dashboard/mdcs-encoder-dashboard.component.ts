@@ -46,10 +46,6 @@ export class MdcsEncoderDashboardComponent implements OnInit {
     this._router.navigateByUrl('na/mdcsEncoder/' + id);
   }
 
-  getStatus() {
-    return 'FOR ENCODING';
-  }
-
   openSearchDialog() {
     const dialogRef = this._matDialog.open(SearchModalComponent, {
       autoFocus: false,

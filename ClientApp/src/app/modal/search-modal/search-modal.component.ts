@@ -36,4 +36,8 @@ export class SearchModalComponent implements OnInit {
     this._matDialogRef.close(this.model);
   }
 
+  cancel() {
+    
+  }
+
 }

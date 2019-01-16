@@ -37,4 +37,8 @@ export class MdmUserDashboardService implements OnInit {
   update(): void {
     this._http.put(apiUrl, {});
   }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.put(ApiConstants.mdmUserDashboard + '/filter', searchCriteria);
+  }
 }

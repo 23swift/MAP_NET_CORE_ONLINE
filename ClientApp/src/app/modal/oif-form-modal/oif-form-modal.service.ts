@@ -5,6 +5,7 @@ import { ApiConstants } from 'src/app/api-constants';
 import { HttpClient } from '@angular/common/http';
 import { DropDownService } from 'src/app/services/drop-down.service';
 import { forEach } from '@angular/router/src/utils/collection';
+import { FormlyFieldConfigService } from 'src/app/services/formly-field-config.service';
 
 @Injectable()
 export class OifFormModalService {
@@ -639,20 +640,24 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/moto/i)) {
-                  isDisabled = false;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
               return model['isWaved'] || isDisabled;
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              model['monitorCodeList'].forEach(v => {
-                if (v.match(/moto/i)) {
-                  isRequired = true;
-                }
-              });
+              if (model['monitorCodeList']) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
               return isRequired;
             }
           },
@@ -1207,10 +1212,16 @@ export class OifFormModalService {
     }
   ];
 
-  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService, private _formlyConfig: FormlyFieldConfigService) { }
 
-  getOIFFields(): FormlyFieldConfig[] {
-    return this.fields;
+  getOIFFields(userGroup): FormlyFieldConfig[] {
+    if (userGroup === 'mdmUser') {
+      this._formlyConfig.disabled(this.fields);
+      return this.fields;
+    } else {
+      return this.fields;
+    }
+    
   }
 
   getByBranch(id): Observable<any> {

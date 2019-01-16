@@ -13,6 +13,7 @@ namespace MAP_Web.Models
         public byte[] fileUpload { get; set; }
         public string submittedBy { get; set; }
         public Nullable<Guid> AuditLogGroupId { get; set; }
+        public bool withTempoWaiver { get; set; }
         public int NewAffiliationId { get; set; }
         public NewAffiliation NewAffiliation { get; set; }
     }

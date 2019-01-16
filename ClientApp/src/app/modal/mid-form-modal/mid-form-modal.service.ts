@@ -65,7 +65,7 @@ export class MidFormModalService {
             type: 'select',
             expressionProperties: {
               // 'templateOptions.required': (model: any, formState: any) => {
-              //   return model['monitorCode'] === 3;
+              //   return model['monitorCode'];//); LABEL ON DROPDOWN
               // }
             },
             templateOptions: {

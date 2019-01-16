@@ -22,5 +22,16 @@ namespace MAP_Web.Controllers
 
             return Ok(requests);
         }
+
+        [HttpPut("filter")]
+        public async Task<IActionResult> GetRequests([FromBody] FilterCriteriaViewModel filter)
+        {
+            var requests = await _service.FilterAsync(filter);
+
+            if (requests.Count == 0) 
+                requests = new List<DashboardViewModel>();
+
+            return Ok(requests);
+        }
     }
 }

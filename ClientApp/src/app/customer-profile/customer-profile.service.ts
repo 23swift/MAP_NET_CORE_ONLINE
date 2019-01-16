@@ -187,6 +187,8 @@ export class CustomerProfileService {
       fields = this.mdcsFields;
     } else if (userGroup === 'psServicing') {
       fields = this.psServicngFields;
+    } else if (userGroup === 'mdmUser') {
+      fields = this.mdcsFields;
     }
 
     return fields;

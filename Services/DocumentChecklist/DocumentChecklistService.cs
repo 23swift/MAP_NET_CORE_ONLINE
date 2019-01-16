@@ -85,7 +85,7 @@ namespace MAP_Web.Services
 
             foreach (var item in docs.Items)
             {
-                if (item.submitted == false && item.targetDateOfSubmission == null) {
+                if (item.submitted == false && item.targetDateOfSubmission == null && item.withTempoWaiver == false) {
                     isValid = false;
                 }    
             }

@@ -640,7 +640,7 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/moto/i)) {
                     isDisabled = false;
@@ -651,7 +651,7 @@ export class OifFormModalService {
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/moto/i)) {
                     isRequired = true;
@@ -677,7 +677,7 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/moto/i)) {
                     isDisabled = false;
@@ -688,7 +688,7 @@ export class OifFormModalService {
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/moto/i)) {
                     isRequired = true;
@@ -722,7 +722,7 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/event/i)) {
                     isDisabled = false;
@@ -733,7 +733,7 @@ export class OifFormModalService {
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/event/i)) {
                     isRequired = true;
@@ -755,7 +755,7 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/event/i)) {
                     isDisabled = false;
@@ -766,7 +766,7 @@ export class OifFormModalService {
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/event/i)) {
                     isRequired = true;
@@ -790,7 +790,7 @@ export class OifFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/event/i)) {
                     isDisabled = false;
@@ -801,7 +801,7 @@ export class OifFormModalService {
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              if (model['monitorCodeList']) {
+              if (model.hasOwnProperty('monitorCodeList')) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/event/i)) {
                     isRequired = true;

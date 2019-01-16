@@ -1808,24 +1808,21 @@ export class BranchFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               let isDisabled = true;
-              if (model['monitorCodeList']) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/tpp/i)) {
                     isDisabled = false;
                   }
                 });
-              }
               return isDisabled;
             },
             'templateOptions.required': (model: any, formState: any) => {
               let isRequired = false;
-              if (model['monitorCodeList']) {
                 model['monitorCodeList'].forEach(v => {
                   if (v.match(/tpp/i)) {
                     isRequired = true;
                   }
                 });
-              }
+                
               return isRequired;
             }
           },

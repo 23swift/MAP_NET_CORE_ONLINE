@@ -31,7 +31,7 @@ namespace MAP_Web.Services
                 {
                     if (prop.Name == "AuditLogGroupId")
                     {
-                        auditLogId = new Guid(change.CurrentValues[property: prop].ToString());
+                        auditLogId = new Guid(change.CurrentValues[propertyName: prop.Name].ToString());
                         break;
                     }
                 }

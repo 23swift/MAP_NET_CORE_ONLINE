@@ -21,6 +21,7 @@ namespace MAP_Web.Services
         public async Task InsertAsync(Signatories signatory)
         {
             var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == signatory.CustomerProfileId);
+            signatory.AuditLogGroupId = customer.AuditLogGroupId;
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 

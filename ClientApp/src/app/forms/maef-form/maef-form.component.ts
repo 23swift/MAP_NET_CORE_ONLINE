@@ -38,7 +38,7 @@ export class MaefFormComponent extends AppBaseComponent implements OnInit {
       this._maefFormService.getMAEF(this.reqId).subscribe(data => {
         this.model = data;
 
-       console.log(this.model);
+       //console.log(this.model);
         this.getFields();
       });
 

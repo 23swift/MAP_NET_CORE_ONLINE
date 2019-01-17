@@ -22,6 +22,7 @@ export class SignatoriesFormModalComponent implements OnInit {
       return true;
     }
   };
+  userGroup: string;
 
   constructor(private _modalRef: MatDialogRef<SignatoriesFormModalComponent>, private _signatoriesService: SignatoriesFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,6 +55,8 @@ export class SignatoriesFormModalComponent implements OnInit {
     } else {
       this.fields = this._signatoriesService.getFormlyFields(this.data['userGroup']);
     }
+
+    this.userGroup = this.data['userGroup'];
   }
 
   ngOnInit() {

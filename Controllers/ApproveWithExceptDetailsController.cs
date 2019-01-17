@@ -45,6 +45,9 @@ namespace MAP_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateApproveWithExceptDetails([FromBody] ApproveWithExceptDetails approveWithExceptDetails)
         {
+            if (approveWithExceptDetails.MAEF == null)
+                return BadRequest(ModelState);
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -83,7 +86,22 @@ namespace MAP_Web.Controllers
             await approveWithExceptDetailsService.SaveChangesAsync();
 
             return Ok();
-        }   
+        }
+
+        [HttpGet("appexlistMqr/{id}")]
+        public async Task<IActionResult> GetApproveWithExceptDetailsListMqr(int id)
+        {
+            var maef = await approveWithExceptDetailsService.GetMaefIdByNewAffId(id);
+            if (maef == null)
+                return NotFound();
+
+            var appReqList = await approveWithExceptDetailsService.FindByMAEF(maef.Id);
+
+            if (appReqList == null)
+                return NotFound();
+
+            return Ok(appReqList);
+        }
 
 
     }

@@ -7,13 +7,14 @@ namespace MAP_Web.Services
 {
     public interface IApproveWithReqReasonService
     {
-         Task InsertAsync(ApproveWithReqReason approveWithReqReason);
-         Task<IPagedList<ApproveWithReqReason>> FindByMAEF(int id);
+        Task InsertAsync(ApproveWithReqReason approveWithReqReason);
+        Task<IPagedList<ApproveWithReqReason>> FindByMAEF(int id);
 
-         Task<ApproveWithReqReason> FindAsyncSpecific(int id);         
+        Task<ApproveWithReqReason> FindAsyncSpecific(int id);
 
-         Task SaveChangesAsync();
-         void Update(ApproveWithReqReason approveWithReqReason);
-         void Delete(ApproveWithReqReason approveWithReqReason);           
+        Task SaveChangesAsync();
+        void Update(ApproveWithReqReason approveWithReqReason);
+        void Delete(ApproveWithReqReason approveWithReqReason);
+        Task<MAEF> GetMaefIdByNewAffId(int id);
     }
 }

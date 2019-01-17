@@ -39,7 +39,6 @@ export class OwnersListComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this._ownerService.getTableFields();
-
   }
 
   update(owner) {

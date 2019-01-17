@@ -32,6 +32,7 @@ export class PosFormModalComponent implements OnInit {
     private _modalRef: MatDialogRef<PosFormModalComponent>,
     @Inject(MAT_DIALOG_DATA) public _dialogData: any,
     private _snackBar: MatSnackBar) {
+    this.userGroup = this._dialogData['userGroup'];
     if (this._dialogData['showMid'] !== undefined) {
       this.showMid = this._dialogData['showMid'];
     }
@@ -48,7 +49,6 @@ export class PosFormModalComponent implements OnInit {
     this.displayMode = this._dialogData['displayMode'];
     this.model = {};
     this.model['id'] = 0;
-    this.fields = this._posService.getPosFields('ao');
 
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL
@@ -56,11 +56,15 @@ export class PosFormModalComponent implements OnInit {
       this._posService.getPosAutoPopulate(this.branchId).subscribe(p => {
         this.model = p;
         this.model['branchId'] = this._dialogData['branchId'];
-        this.model['userGroup'] = this._dialogData['userGroup'];
+        this.model['userGroup'] = this.userGroup;
+
+        this.fields = this._posService.getPosFields(this.userGroup);
       });
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
-      this.model['userGroup'] = this._dialogData['userGroup'];
+      this.model['userGroup'] = this.userGroup;
+
+      this.fields = this._posService.getPosFields(this.userGroup);
     }
   }
 

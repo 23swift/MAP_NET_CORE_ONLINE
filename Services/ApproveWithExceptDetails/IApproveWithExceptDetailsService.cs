@@ -14,6 +14,8 @@ namespace MAP_Web.Services
 
          Task SaveChangesAsync();
          void Update(ApproveWithExceptDetails approveWithExceptDetails);
-         void Delete(ApproveWithExceptDetails approveWithExceptDetails);          
+         void Delete(ApproveWithExceptDetails approveWithExceptDetails);
+
+        Task<MAEF> GetMaefIdByNewAffId(int id);
     }
 }

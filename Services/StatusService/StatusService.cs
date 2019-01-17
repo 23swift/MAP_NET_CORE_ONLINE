@@ -73,6 +73,15 @@ namespace MAP_Web.Services
                 case 22:
                     stat = "FOR POS PROCESSING";
                     break;
+                case 23:
+                    stat = "RETURNED BY MARO";
+                    break;
+                case 24:
+                    stat = "CANCELED REQUEST";
+                    break;
+                case 25:
+                    stat = "SUBMIT FOR MAR APPROVAL";
+                    break;
             }
             return stat;
         }

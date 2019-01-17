@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 
 const apiUrl = '';
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MdcsUserService {
 
   constructor(private _http: HttpClient) { }

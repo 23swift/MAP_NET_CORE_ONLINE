@@ -1,0 +1,11 @@
+<div class="mat-typography">
+  <div class="mat-headline" color="primary">Approve With Requirement Reason Details</div>
+</div>
+<form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
+  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+    <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+      <button type="submit" color="primary" mat-raised-button>Save </button>
+      <button type="button" color="accent" mat-raised-button (click)="cancel()">Cancel</button>
+    </div>
+  </formly-form>
+</form>

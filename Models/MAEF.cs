@@ -110,5 +110,11 @@ namespace MAP_Web.Models
         public int RequestId { get; set; }
         public Request Request { get; set; }
 
+        public ICollection<ApproveWithExceptDetailsMqr> ApproveWithExceptDetailsMqr { get; set; }
+
+        public ICollection<ApproveWithReqReasonMqr> ApproveWithReqReasonMqr { get; set; }
+
+        public AwrMaef AwrMaef { get; set; }
+
     }
 }

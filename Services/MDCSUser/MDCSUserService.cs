@@ -10,7 +10,7 @@ namespace MAP_Web.Services
     public class MDCSUserService : IMDCSUserService
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly IRepository<Branch> branchRepo;
+        //private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<NewAffiliation> newAffiliationRepo;
 
         public MDCSUserService(IUnitOfWork unitOfWork)

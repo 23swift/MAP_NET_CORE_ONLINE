@@ -128,6 +128,50 @@ export class OwnersFormModalService {
         }
       ];
     }
+    else if (userGroup === 'mqrUser') { 
+      fields = [
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'name',
+              templateOptions: {
+                label: 'Name',
+                maxLength: 50,
+              }
+            },
+            {
+              className: 'flex-1',
+              type: 'input',
+              key: 'percentOfOwnership',
+              templateOptions: {
+                label: '% of Ownership',
+                pattern: '^\\d{1,2}$|100',
+              }
+            }
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              type: 'select',
+              key: 'typeOfRelatedParty',
+              defaultValue: 'N/A',
+              templateOptions: {
+                label: 'Type of Related Party',
+                options: this._dropDownService.getDropdown('TORP'),
+                labelProp: 'value',
+                valueProp: 'code',
+              }
+            }
+          ]
+        }
+      ];
+    }
     return fields;
   }
 

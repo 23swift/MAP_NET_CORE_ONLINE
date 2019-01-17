@@ -301,7 +301,7 @@ const routes: Routes = [
   { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
   {
-    path: 'na/mqrUser', component: MqrUserComponent,
+    path: 'na/mqrUser/:id', component: MqrUserComponent,
     children: [
       { path: 'MID/:form', component: MidComponent, outlet: 'mid' }
     ]

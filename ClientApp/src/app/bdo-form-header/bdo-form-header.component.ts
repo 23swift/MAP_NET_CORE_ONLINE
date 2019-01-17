@@ -204,4 +204,75 @@ export class BdoFormHeaderComponent implements OnInit {
     });
   }
 
+  returnToAObyMARO(): void {
+    this._newAffiliationService.updateRequestReturnedByMARO(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted', {
+        duration: 2000
+      });
+
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/home/mqrUser');
+      });
+    }, err => {
+      if (err['status'] === 400) {
+        const snackBarSub = this._snackBar.open('One or More Branches Were Not Updated', 'Failed', {
+          duration: 2000
+        });
+      }
+    });
+  }
+
+  cancelRequestByMARO(): void {
+    this._newAffiliationService.updateRequestCancelRequest(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Cancelled!', {
+        duration: 2000
+      });
+
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/home/mqrUser');
+      });
+    }, err => {
+      if (err['status'] === 400) {
+        const snackBarSub = this._snackBar.open('One or More Branches Were Not Updated', 'Failed', {
+          duration: 2000
+        });
+      }
+    });
+  }
+
+  complied(): void {
+    this._newAffiliationService.updateRequestComplied(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Complied', {
+        duration: 2000
+      });
+
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/home/mqrUser');
+      });
+    }, err => {
+      if (err['status'] === 400) {
+        const snackBarSub = this._snackBar.open('One or More Branches Were Not Updated', 'Failed', {
+          duration: 2000
+        });
+      }
+    });
+  }
+
+  submitToMARApproval(): void {
+    this._newAffiliationService.updateRequestSubmitToMARApproval(this.newAffiliationId).subscribe(x => {
+      const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Submitted to MAR Approval', {
+        duration: 2000
+      });
+
+      snackBarSub.afterDismissed().subscribe(() => {
+        this._router.navigateByUrl('/home/mqrUser');
+      });
+    }, err => {
+      if (err['status'] === 400) {
+        const snackBarSub = this._snackBar.open('One or More Branches Were Not Updated', 'Failed', {
+          duration: 2000
+        });
+      }
+    });
+  }
 }

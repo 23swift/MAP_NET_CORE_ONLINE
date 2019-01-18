@@ -5,6 +5,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { CustomerProfileService } from 'src/app/customer-profile/customer-profile.service';
 import { PaddingDecimalFieldsService } from 'src/app/services/padding-decimal-fields.service';
+import { forkJoin } from 'rxjs';
+import { MidListModalService } from '../mid-list-modal/mid-list-modal.service';
 
 @Component({
   selector: 'app-branch-form-modal',
@@ -23,22 +25,35 @@ export class BranchFormModalComponent implements OnInit {
   };
 
   constructor(private _modalRef: MatDialogRef<BranchFormModalComponent>, private _branchService: BranchFormModalService,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public matDialogData: any,
     private _snackBar: MatSnackBar, private _customerProfileService: CustomerProfileService,
-    private _decimalService: PaddingDecimalFieldsService) {
+    private _decimalService: PaddingDecimalFieldsService,
+    private _midService: MidListModalService) {
     this.model = {};
     this.model['id'] = 0;
-    if (this.data['newAffiliationId']) {
-      this._customerProfileService.get(this.data['newAffiliationId']).subscribe(cpData => {
-        this.model = data['branch'];
-        this.model['registeredBusinessNo'] = cpData['registeredBusinessNumber'];
+    if (this.matDialogData['newAffiliationId']) {
+      forkJoin([
+        this._customerProfileService.get(this.matDialogData['newAffiliationId']),
+        this._midService.getDefaultMonitorCodes()
+      ]).subscribe(fjData => {
+        this.model = this.matDialogData['branch'];
+        this.model['registeredBusinessNo'] = fjData[0]['registeredBusinessNumber'];
+        this.model['monitorCodeList'] = fjData[1];
 
-        this.fields = this._branchService.getBranchFields(this.data['userGroup']);
+        this.fields = this._branchService.getBranchFields(this.matDialogData['userGroup']);
       });
     } else {
-      this.model = Object.assign({}, data['branch']);
-      this._decimalService.modifyDecimalFields(this.model);
-      this.fields = this._branchService.getBranchFields(this.data['userGroup']);
+      this._midService.getDefaultMonitorCodes().subscribe(mc => {
+        this.model = Object.assign({}, matDialogData['branch']);
+        this.model['mdrAtm'] = this._decimalService.modifyDecimalFields(this.model['mdrAtm']);
+        this.model['mdrSmGiftCard'] = this._decimalService.modifyDecimalFields(this.model['mdrSmGiftCard']);
+        this.model['mdrSmShopCard'] = this._decimalService.modifyDecimalFields(this.model['mdrSmShopCard']);
+        this.model['mdrCashAgad'] = this._decimalService.modifyDecimalFields(this.model['mdrCashAgad']);
+        this.model['discountDebitRate'] = this._decimalService.modifyDecimalFields(this.model['discountDebitRate']);
+        this.model['merchDiscountRateDebitCrd'] = this._decimalService.modifyDecimalFields(this.model['merchDiscountRateDebitCrd']);
+        this.model['monitorCodeList'] = mc;
+        this.fields = this._branchService.getBranchFields(this.matDialogData['userGroup']);
+      });
     }
   }
 

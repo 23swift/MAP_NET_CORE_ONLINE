@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 import { HttpClient } from '@angular/common/http';
 import { DropDownService } from 'src/app/services/drop-down.service';
+import { forEach } from '@angular/router/src/utils/collection';
+import { FormlyFieldConfigService } from 'src/app/services/formly-field-config.service';
 
 @Injectable()
 export class OifFormModalService {
@@ -635,14 +637,33 @@ export class OifFormModalService {
           key: 'otherMarketingChannelSource',
           type: 'input',
           className: 'flex-1',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              let isDisabled = true;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
+              return model['isWaved'] || isDisabled;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              let isRequired = false;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
+              return isRequired;
+            }
+          },
           templateOptions: {
             label: 'Other Marketing / Channel Source',
             maxLength: 30
-          },
-          expressionProperties: {
-            'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
-            }
           }
         },
         {
@@ -655,12 +676,27 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              let isDisabled = true;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
+              return model['isWaved'] || isDisabled;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              let isRequired = false;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/moto/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
+              return isRequired;
             }
-            // ,
-            // 'templateOptions.required': (model: any, formState: any) => {
-            //   return !model['isWaved'];
-            // }
           },
           validators: {
             validation: ['numeric']
@@ -685,7 +721,26 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              let isDisabled = true;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
+              return model['isWaved'] || isDisabled;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              let isRequired = false;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
+              return isRequired;
             }
           }
         },
@@ -699,7 +754,26 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              let isDisabled = true;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
+              return model['isWaved'] || isDisabled;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              let isRequired = false;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
+              return isRequired;
             }
           }
         },
@@ -715,7 +789,26 @@ export class OifFormModalService {
           },
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['isWaved'];
+              let isDisabled = true;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isDisabled = false;
+                  }
+                });
+              }
+              return model['isWaved'] || isDisabled;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              let isRequired = false;
+              if (model.hasOwnProperty('monitorCodeList')) {
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/event/i)) {
+                    isRequired = true;
+                  }
+                });
+              }
+              return isRequired;
             }
           },
           lifecycle: {
@@ -1135,10 +1228,16 @@ export class OifFormModalService {
     }
   ];
 
-  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService, private _formlyConfig: FormlyFieldConfigService) { }
 
-  getOIFFields(): FormlyFieldConfig[] {
-    return this.fields;
+  getOIFFields(userGroup): FormlyFieldConfig[] {
+    if (userGroup === 'mdmUser') {
+      this._formlyConfig.disabled(this.fields);
+      return this.fields;
+    } else {
+      return this.fields;
+    }
+
   }
 
   getByBranch(id): Observable<any> {

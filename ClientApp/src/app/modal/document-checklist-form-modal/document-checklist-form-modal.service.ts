@@ -16,6 +16,16 @@ export class DocumentChecklistFormModalService {
         fieldGroup: [
           {
             className: 'flex-1',
+            key: 'withTempoWaiver',
+            type: 'checkbox',
+            defaultValue: false,
+            templateOptions: {
+              label: 'With Tempo Waiver',
+              indeterminate: false
+            }
+          },
+          {
+            className: 'flex-5',
             key: 'documentName',
             type: 'select',
             templateOptions: {
@@ -36,8 +46,14 @@ export class DocumentChecklistFormModalService {
             key: 'submitted',
             type: 'checkbox',
             defaultValue: false,
+            expressionProperties: {
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['withTempoWaiver'];
+              }
+            },
             templateOptions: {
               label: 'Submitted',
+              indeterminate: false
             },
             lifecycle: {
               onInit: (form, field) => {
@@ -58,10 +74,10 @@ export class DocumentChecklistFormModalService {
             type: 'calendar',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return !model['submitted'];
+                return !model['submitted'] && !model['withTempoWaiver'];
               },
               'templateOptions.disabled': (model: any, formState: any) => {
-                return model['submitted'];
+                return model['submitted'] || model['withTempoWaiver'];
               }
             },
             templateOptions: {
@@ -91,7 +107,7 @@ export class DocumentChecklistFormModalService {
             type: 'input',
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
-                return !model['submitted'];
+                return !model['submitted'] && !model['withTempoWaiver'];
               }
             },
             templateOptions: {

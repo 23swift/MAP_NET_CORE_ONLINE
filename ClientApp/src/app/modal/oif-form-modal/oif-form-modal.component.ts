@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormGroup } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { BranchListService } from 'src/app/branch-list/branch-list.service';
+import { MidListModalService } from '../mid-list-modal/mid-list-modal.service';
 
 @Component({
   selector: 'app-oif-form-modal',
@@ -25,19 +26,23 @@ export class OifFormModalComponent implements OnInit {
 
   constructor(private _oifService: OifFormModalService,
     private _modalRef: MatDialogRef<OifFormModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar) {
-    this.fields = this._oifService.getOIFFields();
+    @Inject(MAT_DIALOG_DATA) public dialogData: any, private _snackBar: MatSnackBar,
+    private _midListModalService: MidListModalService) {
 
     forkJoin([
       this._oifService.getByBranch(this.dialogData['branchId']),
-      this._oifService.getOifAutoPopulate(this.dialogData['branchId'])
-    ]).subscribe(data => {
-      if (data[0]) {
-        this.model = data[0];
+      this._oifService.getOifAutoPopulate(this.dialogData['branchId']),
+      this._midListModalService.getExistingMonitorCodes(this.dialogData['branchId'])
+    ]).subscribe(fjData => {
+      if (fjData[0]) {
+        this.model = fjData[0];
+        this.model['monitorCodeList'] = fjData[2];
       } else {
-        this.model = data[1];
+        this.model = fjData[1];
+        this.model['monitorCodeList'] = fjData[2];
         this.model['branchId'] = this.dialogData['branchId'];
       }
+      this.fields = this._oifService.getOIFFields('');
     });
   }
 

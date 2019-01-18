@@ -844,8 +844,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Email Subject',
-            maxLength: 50,
-            disabled: true
+            maxLength: 50
           }
         },
       ]
@@ -871,7 +870,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileNumberOfTerminals',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -888,7 +887,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileBusinessGroup',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -907,7 +906,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileMerchantPortalUserEmailAddress',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -921,7 +920,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileMerchantPortalNominatedUsername',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -935,7 +934,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileInternetConnection',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -956,7 +955,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileInternetProvider',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -970,7 +969,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileReferenceField',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -986,7 +985,7 @@ export class PosFormModalService {
           key: 'bdoPayMobileRfName',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'];
+              return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao';
             }
           },
           templateOptions: {
@@ -999,19 +998,6 @@ export class PosFormModalService {
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-        // {
-        //   className: 'flex-1',
-        //   type: 'input',
-        //   key: 'tidIssuedBy',
-        //   expressionProperties: {
-        //     'templateOptions.disabled': (model: any, formState: any) => {
-        //       return model['natureOfRequest'] !== 'TID Issuance' || model['isWaved'];
-        //     }
-        //   },
-        //   templateOptions: {
-        //     label: 'TID Issued By'
-        //   }
-        // },
         {
           className: 'flex-1',
           type: 'calendar',
@@ -1025,19 +1011,6 @@ export class PosFormModalService {
             label: 'Date and Time TID Issued'
           }
         },
-        /*{
-          className: 'flex-1',
-          type: 'input',
-          key: 'dateAndTimeEndorsedToMAU',
-          templateOptions: {
-            label: 'Date and Time Endorsed To MAU'
-          }
-        } */
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
         {
           className: 'flex-1',
           type: 'calendar',
@@ -1050,9 +1023,50 @@ export class PosFormModalService {
             disabled: true
           }
         },
-        { className: 'flex-2' }
+        /*{
+          className: 'flex-1',
+          type: 'input',
+          key: 'dateAndTimeEndorsedToMAU',
+          templateOptions: {
+            label: 'Date and Time Endorsed To MAU'
+          }
+        } */
       ]
-    },
+    }
+    // ,
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'calendar',
+    //       key: 'smEcardMid',
+    //       expressionProperties: {
+    //         'templateOptions.disabled': (model: any, formState: any) => {
+    //           return model['isWaved'] || model['userGroup'] !== 'mmu';
+    //         }
+    //       },
+    //       templateOptions: {
+    //         label: 'SM E-Card MID',
+    //         maxlength: 50
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'calendar',
+    //       key: 'smPartnerPlusMid',
+    //       expressionProperties: {
+    //         'templateOptions.disabled': (model: any, formState: any) => {
+    //           return model['isWaved'] || model['userGroup'] !== 'mmu';
+    //         }
+    //       },
+    //       templateOptions: {
+    //         label: 'SM Partner Plus MID',
+    //         maxlength: 50
+    //       }
+    //     }
+    //   ]
+    // }
   ];
 
   veriScreenFields: FormlyFieldConfig[] = [

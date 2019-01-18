@@ -8,5 +8,7 @@ namespace MAP_Web.Services
     public interface IMauEncoderDashboardService
     {
       Task<List<DashboardViewModel>> FindAsync();
+
+      Task<List<DashboardViewModel>> FilterAsync(FilterCriteriaViewModel criteria);
     }
 }

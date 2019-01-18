@@ -44,11 +44,11 @@ export class PosFormModalComponent implements OnInit {
     }
     if (this._dialogData['showTerminalDelete'] !== undefined) {
       this.showTerminalDelete = this._dialogData['showTerminalDelete'];
-    }
-    
+      }    
     this.displayMode = this._dialogData['displayMode'];
     this.model = {};
     this.model['id'] = 0;
+    this.fields = this._posService.getPosFields('mauEncoder');
 
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL
@@ -62,9 +62,11 @@ export class PosFormModalComponent implements OnInit {
       });
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
-      this.model['userGroup'] = this.userGroup;
+      // this.model['userGroup'] = this.userGroup;
 
       this.fields = this._posService.getPosFields(this.userGroup);
+      //this.model['displayMode'] = this.displayMode;
+      this.model['userGroup'] = this._dialogData['userGroup'];
     }
   }
 

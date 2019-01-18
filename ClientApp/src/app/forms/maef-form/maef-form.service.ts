@@ -460,6 +460,7 @@ export class  MaefFormService {
           className: 'flex-1',
           key: 'rptClass',
           type: 'radio',
+         // defaultValue: null,     
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
               return model['rptYes'];
@@ -468,6 +469,7 @@ export class  MaefFormService {
           templateOptions: {
             label: 'If Yes, Please Select Classification:',
             options: [
+           //   { value: null, label: 'n/a'},
               { value: 'Subsidiary', label: 'Subsidiary' },
               { value: 'Affiliates', label: 'Affiliates' },
               { value: 'DOSRI', label: 'DOSRI' },
@@ -483,7 +485,7 @@ export class  MaefFormService {
           key: 'nameOfRp',
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['rptClass'] == 'Other RP';
+              return model['rptClass'] == 'DOSRI';
             }
           },
           templateOptions: {
@@ -628,7 +630,7 @@ export class  MaefFormService {
           key: 'chkApprove',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkDecline'];
+              return (model['chkDecline']) || (model['displayMode']);
           }, 
           },
           templateOptions: {
@@ -653,7 +655,7 @@ export class  MaefFormService {
           key: 'chkApprovePendingCust',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'] || model['chkDecline'];
+              return (model['chkApprove'] || model['chkDecline']) || (model['displayMode']);
           },
         },
           templateOptions: {
@@ -666,7 +668,7 @@ export class  MaefFormService {
           key: 'chkWithReq',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return (model['chkApprove'] || model['chkDecline']) || model['id'] === 0;
+              return (model['chkApprove'] || model['chkDecline']) || model['id'] === 0  || (model['displayMode']);
           },
         },
           templateOptions: {
@@ -691,7 +693,7 @@ export class  MaefFormService {
           key: 'chkWithException',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return (model['chkApprove'] || model['chkDecline']) || model['id'] === 0;
+              return (model['chkApprove'] || model['chkDecline']) || model['id'] === 0 || (model['displayMode']);
           },
         },
           templateOptions: {
@@ -704,7 +706,7 @@ export class  MaefFormService {
           key: 'chkDecline',
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
-              return model['chkApprove'];
+              return (model['chkApprove']) || (model['displayMode']);
           },
         },
           templateOptions: {
@@ -805,7 +807,7 @@ export class  MaefFormService {
         templateOptions: {
           label: 'Other Remarks',
           placeholder: 'Other Remarks',
-          maxLength: 2000,
+          maxLength: 1000,
           required: true
         },
       },
@@ -943,6 +945,14 @@ export class  MaefFormService {
     return this._http.put(ApiConstants.maefApi + '/returnToAo/' + id, {});
   }
 
+  ReturntoAOByMAMO(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/returnToAoByMAMO/' + id, {});
+  }
+  
+  ReturntoAOByApprover(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/returnToAoByApprover/' + id, {});
+  }
+
   ReturntoMAMO(id): Observable<any> {
     return this._http.put(ApiConstants.maefApi + '/returnToMamo/' + id, {});
   }
@@ -957,6 +967,22 @@ export class  MaefFormService {
 
   Approve(id): Observable<any> {
     return this._http.put(ApiConstants.maefApi + '/approve/' + id, {});
+  }  
+
+  ReSubmitRequestChecker(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/reSubmitRequestChecker/' + id, {});
+  }
+  
+  ReSubmitRequestMAMO(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/reSubmitRequestMAMO/' + id, {});
+  }
+  
+  ReSubmitRequestApprover(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/reSubmitRequestApprover/' + id, {});
+  }
+  
+  ReSubmitRequestMQR(id): Observable<any> {
+    return this._http.put(ApiConstants.maefApi + '/reSubmitRequestMQR/' + id, {});
   }  
 
 

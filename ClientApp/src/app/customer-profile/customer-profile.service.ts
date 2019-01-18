@@ -245,7 +245,7 @@ export class CustomerProfileService {
 
   getCustomerProfileFields(userGroup): FormlyFieldConfig[] {
     let fields;
-    if (userGroup === 'ao') {
+    if (userGroup === 'ao' || userGroup === 'mauEncoder' || userGroup === 'approver') {
       fields = this.aoFields;
     } else if (userGroup === 'mdcs') {
       fields = this.mdcsFields;
@@ -253,6 +253,8 @@ export class CustomerProfileService {
       fields = this.psServicngFields;
     } else if (userGroup === 'mqrUser') {
       fields = this.mqrUserFields;
+    } else if (userGroup === 'mdmUser') {
+      fields = this.mdcsFields;
     }
 
     return fields;

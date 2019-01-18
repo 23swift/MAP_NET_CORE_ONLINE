@@ -19,7 +19,7 @@ export class DocumentPerRequestFormModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)public dialogData: any,
     private _snackBar: MatSnackBar, private _documentListService: DocumentListService) {
       this.newAffiliationId = dialogData['newAffiliationId'];
-
+      console.log(dialogData['newAffiliationId'] + 'ppp');
       this._documentListService.get().subscribe(dl => {
         this.documentList = dl;
       });

@@ -7,7 +7,7 @@
     <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
     </formly-form>
 
-    <div fxLayoutAlign="end center" *ngIf="!this.displayMode">
+    <div fxLayoutAlign="end center" *ngIf="this.displayMode">
       <button type="submit" color="primary" mat-raised-button [disabled]="form.invalid">Save </button>
       <button type="button" (click)="cancel()" color="accent" mat-raised-button>Cancel</button>
     </div>

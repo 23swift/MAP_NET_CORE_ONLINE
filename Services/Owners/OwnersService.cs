@@ -26,6 +26,7 @@ namespace MAP_Web.Services
         public async Task InsertAsync(Owners owner)
         {
             var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
+            owner.AuditLogGroupId = customer.AuditLogGroupId;
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 

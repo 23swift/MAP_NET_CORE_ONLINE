@@ -1370,19 +1370,19 @@ export class BranchFormModalService {
     { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'principalDetailsRemarks',
-        expressionProperties: {
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'principalDetailsRemarks',
+          expressionProperties: {
 
-        },
-        templateOptions: {
-          label: 'Remarks',
-          placeholder: 'Remarks',
-          maxLength: 250
+          },
+          templateOptions: {
+            label: 'Remarks',
+            placeholder: 'Remarks',
+            maxLength: 250
+          }
         }
-      }
       ]
     },
   ];
@@ -1801,6 +1801,37 @@ export class BranchFormModalService {
     {
       fieldGroupClassName: 'display-flex', // conditional mandatory
       fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'feeAccount',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              let isDisabled = true;
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/tpp/i)) {
+                    isDisabled = false;
+                  }
+                });
+              return isDisabled;
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              let isRequired = false;
+                model['monitorCodeList'].forEach(v => {
+                  if (v.match(/tpp/i)) {
+                    isRequired = true;
+                  }
+                });
+                
+              return isRequired;
+            }
+          },
+          templateOptions: {
+            label: 'Fee Account(TPP Only)',
+            placeholder: '(TPP Only)',
+            maxLength: 20
+          }
+        },
         {
           className: 'flex-1',
           type: 'select',
@@ -3980,19 +4011,19 @@ export class BranchFormModalService {
     { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'otherDetailsRemarks',
-        expressionProperties: {
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'otherDetailsRemarks',
+          expressionProperties: {
 
-        },
-        templateOptions: {
-          label: 'Remarks',
-          placeholder: 'Remarks',
-          disabled: true
+          },
+          templateOptions: {
+            label: 'Remarks',
+            placeholder: 'Remarks',
+            disabled: true
+          }
         }
-      }
       ]
     },
     {
@@ -4093,7 +4124,7 @@ export class BranchFormModalService {
           type: 'input',
           key: 'fraudToolProvider',
           expressionProperties: {
-  
+
           },
           templateOptions: {
             label: 'Fraud Tool Provider',
@@ -5252,19 +5283,19 @@ export class BranchFormModalService {
     { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'otherDetailsRemarks',
-        expressionProperties: {
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'otherDetailsRemarks',
+          expressionProperties: {
 
-        },
-        templateOptions: {
-          label: 'Remarks',
-          placeholder: 'Remarks',
-          disabled: true
+          },
+          templateOptions: {
+            label: 'Remarks',
+            placeholder: 'Remarks',
+            disabled: true
+          }
         }
-      }
       ]
     },
     {

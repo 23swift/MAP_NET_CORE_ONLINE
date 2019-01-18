@@ -44,11 +44,11 @@
     </ng-container>
     <ng-container matColumnDef="Action">
       <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element" style="width: 9%">
-        <a (click)="update(element)" mat-mini-fab color="primary" matTooltip="Edit Document">
+      <td mat-cell *matCellDef="let element" style="width: 5%">
+        <a (click)="update(element)" mat-mini-fab color="primary" matTooltip="Edit Document" *ngIf="!this.displayMode">
           <mat-icon style="color:white;">edit</mat-icon>
         </a>
-        <a (click)="delete(element.id)" mat-mini-fab color="primary" matTooltip="Delete Document">
+        <a (click)="delete(element.id)" mat-mini-fab color="primary" matTooltip="Delete Document" *ngIf="!this.displayMode">
           <mat-icon style="color:white;">delete_outline</mat-icon>
         </a>
       </td>

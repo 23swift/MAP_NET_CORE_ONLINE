@@ -25,7 +25,17 @@ namespace MAP_Web.Services
 
                 // var primaryKey = GetPrimaryKeyValue(change);
                 var DatabaseValues = change.GetDatabaseValues();
-                var auditLogId = change.CurrentValues[propertyName: "AuditLogGroupId"] ?? new Guid();
+                var auditLogId = Guid.NewGuid();
+
+                foreach (var prop in change.CurrentValues.Properties)
+                {
+                    if (prop.Name == "AuditLogGroupId")
+                    {
+                        auditLogId = new Guid(change.CurrentValues[propertyName: prop.Name].ToString());
+                        break;
+                    }
+                }
+
                 string action = "";
                 foreach (var prop in change.OriginalValues.Properties)
                 {

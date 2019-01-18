@@ -86,7 +86,18 @@ export class CustomerProfileComponent extends AppBaseComponent implements OnInit
   }
 
   backToHome() {
+   if(this.userGroup === "mauEncoder")
+   {
+    this.router.navigateByUrl('/home/mauEncoder');
+   }
+   else if (this.userGroup === "approver")
+   {
+    this.router.navigateByUrl('/home/approver');
+   }
+   else
+   {
     this.router.navigateByUrl('/home/aoEncoder');
+   }
   }
 }
 

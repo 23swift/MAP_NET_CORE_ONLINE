@@ -117,7 +117,6 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showReturnRequestMQR = true;
       }
 
-      console.log(this.mode, this.showReturnRequestApprover);
       if (this.mode.match(/mdcsUser/i)) {
         this.showPosProcessingButton = true;
       }

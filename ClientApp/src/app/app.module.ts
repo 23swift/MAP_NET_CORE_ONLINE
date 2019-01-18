@@ -13,7 +13,7 @@ import {
   MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule, MatBottomSheet, MatBottomSheetModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -168,6 +168,9 @@ import { HomeComponent } from './home/home.component';
 import { OutskirtReminderModalComponent } from './modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
 import { RadioOutskirtTypeComponent } from './radio-outskirt-type/radio-outskirt-type.component';
 import { MdcsBranchListComponent } from './mdcs-branch-list/mdcs-branch-list.component';
+import { LoaderComponent } from './loader/loader.component';
+import { HttpInterceptorService } from './loader/http-interceptor.service';
+import { LoaderWrapperComponent } from './loader/loader-wrapper.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -348,7 +351,9 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     HomeComponent,
     RadioOutskirtTypeComponent,
     OutskirtReminderModalComponent,
-    MdcsBranchListComponent
+    MdcsBranchListComponent,
+    LoaderComponent,
+    LoaderWrapperComponent
   ],
   imports: [
     BrowserModule,
@@ -480,7 +485,12 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     ApproveWithReqReasonFormModalComponent,
     ApproveWithExceptReasonDetailsModalComponent,
     LoadingSpinnerComponent],
-  providers: [],
+  providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpInterceptorService,
+            multi: true
+        }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

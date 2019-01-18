@@ -45,8 +45,8 @@
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Checking</button>
             <button *ngIf="showPreScreen" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Evaluation">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Evaluation</button>
-           <!--<button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
-                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Requestc</button> -->
+           <button *ngIf="showCreateOptions" (click)="submitToChecker()" mat-flat-button matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
            <button *ngIf="showReturnRequestChecker" (click)="reSubmitRequestChecker()" mat-flat-button matTooltip="Submit Request">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>    
            <button *ngIf="showReturnRequestMAMO" (click)="reSubmitRequestMAMO()" mat-flat-button matTooltip="Submit Request">

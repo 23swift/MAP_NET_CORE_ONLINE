@@ -23,6 +23,7 @@ export class OwnersFormModalComponent implements OnInit {
       return true;
     }
   };
+  userGroup: string;
 
   constructor(private _modalRef: MatDialogRef<OwnersFormModalComponent>, private _ownersService: OwnersFormModalService,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,6 +55,8 @@ export class OwnersFormModalComponent implements OnInit {
     } else {
       this.fields = this._ownersService.getFormlyFields(this.data['userGroup']);
     }
+    
+    this.userGroup = this.data['userGroup'];
   }
 
   ngOnInit() {

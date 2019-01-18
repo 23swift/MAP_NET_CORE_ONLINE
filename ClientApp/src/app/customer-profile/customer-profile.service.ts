@@ -172,6 +172,70 @@ export class CustomerProfileService {
     },
   ];
 
+
+  mqrUserFields: FormlyFieldConfig[] = [
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'legalName',
+          templateOptions: {
+            label: 'Business/Legal Name',
+            placeholder: 'Business Name',
+            disabled: true
+          },
+        },
+        {
+          className: 'flex-1',
+          type: 'select',
+          key: 'ownership',
+          templateOptions: {
+            label: 'Ownership',
+            options: this._dropDownService.getDropdown('OW'),
+            labelProp: 'value',
+            valueProp: 'code',
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'calendar',
+          key: 'dtiRegDate',
+          templateOptions: {
+            label: 'Sec/DTI Registration Date',
+            disabled: true
+          }
+        }
+      ],
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'registeredBusinessNumber',
+          templateOptions: {
+            label: 'Registered Business Number',
+            maxLength: 11,
+            disabled: true
+          }
+        },
+        {
+          className: 'flex-1',
+          type: 'input',
+          key: 'customerNumber',
+          templateOptions: {
+            label: 'Customer Number',
+            maxLength: 12
+          }
+        }
+      ]
+    }
+  ];
+  
   constructor(private _http: HttpClient, private _dropDownService: DropDownService) {
       // this._dropDownService.getDropdown('OW').subscribe(data => {
       //   this.ownershipList = data;
@@ -187,6 +251,8 @@ export class CustomerProfileService {
       fields = this.mdcsFields;
     } else if (userGroup === 'psServicing') {
       fields = this.psServicngFields;
+    } else if (userGroup === 'mqrUser') {
+      fields = this.mqrUserFields;
     } else if (userGroup === 'mdmUser') {
       fields = this.mdcsFields;
     }

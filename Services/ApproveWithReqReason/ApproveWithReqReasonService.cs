@@ -9,20 +9,22 @@ namespace MAP_Web.Services
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<ApproveWithReqReason> approveWithReqReasonRepo;
         private readonly IRepository<MAEF> maefRepo;
-        
+
+        private readonly IRepository<Request> requestRepo;
+
         public ApproveWithReqReasonService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.approveWithReqReasonRepo = this.unitOfWork.GetRepository<ApproveWithReqReason>();
             this.maefRepo = this.unitOfWork.GetRepository<MAEF>();
-
+            this.requestRepo = this.unitOfWork.GetRepository<Request>();
         }
 
         public async Task InsertAsync(ApproveWithReqReason approveWithReqReason)
         {
             await approveWithReqReasonRepo.InsertAsync(approveWithReqReason);
         }
-        
+
 
         public async Task<IPagedList<ApproveWithReqReason>> FindByMAEF(int id)
         {
@@ -49,5 +51,10 @@ namespace MAP_Web.Services
             approveWithReqReasonRepo.Delete(approveWithReqReason);
         }
 
+        public async Task<MAEF> GetMaefIdByNewAffId(int id)
+        {
+            var request = await requestRepo.GetFirstOrDefaultAsync(predicate: x => x.Id == id, include: y => y.Include(yy => yy.MAEF));
+            return request.MAEF;
+        }
     }
 }

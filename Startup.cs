@@ -101,10 +101,15 @@ namespace MAP_Web
             services.AddScoped<IMDMDashboardService, MDMDashboardService>();
             // services.AddScoped<IMDCSUserDashboardService, MDCSUserDashboardService>();
             services.AddScoped<IMDCSUserService, MDCSUserService>();
+            services.AddScoped<IMqrUserDashboardService, MqrUserDashboardService>();
+            services.AddScoped<IApproveWithExceptDetailsMqrService, ApproveWithExceptDetailsMqrService>();
+            services.AddScoped<IApproveWithReqReasonMqrService, ApproveWithReqReasonMqrService>();
+            services.AddScoped<IApproveWithExceptDetailsAwrService, ApproveWithExceptDetailsAwrService>();
+            services.AddScoped<IAwrMaefFormService, AwrMaefFormService>();
 
 
 
-           // TO BE DELETED
+            // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Log_DB")));

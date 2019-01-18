@@ -68,7 +68,7 @@ export class BdoFormHeaderComponent implements OnInit {
     this.mode = this.mode ? this.mode : 'create';
 
     if (this._router.url !== '/home') {
-      if (this.mode.match(/^approver$$/i)) {
+      if (this.mode.match(/^approver$/i)) {
         this.showApprovalOptions = true;
       }
       if (this.mode.match(/^aoChecker$/i) /*|| this.mode.match(/^approval/)*/) {
@@ -116,8 +116,7 @@ export class BdoFormHeaderComponent implements OnInit {
       if (this.mode.match(/^returnRequestMQR$/i)) {
         this.showReturnRequestMQR = true;
       }
-
-      if (this.mode.match(/mdcsUser/i)) {
+      if (this.mode.match(/^mdcsUser$/i)) {
         this.showPosProcessingButton = true;
       }
     }

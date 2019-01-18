@@ -155,5 +155,73 @@ namespace MAP_Web.Controllers
 
             return Ok();
         }
+
+        [HttpPut("mqrUserReturned/{id}")]
+        public async Task<IActionResult> UpdateRequestReturnedByMQR(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+
+            await newAffiliationService.UpdateRequest(request, 23);
+
+
+            var branches = await newAffiliationService.FindPosByRequestAsync(id);
+            newAffiliationService.UpdatePOSForPSServicing(branches);
+
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("mqrUserCancel/{id}")]
+        public async Task<IActionResult> UpdateRequestCancelRequest(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+
+            await newAffiliationService.UpdateRequest(request, 24);
+
+
+            var branches = await newAffiliationService.FindPosByRequestAsync(id);
+            newAffiliationService.UpdatePOSForPSServicing(branches);
+
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("mqrUserComplied/{id}")]
+        public async Task<IActionResult> UpdateRequestComplied(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+
+            await newAffiliationService.UpdateRequest(request, 20);
+
+
+            var branches = await newAffiliationService.FindPosByRequestAsync(id);
+            newAffiliationService.UpdatePOSForPSServicing(branches);
+
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPut("mqrUserSubmit/{id}")]
+        public async Task<IActionResult> UpdateRequestSubmitToMarApproval(int id)
+        {
+            var request = await newAffiliationService.FindAsync(id);
+
+
+            await newAffiliationService.UpdateRequest(request, 26);
+
+
+            var branches = await newAffiliationService.FindPosByRequestAsync(id);
+            newAffiliationService.UpdatePOSForPSServicing(branches);
+
+            await newAffiliationService.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }

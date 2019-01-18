@@ -31,7 +31,11 @@ export namespace ApiConstants {
     export const mdcsUser = '/api/mdcsUser'
     export const mdcsUserDashboard = '/api/mdcsUserDashboard';
     export const mdmUserDashboard = '/api/mdmUserDashboard';
-
+    export const mqrUserDashboard = '/api/mqrUserDashboard'
+    export const approveWithReqReasonMqrApi = '/api/approveWithReqReasonMqr';
+    export const approveWithExceptDetailsMqrApi = '/api/approveWithExceptDetailsMqr';
+    export const approveWithExceptDetailsAwrApi = '/api/approveWithExceptDetailsAwr';
+    export const awrMaefFormApi = '/api/awrMaefForm';
 
     // REQUESTS
     export const newAffiliationApi = 'api/newAffiliation';

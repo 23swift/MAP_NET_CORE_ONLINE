@@ -7819,10 +7819,13 @@ export class BranchFormService {
       fields = this.veriScreen;
     } else if (userGroup === 'approver') {
       fields = this.veriScreen;      
+    } else if (userGroup === 'mqrUser') {
+      fields = this.mdcs;
     } else if (userGroup === 'mdmUser') {
       fields = this.veriScreen;
       this._formlyConfig.disabled(fields);
     }
+
 
     return fields;
   }

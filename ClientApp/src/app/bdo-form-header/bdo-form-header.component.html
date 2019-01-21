@@ -31,8 +31,8 @@
             <!--   approval -> -->
              <button *ngIf="showApprovalOptions" (click)="returnToAOByApprover()" mat-flat-button color="primary" matTooltip="Return to AO"> Return to AO</button>
             <button *ngIf="showApprovalOptions" (click)="returntoMAMO()" mat-flat-button color="primary" matTooltip="Return to MAMO"> Return to MAMO</button>
-            <button *ngIf="showApprovalOptions" (click)="approve()" mat-flat-button color="primary" matTooltip="Approve"> Approve</button>
-            <button *ngIf="showApprovalOptions" (click)="decline()" mat-flat-button color="primary" matTooltip="Decline"> Decline</button> 
+            <button *ngIf="showApprovalOptions" (click)="approve()" mat-flat-button color="primary" matTooltip="Approve" [disabled]="disableBtn"> Approve</button>
+            <button *ngIf="showApprovalOptions" (click)="decline()" mat-flat-button color="primary" matTooltip="Decline"[disabled]="disableBtn"> Decline</button> 
             <!--   <- approval -->
             <button *ngIf="showMqrUserProcessingButton" (click)="return()" mat-flat-button color="primary" matTooltip="Return to AO">
                 <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return to AO</button>

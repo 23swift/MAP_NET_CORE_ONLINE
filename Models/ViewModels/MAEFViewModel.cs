@@ -92,6 +92,14 @@ namespace MAP_Web.Models.ViewModels
 
        public Nullable<System.DateTime> decisionDate3 { get; set; }
 
+       public Nullable<System.DateTime>processedDate { get; set;}
+
+       public string approverDecision1 { get; set;}    
+
+       public string approverDecision2 { get; set;}
+
+       public string approverDecision3 { get; set;}
+
         public int RequestId { get; set; }
         public Request Request { get; set; }       
     }

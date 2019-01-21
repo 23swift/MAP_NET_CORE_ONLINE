@@ -13,6 +13,7 @@ namespace MAP_Web.Services
         void Update(Request request, int status);
         Task<int> ApproveCountAsync(int requestId);
         Task<int> DeclineCountAsync(int requestId);
+        Task<int> CheckUserCountAsync(int requestId, string user);
         Task InsertAsync(ApprovalCount approvalCount);
     }
 

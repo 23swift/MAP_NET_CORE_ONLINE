@@ -42,6 +42,12 @@ namespace MAP_Web.Services
             return approvalCount.Items.Where(a => a.approve == true).Select(a => a.user).Distinct().Count();
         }
 
+        public async Task<int> CheckUserCountAsync(int requestId, string user)
+        {
+            var userCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId && a.user == user);
+            return userCount.TotalCount;            
+        }
+
         public async Task<int> DeclineCountAsync(int requestId)
         {   
             var approvalCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);

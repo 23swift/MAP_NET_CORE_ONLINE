@@ -15,6 +15,7 @@ namespace MAP_Web.Services
         Task<int> DeclineCountAsync(int requestId);
         Task<int> CheckUserCountAsync(int requestId, string user);
         Task InsertAsync(ApprovalCount approvalCount);
+        Task<int> GetApproveCount(int requestId);
     }
 
     

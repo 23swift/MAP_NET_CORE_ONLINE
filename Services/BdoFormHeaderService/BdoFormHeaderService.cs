@@ -12,12 +12,15 @@ namespace MAP_Web.Services
         private readonly IRepository<Request> requestRepo;
 
         private readonly IRepository<ApprovalCount> approvalCountRepo;
+
+        private readonly IRepository<ApprovalSetup> approvalSetupRepo;
         
         public BdoFormHeaderService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
             this.approvalCountRepo = this.unitOfWork.GetRepository<ApprovalCount>();
+            this.approvalSetupRepo = this.unitOfWork.GetRepository<ApprovalSetup>();
         }        
 
         public async Task<Request> FindAsync(int id)
@@ -64,6 +67,12 @@ namespace MAP_Web.Services
         {
             await approvalCountRepo.InsertAsync(approvalCount);
         } 
+
+        public async Task<int> GetApproveCount(int requestId)
+        {   
+            var approvalSetup = await approvalSetupRepo.GetFirstOrDefaultAsync(predicate: a => a.requestId == requestId);
+            return approvalSetup.approvalCount;
+        }        
 
 
     }

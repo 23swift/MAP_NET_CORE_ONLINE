@@ -40,6 +40,8 @@ namespace MAP_Web.Models
         public virtual AdditionalFacility AdditionalFacility { get; set; }
         public virtual BranchAffiliation BranchAffiliation { get; set; }
         public virtual MAEF MAEF { get; set; }
+
+        public virtual ApprovalSetup ApprovalSetup { get; set;}
         public virtual ICollection<History> History { get; set; }
     }
 

@@ -29,7 +29,11 @@ namespace MAP_Web.Services
             request.AuditLogGroupId = Guid.NewGuid();
             request.Status = 1;
             request.MAEF = new MAEF();
+            request.ApprovalSetup = new ApprovalSetup();
             request.NewAffiliation = new NewAffiliation();
+            request.ApprovalSetup.approvalCount = 2;
+            request.ApprovalSetup.rank = "c1";
+            request.ApprovalSetup.requestType = 1;
             request.NewAffiliation.AuditLogGroupId = request.AuditLogGroupId;
             request.NewAffiliation.CustomerProfile = customerProfile;
             request.NewAffiliation.CustomerProfile.AuditLogGroupId = request.AuditLogGroupId;

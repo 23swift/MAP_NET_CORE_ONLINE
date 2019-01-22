@@ -25,7 +25,7 @@ export class ApproveWithExceptReasonDetailsListComponent extends FieldType imple
     //this.dataSource = this._service.get();
     this._service.getByAppExId(this.model['id']).subscribe(data => {
       this.dataSource = data.items;
-      console.log(data.items);
+     // console.log(data.items);
     });
   }
 

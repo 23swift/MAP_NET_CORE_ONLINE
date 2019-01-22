@@ -27,7 +27,7 @@ export class ApproveWithReqReasonListComponent extends FieldType implements OnIn
     //this.dataSource = this._service.get();
     this._service.getByAppReqId(this.model['id']).subscribe(data => {
       this.dataSource = data.items;
-      console.log(data.items);
+     // console.log(data.items);
     });
 
   }

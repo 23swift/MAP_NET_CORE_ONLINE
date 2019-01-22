@@ -9,11 +9,13 @@ namespace MAP_Web.Services
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<ApproveWithExceptDetails> approveWithExceptDetailsRepo;
+        private readonly IRepository<Request> requestRepo;
 
         public ApproveWithExceptDetailsService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.approveWithExceptDetailsRepo = this.unitOfWork.GetRepository<ApproveWithExceptDetails>();
+            this.requestRepo = this.unitOfWork.GetRepository<Request>();
 
         }
         public async Task InsertAsync(ApproveWithExceptDetails approveWithExceptDetails)
@@ -45,6 +47,12 @@ namespace MAP_Web.Services
         public void Delete(ApproveWithExceptDetails approveWithExceptDetails)
         {
             approveWithExceptDetailsRepo.Delete(approveWithExceptDetails);
+        }
+
+        public async Task<MAEF> GetMaefIdByNewAffId(int id)
+        {
+            var request = await requestRepo.GetFirstOrDefaultAsync(predicate: x => x.Id == id, include: y => y.Include(yy => yy.MAEF));
+            return request.MAEF;
         }
     }
 }

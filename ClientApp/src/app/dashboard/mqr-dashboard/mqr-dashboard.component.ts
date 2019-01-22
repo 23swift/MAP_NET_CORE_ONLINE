@@ -1,61 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MqrDashboardService } from './mqr-dashboard.service';
 //import { IRequestDisplay } from '../../temp/interface/irequest-display';
 import { Route, Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
-import { MatDialog, MatDialogRef, MatSnackBar } from '../../../../node_modules/@angular/material';
+import { MatDialog, MatDialogRef, MatSnackBar, MatTableDataSource, MatSort } from '../../../../node_modules/@angular/material';
 
 import { SearchModalComponent } from '../../modal/search-modal/search-modal.component';
-
-export interface IRequestDisplay {
-  Id: number;
-  TrackingNo: string;
-  RequestType: string;
-  BusinessName: string;
-  RequestDate: string;
-  BranchName: string;
-  Location: string;
-  RequestStatus: string;
-  AccountOfficer: string;
-  Aging: number;
-}
-
-const ElementData: IRequestDisplay[] =  [
-      {
-        Id: 1, TrackingNo: '0000001',
-        RequestType: 'New Affiliation', BusinessName: 'Bench',
-        RequestDate: '09/21/2018', BranchName: 'SM Megamall',
-        Location: 'Mandaluyong', RequestStatus: 'APPROVED WITH REQUIREMENTS',
-        AccountOfficer: 'Juanico Cabanit', Aging: 5
-      },
-      {
-        Id: 2, TrackingNo: '0000002',
-        RequestType: 'New Affiliation', BusinessName: 'Bench',
-        RequestDate: '09/22/2018', BranchName: 'SM Calamba',
-        Location: 'Calamba', RequestStatus: 'APPROVED WITH REQUIREMENTS',
-        AccountOfficer: 'Raquel Bernado', Aging: 4
-      },
-      {
-        Id: 3, TrackingNo: '0000003',
-        RequestType: 'New Affiliation', BusinessName: 'Bench',
-        RequestDate: '09/23/2018', BranchName: 'SM Sta. Rosa',
-        Location: 'Sta. Rosa', RequestStatus: 'FOR CADENCIE PROCESSING',
-        AccountOfficer: 'Arnold Costamero', Aging: 3
-      },
-      {
-        Id: 4, TrackingNo: '0000004',
-        RequestType: 'New Affiliation', BusinessName: 'Aldo',
-        RequestDate: '09/24/2018', BranchName: 'Walter Calamba',
-        Location: 'Calamba', RequestStatus: 'FOR CADENCIE PROCESSING',
-        AccountOfficer: 'Maximo Rico', Aging: 2
-      },
-      {
-        Id: 5, TrackingNo: '0000005',
-        RequestType: 'New Affiliation', BusinessName: 'Bench',
-        RequestDate: '09/25/2018', BranchName: 'SM Megamall',
-        Location: 'Sta. Rosa', RequestStatus: 'DECLINED',
-        AccountOfficer: 'Allan Alejandro', Aging: 1
-      }
-    ];
 
 
 @Component({
@@ -67,45 +16,52 @@ const ElementData: IRequestDisplay[] =  [
 
 
 export class MqrDashboardComponent implements OnInit {
+  @ViewChild(MatSort) sort: MatSort;
   displayedColumns: string[];
-  dataSource: any;
-  id: number;
+  dataSource: MatTableDataSource<any>;
   mode: string;
   title: string;
   subTitle: string;
-  constructor(
-    private _route: ActivatedRoute,
-    private _router: Router,
-    private _matDialog: MatDialog,
-    private _matSnackBar: MatSnackBar) { }
+
+  constructor(private _service: MqrDashboardService, private _router: Router, private _matDialog: MatDialog, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     // this.displayedColumns = this._service.GetTableFields();
-    this.displayedColumns = ['TrackingNo', 'RequestType','BusinessName', 
-                             'BranchName', 'Location','RequestDate',
-                             'RequestStatus','AccountOfficer','Aging','Operation']
-    this.dataSource = ElementData;
+    this.displayedColumns = ['referenceNo', 'requestDate', 'requestType', 'businessName', 'requestedBy', 'status', 'tat', 'Operation'];
+    this._service.getAll().subscribe(d => {
+      var filteredData = d.filter(x => x.status !== "CANCELED REQUEST");
+      this.dataSource = new MatTableDataSource(filteredData);
+      this.dataSource.sort = this.sort;
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'requestDate': return new Date(item.requestedDate);
+          default: return item[property];
+        }
+      };
+    });
 
     this.mode = 'update';
     this.title = 'New Affiliation';
-    this.subTitle = 'MAU Encoder';
+    this.subTitle = '';
   }
 
   openSearchDialog() {
     const dialogRef = this._matDialog.open(SearchModalComponent, {
-      autoFocus: false
+      autoFocus: false,
+      width: '40%',
+      data: {
+        userGroup: 'mqrUser'
+      }
     });
-
-
-    // dialogRef.afterClosed().subscribe(data => {
-    //   if (data) {
-    //     this._matSnackBar.open('Added Parameter Detail:', data, { duration: 2000 });
-    //   }
-    // });
   }
 
-  GetItem(id) {
-    //console.log(id);
-    this._router.navigateByUrl('na/mqrUser');
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getItem(id) {
+    this._service.getMaefData(id).subscribe(x => { 
+      this._router.navigateByUrl('na/mqrUser/' + id);
+    })
   }
 }

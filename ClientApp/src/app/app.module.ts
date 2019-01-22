@@ -13,7 +13,7 @@ import {
   MatPaginatorModule, MatSortModule, MatSortHeader, MatProgressSpinnerModule, MatBottomSheet, MatBottomSheetModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -168,6 +168,17 @@ import { HomeComponent } from './home/home.component';
 import { OutskirtReminderModalComponent } from './modal/outskirt-reminder-modal/outskirt-reminder-modal.component';
 import { RadioOutskirtTypeComponent } from './radio-outskirt-type/radio-outskirt-type.component';
 import { MdcsBranchListComponent } from './mdcs-branch-list/mdcs-branch-list.component';
+import { LoaderComponent } from './loader/loader.component';
+import { HttpInterceptorService } from './loader/http-interceptor.service';
+import { LoaderWrapperComponent } from './loader/loader-wrapper.component';
+import { ApproveWithExceptReasonDetailsListMqrComponent } from './approve-with-except-reason-details-list-mqr/approve-with-except-reason-details-list-mqr.component';
+import { ApproveWithReqReasonListMqrComponent } from './approve-with-req-reason-list-mqr/approve-with-req-reason-list-mqr.component';
+import { AwrMaefFormComponent } from './forms/awr-maef-form/awr-maef-form.component';
+import { ApproveWithReqReasonMqrFormModalComponent } from './modal/approve-with-req-reason-mqr-form-modal/approve-with-req-reason-mqr-form-modal.component';
+import { ApproveWithExceptReasonMqrDetailsModalComponent } from './modal/approve-with-except-reason-mqr-details-modal/approve-with-except-reason-mqr-details-modal.component';
+import { ApproveWithExceptReasonDetailsListAwrComponent } from './approve-with-except-reason-details-list-awr/approve-with-except-reason-details-list-awr.component';
+import { ApproveWithExceptReasonAwrDetailsModalComponent } from './modal/approve-with-except-reason-awr-details-modal/approve-with-except-reason-awr-details-modal.component';
+import { MqrBranchListComponent } from './mqr-branch-list/mqr-branch-list.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -348,7 +359,17 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     HomeComponent,
     RadioOutskirtTypeComponent,
     OutskirtReminderModalComponent,
-    MdcsBranchListComponent
+    MdcsBranchListComponent,
+    LoaderComponent,
+    LoaderWrapperComponent,
+    ApproveWithExceptReasonDetailsListMqrComponent,
+    ApproveWithReqReasonListMqrComponent,
+    AwrMaefFormComponent,
+    ApproveWithReqReasonMqrFormModalComponent,
+    ApproveWithExceptReasonMqrDetailsModalComponent,
+    ApproveWithExceptReasonDetailsListAwrComponent,
+    ApproveWithExceptReasonAwrDetailsModalComponent,
+    MqrBranchListComponent
   ],
   imports: [
     BrowserModule,
@@ -479,13 +500,20 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     OutskirtReminderModalComponent,
     ApproveWithReqReasonFormModalComponent,
     ApproveWithExceptReasonDetailsModalComponent,
-    LoadingSpinnerComponent],
-  providers: [],
+    LoadingSpinnerComponent,
+    ApproveWithExceptReasonMqrDetailsModalComponent,
+    ApproveWithReqReasonMqrFormModalComponent,
+    ApproveWithExceptReasonAwrDetailsModalComponent],
+    providers: [
+          {
+              provide: HTTP_INTERCEPTORS,
+              useClass: HttpInterceptorService,
+              multi: true
+          }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor() {
-    // console.log('asd');
   }
 
 }

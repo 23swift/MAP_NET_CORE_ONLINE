@@ -39,12 +39,15 @@ namespace MAP_Web.Controllers
                 return NotFound();
 
             return Ok(appReqList);
-        }        
+        }
 
 
         [HttpPost]
         public async Task<IActionResult> CreateApproveWithReqReason([FromBody] ApproveWithReqReason approveWithReqReason)
         {
+            if (approveWithReqReason.MAEF == null)
+                return BadRequest(ModelState);
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -83,9 +86,21 @@ namespace MAP_Web.Controllers
             await approveWithReqReasonService.SaveChangesAsync();
 
             return Ok();
-        }       
+        }
 
+        [HttpGet("appreqlistMqr/{id}")]
+        public async Task<IActionResult> GetAppReqListMqr(int id)
+        {
+            var maef = await approveWithReqReasonService.GetMaefIdByNewAffId(id);
+            if (maef == null)
+                return NotFound();
 
+            var appReqList = await approveWithReqReasonService.FindByMAEF(maef.Id);
 
+            if (appReqList == null)
+                return NotFound();
+
+            return Ok(appReqList);
+        }
     }
 }

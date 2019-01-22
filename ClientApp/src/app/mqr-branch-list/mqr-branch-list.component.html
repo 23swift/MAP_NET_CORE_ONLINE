@@ -1,0 +1,57 @@
+<div *ngIf="!showInfo">
+  <div class="flex-branch-list-header">
+    <span class="mat-headline">Branch List</span>
+  </div>
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="DBAName">
+      <th mat-header-cell *matHeaderCellDef> DBA Name </th>
+      <td mat-cell *matCellDef="let element"> {{ element.dbaName }} </td>
+    </ng-container>
+    <ng-container matColumnDef="DBAAddress">
+      <th mat-header-cell *matHeaderCellDef> DBA Address </th>
+      <td mat-cell *matCellDef="let element"> {{ element.dbaAddress1 }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Attachment">
+      <th mat-header-cell *matHeaderCellDef>
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <a (click)="getBranch(element.id)" mat-mini-fab color="primary" matTooltip="Update Branch">
+          <mat-icon style="color:white;">edit</mat-icon>
+        </a>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+
+<div *ngIf="showInfo">
+  <div style="text-align: right;">
+    <button type="button" color="primary" mat-raised-button (click)="backToList()">
+      <mat-icon style="color: #FDB913">arrow_back_ios</mat-icon>
+      Return to Branch List
+    </button>
+  </div>
+  <div style="overflow: hidden">
+    <app-branch-form [branchId]="branchId" [userGroup]="'mqrUser'" [displayMode]="true"></app-branch-form>
+  </div>
+  <mat-card>
+    <mat-tab-group>
+      <mat-tab label="OIF">
+        <div style="overflow: hidden">
+          <app-ocular-inspection-form [showButton]="false" [branchId]="branchId"></app-ocular-inspection-form>
+        </div>
+      </mat-tab>
+      <mat-tab label="POS">
+        <div style="overflow: hidden">
+          <app-pos-list [displayMode]="false" [branchId]="branchId" [showMid]="false" [showTerminalUpdate]="true"
+            [showTerminalAdd]="true" [showTerminalDelete]="true" [userGroup]="'mqrUser'"></app-pos-list>
+        </div>
+      </mat-tab>
+      <mat-tab label="MID">
+        <app-mid [branchId]="branchId" [showAdd]="false" [showUpdate]="true" [update]="update"></app-mid>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

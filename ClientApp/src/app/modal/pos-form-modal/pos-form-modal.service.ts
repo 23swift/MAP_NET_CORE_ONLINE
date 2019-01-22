@@ -329,7 +329,7 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return (model['natureOfRequest'] !== 'Installation' && model['natureOfRequest'] !== 'TID Issuance') || model['isWaved']
-                    || model['userGroup'] !== 'ao';
+                || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && model['natureOfRequest'] === 'TID Issuance' && model['isWaved'] === false;
@@ -417,7 +417,7 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['isWaved'] || model['natureOfRequest'] === 'Installation' || model['natureOfRequest'] === 'TID Issuance'
-              || model['userGroup'] !== 'ao';
+                || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['isWaved'] === false && model['natureOfRequest'] !== 'Installation' && model['natureOfRequest'] !== 'TID Issuance';
@@ -593,7 +593,7 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'TID Issuance' || model['isWaved'] || model['userGroup'] !== 'ao'
-             || model['numberOfPrintedSlips'] < 3;
+                || model['numberOfPrintedSlips'] < 3;
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'TID Issuance' && model['isWaved'] === false && model['numberOfPrintedSlips'] > 2;
@@ -631,12 +631,12 @@ export class PosFormModalService {
           type: 'radio',
           key: 'installationTerm',
           expressionProperties: {
-               'templateOptions.disabled': (model: any, formState: any) => {
-                 return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
-               },
-               'templateOptions.required': (model: any, formState: any) => {
-                 return model['isWaved'] === false;
-               }
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['userGroup'] !== 'ao';
+            },
+            'templateOptions.required': (model: any, formState: any) => {
+              return model['isWaved'] === false;
+            }
           },
           templateOptions: {
             label: 'Installation Term',
@@ -654,7 +654,7 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['installationTerm'] === 'Permanent'
-              || model['userGroup'] !== 'ao';
+                || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return !model['isWaved'] && model['installationTerm'] !== 'Permanent';
@@ -676,7 +676,7 @@ export class PosFormModalService {
           expressionProperties: {
             'templateOptions.disabled': (model: any, formState: any) => {
               return model['natureOfRequest'] !== 'Installation' || model['isWaved'] || model['installationTerm'] !== 'Permanent'
-              || model['userGroup'] !== 'ao';
+                || model['userGroup'] !== 'ao';
             },
             'templateOptions.required': (model: any, formState: any) => {
               return model['natureOfRequest'] === 'Installation' && !model['isWaved'] && model['installationTerm'] === 'Permanent';
@@ -788,7 +788,7 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateAndTimeEndorsedToMAU',
           expressionProperties: {
-            
+
           },
           templateOptions: {
             label: 'Date and Time Endorsed To MAU',
@@ -857,7 +857,7 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateTimeEndorsedPaymentSolutionsOperations',
           expressionProperties: {
-            
+
           },
           templateOptions: {
             label: 'Date and Time Endorsed to Payment Solutions Operations',
@@ -1016,7 +1016,7 @@ export class PosFormModalService {
           type: 'calendar',
           key: 'dateTimeAssignedPSProfiling',
           expressionProperties: {
-            
+
           },
           templateOptions: {
             label: 'Date and Time Assigned to PS Profiling',
@@ -1098,14 +1098,14 @@ export class PosFormModalService {
     private _aoListService: AoListModalService) { }
 
   getPosFields(userGroup): FormlyFieldConfig[] {
-    if(userGroup === 'mauEncoder')
-    {
-    return this.veriScreenFields;
+    if (userGroup === 'mauEncoder') {
+      return this.veriScreenFields;
+    } else if (userGroup === 'mqrUser') {
+      return this.veriScreenFields;
     }
-    else
-    {
-    return this.fields;
-     }
+    else {
+      return this.fields;
+    }
   }
 
   get(id): Observable<any> {

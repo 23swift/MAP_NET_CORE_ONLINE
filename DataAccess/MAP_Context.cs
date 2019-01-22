@@ -38,6 +38,10 @@ namespace MAP_Web.DataAccess
         public virtual DbSet<Models.ServiceFeeContract> ServiceFeeContract { get; set; }
         public virtual DbSet<Models.TerminalMaintenance> TerminalMaintenance { get; set; }
         public virtual DbSet<Models.ApprovalCount> ApprovalCount { get; set; }
+        public virtual DbSet<Models.ApproveWithReqReasonMqr> ApproveWithReqReasonMqr { get; set; }
+        public virtual DbSet<Models.ApproveWithExceptDetailsMqr> ApproveWithExceptDetailsMqr { get; set; }
+        public virtual DbSet<Models.ApproveWithExceptDetailsAwr> ApproveWithExceptDetailsAwr { get; set; }
+        public virtual DbSet<Models.AwrMaef> AwrMaef { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -55,6 +59,11 @@ namespace MAP_Web.DataAccess
                 .HasOne(n => n.MAEF)
                 .WithOne(c => c.Request)
                 .HasForeignKey<Models.MAEF>(c => c.RequestId);
+
+            modelBuilder.Entity<Models.MAEF>()
+            .HasOne(n => n.AwrMaef)
+            .WithOne(c => c.MAEF)
+            .HasForeignKey<Models.AwrMaef>(c => c.MAEFId);
 
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                                                         .SelectMany(t => t.GetProperties())
@@ -79,7 +88,7 @@ namespace MAP_Web.DataAccess
             .Where(p => p.State == EntityState.Added ||
             p.State == EntityState.Modified ||
             p.State == EntityState.Deleted).ToList();
-            await _AuditLogService.Save(modifiedEntities);
+            //await _AuditLogService.Save(modifiedEntities);
             int result = await base.SaveChangesAsync();
             return result;
         }

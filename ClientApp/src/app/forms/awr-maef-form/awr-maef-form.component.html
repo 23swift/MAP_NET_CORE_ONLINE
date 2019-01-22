@@ -1,0 +1,13 @@
+<div *ngIf="hasData">
+  <app-approve-with-except-reason-details-list-awr></app-approve-with-except-reason-details-list-awr>
+</div>
+<br>
+<br>
+<form [formGroup]="form" (ngSubmit)="Submit()">
+  <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+    <div fxLayout="row wrap" fxLayoutAlign="end center" fxLayoutGap="3px">
+      <button type="submit" color="primary" mat-raised-button>Save </button>
+      <button type="button" color="accent" mat-raised-button (click)="Cancel()">Cancel</button>
+    </div>
+  </formly-form>
+</form>

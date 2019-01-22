@@ -50,4 +50,20 @@ export class NewAffiliationRequestService {
   updateRequestForPsServicing(id): Observable<any> {
     return this._http.put(ApiConstants.newAffiliationApi + '/psServicing/' + id, {});
   }
+
+  updateRequestReturnedByMARO(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mqrUserReturned/' + id, {});
+  }
+
+  updateRequestCancelRequest(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mqrUserCancel/' + id, {});
+  }
+
+  updateRequestComplied(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mqrUserComplied/' + id, {});
+  }
+
+  updateRequestSubmitToMARApproval(id): Observable<any> {
+    return this._http.put(ApiConstants.newAffiliationApi + '/mqrUserSubmit/' + id, {});
+  }
 }

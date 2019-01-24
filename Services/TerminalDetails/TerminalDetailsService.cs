@@ -33,7 +33,8 @@ namespace MAP_Web.Services
                 action = "Terminal Details for Branch: " + branch.dbaName + " Added",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = request.AuditLogGroupId
             });
             await terminalRepo.InsertAsync(terminalDetails);
         }
@@ -59,7 +60,8 @@ namespace MAP_Web.Services
                 action = "MID for Branch: " + branch.dbaName + " Updated",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             terminalRepo.Update(terminalDetails);
         }
@@ -75,7 +77,8 @@ namespace MAP_Web.Services
                 action = "MID for Branch: " + branch.dbaName + " Deleted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = branch.NewAffiliationId
+                RequestId = branch.NewAffiliationId,
+                AuditLogGroupId = branch.AuditLogGroupId
             });
             terminalRepo.Delete(terminalDetails);
         }

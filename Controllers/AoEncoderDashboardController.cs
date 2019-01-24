@@ -12,21 +12,21 @@ namespace MAP_Web.Controllers
         {
             this._service = _service;
         }
-        [HttpGet("{pageIndex}/{pageSize}/{filter}/{sortDirection}")]
-        public async Task<IActionResult> GetRequestsList(int pageIndex, int pageSize, string filter = "", bool sortDirection = false)
+
+        [HttpGet("{field}/{sortDirection}/{pageIndex}/{pageSize}/{filter?}")]
+        public async Task<IActionResult> GetRequestsList(string field, string sortDirection, int pageIndex, int pageSize, string filter = "")
         {
-            var requests = await _service.GetListAsync(pageIndex, pageSize, filter, sortDirection);
+            var requests = await _service.GetListAsync(field, sortDirection, pageIndex, pageSize, filter);
 
             return Ok(requests);
         }
 
-        // TO BE DELETED ONCE THE SERVER SIDE PAGINATION IS IMPLEMENTED
-        [HttpGet()]
-        public async Task<IActionResult> GetRequests()
+        [HttpGet("count")]
+        public async Task<IActionResult> GetListCount()
         {
-            var requests = await _service.FindAsync();
+            var count = await _service.GetListCount();
 
-            return Ok(requests);
+            return Ok(count);
         }
 
         [HttpDelete("{id}")]

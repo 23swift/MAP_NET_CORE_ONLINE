@@ -74,7 +74,7 @@ namespace MAP_Web.Controllers
             await posService.InsertAsync(pos);
             await posService.SaveChangesAsync();
 
-            return Ok(pos);
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -93,7 +93,7 @@ namespace MAP_Web.Controllers
             await posService.Update(currentPos);
             await posService.SaveChangesAsync();
 
-            return Ok(pos);
+            return Ok();
         }
 
         [HttpDelete("{id}")]

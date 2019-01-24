@@ -103,6 +103,14 @@ namespace MAP_Web.Models
 
        public Nullable<System.DateTime> decisionDate3 { get; set; }
 
+       public Nullable<System.DateTime>processedDate { get; set;}
+
+       public string approverDecision1 { get; set;}    
+
+       public string approverDecision2 { get; set;}
+
+       public string approverDecision3 { get; set;}
+
        public ICollection<ApproveWithReqReason> ApproveWithReqReason { get; set; }
 
        public ICollection<ApproveWithExceptDetails> ApproveWithExceptDetails { get; set; }

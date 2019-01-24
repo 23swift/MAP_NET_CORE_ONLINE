@@ -85,7 +85,7 @@ export class  MaefFormService {
           key: 'bnpNfisWithAd',
           type: 'radio',
           templateOptions: {
-            label: 'BNP NFIS',
+            label: 'BAP NFIS',
             required: true,
             options: [
               { value: true, label: 'With Adverse' },
@@ -199,7 +199,7 @@ export class  MaefFormService {
           key: 'matchWithAd',
           type: 'radio',
           templateOptions: {
-            label: 'Match',
+            label: 'MATCH',
             required: true,
             options: [
               { value: true, label: 'With Adverse' },
@@ -313,7 +313,7 @@ export class  MaefFormService {
           key: 'fraudWithAd',
           type: 'radio',
           templateOptions: {
-            label: 'FRAUD',
+            label: 'Fraud',
             required: true,
             options: [
               { value: true, label: 'With Adverse' },
@@ -811,7 +811,11 @@ export class  MaefFormService {
           required: true
         },
       },
-      {
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
         className: 'flex-1',
         type: 'input',
         key: 'processedBy',
@@ -821,11 +825,24 @@ export class  MaefFormService {
         templateOptions: {
           label: 'Processed By',
           placeholder: 'Processed By',
+          maxLength: 1000,
+        },
+      },
+      {
+        className: 'flex-1',
+        type: 'calendar',
+        key: 'processedDate',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Processed Date',
+          placeholder: 'Processed Date',
           required: true
         }
       },
       ]
-    },
+    },  
 
     {
       fieldGroupClassName: 'display-flex',
@@ -841,6 +858,18 @@ export class  MaefFormService {
           disabled: true
         },
       },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'approverDecision1',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Decision',
+          disabled: true
+        },
+      },      
       {
         className: 'flex-1',
         type: 'calendar',
@@ -871,6 +900,18 @@ export class  MaefFormService {
       },
       {
         className: 'flex-1',
+        type: 'input',
+        key: 'approverDecision2',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Decision',
+          disabled: true
+        },
+      },      
+      {
+        className: 'flex-1',
         type: 'calendar',
         key: 'decisionDate2',
         expressionProperties: {
@@ -897,6 +938,18 @@ export class  MaefFormService {
           disabled: true
         },
       },
+      {
+        className: 'flex-1',
+        type: 'input',
+        key: 'approverDecision3',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          label: 'Decision',
+          disabled: true
+        },
+      },      
       {
         className: 'flex-1',
         type: 'calendar',
@@ -984,6 +1037,10 @@ export class  MaefFormService {
   ReSubmitRequestMQR(id): Observable<any> {
     return this._http.put(ApiConstants.maefApi + '/reSubmitRequestMQR/' + id, {});
   }  
+
+  getApproveUserCount(id, user): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/userCount/' + id + '/' + user);
+  }
 
 
 }

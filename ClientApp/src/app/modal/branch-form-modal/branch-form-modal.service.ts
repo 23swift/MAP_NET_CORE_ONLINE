@@ -341,27 +341,39 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
-        type: 'input',
-        key: 'taxExemptCertIssuedBy',
+        type: 'select',
+        key: 'taxExemptIssuedBy',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+  
+         //   return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
-          placeholder: 'Tax Exempt Certificate Issued By'
+          options: this._dropDownService.getDropdown('TECIB'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
+
       {
         className: 'flex-1',
-        type: 'input',
+        type: 'select',
         key: 'taxExemptClass',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+  
+        //    return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
-          placeholder: 'Tax Exempt Classification'
+          options: this._dropDownService.getDropdown('TEC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
-      }
+      },
       ]
     },
 
@@ -2255,27 +2267,39 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
-        type: 'input',
-        key: 'taxExemptCertIssuedBy',
+        type: 'select',
+        key: 'taxExemptIssuedBy',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+  
+         //   return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
-          placeholder: 'Tax Exempt Certificate Issued By'
+          options: this._dropDownService.getDropdown('TECIB'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
+
       {
         className: 'flex-1',
-        type: 'input',
+        type: 'select',
         key: 'taxExemptClass',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+  
+        //    return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
-          placeholder: 'Tax Exempt Classification'
+          options: this._dropDownService.getDropdown('TEC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
-      }
+      },
       ]
     },
 
@@ -3221,27 +3245,39 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
-        type: 'input',
-        key: 'taxExemptCertIssuedBy',
+        type: 'select',
+        key: 'taxExemptIssuedBy',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+  
+         //   return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
-          placeholder: 'Tax Exempt Certificate Issued By'
+          options: this._dropDownService.getDropdown('TECIB'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
+
       {
         className: 'flex-1',
-        type: 'input',
+        type: 'select',
         key: 'taxExemptClass',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+  
+        //    return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
-          placeholder: 'Tax Exempt Classification',
-          disabled: true
+          options: this._dropDownService.getDropdown('TEC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
-      }
+      },
       ]
     },
 
@@ -4487,26 +4523,39 @@ export class BranchFormModalService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
-        type: 'input',
-        key: 'taxExemptCertIssuedBy',
+        type: 'select',
+        key: 'taxExemptIssuedBy',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+  
+         //   return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Certificate Issued By',
-          placeholder: 'Tax Exempt Certificate Issued By'
+          options: this._dropDownService.getDropdown('TECIB'),
+          labelProp: 'value',
+          valueProp: 'code',
         },
       },
+
       {
         className: 'flex-1',
-        type: 'input',
+        type: 'select',
         key: 'taxExemptClass',
         expressionProperties: {
+          'templateOptions.required': (model: any, formState: any) => {
+  
+        //    return model['taxCode'] == 'WT';
+          }
         },
         templateOptions: {
           label: 'Tax Exempt Classification',
-          placeholder: 'Tax Exempt Classification'
+          options: this._dropDownService.getDropdown('TEC'),
+          labelProp: 'value',
+          valueProp: 'code',
         }
-      }
+      },
       ]
     },
 

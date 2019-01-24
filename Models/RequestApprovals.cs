@@ -47,7 +47,7 @@ namespace MAP_Web.Models
         public bool isApproved { get; set; }
 
     }
-
+ /* 
     public class ApprovalSetup
     {
         
@@ -61,6 +61,8 @@ namespace MAP_Web.Models
 
 
     }
+*/
+    
     public class MQRApprovalSetup
     {
 

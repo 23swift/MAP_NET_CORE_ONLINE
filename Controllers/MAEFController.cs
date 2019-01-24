@@ -204,7 +204,8 @@ namespace MAP_Web.Controllers {
 
 
             var appCount = await bdoFormHeaderService.DeclineCountAsync (id);
-            if (appCount >= 2) {
+            var appSetup = await bdoFormHeaderService.GetApproveCount (id);
+            if (appCount >= appSetup) {
                 var requestData = await bdoFormHeaderService.FindAsync (id);
                 bdoFormHeaderService.Update (requestData, 2);
                 history.action = "Decline: Approved";
@@ -309,6 +310,11 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> SubmitToApprover (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             bdoFormHeaderService.Update (request, 8);
+            var currentMaef = await maefService.FindAsync(id);
+            currentMaef.processedBy = "Approver3";
+            currentMaef.processedDate = DateTime.Now;
+            maefService.Update (currentMaef);            
+            await maefService.SaveChangesAsync ();
             await bdoFormHeaderService.SaveChangesAsync ();
             return Ok ();
         }
@@ -341,19 +347,23 @@ namespace MAP_Web.Controllers {
             if (maef.approver1 == null) {
                 maef.approver1 = tempUser;
                 maef.decisionDate1 = DateTime.Now;
+                maef.approverDecision1 = actionsCode;
             } else if (maef.approver2 == null) {
                 maef.approver2 = tempUser;
                 maef.decisionDate2 = DateTime.Now;
+                maef.approverDecision2 = actionsCode;
             } else if (maef.approver3 == null) {
                 maef.approver3 = tempUser;
                 maef.decisionDate3 = DateTime.Now;
+                maef.approverDecision3 = actionsCode;
             }
             maefService.Update (maef);
 
             await maefService.SaveChangesAsync ();
 
             var appCount = await bdoFormHeaderService.ApproveCountAsync (id);
-            if (appCount >= 2) {
+            var appSetup = await bdoFormHeaderService.GetApproveCount (id);
+            if (appCount >= appSetup) {
                 if (maef.chkWithReq && maef.chkWithException && maef.chkApprovePendingCust) {
                     var requestData = await bdoFormHeaderService.FindAsync (id);
                     bdoFormHeaderService.Update (requestData, 16);
@@ -406,6 +416,26 @@ namespace MAP_Web.Controllers {
 
             return Ok (appCount);
         }
+
+        [HttpGet ("userCount/{id}/{user}")]
+        public async Task<IActionResult> UserCount (int id, string user) {
+            var appCount = await bdoFormHeaderService.CheckUserCountAsync (id, user);
+
+            //if (appCount == null)
+            //    return Ok(false);
+
+            return Ok (appCount);
+        }      
+
+        [HttpGet ("userSetup/{id}")]
+        public async Task<IActionResult> GetApproveCount (int id, string user) {
+            var appCount = await bdoFormHeaderService.GetApproveCount (id);
+
+            //if (appCount == null)
+            //    return Ok(false);
+
+            return Ok (appCount);
+        }            
 
     }
 }

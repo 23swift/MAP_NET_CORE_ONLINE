@@ -11,6 +11,7 @@ import { PsServicingService } from '../new-affiliation/ps-servicing/ps-servicing
 
 
 
+
 @Component({
   selector: 'app-bdo-form-header',
   templateUrl: './bdo-form-header.component.html',
@@ -34,6 +35,8 @@ export class BdoFormHeaderComponent implements OnInit {
   showPreScreen: boolean;
   newAffiliationId: number;
   requestId: number;
+  userCount: number;
+  disableBtn: boolean = false;
   @Input() mode: string;
   @Input() text: string;
   @Input() sub_text: string;
@@ -69,6 +72,14 @@ export class BdoFormHeaderComponent implements OnInit {
 
     if (this._router.url.indexOf('/home')) {
       if (this.mode.match(/^approver$/i)) {
+        this._maefFormService.getApproveUserCount(this.requestId, 'Approver2').subscribe(data => {
+          this.userCount = data;
+          if (this.userCount != 0)
+            {
+              this.disableBtn = true;
+            }
+          
+        });
         this.showApprovalOptions = true;
       }
       if (this.mode.match(/^aoChecker$/i) /*|| this.mode.match(/^approval/)*/) {

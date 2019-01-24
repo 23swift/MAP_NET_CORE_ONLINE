@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatStepper } from '@angular/material';
 import { AoCheckerService } from './ao-checker.service';
 import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-ao-checker',
@@ -74,6 +75,19 @@ export class AoCheckerComponent implements OnInit {
         this._router.navigateByUrl('/home/aoChecker');
       });
     });
+  }
+
+  selectionChange($event: StepperSelectionEvent) {
+    if ($event.selectedIndex === 1) {
+      this.isOif = false;
+      this.isPos = false;
+    }
+    if ($event.selectedIndex === 2) {
+      this.isOif = true;
+    }
+    if ($event.selectedIndex === 3) {
+      this.isPos = true;
+    }
   }
 
 }

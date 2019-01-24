@@ -73,7 +73,7 @@
                     <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request</button>
                 <button *ngIf="showRequestFlowOptions" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit Request">
                     <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
-                    <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Complete">
+                    <button *ngIf="showWelcomeLetter" (click)="complete()" mat-flat-button color="primary" matTooltip="Complete">
                         <mat-icon class="request-mat-icon">done</mat-icon> Complete</button>
                 <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">
                     <mat-icon class="request-mat-icon">mail_outline</mat-icon> Generate Welcome Letter</button>

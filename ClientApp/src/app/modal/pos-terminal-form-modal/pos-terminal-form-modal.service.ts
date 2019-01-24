@@ -53,14 +53,14 @@ export class PosTerminalFormModalService {
             lifecycle: {
               onInit: (form, field) => {
                 const updateOptions = (v) => {
-                  if (v.terminalBrand === undefined) {
-                    field.templateOptions.options = this._dropDownService.getDropdown('TBTM');
+                  if (v) {
+                    field.templateOptions.options = this._dropDownService.getTerminalModel(v);
                   } else {
-                    field.templateOptions.options = this._dropDownService.getTerminalModel(v.terminalBrand);
+                    field.templateOptions.options = this._dropDownService.getDropdown('TBTM');
                   }
                 };
-                updateOptions(form.value);
-                form.valueChanges.subscribe(f => updateOptions(f));
+                updateOptions(form.get('terminalBrand').value);
+                form.get('terminalBrand').valueChanges.subscribe(f => updateOptions(f));
               }
             }
           }

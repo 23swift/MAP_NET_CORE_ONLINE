@@ -4,38 +4,23 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 
-const apiUrl = '';
 @Injectable()
-export class AoEncoderDashboardService implements OnInit {
-  private _dashboard: DashboardData;
-
-  constructor(private _http: HttpClient) {
-    this._dashboard = new DashboardData();
-  }
-
-  ngOnInit() {
-
-  }
+export class AoEncoderDashboardService {
+  constructor(private _http: HttpClient, private _dashboard: DashboardData) { }
 
   getTableFields() {
     return this._dashboard.Fields;
   }
 
-  getTableData(): Observable<any> {
-    return this._http.get(ApiConstants.aoEncoderDashboardApi);
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.aoEncoderDashboardApi + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
   }
 
-  get(id) {
-    // return this._http.get(apiUrl + id);
-    return this._dashboard.ElementData;
-  }
-
-  create(): void {
-    this._http.post(apiUrl, {});
-  }
-
-  update(): void {
-    this._http.put(apiUrl, {});
+  getCount() {
+    return this._http.get(ApiConstants.aoEncoderDashboardApi + '/count');
   }
 
   delete(id): Observable<any> {

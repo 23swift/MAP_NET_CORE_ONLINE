@@ -28,11 +28,9 @@ export class DocumentCheckListFormComponent implements OnInit {
   }
 
   OnSubmit() {
-    console.log(this.documentForm.value);
   }
   Cancel() {
     const parentRoute = this._router.url.split('/(')[0];
-    console.log(parentRoute);
     this._router.navigateByUrl(`${parentRoute}`);
   }
 }

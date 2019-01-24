@@ -3,7 +3,7 @@
 <app-request-header></app-request-header>
 
 
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper (selectionChange)="selectionChange($event)">
   <mat-step [completed]="false">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Customer Profile</span>

@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { AoEncoderDashboardService } from './ao-encoder-dashboard.service';
-import { IRequestDisplay } from '../../temp/interface/irequest-display';
 import { Router } from 'node_modules/@angular/router';
-import { MatSort, MatTableDataSource, MatSnackBar, MatDialog } from '@angular/material';
+import { MatSort, MatDialog, MatPaginator } from '@angular/material';
 import { DeleteModalComponent } from 'src/app/modal/delete-modal/delete-modal.component';
-import { DataSource, CollectionViewer } from '@angular/cdk/collections';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { merge, fromEvent, Observable } from 'rxjs';
 import { TableDataSourceService } from 'src/app/services/table-data-source.service';
+import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ao-encoder-dashboard',
@@ -14,32 +13,52 @@ import { TableDataSourceService } from 'src/app/services/table-data-source.servi
   styleUrls: ['./ao-encoder-dashboard.component.css'],
   providers: [AoEncoderDashboardService]
 })
-export class AoEncoderDashboardComponent implements OnInit {
+export class AoEncoderDashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('searchInput') input: ElementRef;
   displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
-  // dataSource: TableDataSourceService;
+  dataSource: TableDataSourceService;
+  totalCount: Observable<any>;
   mode: string;
   title: string;
   subTitle: string;
 
   constructor(private _service: AoEncoderDashboardService, private _router: Router,
-    private _snackBar: MatSnackBar, private _dialog: MatDialog) {
-    this.refresh();
+    private _dialog: MatDialog) {
+      this.totalCount = this._service.getCount();
   }
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
 
-    this.mode = 'create';
-    this.title = 'New Affiliation';
-    this.subTitle = 'AO Encoder';
-    // this.dataSource = new TableDataSourceService(this._service);
-    // this.dataSource.loadTableData();
+    this.mode = '';
+    this.title = 'Account Officer';
+    this.subTitle = '';
+    this.dataSource = new TableDataSourceService(this._service);
+    this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+            this.paginator.pageSize, this.input.nativeElement.value);
+        })
+      )
+      .subscribe();
+
+    this.sort.sortChange.subscribe((x) => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+          this.paginator.pageSize, this.input.nativeElement.value))
+      )
+      .subscribe();
   }
 
   getItem(id) {
@@ -55,25 +74,7 @@ export class AoEncoderDashboardComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(data => {
-      this.refresh();
+      this.dataSource.loadTableData('referenceNo', 'desc', 0, 3, '');
     });
-  }
-
-  refresh() {
-    this._service.getTableData().subscribe(data => {
-      this.dataSource = new MatTableDataSource(data);
-      this.dataSource.sort = this.sort;
-
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch (property) {
-          case 'requestDate': return new Date(item.requestedDate);
-          default: return item[property];
-        }
-      };
-    });
-  }
-
-  getStatus() {
-    return 'DRAFT';
   }
 }

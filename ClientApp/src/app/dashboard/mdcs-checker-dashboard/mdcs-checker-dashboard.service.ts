@@ -1,43 +1,30 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstants } from 'src/app/api-constants';
 
-const apiUrl = '';
 @Injectable()
-export class MdcsCheckerDashboardService implements OnInit {
-  private _dashboard: DashboardData;
-
-  constructor(private _http: HttpClient) {
-    this._dashboard = new DashboardData();
-  }
-
-  ngOnInit() {
-    
+export class MdcsCheckerDashboardService {
+  constructor(private _http: HttpClient, private _dashboard: DashboardData) {
   }
 
   getTableFields() {
     return this._dashboard.Fields;
   }
-  
-  getRequest(): Observable<any> {
-    return this._http.get(ApiConstants.mdcsCheckerDashboard);
+
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.mdcsCheckerDashboardApi + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
   }
 
-  get(id): Observable<any> {
-    return this._http.get(ApiConstants.mdcsCheckerDashboard + '/' + id);
-  }
-
-  create(): void {
-    this._http.post(apiUrl, {});
-  }
-
-  update(): void {
-    this._http.put(apiUrl, {});
+  getCount() {
+    return this._http.get(ApiConstants.mdcsCheckerDashboardApi + '/count');
   }
 
   filterDashboard(searchCriteria): Observable<any> {
-    return this._http.put(ApiConstants.mdcsCheckerDashboard + '/filter', searchCriteria);
+    return this._http.put(ApiConstants.mdcsCheckerDashboardApi + '/filter', searchCriteria);
   }
 }

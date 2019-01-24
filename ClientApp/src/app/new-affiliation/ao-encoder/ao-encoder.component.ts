@@ -10,6 +10,7 @@ import { PosFormModalService } from 'src/app/modal/pos-form-modal/pos-form-modal
 import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
 import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
 import { HistoryModalComponent } from 'src/app/modal/history-modal/history-modal.component';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-ao-encoder-step',
@@ -146,9 +147,17 @@ export class AoEncoderComponent implements OnInit {
     });
   }
 
-  clearStepper() {
-    this.isOif = false;
-    this.isPos = false;
+  selectionChange($event: StepperSelectionEvent) {
+    if ($event.selectedIndex === 1) {
+      this.isOif = false;
+      this.isPos = false;
+    }
+    if ($event.selectedIndex === 2) {
+      this.isOif = true;
+    }
+    if ($event.selectedIndex === 3) {
+      this.isPos = true;
+    }
   }
 
   openHistory() {

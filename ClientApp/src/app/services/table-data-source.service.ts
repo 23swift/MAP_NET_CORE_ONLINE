@@ -5,10 +5,9 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 
 export class TableDataSourceService implements DataSource<any> {
   private dataList = new BehaviorSubject<any[]>([]);
-  private showLoader = new BehaviorSubject<boolean>(false);
-
-  public loading$ = this.showLoader.asObservable();
-  constructor(private service: any) { }
+  
+  constructor(private service: any) {
+  }
 
   connect(collectionViewer: CollectionViewer): Observable<any> {
     return this.dataList.asObservable();
@@ -16,14 +15,15 @@ export class TableDataSourceService implements DataSource<any> {
 
   disconnect(collectionViewer: CollectionViewer): void {
     this.dataList.complete();
-    this.showLoader.complete();
   }
 
-  loadTableData(): void {
-    this.showLoader.next(true);
-    this.service.getTableData().subscribe(data => {
+  loadTableData(field = 'trackingNo', sortDirection = 'asc', pageIndex = 0, pageSize = 3, filter = ''): void {
+    this.service.getTableData(field, sortDirection, pageIndex, pageSize, filter).subscribe(data => {
       this.dataList.next(data);
-      this.showLoader.next(false);
     });
+  }
+
+  filteredData(data) {
+    this.dataList.next(data);
   }
 }

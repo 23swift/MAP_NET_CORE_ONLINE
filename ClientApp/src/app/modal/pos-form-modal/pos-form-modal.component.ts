@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, throwToolbarMixedModesError } from '@angular/material';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 
 import { PosFormModalService } from './pos-form-modal.service';
@@ -48,7 +48,6 @@ export class PosFormModalComponent implements OnInit {
     this.displayMode = this._dialogData['displayMode'];
     this.model = {};
     this.model['id'] = 0;
-    this.fields = this._posService.getPosFields('mauEncoder');
 
     if (!this._dialogData['pos']) {
       this.branchId = this._dialogData['branchId']; // FOR MID LIST IN MODAL
@@ -62,11 +61,9 @@ export class PosFormModalComponent implements OnInit {
       });
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
-      // this.model['userGroup'] = this.userGroup;
-
-      this.fields = this._posService.getPosFields(this.userGroup);
-      //this.model['displayMode'] = this.displayMode;
-      this.model['userGroup'] = this._dialogData['userGroup'];
+      this.model['userGroup'] = this.userGroup;
+      
+      this.fields = this._posService.getPosFields(this.userGroup);      
     }
   }
 
@@ -82,7 +79,7 @@ export class PosFormModalComponent implements OnInit {
         });
 
         snackBar.afterDismissed().subscribe(x => {
-          this._modalRef.close(data);
+          this._modalRef.close();
         });
       }, err => {
         if (err['status'] === 200) {
@@ -102,7 +99,7 @@ export class PosFormModalComponent implements OnInit {
         });
 
         snackBar.afterDismissed().subscribe(x => {
-          this._modalRef.close(data);
+          this._modalRef.close();
         });
       }, err => {
         if (err['status'] === 200) {

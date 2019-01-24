@@ -29,8 +29,6 @@ export class PosTerminalFormModalComponent implements OnInit {
         posId: this.dialogData['posId']
       };
     }
-
-    console.log(this.model);
    }
 
   ngOnInit() {

@@ -284,6 +284,9 @@ export class MidFormModalService {
             expressionProperties: {
               'templateOptions.required': (model: any, formState: any) => {
                 return model['majorPurchase'];
+              },
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return !model['majorPurchase'];
               }
             },
             templateOptions: {

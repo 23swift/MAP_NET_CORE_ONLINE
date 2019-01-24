@@ -25,7 +25,7 @@ export class DocumentChecklistFormModalService {
             }
           },
           {
-            className: 'flex-5',
+            className: 'flex-6',
             key: 'documentName',
             type: 'select',
             templateOptions: {
@@ -69,7 +69,7 @@ export class DocumentChecklistFormModalService {
             }
           },
           {
-            className: 'flex-1',
+            className: 'flex-3',
             key: 'targetDateOfSubmission',
             type: 'calendar',
             expressionProperties: {
@@ -85,7 +85,7 @@ export class DocumentChecklistFormModalService {
             }
           },
           {
-            className: 'flex-1',
+            className: 'flex-3',
             key: 'dateSubmitted',
             type: 'calendar',
             expressionProperties: {

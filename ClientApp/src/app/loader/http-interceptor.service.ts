@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { LoaderService } from './loader.service';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,20 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(
       tap(res => {
         if (res.type === HttpEventType.Sent) {
-          this.loaderService.loading$.next(true);
+          setTimeout(() => { this.loaderService.loading$.next(true) });
         }
-
         if (res.type === HttpEventType.Response) {
-          this.loaderService.loading$.next(false);
+          setTimeout(() => { this.loaderService.loading$.next(false) });
         }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        setTimeout(() => { this.loaderService.errorFlag$.next(true) });
+
+        setTimeout(() => {
+          this.loaderService.loading$.next(false);
+          this.loaderService.errorFlag$.next(false);
+        }, 10000);
+        return throwError(error);
       })
     );
   }

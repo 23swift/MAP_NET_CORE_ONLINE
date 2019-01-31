@@ -4445,12 +4445,11 @@ export class BranchFormService {
           key: 'taxCode',
           type: 'radio',
           templateOptions: {
-<<<<<<< HEAD
-            label: 'Tax Code',
-            required: true,
-            options: this._dropDownService.getDropdown('TC'),
-            labelProp: 'value',
-            valueProp: 'code',
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
           },
           lifecycle: {
             onInit: (form, field) => {
@@ -4464,14 +4463,6 @@ export class BranchFormService {
               });
             }
           }
-=======
-            label: 'Tax Code?',
-            options: [
-              { value: 'WT', label: 'With Tax' },
-              { value: 'NTTR', label: "No Tax Type Required" }
-            ],
-          },
->>>>>>> 1d2e5fcdd80516ae0e939f61ae306d36df6fae87
         },
         {
           className: 'flex-1',

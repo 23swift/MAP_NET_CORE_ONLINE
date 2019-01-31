@@ -242,10 +242,12 @@ namespace MAP_Web.Services
                         MID midPhpModel = new MID();
                         mapper.Map<MID, MID>(mid, midPhpModel);
                         midPhpModel.currencyUsd = false;
+                        midPhpModel.AuditLogGroupId = branch.AuditLogGroupId;
 
                         MID midUsdModel = new MID();
                         mapper.Map<MID, MID>(mid, midUsdModel);
                         midUsdModel.currencyPhp = false;
+                        midUsdModel.AuditLogGroupId = branch.AuditLogGroupId;
 
                         await InsertAsync(midPhpModel);
                         await InsertAsync(midUsdModel);

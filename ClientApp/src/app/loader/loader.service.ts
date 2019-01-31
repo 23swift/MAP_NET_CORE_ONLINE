@@ -6,5 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class LoaderService {
   public loading$ = new BehaviorSubject(false);
+  public errorFlag$ = new BehaviorSubject(false);
   constructor() { }
 }

@@ -29,6 +29,7 @@ namespace MAP_Web.Services
             request.AuditLogGroupId = Guid.NewGuid();
             request.Status = 1;
             request.MAEF = new MAEF();
+            request.CreatedBy = "Test User";
             request.ApprovalSetup = new ApprovalSetup();
             request.NewAffiliation = new NewAffiliation();
             request.ApprovalSetup.approvalCount = 2;

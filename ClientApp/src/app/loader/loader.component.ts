@@ -1,21 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoaderService } from './loader.service';
-import { MatBottomSheet } from '@angular/material';
-import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-loader',
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.css']
 })
-export class LoaderComponent implements OnInit {
-  public loading$;
+export class LoaderComponent {
+  public loading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private loadingService: LoaderService, private bottomSheet: MatBottomSheet) {
-      this.loading$ = this.loadingService.loading$;
-  }
-
-  ngOnInit() {
-    
+  constructor(private loadingService: LoaderService) {
+    this.loading$ = this.loadingService.loading$;  
   }
 }

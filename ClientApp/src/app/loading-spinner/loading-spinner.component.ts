@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MatBottomSheetConfig, MatBottomSheetRef} from '@angular/material';
+import { LoaderService } from '../loader/loader.service';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -10,15 +11,11 @@ export class LoadingSpinnerComponent {
   color = 'accent';
   mode = 'indeterminate';
   // value = 20;
-  message='Please Wait...'
-  constructor(private bottomSheetRef: MatBottomSheetRef<LoadingSpinnerComponent, {}>) {
-    this.bottomSheetRef
+  message='Please Wait...';
+  loading$;
+  errorFlag$;
+  constructor(private bottomSheetRef: MatBottomSheetRef<LoadingSpinnerComponent, {}>, private _loaderService: LoaderService) {
+    this.loading$ = this._loaderService.loading$;
+    this.errorFlag$ = this._loaderService.errorFlag$;
   }
-  // constructor() {}
-
-  openLink(event: MouseEvent): void {
-    this.bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-
 }

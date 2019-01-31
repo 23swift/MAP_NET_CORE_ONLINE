@@ -3,7 +3,7 @@
       "windowsAuthentication": false,
       "anonymousAuthentication": true,
       "iisExpress": {
-        "applicationUrl": "https://app01.mas.dev.bdo.com.ph:50444/",
+        "applicationUrl": "https://app01.mas.dev.bdo.com.ph/",
         "sslPort": 0
       }
     },

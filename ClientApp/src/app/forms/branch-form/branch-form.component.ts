@@ -52,7 +52,7 @@ export class BranchFormComponent implements OnInit {
           ]).subscribe(fjData => {
             const owner = fjData[0];
             this.model = fjData[1];
-            this.model['ownerName'] = this.model['ownerName'] === '' ? owner['name'] : this.model['ownerName'];
+            this.model['ownerName'] = this.model['ownerName'] === null ? owner['name'] : this.model['ownerName'];
             this.model['isSingleProp'] = isSingleProp;
             this.modifyDecimalFields(this.model);
 
@@ -75,7 +75,6 @@ export class BranchFormComponent implements OnInit {
       this.model['isSingleProp'] = false;
       
       this.modifyDecimalFields(this.model);
-      console.log(this.model);
       this.fields = this._branchService.getBranchFields(this.userGroup);
     });
   }

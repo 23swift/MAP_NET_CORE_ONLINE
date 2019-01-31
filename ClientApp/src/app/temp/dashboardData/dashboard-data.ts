@@ -1,5 +1,9 @@
 import { IRequestDisplay } from '../interface/irequest-display';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class DashboardData {
     ElementData: IRequestDisplay[] = [
         {

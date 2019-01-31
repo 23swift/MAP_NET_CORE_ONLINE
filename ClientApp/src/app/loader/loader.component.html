@@ -1,6 +1,3 @@
 <div *ngIf="loading$ | async">
-  <app-loader-wrapper [toggle]="'open'"></app-loader-wrapper>
-</div>
-<div *ngIf="!(loading$ | async)">
-  <app-loader-wrapper [toggle]="'close'"></app-loader-wrapper>
+  <app-loader-wrapper></app-loader-wrapper>
 </div>

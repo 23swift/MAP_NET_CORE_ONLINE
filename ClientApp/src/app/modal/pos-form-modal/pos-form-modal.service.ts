@@ -740,7 +740,7 @@ export class PosFormModalService {
           },
           templateOptions: {
             label: 'Remarks / Special Instructions (Dispatch-Related Only)',
-            maxLength: 300,
+            maxLength: 300
           }
         },
       ]
@@ -1098,10 +1098,9 @@ export class PosFormModalService {
     private _aoListService: AoListModalService) { }
 
   getPosFields(userGroup): FormlyFieldConfig[] {
-    if (userGroup === 'mauEncoder' || userGroup === 'approver' || userGroup === 'mqrUser') {
+    if (userGroup === 'mauEncoder' || userGroup === 'mqrUser' || userGroup === 'approver') {
       return this.veriScreenFields;
-    } 
-    else {
+    } else {
       return this.fields;
     }
   }

@@ -88,7 +88,7 @@ namespace MAP_Web.DataAccess
             .Where(p => p.State == EntityState.Added ||
             p.State == EntityState.Modified ||
             p.State == EntityState.Deleted).ToList();
-            //await _AuditLogService.Save(modifiedEntities);
+            await _AuditLogService.Save(modifiedEntities);
             int result = await base.SaveChangesAsync();
             return result;
         }

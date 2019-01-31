@@ -62,7 +62,11 @@ export class PosListComponent implements OnInit {
       height: 'auto',
       data: {
         branchId: this.branchId,
+        showMid: this.showMid,
+        showTerminalUpdate: this.showTerminalUpdate,
+        showTerminalAdd: this.showTerminalAdd,
         displayMode: this.displayMode,
+        showTerminalDelete: this.showTerminalDelete,
         userGroup: this.userGroup
       }
     });

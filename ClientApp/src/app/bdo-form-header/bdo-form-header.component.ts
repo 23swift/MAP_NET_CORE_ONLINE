@@ -70,8 +70,8 @@ export class BdoFormHeaderComponent implements OnInit {
 
     this.mode = this.mode ? this.mode : 'create';
 
-    if (this._router.url !== '/home') {
-      if (this.mode.match(/^approver$$/i)) {
+    if (this._router.url.indexOf('/home')) {
+      if (this.mode.match(/^approver$/i)) {
         this._maefFormService.getApproveUserCount(this.requestId, 'Approver2').subscribe(data => {
           this.userCount = data;
           if (this.userCount != 0)
@@ -330,6 +330,16 @@ export class BdoFormHeaderComponent implements OnInit {
           duration: 2000
         });
       }
+    });
+  }
+
+  complete() {
+    const snackBarSub = this._snackBar.open('New Affiliation Request!', 'Completed', {
+      duration: 2000
+    });
+
+    snackBarSub.afterDismissed().subscribe(() => {
+      this._router.navigateByUrl('/home/mdm');
     });
   }
 

@@ -3,6 +3,9 @@
 <mat-tab-group>
     <mat-tab label="Customer Profile">
         <app-customer-profile [displayMode]="displayMode" [userGroup]="userGroup"></app-customer-profile>
+        <ng-container style="margin: 10px 0px">
+            <span class="mat-title">Branch List</span>
+        </ng-container>
         <mat-accordion>
             <mat-expansion-panel *ngFor="let items of dataSource | async">
                 <mat-expansion-panel-header>
@@ -36,7 +39,7 @@
                         </mat-tab-group>
                     </mat-card>
                 </ng-template>
-            </mat-expansion-panel> 
+            </mat-expansion-panel>
         </mat-accordion>
     </mat-tab>
     <mat-tab label="MAEF">
@@ -47,7 +50,7 @@
     <mat-tab label="Document Checklist">
         <ng-template matTabContent>
             <div style="overflow: hidden">
-            <app-document-check-list [newAffiliationId]="requestId"></app-document-check-list>
+                <app-document-check-list [newAffiliationId]="requestId"></app-document-check-list>
             </div>
         </ng-template>
     </mat-tab>

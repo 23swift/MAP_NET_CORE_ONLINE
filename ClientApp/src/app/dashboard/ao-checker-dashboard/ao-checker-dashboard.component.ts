@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AoCheckerDashboardService } from './ao-checker-dashboard.service';
-import { IRequestDisplay } from '../../temp/interface/irequest-display';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatSort, MatPaginator } from '@angular/material';
+import { TableDataSourceService } from 'src/app/services/table-data-source.service';
+import { fromEvent, merge, Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -11,45 +13,55 @@ import { MatTableDataSource, MatSort } from '@angular/material';
   styleUrls: ['./ao-checker-dashboard.component.css'],
   providers: [AoCheckerDashboardService]
 })
-export class AoCheckerDashboardComponent implements OnInit {
+export class AoCheckerDashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('searchInput') input: ElementRef;
   displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
+  totalCount: Observable<any>;
+  dataSource: TableDataSourceService;
 
   mode: string;
   title: string;
   subTitle: string;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _service: AoCheckerDashboardService) { }
+  constructor(private _router: Router, private _service: AoCheckerDashboardService) {
+    this.totalCount = this._service.getCount();
+  }
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this._service.get().subscribe(dd => {
-      this.dataSource = new MatTableDataSource(dd);
-      this.dataSource.sort = this.sort;
-
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch (property) {
-          case 'requestDate': return new Date(item.requestedDate);
-          default: return item[property];
-        }
-      };
-    });
 
     this.mode = '';
-    this.title = '';
+    this.title = 'Account Officer - Checker';
     this.subTitle = '';
+    this.dataSource = new TableDataSourceService(this._service);
+    this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+            this.paginator.pageSize, this.input.nativeElement.value);
+        })
+      )
+      .subscribe();
+
+    this.sort.sortChange.subscribe((x) => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+          this.paginator.pageSize, this.input.nativeElement.value))
+      )
+      .subscribe();
   }
 
-  getStatus() {
-    return 'FOR AO CHECKER\'S REVIEW';
-  }
-
-  private getItem(Id) {
+  getItem(Id) {
     this._router.navigateByUrl('na/aoChecker/' + Id);
   }
 }

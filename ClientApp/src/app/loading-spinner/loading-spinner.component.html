@@ -1,13 +1,16 @@
-
-
-<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="15px">
-    <mat-spinner
-
-      [color]="color"
-      [mode]="mode"
-      [diameter]=35
-      [strokeWidth]=6>
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="15px" *ngIf="!(errorFlag$ | async)">
+  <mat-spinner [color]="color" [mode]="mode" [diameter]=35 [strokeWidth]=6>
   </mat-spinner>
-  <h3 class="mat-headline"
-  >{{this.message}}</h3>
+  <h3 class="mat-headline">
+    Please wait...
+  </h3>
+</div>
+
+<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="15px" *ngIf="errorFlag$ | async">
+  <h3 class="mat-title error-text-color vertical-align">
+    <mat-icon [inline]="true" class="vertical-align">error</mat-icon>
+    Error loading data. Refresh the page or
+    contact Admin for
+    assistance.
+  </h3>
 </div>

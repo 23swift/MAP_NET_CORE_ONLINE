@@ -8,7 +8,7 @@
     </button>
   </span>
 </div>
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper (selectionChange)="selectionChange($event)">
   <mat-step [completed]="false">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Create Customer Profile</span>
@@ -19,7 +19,7 @@
       <mat-icon color="primary">navigate_next</mat-icon>
     </button>
   </mat-step>
-  <mat-step [completed]="false" (click)="clearStepper()">
+  <mat-step [completed]="false">
     <ng-template matStepLabel>
       <span class="mat-subheading-1">Add Branches</span>
     </ng-template>
@@ -47,8 +47,9 @@
       <span class="mat-subheading-1">Create POS Request for Branches</span>
     </ng-template>
     <div *ngIf="isPos">
-      <app-branch-list-attachment-pos [newAffiliationId]="newAffiliationId" [userGroup]="'ao'" [showAdd]="true" [showDelete]="true"
-      [displayMode]="false" [showTerminalUpdate]="true" [showTerminalAdd]="true" [showTerminalDelete]="true"></app-branch-list-attachment-pos>
+      <app-branch-list-attachment-pos [newAffiliationId]="newAffiliationId" [userGroup]="'ao'" [showAdd]="true"
+        [showDelete]="true" [displayMode]="false" [showTerminalUpdate]="true" [showTerminalAdd]="true"
+        [showTerminalDelete]="true"></app-branch-list-attachment-pos>
     </div>
     <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper, 'pos');">Next
       <mat-icon color="primary">navigate_next</mat-icon>

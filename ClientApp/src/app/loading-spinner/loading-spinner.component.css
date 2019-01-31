@@ -2,3 +2,11 @@
   padding-top: 20px;
   color: #1e4f8e;
 }
+
+.error-text-color {
+  color: red;
+}
+
+.vertical-align {
+  vertical-align: middle;
+}

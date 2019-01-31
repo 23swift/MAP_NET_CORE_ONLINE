@@ -56,7 +56,8 @@ namespace MAP_Web.Services
                 action = "Request Submitted",
                 groupCode = "Test Group Code",
                 user = "Test User",
-                RequestId = request.Id
+                RequestId = request.Id,
+                AuditLogGroupId = request.AuditLogGroupId
             });
 
             request.Status = status;

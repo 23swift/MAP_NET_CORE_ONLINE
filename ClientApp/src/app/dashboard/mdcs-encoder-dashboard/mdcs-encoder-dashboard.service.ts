@@ -1,43 +1,29 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { DashboardData } from '../../temp/dashboardData/dashboard-data';
 import { HttpClient } from 'node_modules/@angular/common/http';
 import { ApiConstants } from 'src/app/api-constants';
 import { Observable } from 'rxjs';
 
-const apiUrl = '';
 @Injectable()
-export class MdcsEncoderDashboardService implements OnInit {
-  private _dashboard: DashboardData;
-
-  constructor(private _http: HttpClient) {
-    this._dashboard = new DashboardData();
-  }
-
-  ngOnInit() {
-
-  }
+export class MdcsEncoderDashboardService {
+  constructor(private _http: HttpClient, private _dashboard: DashboardData) { }
 
   getTableFields() {
     return this._dashboard.Fields;
   }
 
-  getRequest(): Observable<any> {
-    return this._http.get(ApiConstants.mdcsEncoderDashboard);
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.mdcsEncoderDashboardApi + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
   }
 
-  get(id): Observable<any> {
-    return this._http.get(ApiConstants.mdcsEncoderDashboard + '/' + id);
-  }
-
-  create(): void {
-    this._http.post(apiUrl, {});
-  }
-
-  update(): void {
-    this._http.put(apiUrl, {});
+  getCount() {
+    return this._http.get(ApiConstants.mdcsEncoderDashboardApi + '/count');
   }
 
   filterDashboard(searchCriteria): Observable<any> {
-    return this._http.put(ApiConstants.mdcsEncoderDashboard + '/filter', searchCriteria);
+    return this._http.put(ApiConstants.mdcsEncoderDashboardApi + '/filter', searchCriteria);
   }
 }

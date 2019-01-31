@@ -97,13 +97,6 @@ const routes: Routes = [
   {
     path: 'ba/:mode', component: BranchAffiliationComponent,
     children: [
-      // {
-      //   path: '', component: CustomerProfileListComponent, outlet: 'customerProfile', children: [
-      //     { path: 'custProfile/:id?', component: CustomerProfileComponent, outlet: 'customerProfile' },
-      //   ]
-      // },
-
-      // { path: '', redirectTo: 'branchList', pathMatch: 'full' }
       { path: '', component: BranchListComponent, outlet: 'branch' },
       {
         path: 'branch/:mode/:id', component: BranchFormComponent, outlet: 'branch', children: [
@@ -151,81 +144,12 @@ const routes: Routes = [
   { path: 'na/mdm/:id', component: MdmUserComponent },
   { path: 'na/pss/:id', component: PsServicingComponent },
   { path: 'error-page', component: ErrorPageComponent },
-  {
-    path: 'na/aoEncoder/:mode', component: AoEncoderComponent,
-    children: [
-      { path: '', component: BranchListComponent, outlet: 'branch' },
-      {
-        path: 'branch/:mode/:id', component: BranchFormComponent, outlet: 'branch', children: [
-          { path: '', component: MidComponent, outlet: 'mid' }
-        ]
-      },
-      {
-        path: 'branch/:mode', component: BranchFormComponent, outlet: 'branch', children: [
-          { path: '', component: MidComponent, outlet: 'mid', data: { showAction: true } }
-        ]
-      },
-      { path: '', component: BranchListAttachmentComponent, outlet: 'branchOIF' },
-      { path: 'OIF/:id?', component: OcularInspectionFormComponent, outlet: 'branchOIF' },
-      { path: '', component: BranchListAttachmentPOSComponent, outlet: 'branchPOS' },
-      {
-        path: 'POS/:id?', component: PosListContainerComponent, outlet: 'branchPOS', children: [
-          {
-            path: '', component: PosListComponent, outlet: 'listContainer', data: { showAdd: true }, children: [
-              { path: '', component: MidComponent, outlet: 'mid', data: { showAction: true } }
-            ]
-          }
-        ]
-      },
-      { path: 'MID/:form', component: MidComponent, outlet: 'mid', data: { showAction: false } },
-      { path: '', component: DocumentCheckListComponent, outlet: 'documentCheckList' },
-      { path: 'dcl/:docMode/:id', component: DocumentCheckListFormComponent, outlet: 'documentCheckList' },
-      { path: 'dcl/addDocument', component: DocumentCheckListFormRequestLevelComponent, outlet: 'documentCheckList' }
-    ]
-  },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
   { path: 'home/:userGroup', component: HomeScreenComponent },
-  { path: 'oif', component: OcularInspectionFormComponent },
-  { path: 'oifForm', component: OcularInspectionFormComponent },
-  { path: 'aoDashboard', component: AoCheckerDashboardComponent },
-
-  // {
-  //   path: 'aoChecking', component: AoCheckingComponent,
-  //   children: [
-  //     // { path: '', redirectTo: 'branchList', pathMatch: 'full' }
-  //     {
-  //       path: '', component: BranchListComponent,
-  //       // data: { detailsRoute: '[{ outlets: {branch: ["branch/update/",1] } }]' },
-  //       outlet: 'branch'
-  //     },
-  //     {
-  //       path: 'branch/:mode/:id', component: BranchFormComponent,
-  //       outlet: 'branch'
-
-  //     },
-  //     {
-  //       path: 'branch/:mode', component: BranchFormComponent,
-  //       outlet: 'branch'
-  //     },
-  //     {
-  //       path: '', component: BranchListAttachmentComponent,
-  //       data: { detailsRoute: 'branch/update/' },
-  //       outlet: 'branchOIF'
-  //     },
-  //     {
-  //       path: 'OIF/:id', component: OcularInspectionFormComponent,
-  //       outlet: 'branchOIF'
-  //     },
-  //   ]
-  // },
-
   { path: 'awr', component: AwrFormComponent },
   { path: 'requestForm', component: RequestFormComponent },
   { path: 'posForm', component: PosFormComponent },
-  { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
-  { path: 'oifForm', component: OcularInspectionFormComponent },
   ////////////// DASHBOARD ///////////////////
   { path: 'aoCheckerDashboard', component: AoCheckerDashboardComponent },
   { path: 'aoEncoderDashboard', component: AoEncoderDashboardComponent },
@@ -239,37 +163,6 @@ const routes: Routes = [
   { path: 'mqrDashboard', component: MqrDashboardComponent },
   { path: 'pssDashboard', component: PsServicingDashboardComponent },
   ///////////////////////////////////////////
-  {
-    path: 'na/aoChecker', component: AoCheckerComponent,
-    children: [
-      { path: '', component: BranchListComponent, outlet: 'branch' },
-      {
-        path: 'branch/:mode/:id', component: BranchFormComponent, outlet: 'branch', children: [
-          { path: '', component: MidComponent, outlet: 'mid' }
-        ]
-      },
-      {
-        path: 'branch/:mode', component: BranchFormComponent, outlet: 'branch', children: [
-          { path: '', component: MidComponent, outlet: 'mid', data: { showAction: true } }
-        ]
-      },
-      { path: '', component: BranchListAttachmentComponent, outlet: 'branchOIF' },
-      { path: 'OIF/:id?', component: OcularInspectionFormComponent, outlet: 'branchOIF' },
-      { path: '', component: BranchListAttachmentPOSComponent, outlet: 'branchPOS' },
-      {
-        path: 'POS/:id?', component: PosListContainerComponent, outlet: 'branchPOS', children: [
-          {
-            path: '', component: PosListComponent, outlet: 'listContainer', data: { showAdd: false }, children: [
-              { path: '', component: MidComponent, outlet: 'mid', data: { showAction: true } }
-            ]
-          }
-        ]
-      },
-      { path: 'MID/:form', component: MidComponent, outlet: 'mid' },
-      { path: '', component: DocumentCheckListComponent, outlet: 'documentCheckList' },
-      { path: 'dcl/:docMode/:id', component: DocumentCheckListFormComponent, outlet: 'documentCheckList' },
-    ]
-  },
   {
     path: 'na/mauEncoder', component: MauEncoderComponent,
     children: [
@@ -290,20 +183,7 @@ const routes: Routes = [
   { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, //story7
   { path: 'na/approver/:id', component: MauOfficerComponent }, //story8
   { path: 'na/mdcsUser/:id', component: MdcsUserComponent },//story10
-  {
-    path: 'na/mdmUser', component: MdmUserComponent, children: [
-      { path: '', component: DocumentCheckListComponent, outlet: 'docForm' },
-      { path: 'docForm', component: DocumentCheckListFormRequestLevelComponent, outlet: 'docForm' }
-    ]
-  },
-  { path: 'na/mdcsEncoder/:mode', component: MdcsEncoderComponent },
-  { path: 'na/mdcsChecker/:mode', component: MdcsCheckerComponent },
-  // { path: 'na/mdcsUser', component: MdcsUserComponent },
-  { path: 'na/psServicing/:requestId/:branchId', component: PsServicingComponent },
-  { path: 'aoChecking', component: AoCheckingComponent },
   { path: 'posForm', component: PosFormComponent },
-  { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
   {
     path: 'na/mqrUser/:id', component: MqrUserComponent,

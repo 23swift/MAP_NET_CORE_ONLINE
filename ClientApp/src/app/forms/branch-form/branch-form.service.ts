@@ -3130,14 +3130,14 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'select',
           key: 'taxCode',
+          type: 'radio',
           templateOptions: {
-            label: 'Tax Code',
-            required: true,
-            options: this._dropDownService.getDropdown('TC'),
-            labelProp: 'value',
-            valueProp: 'code',
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
           },
           lifecycle: {
             onInit: (form, field) => {
@@ -4442,9 +4442,10 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'select',
           key: 'taxCode',
+          type: 'radio',
           templateOptions: {
+<<<<<<< HEAD
             label: 'Tax Code',
             required: true,
             options: this._dropDownService.getDropdown('TC'),
@@ -4463,6 +4464,14 @@ export class BranchFormService {
               });
             }
           }
+=======
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
+          },
+>>>>>>> 1d2e5fcdd80516ae0e939f61ae306d36df6fae87
         },
         {
           className: 'flex-1',
@@ -5727,7 +5736,7 @@ export class BranchFormService {
             maxLength: 20
           }
         },
-        {
+/*        {
           className: 'flex-1',
           type: 'select',
           key: 'taxCode',
@@ -5738,7 +5747,32 @@ export class BranchFormService {
             valueProp: 'code',
             required: true
           }
-        }
+        } */
+        {
+          className: 'flex-1',
+          key: 'taxCode',
+          type: 'radio',
+          templateOptions: {
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v !== 'NTTR') {
+                  form.get('taxExemptValidityFrom').patchValue(undefined);
+                  form.get('taxExemptValidityTo').patchValue(undefined);
+                  form.get('taxExemptCertIssuedBy').patchValue(undefined);
+                  form.get('taxExemptClass').patchValue(undefined);
+                }
+              });
+            }
+          }           
+    
+        },
       ]
     },
     {
@@ -6792,14 +6826,14 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'select',
           key: 'taxCode',
+          type: 'radio',
           templateOptions: {
-            label: 'Tax Code',
-            required: true,
-            options: this._dropDownService.getDropdown('TC'),
-            labelProp: 'value',
-            valueProp: 'code',
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
           },
           lifecycle: {
             onInit: (form, field) => {

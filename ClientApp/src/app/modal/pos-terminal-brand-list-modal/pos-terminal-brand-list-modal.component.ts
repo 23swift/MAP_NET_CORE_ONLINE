@@ -19,6 +19,7 @@ export class PosTerminalBrandListModalComponent implements OnInit {
   @Input() showUpdate = true;
   @Input() showAdd = true;
   @Input() showDelete = true;
+  @Input() userGroup:string;
   terminalBrandList = [];
   terminalTypeList = [];
   terminalModelList = [];
@@ -76,7 +77,8 @@ export class PosTerminalBrandListModalComponent implements OnInit {
     const dialog = this._dialog.open(PosTerminalFormModalComponent, {
       width: '50%',
       data: {
-        posTerminal: posTerminal
+        posTerminal: posTerminal,
+        userGroup: this.userGroup
       }
     });
 

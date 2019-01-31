@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MdmUserDashboardService } from './mdm-user-dashboard.service';
 import { IRequestDisplay } from '../../temp/interface/irequest-display';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatTableDataSource, MatSort, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatSort, MatDialog, MatPaginator } from '@angular/material';
 import { SearchModalComponent } from 'src/app/modal/search-modal/search-modal.component';
+import { TableDataSourceService } from 'src/app/services/table-data-source.service';
+import { Observable, fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mdm-user-dashboard',
@@ -11,43 +14,51 @@ import { SearchModalComponent } from 'src/app/modal/search-modal/search-modal.co
   styleUrls: ['./mdm-user-dashboard.component.css'],
   providers: [MdmUserDashboardService]
 })
-export class MdmUserDashboardComponent implements OnInit {
+export class MdmUserDashboardComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('searchInput') input: ElementRef;
   displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
-
+  dataSource: TableDataSourceService;
+  totalCount: Observable<any>;
   mode: string;
   title: string;
   subTitle: string;
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _service: MdmUserDashboardService, private _matDialog: MatDialog,
-    ) { }
+  constructor(private _router: Router, private _service: MdmUserDashboardService, private _matDialog: MatDialog) {
+    this.totalCount = this._service.getCount();
+  }
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this.getRequests();
 
     this.mode = '';
-    this.title = '';
+    this.title = 'Merchant Document Management - User';
     this.subTitle = '';
+    this.dataSource = new TableDataSourceService(this._service);
+    this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
   }
 
-  getRequests() {
-    this._service.get().subscribe(dd => {
-      this.dataSource = new MatTableDataSource(dd);
-      this.dataSource.sort = this.sort;
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+            this.paginator.pageSize, this.input.nativeElement.value);
+        })
+      )
+      .subscribe();
 
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch (property) {
-          case 'requestDate': return new Date(item.requestedDate);
-          default: return item[property];
-        }
-      };
-    });
-  }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.sort.sortChange.subscribe((x) => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+          this.paginator.pageSize, this.input.nativeElement.value))
+      )
+      .subscribe();
   }
 
   getItem(requestId, branchId) {
@@ -66,18 +77,10 @@ export class MdmUserDashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(filter => {
       if (filter) {
         this._service.filterDashboard(filter).subscribe(filteredList => {
-          this.dataSource = new MatTableDataSource(filteredList);
-          this.dataSource.sort = this.sort;
-    
-          this.dataSource.sortingDataAccessor = (item, property) => {
-            switch (property) {
-              case 'requestDate': return new Date(item.requestedDate);
-              default: return item[property];
-            }
-          };
+          this.dataSource.filteredData(filteredList);
         });
       } else {
-        this.getRequests();
+        this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
       }
     });
   }

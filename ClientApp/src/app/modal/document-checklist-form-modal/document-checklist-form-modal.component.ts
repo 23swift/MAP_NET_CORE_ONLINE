@@ -27,6 +27,7 @@ export class DocumentChecklistFormModalComponent implements OnInit {
   isSubmitted = false;
   documentList: any[];
   documentName: string;
+  isShown: boolean;
 
   constructor(private _documentChecklistService: DocumentCheckListService,
     private _modalRef: MatDialogRef<DocumentChecklistFormModalComponent>,
@@ -45,7 +46,8 @@ export class DocumentChecklistFormModalComponent implements OnInit {
 
   ngOnInit() {
     this.form = new FormGroup({});
-    this.fields = this._documentFormService.getFormlyFields();
+    this.isShown = this.dialogData['isShown'] ? this.dialogData['isShown'] : true;
+    this.fields = this.dialogData['userGroup'] ? this._documentFormService.getFormlyFields(this.dialogData['userGroup']) : this._documentFormService.getFormlyFields();
   }
 
   submit() {

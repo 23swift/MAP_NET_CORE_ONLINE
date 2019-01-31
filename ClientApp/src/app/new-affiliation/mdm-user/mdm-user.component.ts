@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { MdmUserService } from './mdm-user.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { BranchListService } from 'src/app/branch-list/branch-list.service';
+import { DocumentListService } from 'src/app/services/document-list.service';
+import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
+import { DeleteModalComponent } from 'src/app/modal/delete-modal/delete-modal.component';
+import { BehaviorSubject } from 'rxjs';
+import { DocumentChecklistFormModalComponent } from 'src/app/modal/document-checklist-form-modal/document-checklist-form-modal.component';
+import { DocumentPerRequestFormModalComponent } from '../../modal/document-per-request-form-modal/document-per-request-form-modal.component';
+import { HistoryModalComponent } from 'src/app/modal/history-modal/history-modal.component';
 
 @Component({
   selector: 'app-mdm-user',
   templateUrl: './mdm-user.component.html',
   styleUrls: ['./mdm-user.component.css'],
-  providers: [MdmUserService, BranchListService]
+  providers: [MdmUserService, BranchListService, DocumentCheckListService]
 })
 export class MdmUserComponent implements OnInit {
   mode: string;
@@ -18,11 +25,24 @@ export class MdmUserComponent implements OnInit {
   displayMode: boolean;
   userGroup: string;
   dataSource: any;
+  obsDs = new BehaviorSubject<any>([]);
+  dataSourceDocuments = this.obsDs.asObservable();
+  obsAds = new BehaviorSubject<any>([]);
+  dataSourceAdditional = this.obsAds.asObservable();
+  documentList: any;
+  displayedColumns = ['documentName', 'dmiIndex', 'classification', 'documentStatus', 'dateSubmitted', 'targetDateOfSubmission', 'original', 'action'];
+
   constructor(private _route: ActivatedRoute,
     private _router: Router,
     private _snackBar: MatSnackBar,
-    private _branchService: BranchListService) {
+    private _branchService: BranchListService,
+    private _documentList: DocumentListService,
+    private _docService: DocumentCheckListService,
+    private _dialog: MatDialog) {
     this.requestId = +this._route.snapshot.params['id'];
+    this._documentList.get().subscribe(dl => {
+      this.documentList = dl;
+    });
   }
 
   ngOnInit() {
@@ -32,6 +52,69 @@ export class MdmUserComponent implements OnInit {
     this.displayMode = true;
     this.userGroup = 'mdmUser';
     this.dataSource = this._branchService.getByNewAffiliationId(this.requestId);
+    this.refresh();
+  }
+
+  getDocumentName(docId) {
+    return this.documentList.length > 0 ? this.documentList.find(dl => dl.id === docId).description : '';
+  }
+
+  refresh() {
+    this._docService.getByNewAffiliation(this.requestId).subscribe(d => {
+      this.obsDs.next(d['items']);
+    });
+  }
+
+  update(document) {
+    const dialog = this._dialog.open(DocumentChecklistFormModalComponent, {
+      width: '90%',
+      height: 'auto',
+      data: {
+        document: document,
+        userGroup: 'mdm'
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
+  }
+
+  delete(id) {
+    const dialog = this._dialog.open(DeleteModalComponent, {
+      width: '60%',
+      data: {
+        delete: this._docService.delete(id)
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
+  }
+
+  addDocument() {
+    const dialog = this._dialog.open(DocumentPerRequestFormModalComponent, {
+      width: '50%',
+      height: 'auto',
+      data: {
+        newAffiliationId: this.requestId
+      }
+    });
+
+    dialog.afterClosed().subscribe(data => {
+      this.refresh();
+    });
+  }
+
+  openHistory() {
+    this._dialog.open(HistoryModalComponent, {
+      width: '60%',
+      height: 'auto',
+      data: {
+        requestId: this.requestId
+      }
+    });
   }
 
   Submit() {

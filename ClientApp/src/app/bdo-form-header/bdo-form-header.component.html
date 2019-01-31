@@ -20,8 +20,8 @@
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
                 <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Complete">
                     <mat-icon class="request-mat-icon">done</mat-icon> Complete</button>
-            <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">
-                <mat-icon class="request-mat-icon">mail_outline</mat-icon> Generate Welcome Letter</button>
+            <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Notify AO">
+                <mat-icon class="request-mat-icon">notifications</mat-icon> Notify AO</button>
             <button *ngIf="showCadencieProcessingButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Cadencie Processing">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Cadencie Processing</button>
             <button *ngIf="showPosProcessingButton" (click)="submitForPOSProcessing()" mat-flat-button color="primary" matTooltip="Submit For POS Processing">
@@ -75,8 +75,8 @@
                     <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
                     <button *ngIf="showWelcomeLetter" (click)="complete()" mat-flat-button color="primary" matTooltip="Complete">
                         <mat-icon class="request-mat-icon">done</mat-icon> Complete</button>
-                <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Generate Welcome Letter">
-                    <mat-icon class="request-mat-icon">mail_outline</mat-icon> Generate Welcome Letter</button>
+                <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Notify AO">
+                    <mat-icon class="request-mat-icon">notifications</mat-icon> Notify AO</button>
                 <button *ngIf="showCadencieProcessingButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Cadencie Processing">
                     <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Cadencie Processing</button>
                 <button *ngIf="showPosProcessingButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For POS Processing">

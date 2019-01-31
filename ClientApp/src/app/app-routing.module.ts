@@ -72,11 +72,15 @@ import { MamVerificationScreenFormComponent } from './forms/mam-verification-scr
 import { PosTerminalBrandListComponent } from './pos-terminal-brand-list/pos-terminal-brand-list.component';
 import { PosListContainerComponent } from './pos-list-container/pos-list-container.component';
 import { PosListComponent } from './pos-list/pos-list.component';
+import { DataTableComponent } from './data-table/data-table.component';
+import { CanActivateService } from './services/can-activate.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'api', redirectTo: '/home'},
   { path: 'home', component: HomeScreenComponent },
   { path: 'pos/:mode', component: PosRequestComponent },
   {
@@ -139,13 +143,14 @@ const routes: Routes = [
   { path: 'branch/:mode', component: BranchFormComponent },
   { path: 'branchinfo', component: BranchInfoComponent },
   { path: 'branchOIF', component: OcularInspectionFormComponent },
-  { path: 'na/aoEncoder/new', component: AoEncoderComponent },
+  { path: 'na/aoEncoder/new', component: AoEncoderComponent, canActivate: [] },
   { path: 'na/aoEncoder/:id', component: AoEncoderComponent },
   { path: 'na/aoChecker/:id', component: AoCheckerComponent },
-  { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent },
+  { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent, canActivate: [CanActivateService] },
   { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent },
   { path: 'na/mdm/:id', component: MdmUserComponent },
   { path: 'na/pss/:id', component: PsServicingComponent },
+  { path: 'error-page', component: ErrorPageComponent },
   {
     path: 'na/aoEncoder/:mode', component: AoEncoderComponent,
     children: [

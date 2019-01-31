@@ -29,8 +29,8 @@
             <button *ngIf="showPsCheckerButton" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit For Inventory Checking">
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit For Inventory Checking</button>
             <!--   approval -> -->
-             <button *ngIf="showApprovalOptions" (click)="returnToAOByApprover()" mat-flat-button color="primary" matTooltip="Return to AO"> Return to AO</button>
-            <button *ngIf="showApprovalOptions" (click)="returntoMAMO()" mat-flat-button color="primary" matTooltip="Return to MAMO"> Return to MAMO</button>
+             <button *ngIf="showApprovalOptions" (click)="returnToAOByApprover()" mat-flat-button color="primary" matTooltip="Return to AO" [disabled]="disableBtn"> Return to AO</button>
+            <button *ngIf="showApprovalOptions" (click)="returntoMAMO()" mat-flat-button color="primary" matTooltip="Return to MAMO" [disabled]="disableBtn"> Return to MAMO</button>
             <button *ngIf="showApprovalOptions" (click)="approve()" mat-flat-button color="primary" matTooltip="Approve" [disabled]="disableBtn"> Approve</button>
             <button *ngIf="showApprovalOptions" (click)="decline()" mat-flat-button color="primary" matTooltip="Decline"[disabled]="disableBtn"> Decline</button> 
             <!--   <- approval -->

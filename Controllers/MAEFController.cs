@@ -95,18 +95,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReturnToAo (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Return To AO";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            if (history == null)
-                return NotFound ();
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Return To AO: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Return To AO: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -119,18 +117,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReturnToAoByMAMO (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Return To AO By MAMO";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            if (history == null)
-                return NotFound ();
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Return To AO By MAMO: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Return To AO By MAMO: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -143,18 +139,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReturnToAoByApprover (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Return To AO By Approver";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            if (history == null)
-                return NotFound ();
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Return To AO By Approver: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Return To AO By Approver: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -192,16 +186,16 @@ namespace MAP_Web.Controllers {
             await bdoFormHeaderService.InsertAsync (request);
             await bdoFormHeaderService.SaveChangesAsync ();
             var actionsCode = "Decline";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Decline: Decline Count 1";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
-
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Decline: Decline Count 1",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
 
             var appCount = await bdoFormHeaderService.DeclineCountAsync (id);
             var appSetup = await bdoFormHeaderService.GetApproveCount (id);
@@ -221,16 +215,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReSubmitRequestChecker (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Re-submit To Checker";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Re-submit To Checker: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Re-submit To Checker: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -243,16 +237,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReSubmitRequestMAMO (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Re-submit To MAMO";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Re-submit To MAMO: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Re-submit To MAMO: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -265,16 +259,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReSubmitRequestApprover (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Re-submit To Approver";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Re-submit To Approver: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Re-submit To Approver: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -287,16 +281,16 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReSubmitRequestMQR (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Re-submit To MQR";
-            var history = new History ();
             var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
-
-            history.RequestId = id;
-            history.actionCode = currentHistory.actionCode;
-            history.remarks = currentHistory.remarks;
-            history.action = "Re-submit To MQR: Submitted";
-            history.user = currentHistory.user;
-            history.groupCode = currentHistory.groupCode;
-            history.date = DateTime.Now;
+            var history = new History {
+            RequestId = id,
+            actionCode = currentHistory.actionCode,
+            remarks = currentHistory.remarks,
+            action = "Re-submit To MQR: Submitted",
+            user = currentHistory.user,
+            groupCode = currentHistory.groupCode,
+            date = DateTime.Now,
+            };
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
@@ -327,15 +321,14 @@ namespace MAP_Web.Controllers {
             await bdoFormHeaderService.SaveChangesAsync ();
 
             var actionsCode = "Approve";
-            var history = new History();
-            if (history == null)
-                return NotFound ();
-            history.RequestId = id;
-            history.actionCode = actionsCode;
-            history.user = tempUser;
-            history.groupCode = "mauEncoder";
-            history.date = DateTime.Now;
-            history.action = "Approve: Approve Count 1";
+            var history = new History {
+            RequestId = id,
+            actionCode = actionsCode,
+            user = tempUser,
+            groupCode = "mauEncoder",
+            date = DateTime.Now,
+            action = "Approve: Approve Count 1",
+            };
             if (!ModelState.IsValid)
                 return BadRequest (ModelState);
 

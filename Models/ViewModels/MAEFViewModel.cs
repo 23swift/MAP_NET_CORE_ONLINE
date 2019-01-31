@@ -100,6 +100,8 @@ namespace MAP_Web.Models.ViewModels
 
        public string approverDecision3 { get; set;}
 
+       public string typeOfCnp { get; set;}
+
         public int RequestId { get; set; }
         public Request Request { get; set; }       
     }

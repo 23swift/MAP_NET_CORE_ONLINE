@@ -3130,14 +3130,14 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'select',
           key: 'taxCode',
+          type: 'radio',
           templateOptions: {
-            label: 'Tax Code',
-            required: true,
-            options: this._dropDownService.getDropdown('TC'),
-            labelProp: 'value',
-            valueProp: 'code',
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
           },
           lifecycle: {
             onInit: (form, field) => {
@@ -4430,15 +4430,15 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'select',
           key: 'taxCode',
+          type: 'radio',
           templateOptions: {
-            label: 'Tax Code',
-            required: true,
-            options: this._dropDownService.getDropdown('TC'),
-            labelProp: 'value',
-            valueProp: 'code',
-          }
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
+          },
         },
         {
           className: 'flex-1',
@@ -4466,7 +4466,7 @@ export class BranchFormService {
           key: 'taxExemptValidityFrom',
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['taxCode'] === 'No Tax Type Required';
+              return model['taxCode'] === 'NTTR';
             }
           },
           templateOptions: {
@@ -4480,7 +4480,7 @@ export class BranchFormService {
           key: 'taxExemptValidityTo',
           expressionProperties: {
             'templateOptions.required': (model: any, formState: any) => {
-              return model['taxCode'] === 'No Tax Type Required';
+              return model['taxCode'] === 'NTTR';
             }
           },
           templateOptions: {
@@ -5683,7 +5683,7 @@ export class BranchFormService {
             maxLength: 20
           }
         },
-        {
+/*        {
           className: 'flex-1',
           type: 'select',
           key: 'taxCode',
@@ -5694,7 +5694,32 @@ export class BranchFormService {
             valueProp: 'code',
             required: true
           }
-        }
+        } */
+        {
+          className: 'flex-1',
+          key: 'taxCode',
+          type: 'radio',
+          templateOptions: {
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v !== 'NTTR') {
+                  form.get('taxExemptValidityFrom').patchValue(undefined);
+                  form.get('taxExemptValidityTo').patchValue(undefined);
+                  form.get('taxExemptCertIssuedBy').patchValue(undefined);
+                  form.get('taxExemptClass').patchValue(undefined);
+                }
+              });
+            }
+          }           
+    
+        },
       ]
     },
     {
@@ -6748,14 +6773,14 @@ export class BranchFormService {
       fieldGroup: [
         {
           className: 'flex-1',
-          type: 'select',
           key: 'taxCode',
+          type: 'radio',
           templateOptions: {
-            label: 'Tax Code',
-            required: true,
-            options: this._dropDownService.getDropdown('TC'),
-            labelProp: 'value',
-            valueProp: 'code',
+            label: 'Tax Code?',
+            options: [
+              { value: 'WT', label: 'With Tax' },
+              { value: 'NTTR', label: "No Tax Type Required" }
+            ],
           },
           lifecycle: {
             onInit: (form, field) => {

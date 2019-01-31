@@ -1098,11 +1098,9 @@ export class PosFormModalService {
     private _aoListService: AoListModalService) { }
 
   getPosFields(userGroup): FormlyFieldConfig[] {
-    if (userGroup === 'mauEncoder') {
+    if (userGroup === 'mauEncoder' || userGroup === 'approver' || userGroup === 'mqrUser') {
       return this.veriScreenFields;
-    } else if (userGroup === 'mqrUser') {
-      return this.veriScreenFields;
-    }
+    } 
     else {
       return this.fields;
     }

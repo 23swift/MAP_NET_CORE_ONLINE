@@ -17,10 +17,10 @@
         </mat-tab> 
         <mat-tab label="POS">
           <ng-container *ngIf="displayMode == false">
-              <app-pos-list [displayMode]="!this.displayMode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
+              <app-pos-list [displayMode]="!this.displayMode" [userGroup]="this.mode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="true" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
           </ng-container>
           <ng-container *ngIf="displayMode">
-              <app-pos-list [displayMode]="!this.displayMode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="false" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
+              <app-pos-list [displayMode]="!this.displayMode" [userGroup]="this.mode" [showTerminalDelete]="false" [branchId]="items.id" [showAdd]="false" [showMid]="false" [showTerminalUpdate]="false" [showTerminalAdd]="false" [showDelete]="false"></app-pos-list>
           </ng-container>
           
         </mat-tab>

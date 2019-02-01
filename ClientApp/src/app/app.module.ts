@@ -179,6 +179,9 @@ import { ApproveWithExceptReasonMqrDetailsModalComponent } from './modal/approve
 import { ApproveWithExceptReasonDetailsListAwrComponent } from './approve-with-except-reason-details-list-awr/approve-with-except-reason-details-list-awr.component';
 import { ApproveWithExceptReasonAwrDetailsModalComponent } from './modal/approve-with-except-reason-awr-details-modal/approve-with-except-reason-awr-details-modal.component';
 import { MqrBranchListComponent } from './mqr-branch-list/mqr-branch-list.component';
+import { DataTableComponent } from './data-table/data-table.component';
+import { DatePipe } from '@angular/common';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -369,7 +372,9 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     ApproveWithExceptReasonMqrDetailsModalComponent,
     ApproveWithExceptReasonDetailsListAwrComponent,
     ApproveWithExceptReasonAwrDetailsModalComponent,
-    MqrBranchListComponent
+    MqrBranchListComponent,
+    DataTableComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -509,7 +514,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
               provide: HTTP_INTERCEPTORS,
               useClass: HttpInterceptorService,
               multi: true
-          }],
+          },
+          DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

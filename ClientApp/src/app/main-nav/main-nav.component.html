@@ -23,7 +23,7 @@
             </a>
             <span>Merchant Acquiring Process</span>
             <span fxFlex></span>
-            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Request">
+            <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Request" *ngIf="userGroup == 'ao'">
                 <mat-icon>description</mat-icon>
             </button>
             <mat-menu #menu="matMenu">

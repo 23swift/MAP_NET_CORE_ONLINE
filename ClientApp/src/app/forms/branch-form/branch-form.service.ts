@@ -4049,210 +4049,211 @@ export class BranchFormService {
         }
       }
       ]
-    },
-    {
-      type: 'printAdmrc'
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'dccRebateRate',
-          templateOptions: {
-            label: 'DCC Rebate Rate',
-            placeholder: 'DCC Rebate Rate',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'thirdPartyCasa',
-          templateOptions: {
-            label: 'Third Party CASA',
-            placeholder: 'Third Party CASA',
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'otherEmailAddress',
-          templateOptions: {
-            label: 'Other Email Address',
-            placeholder: 'Other Email Address',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'otherMobileNumber',
-          templateOptions: {
-            label: 'Other Mobile Number',
-            placeholder: 'Other Mobile Number',
-            disabled: true
-          }
-        }
-      ]
-    },
-    { template: '<span class="mat-headline">AMLA / RP Tagging (ADMRC Fields)</span>' },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'typeOfRelatedParty',
-          templateOptions: {
-            label: 'Type of Related Party',
-            placeholder: 'Type of Related Party',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'riNameRelation',
-          templateOptions: {
-            label: 'Ri-Name / Relation',
-            placeholder: 'Ri-Name / Relation',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'nameOfPep',
-          templateOptions: {
-            label: 'Name of PEP',
-            placeholder: 'Name of PEP',
-            disabled: true
-          }
-        }
-      ]
-    },
-    { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'fraudToolProvider',
-          expressionProperties: {
-
-          },
-          templateOptions: {
-            label: 'Fraud Tool Provider',
-            options: this._dropDownService.getDropdown('FTPID'),
-            labelProp: 'value',
-            valueProp: 'code',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'calendar',
-          key: 'cnpOrientationDate',
-          templateOptions: {
-            label: 'CNP Orientation Date',
-            placeholder: 'CNP Orientation Date',
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'checkbox',
-          key: 'directPaymentLink',
-          templateOptions: {
-            label: 'Direct Payment Link',
-            placeholder: 'Direct Payment Link',
-            disabled: true,
-            indeterminate: false
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'gatewayIntegrationType',
-          templateOptions: {
-            label: 'Gateway Integration Type',
-            options: this._dropDownService.getDropdown('GIT'),
-            labelProp: 'value',
-            valueProp: 'code',
-            disabled: true
-          }
-        }
-      ]
-    },
-    { template: '<span class="mat-headline">Tax Exempt Details CNP Orientation Date (ADMRC Fields)</span>' },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'crteIssuedByCnp',
-          templateOptions: {
-            label: 'CRTE Issued By',
-            placeholder: 'CRTE Issued By',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'input',
-          key: 'taxExemptClassCnp',
-          templateOptions: {
-            label: 'Tax Exempt Classification',
-            placeholder: 'Tax Exempt Classification',
-            disabled: true
-          }
-        }
-      ]
-    },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'calendar',
-          key: 'cnpValidFrom',
-          templateOptions: {
-            label: 'Valid From',
-            placeholder: 'Valid From',
-            disabled: true
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'calendar',
-          key: 'cnpValidUntil',
-          templateOptions: {
-            label: 'Valid Until',
-            placeholder: 'Valid Until',
-            disabled: true
-          }
-        }
-      ]
     }
+    // ,
+    // {
+    //   type: 'printAdmrc'
+    // },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'dccRebateRate',
+    //       templateOptions: {
+    //         label: 'DCC Rebate Rate',
+    //         placeholder: 'DCC Rebate Rate',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'thirdPartyCasa',
+    //       templateOptions: {
+    //         label: 'Third Party CASA',
+    //         placeholder: 'Third Party CASA',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'otherEmailAddress',
+    //       templateOptions: {
+    //         label: 'Other Email Address',
+    //         placeholder: 'Other Email Address',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'otherMobileNumber',
+    //       templateOptions: {
+    //         label: 'Other Mobile Number',
+    //         placeholder: 'Other Mobile Number',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // { template: '<span class="mat-headline">AMLA / RP Tagging (ADMRC Fields)</span>' },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'typeOfRelatedParty',
+    //       templateOptions: {
+    //         label: 'Type of Related Party',
+    //         placeholder: 'Type of Related Party',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'riNameRelation',
+    //       templateOptions: {
+    //         label: 'Ri-Name / Relation',
+    //         placeholder: 'Ri-Name / Relation',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'nameOfPep',
+    //       templateOptions: {
+    //         label: 'Name of PEP',
+    //         placeholder: 'Name of PEP',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'fraudToolProvider',
+    //       expressionProperties: {
+
+    //       },
+    //       templateOptions: {
+    //         label: 'Fraud Tool Provider',
+    //         options: this._dropDownService.getDropdown('FTPID'),
+    //         labelProp: 'value',
+    //         valueProp: 'code',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'calendar',
+    //       key: 'cnpOrientationDate',
+    //       templateOptions: {
+    //         label: 'CNP Orientation Date',
+    //         placeholder: 'CNP Orientation Date',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'checkbox',
+    //       key: 'directPaymentLink',
+    //       templateOptions: {
+    //         label: 'Direct Payment Link',
+    //         placeholder: 'Direct Payment Link',
+    //         disabled: true,
+    //         indeterminate: false
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'gatewayIntegrationType',
+    //       templateOptions: {
+    //         label: 'Gateway Integration Type',
+    //         options: this._dropDownService.getDropdown('GIT'),
+    //         labelProp: 'value',
+    //         valueProp: 'code',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // { template: '<span class="mat-headline">Tax Exempt Details CNP Orientation Date (ADMRC Fields)</span>' },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'crteIssuedByCnp',
+    //       templateOptions: {
+    //         label: 'CRTE Issued By',
+    //         placeholder: 'CRTE Issued By',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'input',
+    //       key: 'taxExemptClassCnp',
+    //       templateOptions: {
+    //         label: 'Tax Exempt Classification',
+    //         placeholder: 'Tax Exempt Classification',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'calendar',
+    //       key: 'cnpValidFrom',
+    //       templateOptions: {
+    //         label: 'Valid From',
+    //         placeholder: 'Valid From',
+    //         disabled: true
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'calendar',
+    //       key: 'cnpValidUntil',
+    //       templateOptions: {
+    //         label: 'Valid Until',
+    //         placeholder: 'Valid Until',
+    //         disabled: true
+    //       }
+    //     }
+    //   ]
+    // }
   ];
 
   //#region mdcs-checker field
-  mdcsChecker: FormlyFieldConfig[] = [
+  mdcsUser: FormlyFieldConfig[] = [
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -4263,7 +4264,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'DBA Name(DBA/Trade Name)',
             placeholder: 'DBA Name(DBA/Trade Name)',
-            disabled: true
+            readonly: true
           }
         },
         {
@@ -4400,20 +4401,31 @@ export class BranchFormService {
         {
           className: 'flex-1',
           key: 'paymentMethodCreditFac',
-          type: 'radio',
+          type: 'select',
           templateOptions: {
             label: 'Payment Method',
-            options: [
-              { value: 'CTA', label: 'Credit to Account' },
-              { value: 'CP', label: 'Check Payment' }
-            ]
+            options: this._dropDownService.getDropdown('PMCF'),
+            labelProp: 'value',
+            valueProp: 'code',
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v !== 'CTA') {
+                  form.get('settlementAcctNo').patchValue(undefined);
+                }
+              });
+            }
           }
         },
         {
           className: 'flex-1',
           type: 'input',
-          key: 'settlementAcctNo',
+          key: 'creditSettlementAcctNo',
           expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return model['paymentMethodCreditFac'] !== 'CTA';
+            },
             'templateOptions.required': (model: any, formState: any) => {
               return model['paymentMethodCreditFac'] === 'CTA';
             }
@@ -4439,6 +4451,18 @@ export class BranchFormService {
               { value: 'NTTR', label: "No Tax Type Required" }
             ],
           },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v !== 'NTTR') {
+                  form.get('taxExemptValidityFrom').patchValue(undefined);
+                  form.get('taxExemptValidityTo').patchValue(undefined);
+                  form.get('taxExemptCertIssuedBy').patchValue(undefined);
+                  form.get('taxExemptClass').patchValue(undefined);
+                }
+              });
+            }
+          }
         },
         {
           className: 'flex-1',
@@ -4662,28 +4686,44 @@ export class BranchFormService {
 
     {
       fieldGroupClassName: 'display-flex',
-      fieldGroup: [{
-        type: 'checkbox',
-        key: 'withExistingAcquirer',
-        defaultValue: false,
-        templateOptions: {
-          label: 'Yes',
-          indeterminate: false
+      fieldGroup: [
+        {
+          key: 'withExistingAcquirer',
+          className: 'flex-1',
+          type: 'radio',
+          defaultValue: false,
+          templateOptions: {
+            required: true,
+            options: [
+              { value: true, label: 'Yes' },
+              { value: false, label: 'No' }
+            ],
+          },
+          lifecycle: {
+            onInit: (form, field) => {
+              field.formControl.valueChanges.subscribe(v => {
+                if (v === false) {
+                  form.get('nameOfAcquirer').patchValue(undefined);
+                }
+              });
+            }
+          }
         },
-      },
-      {
-        className: 'flex-1',
-        type: 'input',
-        key: 'nameOfAcquirer',
-        expressionProperties: {
-
-        },
-        templateOptions: {
-          label: 'Name of Acquirer',
-          placeholder: 'Name of Acquirer',
-          maxLength: 50
+        {
+          className: 'flex-6',
+          type: 'input',
+          key: 'nameOfAcquirer',
+          expressionProperties: {
+            'templateOptions.disabled': (model: any, formState: any) => {
+              return !model['withExistingAcquirer'];
+            },
+          },
+          templateOptions: {
+            label: 'Name of Acquirer',
+            placeholder: 'Name of Acquirer',
+            maxLength: 50
+          }
         }
-      }
       ]
     },
 
@@ -4908,12 +4948,14 @@ export class BranchFormService {
         type: 'input',
         key: 'ownerName',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isSingleProp'];
+          }
         },
         templateOptions: {
           label: 'Owner\'s Name',
           placeholder: 'Owner\'s Name',
-          required: true
+          maxLength: 50
         },
       },
       {
@@ -4921,7 +4963,9 @@ export class BranchFormService {
         type: 'calendar',
         key: 'ownerBirthday',
         expressionProperties: {
-
+          'templateOptions.required': (model: any, formState: any) => {
+            return model['isSingleProp'];
+          }
         },
         templateOptions: {
           label: 'Date of Birth (mm/dd/yyyy)',
@@ -4937,7 +4981,8 @@ export class BranchFormService {
         },
         templateOptions: {
           label: 'Spouse\'s Name',
-          placeholder: 'Spouse\'s Name'
+          placeholder: 'Spouse\'s Name',
+          maxLength: 50
         }
       },
       ]
@@ -5255,7 +5300,6 @@ export class BranchFormService {
       },
       ]
     },
-
     { // numeric
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{

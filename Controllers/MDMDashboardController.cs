@@ -15,12 +15,20 @@ namespace MAP_Web.Controllers
             this._service = _service;
         }
         
-        [HttpGet]
-        public async Task<IActionResult> GetRequests()
+        [HttpGet("{field}/{sortDirection}/{pageIndex}/{pageSize}/{filter?}")]
+        public async Task<IActionResult> GetRequestsList(string field, string sortDirection, int pageIndex, int pageSize, string filter = "")
         {
-            var requests = await _service.FindAsync();
+            var requests = await _service.GetListAsync(field, sortDirection, pageIndex, pageSize, filter);
 
             return Ok(requests);
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetListCount()
+        {
+            var count = await _service.GetListCount();
+
+            return Ok(count);
         }
 
         [HttpPut("filter")]

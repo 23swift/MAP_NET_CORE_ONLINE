@@ -345,8 +345,7 @@ export class BranchFormModalService {
         key: 'taxExemptIssuedBy',
         expressionProperties: {
           'templateOptions.required': (model: any, formState: any) => {
-  
-         //   return model['taxCode'] == 'WT';
+           return model['taxCode'] == 'WT';
           }
         },
         templateOptions: {
@@ -2271,8 +2270,7 @@ export class BranchFormModalService {
         key: 'taxExemptIssuedBy',
         expressionProperties: {
           'templateOptions.required': (model: any, formState: any) => {
-  
-         //   return model['taxCode'] == 'WT';
+           return model['taxCode'] == 'WT';
           }
         },
         templateOptions: {
@@ -3249,8 +3247,7 @@ export class BranchFormModalService {
         key: 'taxExemptIssuedBy',
         expressionProperties: {
           'templateOptions.required': (model: any, formState: any) => {
-  
-         //   return model['taxCode'] == 'WT';
+           return model['taxCode'] == 'WT';
           }
         },
         templateOptions: {
@@ -4527,8 +4524,7 @@ export class BranchFormModalService {
         key: 'taxExemptIssuedBy',
         expressionProperties: {
           'templateOptions.required': (model: any, formState: any) => {
-  
-         //   return model['taxCode'] == 'WT';
+           return model['taxCode'] == 'WT';
           }
         },
         templateOptions: {

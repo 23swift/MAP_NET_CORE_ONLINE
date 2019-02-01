@@ -23,7 +23,6 @@ namespace MAP_Web.Models.ViewModels
         public string branchWebsite { get; set; }
         public Nullable<bool> isAtmDebit { get; set; }
         public Nullable<int> numberOfDebitTidAtm { get; set; }
-        [Column(TypeName = "decimal(18,2)")]
         public Nullable<decimal> mdrAtm { get; set; }
         public Nullable<bool> isSmGiftCard { get; set; }
         public Nullable<decimal> mdrSmGiftCard { get; set; }
@@ -42,7 +41,7 @@ namespace MAP_Web.Models.ViewModels
         public string imprinterDc { get; set; }
         public string imprinterJcb { get; set; }
         public string imprinterOthers { get; set; }
-        public string intesCodeForDiners { get; set; }
+
         public Nullable<int> totalNumberOfManualImprinters { get; set; }
         public string holdOutAccountNumber { get; set; }
         public Nullable<bool> directPaymentLink { get; set; }
@@ -59,8 +58,6 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<System.DateTime> dateClosed { get; set; }
 
-
-        // public Nullable<int> payDelayDays { get; set; }
         public Nullable<int> closedreason { get; set; }
 
         public string owningMerchant { get; set; }
@@ -105,8 +102,16 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<int> regionCode { get; set; }
         public Nullable<int> checkDeliveryCode { get; set; }
         public string paymentMode { get; set; }
+
+        public string creditSettlementAcctNo { get; set; }
+        public string settlementAcctNo { get; set; }
+
+        public Nullable<int> taxExemptIssuedBy { get; set; }
+
         public string merchantGroupCode { get; set; }
+
         public string tin { get; set; }
+
         public Nullable<bool> withTax { get; set; }
         public Nullable<int> cardPlan { get; set; }
         public Nullable<bool> isActive { get; set; }
@@ -122,6 +127,7 @@ namespace MAP_Web.Models.ViewModels
         public string specialMailingCity { get; set; }
         public string specialMailingZipCode { get; set; }
 
+        public string debitSettlementAcctNo { get; set; }
         public Nullable<System.DateTime> taxExemptValidityFrom { get; set; }
 
         public Nullable<System.DateTime> taxExemptValidityTo { get; set; }
@@ -143,21 +149,18 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<bool> withInstalledECR { get; set; }
 
-         public string emailAddress { get; set; }
-
-         public string mailingAddress1 { get; set; }
         public string settlementAccNoForDebit { get; set; }
 
         public string payeesName { get; set; }
 
         public string emailAddressForReportDist { get; set; }
 
-        public string SOARecipients { get; set; }
+        //public string soaRecipients { get; set; }
 
         public string soaEmailAddress { get; set; }
 
-         public string Branchwebsite { get; set; }
-         public string website { get; set; }
+        public string emailAddress { get; set; }
+
         public Nullable<bool> reportDistributionPerCompany { get; set; }
 
         public Nullable<bool> reportPerBranch { get; set; }
@@ -168,7 +171,6 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<int> principalCivilStatus { get; set; }
 
-
         public string principalPhoneNo { get; set; }
 
         public string principalPermanentAddress { get; set; }
@@ -177,7 +179,6 @@ namespace MAP_Web.Models.ViewModels
 
         public Nullable<int> principalZipCode { get; set; }
 
-         public string creditSettlementAcctNo { get; set; }
         public Nullable<int> principalHomeOwnership { get; set; }
 
         public string spouseAddress { get; set; }
@@ -197,22 +198,6 @@ namespace MAP_Web.Models.ViewModels
         public string financialInstitution { get; set; }
 
         public string accountFacility { get; set; }
-
-         public string mailingAddress2 { get; set; }
-
-         public string mailingAddress3 { get; set; }
-
-         public string mailingAddress4 { get; set; }
-
-         public string mailingCity { get; set; }
-
-         public string mailingAddressZipCode { get; set; }
-
-         public Nullable<System.DateTime> taxExemptFrom { get; set; }
-
-         public Nullable<System.DateTime> taxExemptTo { get; set; }
-
-         public Nullable<int> taxExemptIssuedBy { get; set; }
 
         public string acctLoanNo { get; set; }
 
@@ -236,86 +221,6 @@ namespace MAP_Web.Models.ViewModels
 
         public string customerNo { get; set; }
 
-        // public Nullable<bool> withAcquirer { get; set; }
-
-        // public string acquirerInstitutionName { get; set; }
-
-        // public Nullable<bool> ecrForInstallation { get; set; }
-
-        // public Nullable<bool> isSwipingCardWithoutInstalledECR { get; set; }
-
-        // public Nullable<bool> isSwipingCardWithInstalledECR { get; set; }
-
-         public string debitSettlementAcctNo { get; set; }
-
-        // public string payeesName { get; set; }
-
-        // public string emailAddressForReport { get; set; }
-
-        // public string soaRecipients { get; set; }
-
-        // public string soaEmailAddress { get; set; }
-
-        // public Nullable<bool> reportDistributionperCompany { get; set; }
-
-        // public Nullable<bool> reportPerBranch { get; set; }
-
-        // public string principalFbName { get; set; }
-
-        // public Nullable<System.DateTime> principalDateOfBirth { get; set; }
-
-        // public Nullable<int> principalCivilStatus { get; set; }
-
-        // public string principalPhoneNo { get; set; }
-
-        // public string principalPermanentAddress { get; set; }
-
-        // public Nullable<int> principalCity { get; set; }
-
-        // public Nullable<int> principalZipCode { get; set; }
-
-        // public Nullable<int> principalHomeOwnership { get; set; }
-
-        // public string spouseAddress { get; set; }
-
-        // public Nullable<int> spouseCity { get; set; }
-
-        // public string spouseFirstName { get; set; }
-
-        // public string spouseLastName { get; set; }
-
-        // public string spouseMiddleName { get; set; }
-
-        // public string spousePhoneNo { get; set; }
-
-        // public Nullable<int> spouseZipCode { get; set; }
-
-        // public string financialInstitution { get; set; }
-
-        // public string accountFacility { get; set; }
-
-        // public string acctLoanNo { get; set; }
-
-        // public string loanTerm { get; set; }
-
-        // public Nullable<int> noOfPos { get; set; }
-
-        // public decimal discountDebitRate { get; set; }
-
-
-        // public string reportPerCompanysBranch { get; set; }
-
-        // public string ftpDir { get; set; }
-
-        // public Nullable<bool> genPayment { get; set; }
-
-        // public Nullable<bool> computeCWT { get; set; }
-
-        // public Nullable<bool> settlementPerBranch { get; set; }
-
-        // public string customerNo { get; set; }
-
-        // public Nullable<int> amexRating { get; set; }
         public Nullable<int> amexRating { get; set; }
 
         public string bdoPayRating { get; set; }
@@ -331,6 +236,7 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<int> tranSource { get; set; }
 
         public string holdOutAcctNo { get; set; }
+
 
         public string remarks { get; set; }
 
@@ -394,10 +300,11 @@ namespace MAP_Web.Models.ViewModels
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public Nullable<System.DateTime> mdfDateTimeCreated { get; set; }
 
-        // public string legalName { get; set; }
-
-         public string merchantNumber { get; set; }  
         public string legalName { get; set; }
+
+
+        public string merchantNumber { get; set; }   
+
         public string paymentMethodCreditFac { get; set; }
         public Nullable<bool> withExistingAcquirer { get; set; }
         public string mailingAddressForPaymentDel { get; set; }
@@ -416,9 +323,11 @@ namespace MAP_Web.Models.ViewModels
         public string crteIssuedByCnp { get; set; }
         public string taxExemptClassCnp { get; set; }
         public Nullable<DateTime> cnpValidFrom { get; set; }     
-        public Nullable<DateTime> cnpValidUntil { get; set; }
+        public Nullable<DateTime> cnpValidUntil { get; set; }  
 
-        
+
+
+
         public string ownerName { get; set; }  
         public Nullable<DateTime> ownerBirthday { get; set; } 
         public string spouseName { get; set; }

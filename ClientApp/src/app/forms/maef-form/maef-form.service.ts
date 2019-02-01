@@ -352,7 +352,7 @@ export class  MaefFormService {
           key: 'prevDeclinedWithAd',
           type: 'radio',
           templateOptions: {
-            label: 'Previously Declined/Watchlisted',
+            label: 'Previously Declined / Watchlisted',
             required: true,
             options: [
               { value: true, label: 'With Adverse' },

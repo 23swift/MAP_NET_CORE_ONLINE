@@ -42,5 +42,16 @@ export class MauEncoderDashboardService implements OnInit {
     return this._http.put(ApiConstants.mauEncoderDashboardApi+ '/filter', searchCriteria);
   }
 
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.mauEncoderDashboardApi + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
+  }
+
+  getCount() {
+    return this._http.get(ApiConstants.mauEncoderDashboardApi + '/count');
+  }
+
 }
 

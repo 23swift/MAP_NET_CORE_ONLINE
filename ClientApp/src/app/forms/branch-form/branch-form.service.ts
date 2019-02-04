@@ -7921,5 +7921,9 @@ export class BranchFormService {
     return this._http.get(ApiConstants.branchApi + '/getFirstOrDefaultOwnerByBranch/' + id);
   }
 
+  printAdmrc(admrc): void { 
+    this._http.get(ApiConstants.branchApi + '/printAdmrc', admrc);
+  }
+
 }
 

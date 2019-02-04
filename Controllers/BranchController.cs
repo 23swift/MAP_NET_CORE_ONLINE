@@ -6,6 +6,10 @@ using Microsoft.EntityFrameworkCore;
 using MAP_Web.Models.ViewModels;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using Microsoft.CSharp;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace MAP_Web.Controllers
 {
@@ -14,11 +18,13 @@ namespace MAP_Web.Controllers
     {
         private readonly IBranchService branchService;
         private readonly IMapper mapper;
+        private IHostingEnvironment hostingEnvironment;
 
-        public BranchController(IBranchService branchService, IMapper mapper)
+        public BranchController(IBranchService branchService, IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             this.mapper = mapper;
             this.branchService = branchService;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("{id}")]
@@ -137,6 +143,17 @@ namespace MAP_Web.Controllers
             bool isSingleProp = await branchService.ValidateSinglePropOwnership(branchId);
 
             return Ok(isSingleProp);
+        }
+
+        [HttpGet("printAdmrc")]
+        public async Task<IActionResult> PrintAdmrc([FromBody] BranchViewModel branch)
+        {
+            XmlSerializer xmlWriter = new XmlSerializer(branch.GetType());
+            var path = hostingEnvironment.ContentRootPath + "//DataSet//dsPrintAdmrc.xml";
+            FileStream file = System.IO.File.Create(path);
+            xmlWriter.Serialize(file, branch);
+            file.Close();
+            return Ok();
         }
     }
 }

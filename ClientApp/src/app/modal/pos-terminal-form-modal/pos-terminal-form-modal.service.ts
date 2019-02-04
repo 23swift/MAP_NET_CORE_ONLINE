@@ -74,6 +74,11 @@ export class PosTerminalFormModalService {
             type: 'input',
             key: 'numberOfTerminalsRequested',
             defaultValue: '1',
+            expressionProperties: {
+              'templateOptions.disabled': (model: any, formState: any) => {
+                return model['userGroup'] === 'mauEncoder';
+              }
+            },
             templateOptions: {
               label: 'Number of Terminal/s Requested',
               required: true,

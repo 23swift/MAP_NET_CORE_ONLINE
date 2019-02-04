@@ -1,4 +1,4 @@
-div {
+/* div {
   display: flex;
 }
 .mat-calendar-input-element {
@@ -13,4 +13,12 @@ div {
     max-width: 100%;
     vertical-align: bottom;
     text-align: inherit;
+}
+
+.mat-form-field-underline {
+  background-color: green;
+} */
+
+.mat-form-field {
+  width: 100%;
 }

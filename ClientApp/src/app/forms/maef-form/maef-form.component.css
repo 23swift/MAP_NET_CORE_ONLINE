@@ -6,3 +6,10 @@
     display: flex;
     flex: 2;
 }
+
+
+.mat-radio-button {
+    display: inline-flex;
+    flex-direction: column;
+    }
+

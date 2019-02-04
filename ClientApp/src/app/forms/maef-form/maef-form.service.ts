@@ -3,6 +3,7 @@ import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConstants } from '../../api-constants';
+import { DropDownService } from 'src/app/services/drop-down.service';
 
 @Injectable({
   providedIn: 'root'
@@ -351,7 +352,7 @@ export class  MaefFormService {
           key: 'prevDeclinedWithAd',
           type: 'radio',
           templateOptions: {
-            label: 'Previously Declined/Watchlisted',
+            label: 'Previously Declined / Watchlisted',
             required: true,
             options: [
               { value: true, label: 'With Adverse' },
@@ -742,6 +743,10 @@ export class  MaefFormService {
             label: 'Decline'
           },
         },*/
+
+        {
+          template: '<span>&nbsp;</span>',
+        },
     {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [
@@ -757,6 +762,18 @@ export class  MaefFormService {
           placeholder: 'Assigned MID Cap',
           maxLength: 13
         },
+      },
+      {
+        className: 'flex-1',
+        type: 'select',
+        key: 'typeOfCnp',
+        templateOptions: {
+          label: 'Type Of CNP',
+          options: this._dropDownService.getDropdown('TOC'),
+          labelProp: 'value',
+          valueProp: 'code',
+          required: true
+        }
       },
     ]
   },
@@ -969,7 +986,7 @@ export class  MaefFormService {
 
   ];
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
   getMaefFields(): FormlyFieldConfig[] {
     return this.fields;
   }

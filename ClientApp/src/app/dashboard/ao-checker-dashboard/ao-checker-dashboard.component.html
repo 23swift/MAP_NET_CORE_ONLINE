@@ -40,11 +40,8 @@
     <ng-container matColumnDef="Operation">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <a (click)="getItem(element.requestId)" *ngIf="element.status == 'DRAFT'" mat-mini-fab color="primary">
+        <a (click)="getItem(element.requestId)" mat-mini-fab color="primary">
           <mat-icon style="color: white;">edit</mat-icon>
-        </a>
-        <a (click)="delete(element.requestId)" *ngIf="element.status == 'DRAFT'" mat-mini-fab color="primary">
-          <mat-icon style="color: white;">delete_outline</mat-icon>
         </a>
       </td>
     </ng-container>

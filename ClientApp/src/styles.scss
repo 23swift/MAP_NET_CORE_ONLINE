@@ -207,3 +207,12 @@ input.ng-invalid.ng-touched + span {
     flex-direction: row; 
     justify-content: space-between;
 }
+
+formly-field-mat-radio {
+    .mat-radio-group1 {
+      display: inline-flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+    }
+
+  }

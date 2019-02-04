@@ -28,4 +28,15 @@ export class ApproverDashboardService {
     return this._http.put(ApiConstants.approverDashboardApi+ '/filter', searchCriteria);
   }
 
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.approverDashboardApi + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
+  }
+
+  getCount() {
+    return this._http.get(ApiConstants.approverDashboardApi + '/count');
+  }
+
 }

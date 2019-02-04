@@ -111,6 +111,8 @@ namespace MAP_Web.Models
 
        public string approverDecision3 { get; set;}
 
+       public string typeOfCnp { get; set;}
+
        public ICollection<ApproveWithReqReason> ApproveWithReqReason { get; set; }
 
        public ICollection<ApproveWithExceptDetails> ApproveWithExceptDetails { get; set; }

@@ -31,6 +31,22 @@ namespace MAP_Web.Controllers
                 requests = new List<DashboardViewModel>();
 
             return Ok(requests);
-        }                  
+        }
+
+        [HttpGet("{field}/{sortDirection}/{pageIndex}/{pageSize}/{filter?}")]
+        public async Task<IActionResult> GetRequestsList(string field, string sortDirection, int pageIndex, int pageSize, string filter = "")
+        {
+            var requests = await _service.GetListAsync(field, sortDirection, pageIndex, pageSize, filter);
+
+            return Ok(requests);
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetListCount()
+        {
+            var count = await _service.GetListCount();
+
+            return Ok(count);
+        }                            
     }
 }

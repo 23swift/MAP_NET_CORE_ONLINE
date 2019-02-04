@@ -34,6 +34,7 @@ namespace MAP_Web.Services
 
         public async Task<List<DashboardViewModel>> GetListAsync(string field, string sortDirection, int pageIndex, int pageSize, string filter)
         {
+            StringComparison comparer = StringComparison.OrdinalIgnoreCase;
             if (Regex.Match(filter, @"^\d+-").Success) {
                 filter = Regex.Replace(filter, "-", "/");
             }
@@ -66,11 +67,11 @@ namespace MAP_Web.Services
                                                     field == "BusinessName" ? y.NewAffiliation.CustomerProfile.legalName : y.GetType().GetProperty(field).GetValue(y)),
                                 pageIndex: pageIndex,
                                 pageSize: pageSize,
-                                predicate: r => filter != null ? r.CreatedDate.Value.ToString().ToLower().Contains(filter) ||
-                                                                r.NewAffiliation.CustomerProfile.legalName.ToLower().Contains(filter) ||
-                                                                r.TrackingNo.ToLower().Contains(filter) || (r.CreatedBy != null ? r.CreatedBy.ToLower().Contains(filter) : false) ||
-                                                                statusService.GetStatus(r.Status).ToLower().Contains(filter) ||
-                                                                ((int)(DateTime.Now - r.CreatedDate.Value).TotalHours).ToString().ToLower().Contains(filter) : true
+                                predicate: r => filter != null ? r.CreatedDate.Value.ToString().Contains(filter, comparer) ||
+                                                                r.NewAffiliation.CustomerProfile.legalName.Contains(filter, comparer) ||
+                                                                r.TrackingNo.Contains(filter, comparer) || (r.CreatedBy != null ? r.CreatedBy.Contains(filter, comparer) : false) ||
+                                                                statusService.GetStatus(r.Status).Contains(filter, comparer) ||
+                                                                ((int)(DateTime.Now - r.CreatedDate.Value).TotalHours).ToString().Contains(filter, comparer) : true
                                 );
 
             foreach (var item in requests.Items)

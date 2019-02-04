@@ -29,6 +29,8 @@ export class PosTerminalFormModalComponent implements OnInit {
         posId: this.dialogData['posId']
       };
     }
+    this.model['userGroup'] = dialogData['userGroup'];
+    console.log(this.model);
    }
 
   ngOnInit() {

@@ -1,12 +1,10 @@
-<app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode"></app-bdo-form-header>
-
+<!-- <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode"></app-bdo-form-header> -->
 <div fxLayout="row" fxLayoutAlign="space-between">
   <span class="mat-headline"></span>
   <a (click)="openSearchDialog()" color="primary" mat-flat-button matTooltip="Advanced Search">
       <mat-icon>search</mat-icon> Advanced Search
   </a>
 </div>
-
 <div style="text-align: right">
   <mat-form-field style="width: 20%">
     <input matInput placeholder="Filter Request" #searchInput>

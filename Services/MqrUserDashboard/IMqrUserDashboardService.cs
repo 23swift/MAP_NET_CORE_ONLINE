@@ -12,5 +12,7 @@ namespace MAP_Web.Services
         Task InsertMAEFDataAsync(int Id);
         Task InsertMQRDataAsync(int Id);
         Task SaveChangesAsync();
+        Task<List<DashboardViewModel>> GetListAsync(string field, string sortDirection, int pageIndex, int pageSize, string filter);
+        Task<int> GetListCount();
     }
 }

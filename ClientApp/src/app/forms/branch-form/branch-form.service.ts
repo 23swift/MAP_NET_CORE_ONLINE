@@ -7989,5 +7989,9 @@ export class BranchFormService {
     return this._http.get(ApiConstants.branchApi + '/getFirstOrDefaultOwnerByBranch/' + id);
   }
 
+  printDebit(debit): Observable<any> { 
+    return this._http.post(ApiConstants.branchApi + '/printDebit', debit);
+  }
+
 }
 

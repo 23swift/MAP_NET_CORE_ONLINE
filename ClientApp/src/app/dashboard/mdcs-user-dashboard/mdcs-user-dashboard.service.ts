@@ -18,7 +18,7 @@ export class MdcsUserDashboardService implements OnInit {
   }
 
   getTableFields() {
-   // return this._dashboard.MdcsFields;
+    return ['referenceNo', 'requestedDate', 'requestType', 'businessName', 'requestedBy', 'status', 'tat', 'Operation']
   }
   
   getAll(): Observable<any> {
@@ -37,6 +37,21 @@ export class MdcsUserDashboardService implements OnInit {
 
   update(): void {
     this._http.put(apiUrl, {});
+  }
+
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.mdcsUserDashboard + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
+  }
+
+  getCount() {
+    return this._http.get(ApiConstants.mdcsUserDashboard + '/count');
+  }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.put(ApiConstants.mdcsUserDashboard + '/filter', searchCriteria);
   }
 
   

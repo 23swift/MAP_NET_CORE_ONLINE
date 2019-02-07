@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Xml;
+using AspNetCore.Reporting;
+using AspNetCore.ReportingServices;
 
 namespace MAP_Web.Services
 {
@@ -171,5 +174,6 @@ namespace MAP_Web.Services
 
             return owner.Items.FirstOrDefault();
         }
+
     }
 }

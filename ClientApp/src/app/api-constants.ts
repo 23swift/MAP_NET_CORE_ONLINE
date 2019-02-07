@@ -23,14 +23,14 @@ export namespace ApiConstants {
     export const approverDashboardApi = '/api/approverDashboard';
     export const requestApi = '/api/request';
     
-
     export const psServicingDashboardApi = '/api/psServicingDashboard';
     export const mdcsEncoderDashboardApi = '/api/mdcsEncoderDashboard';
     export const mdcsCheckerDashboardApi = '/api/mdcsCheckerDashboard';
+    export const mdmHeaderApi = '/api/mdmHeader';
 
     export const mdcsUser = '/api/mdcsUser'
     export const mdcsUserDashboard = '/api/mdcsUserDashboard';
-    export const mdmUserDashboard = '/api/mdmUserDashboard';
+    export const mdmUserDashboardApi = '/api/mdmUserDashboard';
     export const mqrUserDashboard = '/api/mqrUserDashboard'
     export const approveWithReqReasonMqrApi = '/api/approveWithReqReasonMqr';
     export const approveWithExceptDetailsMqrApi = '/api/approveWithExceptDetailsMqr';

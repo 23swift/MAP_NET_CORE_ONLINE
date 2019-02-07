@@ -6574,55 +6574,56 @@ export class BranchFormService {
           }
         }
       ]
-    },
+    }
+    // ,
   
-    { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'fraudToolProvider',
-          templateOptions: {
-            label: 'Fraud Tool Provider',
-            options: [],
-            labelProp: 'value',
-            valueProp: 'code',
-          },
-          lifecycle: {
-            onInit: (form, field) => {
-              field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
-            }
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'checkbox',
-          key: 'directPaymentLink',
-          templateOptions: {
-            label: 'Direct Payment Link',
-            indeterminate: false
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'gatewayIntegrationType',
-          templateOptions: {
-            label: 'Gateway Integration Type',
-            options: [],
-            labelProp: 'value',
-            valueProp: 'code',
-          },
-          lifecycle: {
-            onInit: (form, field) => {
-              field.templateOptions.options = this._dropDownService.getDropdown('GIT');
-            }
-          },
-        }
-      ]
-    },
+    // { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'select',
+    //       key: 'fraudToolProvider',
+    //       templateOptions: {
+    //         label: 'Fraud Tool Provider',
+    //         options: [],
+    //         labelProp: 'value',
+    //         valueProp: 'code',
+    //       },
+    //       lifecycle: {
+    //         onInit: (form, field) => {
+    //           field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
+    //         }
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'checkbox',
+    //       key: 'directPaymentLink',
+    //       templateOptions: {
+    //         label: 'Direct Payment Link',
+    //         indeterminate: false
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'select',
+    //       key: 'gatewayIntegrationType',
+    //       templateOptions: {
+    //         label: 'Gateway Integration Type',
+    //         options: [],
+    //         labelProp: 'value',
+    //         valueProp: 'code',
+    //       },
+    //       lifecycle: {
+    //         onInit: (form, field) => {
+    //           field.templateOptions.options = this._dropDownService.getDropdown('GIT');
+    //         }
+    //       },
+    //     }
+    //   ]
+    // },
   ];
   //#endregion
 
@@ -7952,7 +7953,7 @@ export class BranchFormService {
     } else if (userGroup === 'mqrUser') {
       fields = this.mdcs;
     } else if (userGroup === 'mdmUser') {
-      fields = this.veriScreen;
+      fields = this.mdcs;
       this._formlyConfig.disabled(fields);
     }
 

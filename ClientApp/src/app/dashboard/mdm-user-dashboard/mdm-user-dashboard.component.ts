@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MdmUserDashboardService } from './mdm-user-dashboard.service';
-import { IRequestDisplay } from '../../temp/interface/irequest-display';
-import { Router, ActivatedRoute } from '@angular/router';
-import { MatTableDataSource, MatSort, MatDialog, MatPaginator } from '@angular/material';
+import { Router } from '@angular/router';
+import { MatSort, MatDialog, MatPaginator } from '@angular/material';
 import { SearchModalComponent } from 'src/app/modal/search-modal/search-modal.component';
 import { TableDataSourceService } from 'src/app/services/table-data-source.service';
 import { Observable, fromEvent, merge } from 'rxjs';
@@ -61,7 +60,7 @@ export class MdmUserDashboardComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  getItem(requestId, branchId) {
+  getItem(requestId) {
     this._router.navigateByUrl('na/mdm/' + requestId);
   }
 

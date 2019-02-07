@@ -7988,8 +7988,8 @@ export class BranchFormService {
     return this._http.get(ApiConstants.branchApi + '/getFirstOrDefaultOwnerByBranch/' + id);
   }
 
-  printAdmrc(admrc): void { 
-    this._http.get(ApiConstants.branchApi + '/printAdmrc', admrc);
+  printDebit(debit): Observable<any> { 
+    return this._http.post(ApiConstants.branchApi + '/printDebit', debit);
   }
 
 }

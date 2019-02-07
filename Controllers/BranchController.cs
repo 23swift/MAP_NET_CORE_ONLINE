@@ -6,10 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using MAP_Web.Models.ViewModels;
 using AutoMapper;
 using System.Collections.Generic;
-using System.Xml.Serialization;
+using System.Xml;
 using Microsoft.CSharp;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace MAP_Web.Controllers
 {
@@ -145,15 +146,40 @@ namespace MAP_Web.Controllers
             return Ok(isSingleProp);
         }
 
-        [HttpGet("printAdmrc")]
-        public async Task<IActionResult> PrintAdmrc([FromBody] BranchViewModel branch)
+        [HttpPost("printDebit")]
+        public IActionResult PrintDebit([FromBody] BranchViewModel branch)
         {
-            XmlSerializer xmlWriter = new XmlSerializer(branch.GetType());
-            var path = hostingEnvironment.ContentRootPath + "//DataSet//dsPrintAdmrc.xml";
-            FileStream file = System.IO.File.Create(path);
-            xmlWriter.Serialize(file, branch);
-            file.Close();
+
+            var path = hostingEnvironment.ContentRootPath + "//DataSet//dsPrintDebit.xml";
+            using (StreamWriter myWriter = new StreamWriter(path, false))
+            {
+                var printDebit = new PrintDebitDataSet();
+                printDebit.settlementAccNoForDebit = branch.settlementAccNoForDebit != null ? branch.settlementAccNoForDebit : "";
+                printDebit.payeesName = branch.payeesName != null ? branch.payeesName : "";
+                printDebit.mailingAddressForPaymentDel = branch.mailingAddressForPaymentDel != null ? branch.mailingAddressForPaymentDel : "";
+                printDebit.emailAddressForReportDist = branch.emailAddressForReportDist != null ? branch.emailAddressForReportDist : "";
+                XmlSerializer mySerializer = new XmlSerializer(printDebit.GetType());
+                mySerializer.Serialize(myWriter, printDebit);
+            }
             return Ok();
         }
+
+        // [HttpPost("printAdmrc")]
+        // public async Task<IActionResult> PrintAdmrc([FromBody] BranchViewModel branch)
+        // {
+
+        //     // var path = hostingEnvironment.ContentRootPath + "//DataSet//dsPrintAdmrc.xml";
+        //     // using (StreamWriter myWriter = new StreamWriter(path, false))
+        //     // {
+        //     //     var printAdmrc = new PrintDebitDataSet();
+        //     //     printDebit.settlementAccNoForDebit = branch.settlementAccNoForDebit != null ? branch.settlementAccNoForDebit : "";
+        //     //     printDebit.payeesName = branch.payeesName != null ? branch.payeesName : "";
+        //     //     printDebit.mailingAddressForPaymentDel = branch.mailingAddressForPaymentDel != null ? branch.mailingAddressForPaymentDel : "";
+        //     //     printDebit.emailAddressForReportDist = branch.emailAddressForReportDist != null ? branch.emailAddressForReportDist : "";
+        //     //     XmlSerializer mySerializer = new XmlSerializer(printDebit.GetType());
+        //     //     mySerializer.Serialize(myWriter, printDebit);
+        //     // }
+        //     // return Ok();
+        // }
     }
 }

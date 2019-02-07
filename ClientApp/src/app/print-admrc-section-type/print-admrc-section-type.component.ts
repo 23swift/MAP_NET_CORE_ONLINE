@@ -17,7 +17,7 @@ export class PrintAdmrcSectionTypeComponent extends FieldType implements OnInit 
   }
 
   print() {
-    this.branchFormService.printAdmrc(this.model);
+    // this.branchFormService.printAdmrc(this.model).subscribe(x => { });
     //console.log(this.model);
     // window.print();
   }

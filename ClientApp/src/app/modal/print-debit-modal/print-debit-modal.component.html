@@ -1,0 +1,7 @@
+<div id="print-content">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="mid-form-container">
+    <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form">
+    </formly-form>
+  </form>
+  <button type="button" color="primary" mat-raised-button (click)="printToWindow()" class="hidden-print">print</button>
+</div>

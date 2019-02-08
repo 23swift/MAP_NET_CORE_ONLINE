@@ -108,13 +108,18 @@ namespace MAP_Web
             services.AddScoped<IAwrMaefFormService, AwrMaefFormService>();
             services.AddScoped<IMDMHeaderService, MDMHeaderService>();
 
-
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    }));
 
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Log_DB")));
-            services.AddTransient<IAuditLogService,AuditLogService>();
+            services.AddTransient<IAuditLogService, AuditLogService>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -142,6 +147,7 @@ namespace MAP_Web
             app.UseSpaStaticFiles();
 
             // app.UseAuthentication();
+            // app.UseCors("MyPolicy");
 
             app.UseMvc(routes =>
             {

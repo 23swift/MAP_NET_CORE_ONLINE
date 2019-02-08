@@ -14,6 +14,10 @@ namespace MAP_Web.Models
         public string submittedBy { get; set; }
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public bool withTempoWaiver { get; set; }
+        public Nullable<bool> classification { get; set; }
+        public string dmiIndex { get; set; }
+        public string documentStatus { get; set; }
+        public Nullable<bool> original { get; set; }
         public int NewAffiliationId { get; set; }
         public NewAffiliation NewAffiliation { get; set; }
     }

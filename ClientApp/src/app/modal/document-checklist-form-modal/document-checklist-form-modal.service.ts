@@ -126,12 +126,13 @@ export class DocumentChecklistFormModalService {
           fieldGroup: [
             {
               className: 'flex-1',
-              key: 'withTempoWaiver',
+              key: 'withTempoWaiverr',
               type: 'checkbox',
-              defaultValue: false,
+              defaultValue: true,
               templateOptions: {
                 label: 'With Tempo Waiver',
-                indeterminate: false
+                indeterminate: false,
+                disabled: true
               }
             },
             {
@@ -158,8 +159,7 @@ export class DocumentChecklistFormModalService {
               defaultValue: false,
               templateOptions: {
                 label: 'Submitted',
-                indeterminate: false,
-                disabled: true
+                indeterminate: false
               }
             },
             {
@@ -167,17 +167,15 @@ export class DocumentChecklistFormModalService {
               key: 'targetDateOfSubmission',
               type: 'calendar',
               templateOptions: {
-                label: 'Target Date of Submission',
-                disabled: true
+                label: 'Target Date of Submission'
               }
             },
             {
               className: 'flex-3',
-              key: 'dateSubmitted',
+              key: 'dateSubmittedd',
               type: 'calendar',
               templateOptions: {
-                label: 'Date Submitted',
-                disabled: true
+                label: 'Date Submitted'
               }
             }
           ]
@@ -245,8 +243,120 @@ export class DocumentChecklistFormModalService {
           ]
         }
       ];
+    } else if (userGroup === 'mdmRl') {
+      return [
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-6',
+              key: 'documentName',
+              type: 'select',
+              templateOptions: {
+                label: 'Document Name',
+                options: this._documentListService.get(),
+                labelProp: 'description',
+                valueProp: 'id'
+              }
+            }
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              key: 'submitted',
+              type: 'checkbox',
+              defaultValue: false,
+              templateOptions: {
+                label: 'Submitted',
+                indeterminate: false
+              }
+            },
+            {
+              className: 'flex-3',
+              key: 'targetDateOfSubmission',
+              type: 'calendar',
+              templateOptions: {
+                label: 'Target Date of Submission'
+              }
+            },
+            {
+              className: 'flex-3',
+              key: 'dateSubmittedd',
+              type: 'calendar',
+              templateOptions: {
+                label: 'Date Submitted'
+              }
+            }
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              key: 'dmiIndex',
+              type: 'input',
+              templateOptions: {
+                label: 'DMI Index',
+                disabled: true
+              }
+            },
+            {
+              className: 'flex-1',
+              key: 'classification',
+              type: 'checkbox',
+              templateOptions: {
+                label: 'Major',
+                indeterminate: false,
+                disabled: true
+              }
+            },
+            {
+              className: 'flex-1',
+              key: 'original',
+              type: 'checkbox',
+              templateOptions: {
+                label: 'Original',
+                indeterminate: false
+              }
+            },
+            {
+              className: 'flex-1',
+              key: 'documentStatus',
+              type: 'select',
+              templateOptions: {
+                label: 'Document Status',
+                options: this._dropDownService.getDropdown('DS')
+                // options: [
+                //   { value: 'LACKING', label: 'Lacking' },
+                //   { value: 'INCOMPLETE', label: 'Incomplete' },
+                //   { value: 'COMPLIED', label: 'Complied' },
+                //   { value: 'WAIVED', label: 'Waived' },
+                //   { value: 'NOT APPLICABLE', label: 'Not Applicable' }
+                // ]
+              }
+            }
+          ]
+        },
+        {
+          fieldGroupClassName: 'display-flex',
+          fieldGroup: [
+            {
+              className: 'flex-1',
+              key: 'remarks',
+              type: 'input',
+              templateOptions: {
+                label: 'Remarks',
+              }
+            }
+          ]
+        }
+      ];
     }
-  }
+  } 
 
   deleteDocumentUploaded(id): Observable<any> {
     return this._http.put(ApiConstants.documentChecklistApi + '/document/' + id, {});

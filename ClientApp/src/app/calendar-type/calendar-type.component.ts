@@ -38,6 +38,7 @@ export const MY_FORMATS = {
 export class CalendarTypeComponent extends FieldType implements AfterViewInit {
   className: string;
   displayErrorOnInit: boolean;
+  value: string;
 
   constructor() {
     super();

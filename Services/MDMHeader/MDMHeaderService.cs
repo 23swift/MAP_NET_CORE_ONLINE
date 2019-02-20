@@ -3,6 +3,7 @@ using MAP_Web.Models;
 using MAP_Web.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System;
 
 namespace MAP_Web.Services
 {
@@ -19,7 +20,6 @@ namespace MAP_Web.Services
         {
             var request = await requestRepo.GetFirstOrDefaultAsync(predicate: r => r.Id == requestId, include: r => r.Include(rr => rr.NewAffiliation)
                                                                                                                         .ThenInclude(n => n.CustomerProfile));
-                                                                                                                    
 
             MDMHeaderViewModel model = new MDMHeaderViewModel {
                 aoName = "AO NAME",
@@ -30,7 +30,8 @@ namespace MAP_Web.Services
                 requestedDate = request.CreatedDate.Value,
                 requestType = request.RequestType,
                 subUnitArea = "Sub Unit Area",
-                processor = "Processor Name",
+                mdmReviewedBy = "Reviewer Name",
+                mdmReviewedDate = DateTime.Now,
                 trackingNo = request.TrackingNo
             };
 

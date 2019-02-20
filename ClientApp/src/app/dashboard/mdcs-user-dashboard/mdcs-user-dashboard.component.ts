@@ -34,9 +34,9 @@ export class MdcsUserDashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.displayedColumns = this._service.getTableFields();
-    this.mode = 'create';
-    this.title = 'New Affiliation';
-    this.subTitle = 'MDCS User';
+    this.mode = '';
+    this.title = '';
+    this.subTitle = '';
     this.dataSource = new TableDataSourceService(this._service);
     this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
   }

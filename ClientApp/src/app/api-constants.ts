@@ -37,6 +37,8 @@ export namespace ApiConstants {
     export const approveWithExceptDetailsAwrApi = '/api/approveWithExceptDetailsAwr';
     export const awrMaefFormApi = '/api/awrMaefForm';
 
+    export const corsApi = '/api/cors';
+
     // REQUESTS
     export const newAffiliationApi = 'api/newAffiliation';
 }

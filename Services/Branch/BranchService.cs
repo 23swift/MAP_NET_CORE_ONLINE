@@ -5,8 +5,8 @@ using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Xml;
-using AspNetCore.Reporting;
-using AspNetCore.ReportingServices;
+// using AspNetCore.Reporting;
+// using AspNetCore.ReportingServices;
 
 namespace MAP_Web.Services
 {

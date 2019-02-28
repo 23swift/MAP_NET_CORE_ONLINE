@@ -1,5 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="space-between">
   <h2 mat-dialog-title class="mat-headline">POS Form</h2>
+  <div>
+    <button *ngIf="showPrint" mat-raised-button type="button" color="primary">
+      <mat-icon>print</mat-icon> Extract
+    </button>
+  </div>
 </div>
 
 <mat-dialog-content style="overflow-y: auto; overflow-x: hidden;">
@@ -13,13 +18,11 @@
     </div>
   </form>
 
-  <!-- <div style="margin: 20px 0px">
-    <app-pos-terminal-brand-list [showAdd]="showAction"></app-pos-terminal-brand-list>
-  </div> -->
   <div style="margin-top: 20px;" *ngIf="model['id']">
-    <app-pos-terminal-brand-list-modal [showDelete]="showTerminalDelete" [userGroup]="userGroup" [showUpdate]="showTerminalUpdate" [showAdd]="showTerminalAdd"></app-pos-terminal-brand-list-modal>
+    <app-pos-terminal-brand-list-modal [showDelete]="showTerminalDelete" [userGroup]="userGroup" [showUpdate]="showTerminalUpdate"
+      [showAdd]="showTerminalAdd"></app-pos-terminal-brand-list-modal>
   </div>
-  
+
   <div style="margin-top: 20px;" *ngIf="showMid">
     <app-mid-list-modal [showAdd]="false" [showUpdate]="false"></app-mid-list-modal>
   </div>

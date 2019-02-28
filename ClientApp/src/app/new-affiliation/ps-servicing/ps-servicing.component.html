@@ -1,28 +1,19 @@
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false"></app-bdo-form-header>
 <app-request-header></app-request-header>
 
-<app-customer-profile [displayMode]="true" [userGroup]="'ao'"></app-customer-profile>
-<mat-vertical-stepper [linear]="true" #stepper>
-    <mat-step [completed]="false">
-      <ng-template matStepLabel>
-        <span class="mat-subheading-1">POS</span>
-      </ng-template>
-      <app-branch-list-attachment-pos [newAffiliationId]="requestId" [userGroup]="'pss'" [showAdd]="false"
-          [showDelete]="false" [displayMode]="false" [showTerminalUpdate]="false" [showTerminalAdd]="false"
-          [showTerminalDelete]="false"></app-branch-list-attachment-pos>
-      <button style="margin-top:3px" mat-button color="primary" (click)="completed(stepper)">Next
-        <mat-icon color="primary">navigate_next</mat-icon>
-      </button>
-    </mat-step>
-    <mat-step state="done">
-      <ng-template matStepLabel>
-        <span class="mat-subheading-1">Done!</span>
-      </ng-template>
-  
-      <span class="mat-subheading-1">You are now done. Would you like to submit the Request?</span>
-      <div xLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="3px">
-        <button style="margin-top:3px" mat-stroked-button color="primary" (click)="Submit()">Yes</button>
-        <a mat-stroked-button routerLink="/" color="accent">No</a>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
+<app-customer-profile [displayMode]="true" [userGroup]="'ao'" [showOwners]="false" [showSignatories]="false"></app-customer-profile>
+
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let items of branchList | async">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        DBA Name: {{items.dbaName}}
+      </mat-panel-title>
+      <mat-panel-description>
+        DBA Address: {{items.dbaAddress1}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-pos-list [displayMode]="false" [userGroup]="'pss'" [showTerminalDelete]="true" [branchId]="items.id" [showAdd]="false"
+      [showMid]="true" [showTerminalUpdate]="true" [showTerminalAdd]="true" [showDelete]="false" [showPrint]="true"></app-pos-list>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -10,9 +10,9 @@
     </form>
 </div>
 
-<div style="margin: 20px 0px">
-    <app-owners-list [displayMode]="this.displayMode" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-owners-list>
+<div style="margin: 20px 0px" *ngIf="showOwners">
+    <app-owners-list [displayMode]="displayMode" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-owners-list>
 </div>
-<div style="margin: 20px 0px">
-    <app-signatories-list [displayMode]="this.displayMode" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-signatories-list>
+<div style="margin: 20px 0px" *ngIf="showSignatories">
+    <app-signatories-list [displayMode]="displayMode" [userGroup]="userGroup" [customerProfileId]="customerProfileId"></app-signatories-list>
 </div>

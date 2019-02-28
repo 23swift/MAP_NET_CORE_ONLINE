@@ -6,6 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using MAP_Web.Models.ViewModels;
 using AutoMapper;
 using System.Collections.Generic;
+using System.Xml;
+using Microsoft.CSharp;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Xml.Serialization;
+using System.Data;
+
 
 namespace MAP_Web.Controllers
 {
@@ -14,11 +21,13 @@ namespace MAP_Web.Controllers
     {
         private readonly IBranchService branchService;
         private readonly IMapper mapper;
+        private IHostingEnvironment hostingEnvironment;
 
-        public BranchController(IBranchService branchService, IMapper mapper)
+        public BranchController(IBranchService branchService, IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             this.mapper = mapper;
             this.branchService = branchService;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("{id}")]
@@ -74,6 +83,7 @@ namespace MAP_Web.Controllers
         }
 
         [HttpPost]
+
         public async Task<IActionResult> CreateBranch([FromBody] Branch branch)
         {
             if (!ModelState.IsValid)
@@ -138,5 +148,63 @@ namespace MAP_Web.Controllers
 
             return Ok(isSingleProp);
         }
+
+        [HttpPost("printDebit")]
+        public IActionResult PrintDebit([FromBody] BranchViewModel branch)
+        {
+            var path = hostingEnvironment.ContentRootPath + "//DataSet//dsPrintDebit.xml";
+            var printDebit = new PrintDebitDataSet()
+            {
+                settlementAccNoForDebit = branch.settlementAccNoForDebit != null ? branch.settlementAccNoForDebit : "",
+                payeesName = branch.payeesName != null ? branch.payeesName : "",
+                mailingAddressForPaymentDel = branch.mailingAddressForPaymentDel != null ? branch.mailingAddressForPaymentDel : "",
+                emailAddressForReportDist = branch.emailAddressForReportDist != null ? branch.emailAddressForReportDist : ""
+            };
+
+            using (StreamWriter myWriter = new StreamWriter(path, false))
+            {
+                XmlSerializer mySerializer = new XmlSerializer(printDebit.GetType());
+                mySerializer.Serialize(myWriter, printDebit);
+            }
+
+            IEnumerable<PrintDebitDataSet> dsPrintDebit = new List<PrintDebitDataSet>();
+            foreach (var item in dsPrintDebit)
+            {
+                item.settlementAccNoForDebit = printDebit.settlementAccNoForDebit;
+                item.payeesName = printDebit.payeesName;
+                item.mailingAddressForPaymentDel = printDebit.mailingAddressForPaymentDel;
+                item.emailAddressForReportDist = printDebit.emailAddressForReportDist;
+            };
+
+            // var renderType = RenderType.Pdf;
+
+            // DataSet ds = new DataSet();
+            // ds.ReadXml(path);
+            // var rptName = "PrintDebit.pdf";
+            // var rptFile = hostingEnvironment.ContentRootPath + "//Reports//PrintDebit.rdlc";
+
+            // var rds = new ReportViewer()
+            // rds.
+            return Ok();
+        }
+
+        // [HttpPost("printAdmrc")]
+        // public async Task<IActionResult> PrintAdmrc([FromBody] BranchViewModel branch)
+        // {
+
+        //     // var path = hostingEnvironment.ContentRootPath + "//DataSet//dsPrintAdmrc.xml";
+        //     // using (StreamWriter myWriter = new StreamWriter(path, false))
+        //     // {
+        //     //     var printAdmrc = new PrintDebitDataSet();
+        //     //     printDebit.settlementAccNoForDebit = branch.settlementAccNoForDebit != null ? branch.settlementAccNoForDebit : "";
+        //     //     printDebit.payeesName = branch.payeesName != null ? branch.payeesName : "";
+        //     //     printDebit.mailingAddressForPaymentDel = branch.mailingAddressForPaymentDel != null ? branch.mailingAddressForPaymentDel : "";
+        //     //     printDebit.emailAddressForReportDist = branch.emailAddressForReportDist != null ? branch.emailAddressForReportDist : "";
+        //     //     XmlSerializer mySerializer = new XmlSerializer(printDebit.GetType());
+        //     //     mySerializer.Serialize(myWriter, printDebit);
+        //     // }
+        //     // return Ok();
+        // }
+        
     }
 }

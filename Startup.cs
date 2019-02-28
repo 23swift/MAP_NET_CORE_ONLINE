@@ -11,6 +11,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
 using MAP_Web.Services;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using IdentityModel;
+
 
 namespace MAP_Web
 {
@@ -49,14 +53,14 @@ namespace MAP_Web
             //         options.SaveTokens = true;
             //         options.GetClaimsFromUserInfoEndpoint = true;
 
-            //         // options.Scope.Add("api1");
-            //         // options.Scope.Add("offline_access");
-            //         // options.Events= new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents{
-            //         //     OnAuthorizationCodeReceived = (context) => {
-            //         //             context.Response.Redirect("http:localhost:5000/");
-            //         //         return Task.FromResult(0);
-            //         //     }
-            //         // };
+            //         options.Scope.Add("api1");
+            //         options.Scope.Add("offline_access");
+            //         options.Events= new Microsoft.AspNetCore.Authentication.OpenIdConnect.OpenIdConnectEvents{
+            //             OnAuthorizationCodeReceived = (context) => {
+            //                     context.Response.Redirect("http:localhost:5000/");
+            //                 return Task.FromResult(0);
+            //             }
+            //         };
 
 
             //     });
@@ -107,14 +111,62 @@ namespace MAP_Web
             services.AddScoped<IApproveWithExceptDetailsAwrService, ApproveWithExceptDetailsAwrService>();
             services.AddScoped<IAwrMaefFormService, AwrMaefFormService>();
             services.AddScoped<IReturnRemarksService, ReturnRemarksService>();
+            services.AddScoped<IMDMHeaderService, MDMHeaderService>();
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    }));
 
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = "Cookies";
+                    options.DefaultChallengeScheme = "oidc";
+                })
+                .AddCookie("Cookies")
+
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.SignInScheme = "Cookies";
+
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+
+                    options.ClientId = "map";
+                    options.ClientSecret = "secret";
+                    options.ResponseType = "code id_token";
+
+                    options.SaveTokens = true;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+
+                    options.Scope.Add("api1");
+                    options.Scope.Add("access.profile");
+                    // options.Scope.Add("role");
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        NameClaimType = JwtClaimTypes.Name,
+                        RoleClaimType = JwtClaimTypes.Role
+                        //NameClaimType = ClaimTypes.Name,
+                        //RoleClaimType = ClaimTypes.Role
+                    };
+                    // options.ClaimActions.MapUniqueJsonKey("role", "role");
+                    options.ClaimActions.MapJsonKey("role", "role");
+                    options.ClaimActions.MapJsonKey("Permission", "Permission");
+
+                    // options.ClaimActions.MapJsonKey("website", "website");
+
+                });
 
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Log_DB")));
-            services.AddTransient<IAuditLogService,AuditLogService>();
+            services.AddTransient<IAuditLogService, AuditLogService>();
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -140,8 +192,10 @@ namespace MAP_Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
 
-            // app.UseAuthentication();
+            // Enable CORS policy on project level
+            // app.UseCors("MyPolicy");
 
             app.UseMvc(routes =>
             {
@@ -152,17 +206,21 @@ namespace MAP_Web
 
 
 
-            // app.Use(async (context, next) =>
-            //                                             {
-            //                                                 if (!context.User.Identity.IsAuthenticated)
-            //                                                     {
-            //                                                         await context.ChallengeAsync("oidc");
-            //                                                     }
-            //                                                     else
-            //                                                     {
-            //                                                         await next();
-            //                                                     }
-            //                                             });
+            app.Use(async (context, next) =>
+            {
+                if (!context.User.Identity.IsAuthenticated)
+                {
+                    await context.ChallengeAsync("oidc",
+                    new AuthenticationProperties { RedirectUri = "/" });
+
+                    // await context.ChallengeAsync("oidc");
+                }
+                else
+                {
+                    await next();
+                }
+            });
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -176,9 +234,6 @@ namespace MAP_Web
                     // spa.UseAngularCliServer(npmScript: "start");
                     // spa.UseAngularCliServer( "ng serve");
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-
-
-
                 }
             });
 

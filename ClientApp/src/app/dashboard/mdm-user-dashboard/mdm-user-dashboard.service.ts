@@ -18,14 +18,14 @@ export class MdmUserDashboardService {
     if (filter.match(/^\d+\//)) {
       filter = filter.replace(/\//g, '-');
     }
-    return this._http.get(ApiConstants.mdmUserDashboard + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
+    return this._http.get(ApiConstants.mdmUserDashboardApi + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
   }
 
   getCount() {
-    return this._http.get(ApiConstants.mdmUserDashboard + '/count');
+    return this._http.get(ApiConstants.mdmUserDashboardApi + '/count');
   }
 
   filterDashboard(searchCriteria): Observable<any> {
-    return this._http.put(ApiConstants.mdmUserDashboard + '/filter', searchCriteria);
+    return this._http.put(ApiConstants.mdmUserDashboardApi + '/filter', searchCriteria);
   }
 }

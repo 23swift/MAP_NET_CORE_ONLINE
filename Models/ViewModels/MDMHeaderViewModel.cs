@@ -12,7 +12,8 @@ namespace MAP_Web.Models.ViewModels
         public string businessUnit { get; set; }
         public string subUnitArea { get; set; }
         public string aoName { get; set; }
-        public string processor { get; set; }
+        public string mdmReviewedBy { get; set; }
+        public DateTime mdmReviewedDate { get; set; }
         public string ownership { get; set; }
     }
 }

@@ -10,5 +10,7 @@ namespace MAP_Web.Services
     public interface IMauOfficerDashboardService
     {
         Task<List<MauOfficerDashboardViewModel>> FindAsync();
+        Task<List<MauOfficerDashboardViewModel>> GetListAsync(string field, string sortDirection, int pageIndex, int pageSize, string filter);
+        Task<int> GetListCount();
     }
 }

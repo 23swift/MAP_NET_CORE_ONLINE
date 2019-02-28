@@ -44,7 +44,6 @@ namespace MAP_Web.Models
         public string imprinterDc { get; set; }
         public string imprinterJcb { get; set; }
         public string imprinterOthers { get; set; }
-        public string intesCodeForDiners { get; set; }
 
         public Nullable<int> totalNumberOfManualImprinters { get; set; }
         public string holdOutAccountNumber { get; set; }
@@ -110,10 +109,6 @@ namespace MAP_Web.Models
         public string creditSettlementAcctNo { get; set; }
         public string settlementAcctNo { get; set; }
 
-         public Nullable<System.DateTime> taxExemptFrom { get; set; }
-
-         public Nullable<System.DateTime> taxExemptTo { get; set; }
-
         public Nullable<int> taxExemptIssuedBy { get; set; }
 
         public string merchantGroupCode { get; set; }
@@ -135,16 +130,6 @@ namespace MAP_Web.Models
         public string specialMailingCity { get; set; }
         public string specialMailingZipCode { get; set; }
 
-        public string mailingAddress1 { get; set; }
-        public string mailingAddress2 { get; set; }
-
-        public string mailingAddress3 { get; set; }
-
-        public string mailingAddress4 { get; set; }
-
-        public string mailingCity { get; set; }
-
-        public string mailingAddressZipCode { get; set; }
 
         public string debitSettlementAcctNo { get; set; }
         public Nullable<System.DateTime> taxExemptValidityFrom { get; set; }

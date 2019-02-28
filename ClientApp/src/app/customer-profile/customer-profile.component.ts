@@ -16,6 +16,8 @@ import { MatSnackBar } from '@angular/material';
 export class CustomerProfileComponent extends AppBaseComponent implements OnInit {
   @Input() displayMode;
   @Input() userGroup: string;
+  @Input() showOwners = true;
+  @Input() showSignatories = true;
   @Output() newAffiliationId = new EventEmitter<number>();
 
   customerProfileId = 0;

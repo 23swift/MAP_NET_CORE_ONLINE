@@ -76,7 +76,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'DBA(Branch/Outlet Address )',
           placeholder: 'DBA(Branch/Outlet Address )',
-          maxLength: 30,
+          maxLength: 60,
           required: true
         },
       },
@@ -93,7 +93,7 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         },
       },
       ]
@@ -109,7 +109,7 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         },
       },
       ]
@@ -125,7 +125,7 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         },
       },
       ]
@@ -208,7 +208,7 @@ export class BranchFormService {
           label: 'Mobile Number',
           placeholder: 'Mobile Number',
           required: true,
-          maxLength: 15
+          maxLength: 30
         }
       }
       ]
@@ -226,7 +226,8 @@ export class BranchFormService {
         templateOptions: {
           label: 'E-Mail Address',
           placeholder: 'E-Mail Address',
-          required: true
+          required: true,
+          maxLength: 100
         },
       },
       {  // ++ mandatory if ecom tpp master merchant erps emoto
@@ -1466,7 +1467,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'DBA(Branch/Outlet Address )',
           placeholder: 'DBA(Branch/Outlet Address )',
-          maxLength: 30,
+          maxLength: 60,
           required: true
         },
       },
@@ -1483,7 +1484,7 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         },
       },
       ]
@@ -1499,7 +1500,7 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         },
       },
       ]
@@ -1515,7 +1516,22 @@ export class BranchFormService {
 
         },
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
+        },
+      },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress5',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 60
         },
       },
       ]
@@ -1569,7 +1585,7 @@ export class BranchFormService {
           templateOptions: {
             label: 'Mobile Number',
             placeholder: 'Mobile Number',
-            maxLength: 15
+            maxLength: 30
           }
         }
       ]
@@ -2063,7 +2079,8 @@ export class BranchFormService {
         templateOptions: {
           label: 'E-Mail Address',
           placeholder: 'E-Mail Address',
-          required: true
+          required: true,
+          maxLength: 100
         },
       },
       {  // ++ mandatory if ecom tpp master merchant erps emoto
@@ -3017,6 +3034,21 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress5',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          disabled: true
+        },
+      },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
         type: 'select',
         key: 'dbaCity',
         templateOptions: {
@@ -3070,7 +3102,8 @@ export class BranchFormService {
         templateOptions: {
           label: 'E-Mail Address',
           type: 'email',
-          placeholder: 'E-Mail Address'
+          placeholder: 'E-Mail Address',
+          maxLength: 100
         }
       },
       {
@@ -4329,6 +4362,21 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress5',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          disabled: true
+        },
+      },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
         type: 'select',
         key: 'dbaCity',
         templateOptions: {
@@ -4382,7 +4430,8 @@ export class BranchFormService {
         templateOptions: {
           label: 'E-Mail Address',
           type: 'email',
-          placeholder: 'E-Mail Address'
+          placeholder: 'E-Mail Address',
+          maxLength: 100
         }
       },
       {
@@ -4522,8 +4571,7 @@ export class BranchFormService {
         key: 'taxExemptIssuedBy',
         expressionProperties: {
           'templateOptions.required': (model: any, formState: any) => {
-  
-         //   return model['taxCode'] == 'WT';
+           return model['taxCode'] == 'WT';
           }
         },
         templateOptions: {
@@ -4540,8 +4588,7 @@ export class BranchFormService {
         key: 'taxExemptClass',
         expressionProperties: {
           'templateOptions.required': (model: any, formState: any) => {
-  
-        //    return model['taxCode'] == 'WT';
+           return model['taxCode'] == 'WT';
           }
         },
         templateOptions: {
@@ -5591,7 +5638,7 @@ export class BranchFormService {
           label: 'DBA(Branch/Outlet Address )',
           placeholder: 'DBA(Branch/Outlet Address )',
           required: true,
-          maxLength: 30
+          maxLength: 60
         },
       }]
     },
@@ -5602,7 +5649,7 @@ export class BranchFormService {
         type: 'input',
         key: 'dbaAddress2',
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         },
       }]
     },
@@ -5613,7 +5660,7 @@ export class BranchFormService {
         type: 'input',
         key: 'dbaAddress3',
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         }
       }]
     },
@@ -5624,9 +5671,24 @@ export class BranchFormService {
         type: 'input',
         key: 'dbaAddress4',
         templateOptions: {
-          maxLength: 30
+          maxLength: 60
         }
       }]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress5',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          maxLength: 60
+        },
+      },
+      ]
     },
     {
       fieldGroupClassName: 'display-flex',
@@ -5689,7 +5751,7 @@ export class BranchFormService {
         templateOptions: {
           label: 'Mobile Number',
           placeholder: 'Mobile Number',
-          maxLength: 15
+          maxLength: 30
         }
       }]
     },
@@ -6577,55 +6639,56 @@ export class BranchFormService {
           }
         }
       ]
-    },
+    }
+    // ,
   
-    { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
-    {
-      fieldGroupClassName: 'display-flex',
-      fieldGroup: [
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'fraudToolProvider',
-          templateOptions: {
-            label: 'Fraud Tool Provider',
-            options: [],
-            labelProp: 'value',
-            valueProp: 'code',
-          },
-          lifecycle: {
-            onInit: (form, field) => {
-              field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
-            }
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'checkbox',
-          key: 'directPaymentLink',
-          templateOptions: {
-            label: 'Direct Payment Link',
-            indeterminate: false
-          }
-        },
-        {
-          className: 'flex-1',
-          type: 'select',
-          key: 'gatewayIntegrationType',
-          templateOptions: {
-            label: 'Gateway Integration Type',
-            options: [],
-            labelProp: 'value',
-            valueProp: 'code',
-          },
-          lifecycle: {
-            onInit: (form, field) => {
-              field.templateOptions.options = this._dropDownService.getDropdown('GIT');
-            }
-          },
-        }
-      ]
-    },
+    // { template: '<span class="mat-headline">ECOM (ADMRC Fields)</span>' },
+    // {
+    //   fieldGroupClassName: 'display-flex',
+    //   fieldGroup: [
+    //     {
+    //       className: 'flex-1',
+    //       type: 'select',
+    //       key: 'fraudToolProvider',
+    //       templateOptions: {
+    //         label: 'Fraud Tool Provider',
+    //         options: [],
+    //         labelProp: 'value',
+    //         valueProp: 'code',
+    //       },
+    //       lifecycle: {
+    //         onInit: (form, field) => {
+    //           field.templateOptions.options = this._dropDownService.getDropdown('FTPID');
+    //         }
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'checkbox',
+    //       key: 'directPaymentLink',
+    //       templateOptions: {
+    //         label: 'Direct Payment Link',
+    //         indeterminate: false
+    //       }
+    //     },
+    //     {
+    //       className: 'flex-1',
+    //       type: 'select',
+    //       key: 'gatewayIntegrationType',
+    //       templateOptions: {
+    //         label: 'Gateway Integration Type',
+    //         options: [],
+    //         labelProp: 'value',
+    //         valueProp: 'code',
+    //       },
+    //       lifecycle: {
+    //         onInit: (form, field) => {
+    //           field.templateOptions.options = this._dropDownService.getDropdown('GIT');
+    //         }
+    //       },
+    //     }
+    //   ]
+    // },
   ];
   //#endregion
 
@@ -6705,6 +6768,21 @@ export class BranchFormService {
       fieldGroupClassName: 'display-flex',
       fieldGroup: [{
         className: 'flex-1',
+        type: 'input',
+        key: 'dbaAddress5',
+        expressionProperties: {
+
+        },
+        templateOptions: {
+          disabled: true
+        },
+      },
+      ]
+    },
+    {
+      fieldGroupClassName: 'display-flex',
+      fieldGroup: [{
+        className: 'flex-1',
         type: 'select',
         key: 'dbaCity',
         templateOptions: {
@@ -6758,7 +6836,8 @@ export class BranchFormService {
         templateOptions: {
           label: 'E-Mail Address',
           type: 'email',
-          placeholder: 'E-Mail Address'
+          placeholder: 'E-Mail Address',
+          maxLength: 100
         }
       },
       {
@@ -7955,7 +8034,7 @@ export class BranchFormService {
     } else if (userGroup === 'mqrUser') {
       fields = this.mdcs;
     } else if (userGroup === 'mdmUser') {
-      fields = this.veriScreen;
+      fields = this.mdcs;
       this._formlyConfig.disabled(fields);
     }
 
@@ -7989,6 +8068,10 @@ export class BranchFormService {
 
   getFirstOrDefaultOwnerByBranch(id) {
     return this._http.get(ApiConstants.branchApi + '/getFirstOrDefaultOwnerByBranch/' + id);
+  }
+
+  printDebit(debit): Observable<any> { 
+    return this._http.post(ApiConstants.branchApi + '/printDebit', debit);
   }
 
 }

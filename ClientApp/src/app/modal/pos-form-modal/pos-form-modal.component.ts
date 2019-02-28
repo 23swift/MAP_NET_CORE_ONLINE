@@ -22,6 +22,7 @@ export class PosFormModalComponent implements OnInit {
   showTerminalUpdate = true;
   showTerminalAdd = true;
   showTerminalDelete = true;
+  showPrint = false;
   options: FormlyFormOptions = {
     showError: () => {
       return true;
@@ -44,7 +45,10 @@ export class PosFormModalComponent implements OnInit {
     }
     if (this._dialogData['showTerminalDelete'] !== undefined) {
       this.showTerminalDelete = this._dialogData['showTerminalDelete'];
-      }    
+    }
+    if (this._dialogData['showPrint'] !== undefined) {
+      this.showPrint = this._dialogData['showPrint'];
+    }
     this.displayMode = this._dialogData['displayMode'];
     this.model = {};
     this.model['id'] = 0;
@@ -62,8 +66,8 @@ export class PosFormModalComponent implements OnInit {
     } else {
       this.model = Object.assign({}, this._dialogData['pos']);
       this.model['userGroup'] = this.userGroup;
-      
-      this.fields = this._posService.getPosFields(this.userGroup);      
+
+      this.fields = this._posService.getPosFields(this.userGroup);
     }
   }
 
@@ -86,7 +90,7 @@ export class PosFormModalComponent implements OnInit {
           const snackBar = this._snackBar.open('POS Details', 'Updated', {
             duration: 1500
           });
-  
+
           snackBar.afterDismissed().subscribe(x => {
             this._modalRef.close();
           });
@@ -106,7 +110,7 @@ export class PosFormModalComponent implements OnInit {
           const snackBar = this._snackBar.open('POS Details', 'Updated', {
             duration: 1500
           });
-  
+
           snackBar.afterDismissed().subscribe(x => {
             this._modalRef.close();
           });

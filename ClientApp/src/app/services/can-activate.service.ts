@@ -1,26 +1,28 @@
 import { Injectable } from "@angular/core";
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { ApiConstants } from "../api-constants";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CanActivateService implements CanActivate {
-    routeArray = ['ao'];
-    constructor(private router: Router) { }
+    routeArray = ['', ];
+    claims: Object;
+    constructor(private _http: HttpClient) { }
 
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
-    ): boolean | Observable<boolean> | Promise<boolean> {
-        if (this.getAccess('mdcsEncoder')) {
-            return true;
-        } else {
-            this.router.navigateByUrl('/error-page');
-        }
-    }
+    ) {
+        if (!this.claims) {
+            return this._http.get(ApiConstants.corsApi + '/access').toPromise().then(v => {
+                this.claims = v;
 
-    getAccess(userGroup) {
-        return this.routeArray.indexOf(userGroup) >= 0;
+                return true;
+            });
+        } else {
+            return true;
+        }
     }
 }

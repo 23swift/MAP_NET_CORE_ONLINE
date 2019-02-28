@@ -20,7 +20,7 @@ export class CustomerProfileService {
             label: 'Business/Legal Name',
             placeholder: 'Business Name',
             required: true,
-            maxLength: 50
+            maxLength: 100
           },
         },
         {

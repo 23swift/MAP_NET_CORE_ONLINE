@@ -14,8 +14,9 @@ export class MqrDashboardService {
   }
 
   getTableFields() {
-    // return this._dashboard.MdcsFields;
+    return ['referenceNo', 'requestedDate', 'requestType', 'businessName', 'requestedBy', 'status', 'tat', 'Operation']
   }
+
 
   getAll(): Observable<any> {
     return this._http.get(ApiConstants.mqrUserDashboard);
@@ -37,5 +38,20 @@ export class MqrDashboardService {
 
   getMaefData(id): Observable<any> {
     return this._http.post(ApiConstants.mqrUserDashboard + '/mqrUserDashboard/' + id, {})
+  }
+
+  getTableData(field, sortDirection, pageIndex, pageSize, filter): Observable<any> {
+    if (filter.match(/^\d+\//)) {
+      filter = filter.replace(/\//g, '-');
+    }
+    return this._http.get(ApiConstants.mqrUserDashboard + `/${field}/${sortDirection}/${pageIndex}/${pageSize}/${filter}`);
+  }
+
+  getCount() {
+    return this._http.get(ApiConstants.mqrUserDashboard + '/count');
+  }
+
+  filterDashboard(searchCriteria): Observable<any> {
+    return this._http.put(ApiConstants.mqrUserDashboard + '/filter', searchCriteria);
   }
 }

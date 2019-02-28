@@ -79,9 +79,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'api', redirectTo: '/home'},
-  { path: 'home', component: HomeScreenComponent },
+  { path: 'home', component: HomeScreenComponent, canActivate: [CanActivateService] },
   { path: 'pos/:mode', component: PosRequestComponent },
   {
     path: 'posStep/:mode', component: PosRequestStepperComponent,
@@ -136,16 +135,16 @@ const routes: Routes = [
   { path: 'branch/:mode', component: BranchFormComponent },
   { path: 'branchinfo', component: BranchInfoComponent },
   { path: 'branchOIF', component: OcularInspectionFormComponent },
-  { path: 'na/aoEncoder/new', component: AoEncoderComponent, canActivate: [] },
-  { path: 'na/aoEncoder/:id', component: AoEncoderComponent },
-  { path: 'na/aoChecker/:id', component: AoCheckerComponent },
+  { path: 'na/aoEncoder/new', component: AoEncoderComponent, canActivate: [CanActivateService] },
+  { path: 'na/aoEncoder/:id', component: AoEncoderComponent, canActivate: [CanActivateService] },
+  { path: 'na/aoChecker/:id', component: AoCheckerComponent, canActivate: [CanActivateService] },
   { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent, canActivate: [CanActivateService] },
-  { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent },
+  { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent, canActivate: [CanActivateService] },
   { path: 'na/mdm/:id', component: MdmUserComponent },
   { path: 'na/pss/:id', component: PsServicingComponent },
   { path: 'error-page', component: ErrorPageComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home/:userGroup', component: HomeScreenComponent },
+  { path: 'home/:userGroup', component: HomeScreenComponent, canActivate: [CanActivateService] },
   { path: 'awr', component: AwrFormComponent },
   { path: 'requestForm', component: RequestFormComponent },
   { path: 'posForm', component: PosFormComponent },
@@ -180,9 +179,9 @@ const routes: Routes = [
     ]
   },
   { path: 'na/mauOfficer/:id', component: MauOfficerComponent }, // 1
-  { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, //story7
-  { path: 'na/approver/:id', component: MauOfficerComponent }, //story8
-  { path: 'na/mdcsUser/:id', component: MdcsUserComponent },//story10
+  { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, // story7
+  { path: 'na/approver/:id', component: MauOfficerComponent }, // story8
+  { path: 'na/mdcsUser/:id', component: MdcsUserComponent }, // story10
   { path: 'posForm', component: PosFormComponent },
   { path: 'oif', component: OcularInspectionFormComponent },
   {
@@ -224,7 +223,9 @@ const routes: Routes = [
   { path: 'defaultMIDMaintenance', component: DefaultMidMaintenanceComponent },
   { path: 'debitTid', component: DebitTidComponent },
   { path: 'custProfile', component: CustomerProfileComponent },
-  { path: 'mam', component: MamVerificationScreenFormComponent }
+  { path: 'mam', component: MamVerificationScreenFormComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

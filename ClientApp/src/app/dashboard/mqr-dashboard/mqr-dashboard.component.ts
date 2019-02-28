@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MqrDashboardService } from './mqr-dashboard.service';
-//import { IRequestDisplay } from '../../temp/interface/irequest-display';
-import { Route, Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
-import { MatDialog, MatDialogRef, MatSnackBar, MatTableDataSource, MatSort } from '../../../../node_modules/@angular/material';
-
+import { Router, ActivatedRoute } from '../../../../node_modules/@angular/router';
+import { MatDialog, MatSnackBar, MatSort, MatPaginator } from '../../../../node_modules/@angular/material';
 import { SearchModalComponent } from '../../modal/search-modal/search-modal.component';
+import { TableDataSourceService } from 'src/app/services/table-data-source.service';
+import { Observable, fromEvent, merge } from 'rxjs';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 
 
 @Component({
@@ -15,34 +16,33 @@ import { SearchModalComponent } from '../../modal/search-modal/search-modal.comp
 })
 
 
-export class MqrDashboardComponent implements OnInit {
+export class MqrDashboardComponent implements OnInit,AfterViewInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('searchInput') input: ElementRef;
   displayedColumns: string[];
-  dataSource: MatTableDataSource<any>;
+  dataSource: TableDataSourceService;
+  totalCount: Observable<any>;
   mode: string;
   title: string;
   subTitle: string;
 
-  constructor(private _service: MqrDashboardService, private _router: Router, private _matDialog: MatDialog, private _snackBar: MatSnackBar) { }
+  constructor(private _service: MqrDashboardService, private _dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _matDialog: MatDialog) {
+    this.totalCount = this._service.getCount()
+  }
 
   ngOnInit() {
     // this.displayedColumns = this._service.GetTableFields();
-    this.displayedColumns = ['referenceNo', 'requestDate', 'requestType', 'businessName', 'requestedBy', 'status', 'tat', 'Operation'];
-    this._service.getAll().subscribe(d => {
-      var filteredData = d.filter(x => x.status !== "CANCELED REQUEST");
-      this.dataSource = new MatTableDataSource(filteredData);
-      this.dataSource.sort = this.sort;
-      this.dataSource.sortingDataAccessor = (item, property) => {
-        switch (property) {
-          case 'requestDate': return new Date(item.requestedDate);
-          default: return item[property];
-        }
-      };
-    });
-
+    this.displayedColumns = ['referenceNo', 'requestedDate', 'requestType', 'businessName', 'requestedBy', 'status', 'tat', 'Operation'];
     this.mode = 'update';
     this.title = 'New Affiliation';
     this.subTitle = '';
+    this.dataSource = new TableDataSourceService(this._service);
+    this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
   }
 
   openSearchDialog() {
@@ -50,18 +50,47 @@ export class MqrDashboardComponent implements OnInit {
       autoFocus: false,
       width: '40%',
       data: {
-        userGroup: 'mqrUser'
+        userGroup: 'mdcsChecker'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(filter => {
+      if (filter) {
+        this._service.filterDashboard(filter).subscribe(filteredList => {
+          this.dataSource.filteredData(filteredList);
+        });
+      } else {
+        this.dataSource.loadTableData('referenceNo', 'desc', 0, 5, '');
       }
     });
   }
-
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+  
 
   getItem(id) {
-    this._service.getMaefData(id).subscribe(x => { 
+    this._service.getMaefData(id).subscribe(x => {
       this._router.navigateByUrl('na/mqrUser/' + id);
     })
+  }
+
+  ngAfterViewInit() {
+    fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(1000),
+        distinctUntilChanged(),
+        tap(() => {
+          this.paginator.pageIndex = 0;
+          this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+            this.paginator.pageSize, this.input.nativeElement.value);
+        })
+      )
+      .subscribe();
+
+    this.sort.sortChange.subscribe((x) => this.paginator.pageIndex = 0);
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        tap(() => this.dataSource.loadTableData(this.sort.active, this.sort.direction, this.paginator.pageIndex,
+          this.paginator.pageSize, this.input.nativeElement.value))
+      )
+      .subscribe();
   }
 }

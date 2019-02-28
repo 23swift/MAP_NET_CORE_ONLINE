@@ -113,6 +113,8 @@ namespace MAP_Web.Models
 
        public string typeOfCnp { get; set;}
 
+       public Nullable<Guid> AuditLogGroupId { get; set; }       
+
        public ICollection<ApproveWithReqReason> ApproveWithReqReason { get; set; }
 
        public ICollection<ApproveWithExceptDetails> ApproveWithExceptDetails { get; set; }

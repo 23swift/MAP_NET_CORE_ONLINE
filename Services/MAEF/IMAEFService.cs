@@ -13,13 +13,15 @@ namespace MAP_Web.Services
        //  void UpdateRequest(Request request, int maefId);
 
          Task SaveChangesAsync();
-         void Update(MAEF maef);
+         Task Update(MAEF maef);
 
          Task InsertRemarksAsync(History history);
 
         Task<History> FindRemarksAsync(int id, string action);
 
         Task<History> CheckRemarksAsync(int id, string action);
+
+        Task InsertRequiredApprovalAsync(RequiredApproval requiredApproval);
 
          
     }

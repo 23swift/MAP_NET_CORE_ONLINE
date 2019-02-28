@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,5 +13,6 @@ namespace MAP_Web.Services
          Task SaveChangesAsync();
          Task Update(CustomerProfile customerProfile);
          void Delete(CustomerProfile customerProfile);
+         Task<IPagedList<ApprovalMatrix>> FindApproveMatrixAsync(string ownership, int requestType);
     }
 }

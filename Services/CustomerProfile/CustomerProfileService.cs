@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
 {
-    public class CustomerProfileService : ICustomerProfileService
+    public class CustomerProfileService : ICustomerProfileService 
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<CustomerProfile> customerRepo;
@@ -14,6 +14,8 @@ namespace MAP_Web.Services
         private readonly IRepository<DocumentList> documentListRepo;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
+
+        private readonly IRepository<ApprovalMatrix> approvalMatrixRepo;
         public CustomerProfileService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
@@ -22,6 +24,7 @@ namespace MAP_Web.Services
             this.documentListRepo = this.unitOfWork.GetRepository<DocumentList>();
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.approvalMatrixRepo = this.unitOfWork.GetRepository<ApprovalMatrix>();
         }
         public async Task InsertAsync(CustomerProfile customerProfile)
         {
@@ -32,9 +35,37 @@ namespace MAP_Web.Services
             request.CreatedBy = "Test User";
             request.ApprovalSetup = new ApprovalSetup();
             request.NewAffiliation = new NewAffiliation();
+            
+            /*for testing insert approvalsetup after saving customer profile 
             request.ApprovalSetup.approvalCount = 2;
             request.ApprovalSetup.rank = "c1";
-            request.ApprovalSetup.requestType = 1;
+            request.ApprovalSetup.requestType = 1;*/
+
+           // test strt
+           /*var approvalMatrix = await FindApproveMatrixAsync("c1", customerProfile.ownership, request.RequestType);
+           request.RequiredApproval = new RequiredApproval();
+           request.RequiredApproval.approvalCount = approvalMatrix.approvalCount;
+           request.RequiredApproval.rank = "c1";
+           request.RequiredApproval.user = "Test User";*/
+           // test end
+
+           // test strt
+         //  var approvalMatrix = await FindApproveMatrixAsync(customerProfile.ownership, request.RequestType);
+          //  request.RequiredApproval = new RequiredApproval();
+         //  foreach (var item in approvalMatrix.Items)
+         //  {
+         //      await request.RequiredApproval.InsertAsync(new RequiredApproval{
+         //           approvalCount = item.approvalCount,
+         //           rank = item.rank,
+         //           user = "Test User",
+         //       });
+         //  }
+          /* request.RequiredApproval = new RequiredApproval();
+           request.RequiredApproval.approvalCount = approvalMatrix.Items[0].approvalCount;
+           request.RequiredApproval.rank = "c1";
+           request.RequiredApproval.user = "Test User";*/
+           // test end           
+
             request.NewAffiliation.AuditLogGroupId = request.AuditLogGroupId;
             request.NewAffiliation.CustomerProfile = customerProfile;
             request.NewAffiliation.CustomerProfile.AuditLogGroupId = request.AuditLogGroupId;
@@ -102,5 +133,12 @@ namespace MAP_Web.Services
         {
             return await customerRepo.GetFirstOrDefaultAsync(predicate: x => x.NewAffiliationId == id);
         }
+
+        public async Task<IPagedList<ApprovalMatrix>> FindApproveMatrixAsync(string ownership, int requestType)
+        {
+            var approvalMatrix = await approvalMatrixRepo.GetPagedListAsync(predicate: a => a.ownership == ownership && a.requestType == requestType);
+            return approvalMatrix; 
+        }      
+    
     }
 }

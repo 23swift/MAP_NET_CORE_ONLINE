@@ -5807,6 +5807,7 @@ export class BranchFormService {
           type: 'radio',
           templateOptions: {
             label: 'Tax Code?',
+            required: true,
             options: [
               { value: 'WT', label: 'With Tax' },
               { value: 'NTTR', label: "No Tax Type Required" }

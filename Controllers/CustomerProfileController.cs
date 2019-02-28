@@ -19,6 +19,17 @@ namespace MAP_Web.Controllers
             this.customerProfileService = customerProfileService;
         }
 
+        [HttpGet("test/{ownership}/{requestType}")]
+        public async Task<IActionResult> test(string ownership, int requestType)
+        {
+            var customer = await customerProfileService.FindApproveMatrixAsync("SP",0);
+
+            if (customer == null)
+                return NotFound();
+
+            return Ok(customer);
+        }        
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerProfile(int id)
         {
@@ -38,6 +49,8 @@ namespace MAP_Web.Controllers
 
             await customerProfileService.InsertAsync(customer);
             await customerProfileService.SaveChangesAsync();
+
+
 
             return Ok(new { id = customer.Id, newAffiliationId = customer.NewAffiliationId});
         }

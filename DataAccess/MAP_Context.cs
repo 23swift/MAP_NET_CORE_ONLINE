@@ -42,6 +42,11 @@ namespace MAP_Web.DataAccess
         public virtual DbSet<Models.ApproveWithExceptDetailsMqr> ApproveWithExceptDetailsMqr { get; set; }
         public virtual DbSet<Models.ApproveWithExceptDetailsAwr> ApproveWithExceptDetailsAwr { get; set; }
         public virtual DbSet<Models.AwrMaef> AwrMaef { get; set; }
+        public virtual DbSet<Models.RequestApproval> RequestApproval { get; set; }
+
+        public virtual DbSet<Models.ApprovalMatrix> ApprovalMatrix { get; set; }
+
+        public virtual DbSet<Models.Remark> Remark { get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -88,7 +93,7 @@ namespace MAP_Web.DataAccess
             .Where(p => p.State == EntityState.Added ||
             p.State == EntityState.Modified ||
             p.State == EntityState.Deleted).ToList();
-            await _AuditLogService.Save(modifiedEntities);
+          //  await _AuditLogService.Save(modifiedEntities);
             int result = await base.SaveChangesAsync();
             return result;
         }

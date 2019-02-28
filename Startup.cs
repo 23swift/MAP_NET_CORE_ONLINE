@@ -106,6 +106,7 @@ namespace MAP_Web
             services.AddScoped<IApproveWithReqReasonMqrService, ApproveWithReqReasonMqrService>();
             services.AddScoped<IApproveWithExceptDetailsAwrService, ApproveWithExceptDetailsAwrService>();
             services.AddScoped<IAwrMaefFormService, AwrMaefFormService>();
+            services.AddScoped<IReturnRemarksService, ReturnRemarksService>();
 
 
 

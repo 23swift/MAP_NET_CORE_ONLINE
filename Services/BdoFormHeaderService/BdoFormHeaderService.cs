@@ -14,6 +14,10 @@ namespace MAP_Web.Services
         private readonly IRepository<ApprovalCount> approvalCountRepo;
 
         private readonly IRepository<ApprovalSetup> approvalSetupRepo;
+
+        private readonly IRepository<RequiredApproval> requiredApprovalRepo;
+
+        private readonly IRepository<RequestApproval> requestApprovalRepo;
         
         public BdoFormHeaderService(IUnitOfWork unitOfWork)
         {
@@ -21,6 +25,8 @@ namespace MAP_Web.Services
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
             this.approvalCountRepo = this.unitOfWork.GetRepository<ApprovalCount>();
             this.approvalSetupRepo = this.unitOfWork.GetRepository<ApprovalSetup>();
+            this.requiredApprovalRepo = this.unitOfWork.GetRepository<RequiredApproval>();
+            this.requestApprovalRepo = this.unitOfWork.GetRepository<RequestApproval>();
         }        
 
         public async Task<Request> FindAsync(int id)
@@ -41,19 +47,19 @@ namespace MAP_Web.Services
 
         public async Task<int> ApproveCountAsync(int requestId)
         {   
-            var approvalCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
+            var approvalCount = await requestApprovalRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
             return approvalCount.Items.Where(a => a.approve == true).Select(a => a.user).Distinct().Count();
         }
 
         public async Task<int> CheckUserCountAsync(int requestId, string user)
         {
-            var userCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId && a.user == user);
+            var userCount = await requestApprovalRepo.GetPagedListAsync(predicate: a => a.requestId == requestId && a.user == user);
             return userCount.TotalCount;            
         }
 
         public async Task<int> DeclineCountAsync(int requestId)
         {   
-            var approvalCount = await approvalCountRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
+            var approvalCount = await requestApprovalRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
             return approvalCount.Items.Where(a => a.approve == false).Select(a => a.user).Distinct().Count();
         }
 
@@ -63,16 +69,27 @@ namespace MAP_Web.Services
             return isApproveCount.Items.Where(a => a.approve == true).Select(a => a.user).Distinct().Count();
         } */
 
-        public async Task InsertAsync(ApprovalCount approvalCount)
+        public async Task InsertAsync(RequestApproval requestApproval)
         {
-            await approvalCountRepo.InsertAsync(approvalCount);
+            await requestApprovalRepo.InsertAsync(requestApproval);
         } 
 
-        public async Task<int> GetApproveCount(int requestId)
-        {   
-            var approvalSetup = await approvalSetupRepo.GetFirstOrDefaultAsync(predicate: a => a.requestId == requestId);
-            return approvalSetup.approvalCount;
-        }        
+        public async Task<int> GetApproveCount(int requestId)  //count approval count on requiredapproval table
+        {  
+            /*previous 
+            var approvalSetup = await requiredApprovalRepo.GetFirstOrDefaultAsync(predicate: a => a.requestId == requestId);
+            return approvalSetup.approvalCount;*/
+
+            var approvalSetup = await requiredApprovalRepo.GetPagedListAsync(predicate: a => a.requestId == requestId);
+            return approvalSetup.Items.Where(a => a.requestId == requestId).GroupBy(r => r.requestId).Select(a => a.Sum(c => c.approvalCount)).SingleOrDefault();
+        }
+
+        public async Task<int> CheckRequestApproveCount(int requestId)
+        {
+            var requestApprove = await requestApprovalRepo.GetPagedListAsync(include: r => r.Include(rr => rr.Request) ,predicate: a => a.requestId == requestId && a.Request.Status == 8);
+            return requestApprove.Items.Select(a => a.user).Distinct().Count();
+            
+        }
 
 
     }

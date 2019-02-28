@@ -182,6 +182,7 @@ import { MqrBranchListComponent } from './mqr-branch-list/mqr-branch-list.compon
 import { DataTableComponent } from './data-table/data-table.component';
 import { DatePipe } from '@angular/common';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { RemarksComponent } from './remarks/remarks.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -374,7 +375,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     ApproveWithExceptReasonAwrDetailsModalComponent,
     MqrBranchListComponent,
     DataTableComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    RemarksComponent
   ],
   imports: [
     BrowserModule,

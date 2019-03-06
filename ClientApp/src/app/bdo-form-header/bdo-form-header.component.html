@@ -14,17 +14,15 @@
 
         <div fxLayout="row" fxLayoutGap="6px" fxLayoutAlign="space-around center">
             <span fxFlex></span>
-            <button *ngIf="showRequestFlowOptions" (click)="returnToAOByMAMO()" mat-flat-button color="primary"
-                matTooltip="Return Request">
-                <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request
-            </button>
-            <button *ngIf="showRequestFlowOptions" (click)="submittoApprover()" mat-flat-button color="primary"
-                matTooltip="Submit Request">
-                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request
-            </button>
-            <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Complete">
-                <mat-icon class="request-mat-icon">done</mat-icon> Complete
-            </button>
+         <!--   <button  (click)="reSubmitRequestMQR()" mat-flat-button matTooltip="Submit Request">
+                Accept Decline</button>  -->
+
+           <button *ngIf="showRequestFlowOptions" (click)="returnToAOByMAMO()" mat-flat-button color="primary" matTooltip="Return Request">
+                <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request</button>
+            <button *ngIf="showRequestFlowOptions" (click)="submittoApprover()" mat-flat-button color="primary" matTooltip="Submit Request">
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>
+                <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Complete">
+                    <mat-icon class="request-mat-icon">done</mat-icon> Complete</button>
             <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Notify AO">
                 <mat-icon class="request-mat-icon">notifications</mat-icon> Notify AO
             </button>
@@ -83,8 +81,10 @@
                 <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request
             </button>
             <button *ngIf="showReturnRequestMQR" (click)="reSubmitRequestMQR()" mat-flat-button matTooltip="Submit Request">
-                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request
-            </button>
+                <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request</button>  
+                
+
+               
 
 
         </div>
@@ -101,11 +101,9 @@
                     <mat-icon class="request-mat-icon">subdirectory_arrow_left</mat-icon> Return Request
                 </button>
                 <button *ngIf="showRequestFlowOptions" (click)="submit()" mat-flat-button color="primary" matTooltip="Submit Request">
-                    <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request
-                </button>
-                <button *ngIf="showWelcomeLetter" (click)="complete()" mat-flat-button color="primary" matTooltip="Complete">
-                    <mat-icon class="request-mat-icon">done</mat-icon> Complete
-                </button>
+                    <mat-icon class="request-mat-icon">arrow_forward</mat-icon> Submit Request1</button>
+                    <button *ngIf="showWelcomeLetter" (click)="complete()" mat-flat-button color="primary" matTooltip="Complete">
+                        <mat-icon class="request-mat-icon">done</mat-icon> Complete</button>
                 <button *ngIf="showWelcomeLetter" (click)="submit()" mat-flat-button color="primary" matTooltip="Notify AO">
                     <mat-icon class="request-mat-icon">notifications</mat-icon> Notify AO
                 </button>

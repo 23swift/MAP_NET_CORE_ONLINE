@@ -843,6 +843,7 @@ export class  MaefFormService {
           label: 'Processed By',
           placeholder: 'Processed By',
           maxLength: 1000,
+          disabled: true
         },
       },
       {
@@ -854,8 +855,8 @@ export class  MaefFormService {
         },
         templateOptions: {
           label: 'Processed Date',
-          placeholder: 'Processed Date',
-          required: true
+          placeholder: 'Processed Date',         
+          disabled: true
         }
       },
       ]

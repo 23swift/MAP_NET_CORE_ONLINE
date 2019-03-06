@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace MAP_Web.Models
 {
+  /*  
     public class RequestApproval
     {
         public Int32 Id { get; set; }
@@ -16,17 +17,21 @@ namespace MAP_Web.Models
         public string Rank { get; set; }
         public Request Request { get; set; }
     }
+    */
 
-    public class RequiredApproval
+/*     public class RequiredApproval
     {
-        public Int32 Id { get; set; }
+       public Int32 Id { get; set; }
        // public Int32 ApprovalCount { get; set; }
-        public string Rank { get; set; }
+        public string rank { get; set; }
+        public int approvalCount { get; set;} 
+        public int requestId { get; set; }        
         public Request Request { get; set; }
-        public String User { get; set; }
-        public bool isApproved { get; set; }
+        public String user { get; set; }
+        public bool isApproved { get; set; } 
 
-    }
+    }*/
+
     public class MQRRequestApproval
     {
         public Int32 Id { get; set; }

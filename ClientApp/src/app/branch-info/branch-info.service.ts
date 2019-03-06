@@ -11,10 +11,6 @@ import { DropDownService } from 'src/app/services/drop-down.service';
 export class BranchInfoService {
 
 
-
-
-
-
   constructor(private _http: HttpClient, private _dropDownService: DropDownService) {    
   }
 

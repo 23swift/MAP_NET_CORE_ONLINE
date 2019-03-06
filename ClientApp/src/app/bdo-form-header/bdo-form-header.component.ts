@@ -72,7 +72,7 @@ export class BdoFormHeaderComponent implements OnInit {
 
     if (this._router.url.indexOf('/home')) {
       if (this.mode.match(/^approver$/i)) {
-        this._maefFormService.getApproveUserCount(this.requestId, 'Approver2').subscribe(data => {
+        this._maefFormService.getApproveUserCount(this.requestId, 'Approver1').subscribe(data => {
           this.userCount = data;
           if (this.userCount != 0)
             {
@@ -303,6 +303,7 @@ export class BdoFormHeaderComponent implements OnInit {
       const snackBarRef = this._snackBar.open('Approved', 'Saved', {
         duration: 1000
       });
+      this._router.navigateByUrl('/home/approver');
     });
   }
 

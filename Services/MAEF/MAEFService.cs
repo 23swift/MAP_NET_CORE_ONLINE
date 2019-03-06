@@ -15,12 +15,15 @@ namespace MAP_Web.Services
 
         private readonly IRepository<History> historyRepo;
 
+        private readonly IRepository<RequiredApproval> requiredApprovalRepo;
+
         public MAEFService(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
             this.maefRepo = this.unitOfWork.GetRepository<MAEF>();
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
+            this.requiredApprovalRepo = this.unitOfWork.GetRepository<RequiredApproval>();
         }
 
         public async Task InsertAsync(MAEF maef)
@@ -50,8 +53,20 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(MAEF maef)
+        public async Task Update(MAEF maef)
         {
+            var maefData = await requestRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == maef.RequestId);
+            maefData.AuditLogGroupId = maef.AuditLogGroupId;
+
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "MAEF Details Updated",
+                groupCode = "Test Group Code",
+                user = "Test User",
+                RequestId = maefData.Id,
+                AuditLogGroupId = maefData.AuditLogGroupId
+            }); 
+
             maefRepo.Update(maef);
         }
 
@@ -78,6 +93,11 @@ namespace MAP_Web.Services
             request.MAEFId = maefId;
             requestRepo.Update(request);
         } */
+
+        public async Task InsertRequiredApprovalAsync(RequiredApproval requiredApproval)
+        {
+             await requiredApprovalRepo.InsertAsync(requiredApproval);
+        }
 
 
     }

@@ -1,6 +1,4 @@
-import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AoEncoderDashboardService } from '../dashboard/ao-encoder-dashboard/ao-encoder-dashboard.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 
 export class TableDataSourceService implements DataSource<any> {

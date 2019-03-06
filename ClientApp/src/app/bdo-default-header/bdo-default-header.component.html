@@ -12,7 +12,7 @@
                 <span class="mat-title" style="font-weight: bold;">1.0.0</span>
             </div>
             <div>
-                <a routerLink="/" mat-button>LOG OUT</a>
+                <button mat-button (click)="logout()">LOG OUT</button>
             </div>
         </div>
         <div style="width: 100%;">
@@ -22,7 +22,7 @@
         </div>
         <div style="width: 100%;" class="bdo-blue-1">
             <div style="display: flex; flex-direction: row; justify-content: space-between;">
-                <div class="mat-subheading-1" style="margin: 0px;">Welcome, Juan dela Cruz</div>
+                <div class="mat-subheading-1" style="margin: 0px;">Welcome, {{ (claims$ | async)?.name }}</div>
                 <div class="mat-subheading-1" style="margin: 0 5px 0 0;">{{ systemDate }}<span style="margin-left: 20px;">{{ systemTime }}</span></div>
             </div>
         </div>

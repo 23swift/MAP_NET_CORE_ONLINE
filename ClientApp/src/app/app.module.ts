@@ -183,6 +183,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { DatePipe } from '@angular/common';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PrintDebitModalComponent } from './modal/print-debit-modal/print-debit-modal.component';
+import { NoAccessPageComponent } from './no-access-page/no-access-page.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -376,7 +377,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     MqrBranchListComponent,
     DataTableComponent,
     ErrorPageComponent,
-    PrintDebitModalComponent
+    PrintDebitModalComponent,
+    NoAccessPageComponent
   ],
   imports: [
     BrowserModule,

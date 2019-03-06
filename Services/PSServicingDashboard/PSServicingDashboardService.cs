@@ -147,7 +147,6 @@ namespace MAP_Web.Services
             var requests = await this._requestRepo.GetPagedListAsync(
                             include: r => r.Include(rr => rr.NewAffiliation)
                                 .ThenInclude(n => n.CustomerProfile));
-
             return requests.Items.Count;
         }
     }

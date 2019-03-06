@@ -75,6 +75,7 @@ import { PosListComponent } from './pos-list/pos-list.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { CanActivateService } from './services/can-activate.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { NoAccessPageComponent } from './no-access-page/no-access-page.component';
 
 
 
@@ -142,7 +143,7 @@ const routes: Routes = [
   { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent, canActivate: [CanActivateService] },
   { path: 'na/mdm/:id', component: MdmUserComponent },
   { path: 'na/pss/:id', component: PsServicingComponent },
-  { path: 'error-page', component: ErrorPageComponent },
+  { path: 'no-access', component: NoAccessPageComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
   { path: 'home/:userGroup', component: HomeScreenComponent, canActivate: [CanActivateService] },
   { path: 'awr', component: AwrFormComponent },

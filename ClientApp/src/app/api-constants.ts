@@ -36,6 +36,7 @@ export namespace ApiConstants {
     export const approveWithExceptDetailsMqrApi = '/api/approveWithExceptDetailsMqr';
     export const approveWithExceptDetailsAwrApi = '/api/approveWithExceptDetailsAwr';
     export const awrMaefFormApi = '/api/awrMaefForm';
+    export const logoutApi = '/api/logout';
 
     export const corsApi = '/api/cors';
 

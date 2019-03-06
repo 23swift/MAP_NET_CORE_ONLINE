@@ -154,11 +154,13 @@ namespace MAP_Web
                         //NameClaimType = ClaimTypes.Name,
                         //RoleClaimType = ClaimTypes.Role
                     };
-                    // options.ClaimActions.MapUniqueJsonKey("role", "role");
                     options.ClaimActions.MapJsonKey("role", "role");
-                    options.ClaimActions.MapJsonKey("Permission", "Permission");
-
-                    // options.ClaimActions.MapJsonKey("website", "website");
+                    options.ClaimActions.MapJsonKey("access", "access");
+                    options.ClaimActions.MapJsonKey("dashboard", "dashboard");
+                    options.ClaimActions.MapJsonKey("route", "route");
+                    options.ClaimActions.MapJsonKey("rank", "rank");
+                    options.ClaimActions.MapJsonKey("group", "group");
+                    options.ClaimActions.MapJsonKey("userId", "userId");
 
                 }); */
 

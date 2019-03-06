@@ -9,6 +9,9 @@ using MAP_Web.Models.ViewModels;
 using System.Security.Claims;
 using System.Threading;
 using System.Linq;
+using IdentityModel.Client;
+using Microsoft.AspNetCore.Authentication;
+using System.Net.Http;
 
 namespace MAP_Web.Controllers
 {
@@ -25,19 +28,45 @@ namespace MAP_Web.Controllers
         public IActionResult GetAccess()
         {
             var id = new ClaimsIdentity(User.Claims, "Forms", "name", "role");
-            var currentPrincipal = new ClaimsPrincipal(id);
-            Thread.CurrentPrincipal = currentPrincipal;
+            // var currentPrincipal = new ClaimsPrincipal(id);
+            // Thread.CurrentPrincipal = currentPrincipal;
 
             // var identity = User.Identity as ClaimsIdentity;
-            var r = User.IsInRole("AO Encoder");
+            // var r = User.IsInRole("AO Encoder");
             var claims = id.Claims.ToList();
             ClaimsViewModel claimsVm = new ClaimsViewModel {
-                userGroup = claims.Where(c => c.Type == "role").SingleOrDefault().Value,
                 name = claims.Where(c => c.Type == "name").SingleOrDefault().Value,
+                rank = claims.Where(c => c.Type == "rank").SingleOrDefault().Value,
+                role = claims.Where(c => c.Type == "role").Select(s => s.Value),
+                access = claims.Where(c => c.Type == "access").Select(s => s.Value)
             };
-            var uid = User.Identity.Name;
+
+            // claims.ForEach(v => {
+            //     if (v.Type == "role") {
+            //         claimsVm.role.Add(v.Value);
+            //     }
+            //     if (v.Type == "access") {
+            //         claimsVm.access.Add(v.Value);
+            //     }
+            // });
+            // var accessToken = await HttpContext.GetTokenAsync("access_token");
+            // var client = new HttpClient();
+            // client.SetBearerToken(accessToken);
+            // var userInfoClient = client.GetUserInfoAsync(new UserInfoRequest { Address = "http://localhost:5000/connect/userinfo", Token = accessToken });
+            // var response = userInfoClient.Result.Claims.ToList();
+            // var uid = User.Identity.Name;
             // TODO: Your code here
             return Ok(claimsVm);
+        }
+
+        [HttpGet("name")]
+        public IActionResult GetName()
+        {
+            var id = new ClaimsIdentity(User.Claims, "Forms", "name", "role");
+            var claims = id.Claims.ToList();
+            string userName = claims.Where(c => c.Type == "name").SingleOrDefault().Value;
+
+            return Ok(new { name = userName });
         }
 
         [HttpGet("status")]

@@ -113,7 +113,7 @@ namespace MAP_Web
             services.AddScoped<IReturnRemarksService, ReturnRemarksService>();
             services.AddScoped<IMDMHeaderService, MDMHeaderService>();
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+      /*      services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
                     {
                         builder.AllowAnyOrigin()
                                .AllowAnyMethod()
@@ -160,7 +160,7 @@ namespace MAP_Web
 
                     // options.ClaimActions.MapJsonKey("website", "website");
 
-                });
+                }); */
 
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
@@ -192,7 +192,7 @@ namespace MAP_Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            app.UseAuthentication();
+           // app.UseAuthentication();
 
             // Enable CORS policy on project level
             // app.UseCors("MyPolicy");
@@ -206,7 +206,7 @@ namespace MAP_Web
 
 
 
-            app.Use(async (context, next) =>
+       /*     app.Use(async (context, next) =>
             {
                 if (!context.User.Identity.IsAuthenticated)
                 {
@@ -219,7 +219,7 @@ namespace MAP_Web
                 {
                     await next();
                 }
-            });
+            });  */
 
             app.UseSpa(spa =>
             {

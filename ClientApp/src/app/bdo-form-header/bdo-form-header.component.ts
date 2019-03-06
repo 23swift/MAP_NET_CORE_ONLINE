@@ -33,6 +33,7 @@ export class BdoFormHeaderComponent implements OnInit {
   showMqrUserProcessingButton: boolean;
   showMdcsChecking: boolean;
   showPreScreen: boolean;
+  showAOChecker: boolean;
   newAffiliationId: number;
   requestId: number;
   userCount: number;
@@ -67,6 +68,7 @@ export class BdoFormHeaderComponent implements OnInit {
     this.showReturnRequestMAMO = false;
     this.showReturnRequestApprover = false;
     this.showReturnRequestMQR = false;
+    this.showAOChecker = false;
 
     this.mode = this.mode ? this.mode : 'create';
 
@@ -83,7 +85,7 @@ export class BdoFormHeaderComponent implements OnInit {
         this.showApprovalOptions = true;
       }
       if (this.mode.match(/^aoChecker$/i) /*|| this.mode.match(/^approval/)*/) {
-        this.showRequestFlowOptions = true;
+        this.showAOChecker = true;
       }
       if (this.mode.match(/^create$/i)) {
         this.showCreateOptions = true;
@@ -229,27 +231,23 @@ export class BdoFormHeaderComponent implements OnInit {
     });   
   }
 
-  returntoAO(): void {
+  returntoAO() { //ao checker function
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
       data: {
         newAffiliationId: this.newAffiliationId,
-        actionCode: 'Return To AO'
+        actionCode: 'Return To AO By AO Checker',
+        requestStatus: 9 //for saving of remarks
       }
     });
 
     dialog.afterClosed().subscribe(d => {
-     /* this._newAffiliationService.returnToAoEncoder(this.newAffiliationId).subscribe(dd => {
-        const snackBarRef = this._snackBar.open('Request', 'Returned', {
-          duration: 1000
-        });
+      if(d === null)
+      {
+      this._router.navigateByUrl('/home/aoChecker');
+      }
+    });       
 
-        snackBarRef.afterDismissed().subscribe(s => {
-          this._router.navigateByUrl('/home/aoChecker');
-        })
-      }); */
-
-    }); 
   }
 
   submittoApprover(): void {

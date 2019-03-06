@@ -1,8 +1,8 @@
-<mat-card class="mat-card-bg">
+<mat-card class="mat-card-bg" *ngIf="dataSource?.length">
   <mat-card-title><div class="xbtn"><a href="#"> <i class="material-icons md-18">close</i> </a></div></mat-card-title><br>
   <div *ngFor="let items of dataSource">
   <mat-card-title>{{items.user}}<div class="xbtn">{{items.date | date: 'ddMMMyyyy'}}</div><br>
-    Remarks: {{items.remarks}}<div class="xbtn"><mat-icon style="color:white;" *ngIf="showVisible(items.id)">add</mat-icon></div></mat-card-title>
+    Remarks: {{items.remarks}}<div class="xbtn"><button (click)="AOreplytoChecker()" mat-icon-button color="primary" matTooltip="Add Reply"><mat-icon style="color:white;" *ngIf="showVisible(items.id)">add</mat-icon></button><button (click)="UpdateAOreplytoChecker(items.id)" mat-icon-button color="primary" matTooltip="Edit Reply"><mat-icon style="color:white;" *ngIf="showVisible(items.id)">edit</mat-icon></button></div></mat-card-title>
   <hr>
   </div>   
   <mat-card-subtitle>

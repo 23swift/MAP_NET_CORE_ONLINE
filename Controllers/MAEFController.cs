@@ -98,7 +98,7 @@ namespace MAP_Web.Controllers {
             return Ok (true);
         }
 
-        [HttpPut ("returnToAo/{id}")]
+        [HttpPut ("returnToAo/{id}")] //by ao checker 
         public async Task<IActionResult> ReturnToAo (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Return To AO";
@@ -514,20 +514,59 @@ namespace MAP_Web.Controllers {
             return Ok (appCount);
         }
 
-        [HttpGet ("returnRemarks/{id}")] 
-        public async Task<IActionResult> GetReturnRemarks (int id) {
-            var returnRemarks = await returnRemarksService.FindByRequestAsync (id);
+        [HttpGet ("returnRemarks/{id}/{status}")] 
+        public async Task<IActionResult> GetReturnRemarks (int id, int status) {
+            var returnRemarks = await returnRemarksService.FindByRequestAsync (id, status);
        
             var mappedReturnRemarks = mapper.Map<IList<Remark>, IList<RemarkViewModel>>(returnRemarks.Items);
 
             return Ok (mappedReturnRemarks);
         } 
 
-        [HttpGet ("lastRemarks/{id}")]
-        public async Task<IActionResult> GetLastRemarks (int id) {
-            var returnRemarks = await returnRemarksService.FindLastRemarksAsync (id);
+        [HttpGet ("lastRemarks/{id}/{status}")]
+        public async Task<IActionResult> GetLastRemarks (int id, int status) {
+            var returnRemarks = await returnRemarksService.FindLastRemarksAsync (id, status);
             return Ok (returnRemarks);
-        }           
+        }
 
+        [HttpPost ("remarks")]
+        public async Task<IActionResult> CreateRemarks ([FromBody] Remark remark)
+        {
+            await returnRemarksService.InsertRemarksAsync (remark);
+            await returnRemarksService.SaveChangesAsync ();
+
+            return Ok (remark);
+        }
+
+        [HttpPut ("remarks/{id}")]
+        public async Task<IActionResult> UpdateRemarks ([FromBody] RemarkViewModel remark, int id) {
+            if (!ModelState.IsValid)
+                return BadRequest (ModelState);
+
+            var currentRemarks = await returnRemarksService.FindAsync (id);
+
+            if (currentRemarks == null)
+                return NotFound ();
+
+            mapper.Map<RemarkViewModel, Remark> (remark, currentRemarks);
+            await returnRemarksService.Update (currentRemarks);
+            await returnRemarksService.SaveChangesAsync ();
+
+            return Ok (currentRemarks);
+        }
+
+        [HttpGet("remark/{id}")]
+        public async Task<IActionResult> GetRemark(int id)
+        {
+            var remark  = await returnRemarksService.FindAsync (id);
+            return Ok (remark);
+        }
+
+        [HttpGet("ccc/{id}/{user}")]
+        public async Task<IActionResult> test(int id, string user)
+        {
+         var remark = await returnRemarksService.CheckRemarkAsync(id, user);
+         return Ok (remark);
+        }
     }
 }

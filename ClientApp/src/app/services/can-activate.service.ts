@@ -15,14 +15,15 @@ export class CanActivateService implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ) {
-        if (!this.claims) {
-            return this._http.get(ApiConstants.corsApi + '/access').toPromise().then(v => {
-                this.claims = v;
+        // if (!this.claims) {
+        //     return this._http.get(ApiConstants.corsApi + '/access').toPromise().then(v => {
+        //         this.claims = v;
 
-                return true;
-            });
-        } else {
-            return true;
-        }
+        //         return true;
+        //     });
+        // } else {
+        //     return true;
+        // }
+        return true;
     }
 }

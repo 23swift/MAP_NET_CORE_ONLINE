@@ -43,8 +43,8 @@ export class AoEncoderComponent implements OnInit {
 
   ngOnInit() {
    // this.mode = 'create';
-   //this.mode = 'returnRequestChecker';
-   this.mode = 'returnRequestMAMO';
+   this.mode = 'returnRequestChecker';
+   //this.mode = 'returnRequestMAMO';
   }
 
   public completed(stepper: MatStepper, form: string) {

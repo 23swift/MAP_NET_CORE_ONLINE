@@ -1,3 +1,4 @@
+import { RemarksService } from './../../remarks/remarks.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -15,7 +16,7 @@ export interface RemModal {
   selector: 'app-remarks-modal',
   templateUrl: './remarks-modal.component.html',
   styleUrls: ['./remarks-modal.component.css'],
-  providers: [RemarksModalService, MaefFormService]
+  providers: [RemarksModalService, MaefFormService, RemarksService]
 })
 
 export class RemarksModalComponent implements OnInit {
@@ -34,15 +35,16 @@ export class RemarksModalComponent implements OnInit {
   status: number;
   buttonName: string;
 
-  constructor(private _modalRef: MatDialogRef<RemarksModalComponent>, private _remarksModalService: RemarksModalService, private _maefFormService: MaefFormService, @Inject(MAT_DIALOG_DATA) public data: any,
+  constructor(private _modalRef: MatDialogRef<RemarksModalComponent>, private _remarksModalService: RemarksModalService, private _maefFormService: MaefFormService, private _remarksService: RemarksService, @Inject(MAT_DIALOG_DATA) public data: any,
     private _snackBar: MatSnackBar, ) {
     this.form = new FormGroup({
       remarks: new FormControl('')
     });
-
     this.date = new Date().toLocaleDateString();
+    this.status = this.data['requestStatus'];
 
-   
+    if(!this.data['rtype'])
+    {
     this._maefFormService.checkRemarks(this.data['newAffiliationId'], this.data['actionCode']).subscribe(data => {
       this.ifWithRemarks= data;
           if (this.ifWithRemarks == true)
@@ -55,14 +57,27 @@ export class RemarksModalComponent implements OnInit {
              this.showSubmit = false;
              this.showEdit = true;
           }
-    });    
-   
-    
+    });
+    }
+    else 
+    {
+       if(this.data['remarksId'])
+         {
+          this._remarksService.getRemark(this.data['remarksId']).subscribe(data => {
+            this.form.controls['remarks'].setValue(data.remarks);
+          })
+         }
+      else
+         {
+           console.log("add");
+         }
+    }
+           
   }
 
   ngOnInit() {
     this.model = { remarks: '', requestId: this.data['newAffiliationId'], user: '', groupCode: '', action: '', date: '' };
-    if (this.data.actionCode == "Return To AO By MAMO" || this.data.actionCode == "Return To AO By Approver")
+    if (this.data.actionCode == "Return To AO By MAMO" || this.data.actionCode == "Return To AO By Approver" || this.data.actionCode == "Return To AO By AO Checker")
       {
         this.buttonName = 'Return To AO';
       }
@@ -73,7 +88,12 @@ export class RemarksModalComponent implements OnInit {
     else if (this.data.actionCode == "Return To MAMO")
       {
         this.buttonName = 'Return To MAMO'
-      }  
+      } 
+     else
+     {
+
+     }
+     
    console.log(this.data.actionCode + 'ffde');
    // if (this.form.value['remarks'] == '') {
    //   this.form.get('remarks').disable();
@@ -88,21 +108,37 @@ export class RemarksModalComponent implements OnInit {
     this.model['actionCode'] =this.data['actionCode'];
     this.model['date'] =  this.date;
     this.model['id'] = undefined;
+    this.model['status'] = this.status;
     this._remarksModalService.create(this.model).subscribe(data => {
       const snackBarRef = this._snackBar.open( this.data['actionCode'] + ' Details', 'Saved', {
         duration: 1000
       });
       this.showSubmit = false;
       this.showEdit = true;
-      this.form.get('remarks').disable();      
+      this.form.get('remarks').disable();   
+    //
+    if(this.data['remarksId'] == undefined) 
+    {
+    this._remarksService.create(this.model).subscribe(data => {
+    })
+    }
+    else
+    {
+     this.model['id'] = this.data['remarksId']; 
+     console.log(this.model); 
+     this._remarksService.update(this.data['remarksId'],this.model).subscribe(data => {      
+     })  
+    }
+    //   
       snackBarRef.afterDismissed().subscribe(s => {
-        //this._modalRef.close(data);
+       // this._modalRef.close(data);
       });
     });
+
   }
 
   update() {
-    if (this.data['actionCode'] == 'Return To AO')
+    if (this.data['actionCode'] == 'Return To AO By AO Checker')
     {
     this._maefFormService.ReturntoAO(this.data['newAffiliationId']).subscribe(data => {
       const snackBarRef = this._snackBar.open( this.data['actionCode'], 'Saved', {

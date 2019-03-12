@@ -184,6 +184,7 @@ import { DatePipe } from '@angular/common';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { RemarksComponent } from './remarks/remarks.component';
 import { PrintDebitModalComponent } from './modal/print-debit-modal/print-debit-modal.component';
+import { NoAccessPageComponent } from './no-access-page/no-access-page.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -377,6 +378,7 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     MqrBranchListComponent,
     DataTableComponent,
     ErrorPageComponent,
+    NoAccessPageComponent,
     RemarksComponent,
     PrintDebitModalComponent
   ],
@@ -514,13 +516,13 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     ApproveWithReqReasonMqrFormModalComponent,
     ApproveWithExceptReasonAwrDetailsModalComponent,
     PrintDebitModalComponent],
-    providers: [
-          {
-              provide: HTTP_INTERCEPTORS,
-              useClass: HttpInterceptorService,
-              multi: true
-          },
-          DatePipe],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
+    DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

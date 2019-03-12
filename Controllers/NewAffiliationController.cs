@@ -58,6 +58,7 @@ namespace MAP_Web.Controllers
         public async Task<IActionResult> UpdateRequestForAoChecker(int id)
         {
             var request = await newAffiliationService.FindAsync(id);
+            
             await newAffiliationService.UpdateRequest(request, 3);
 
 

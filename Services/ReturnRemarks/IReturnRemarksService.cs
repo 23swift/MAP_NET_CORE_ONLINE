@@ -7,7 +7,12 @@ namespace MAP_Web.Services
     public interface IReturnRemarksService
     {
          Task<Remark> FindAsync(int id);    
-         Task<IPagedList<Remark>> FindByRequestAsync(int id); 
-         Task<int> FindLastRemarksAsync(int id);    
+         Task<IPagedList<Remark>> FindByRequestAsync(int id, int status); 
+         Task<int> FindLastRemarksAsync(int id, int status);  
+         Task InsertRemarksAsync(Remark remark);
+         Task SaveChangesAsync();
+         Task Update(Remark remark);
+         Task<string> CheckRemarkAsync(int id, string user);
+
     }
 }

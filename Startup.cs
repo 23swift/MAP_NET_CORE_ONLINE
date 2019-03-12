@@ -197,7 +197,7 @@ namespace MAP_Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-           // app.UseAuthentication();
+           app.UseAuthentication();
 
             // Enable CORS policy on project level
             // app.UseCors("MyPolicy");
@@ -211,20 +211,20 @@ namespace MAP_Web
 
 
 
-       /*     app.Use(async (context, next) =>
+           app.Use(async (context, next) =>
             {
                 if (!context.User.Identity.IsAuthenticated)
                 {
                     await context.ChallengeAsync("oidc",
                     new AuthenticationProperties { RedirectUri = "/" });
 
-                    // await context.ChallengeAsync("oidc");
+                    await context.ChallengeAsync("oidc");
                 }
                 else
                 {
                     await next();
                 }
-            });  */
+            });  
 
             app.UseSpa(spa =>
             {

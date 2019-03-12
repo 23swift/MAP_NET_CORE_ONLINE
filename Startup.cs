@@ -14,6 +14,7 @@ using MAP_Web.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
+using System.Collections.Generic;
 
 
 namespace MAP_Web
@@ -174,6 +175,8 @@ namespace MAP_Web
                 configuration.RootPath = "ClientApp/dist";
             });
 
+            // services.AddSingleton(Configuration.GetSection("RequestStatus").Get<List<StatusConfiguration>>());
+            services.Configure<List<StatusConfiguration>>(Configuration.GetSection("RequestStatus"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

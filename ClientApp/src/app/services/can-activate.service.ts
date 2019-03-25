@@ -28,11 +28,13 @@ export class CanActivateService implements CanActivate {
         if (this.claims$.getValue() === null) {
             return this.accessGuard(this._http.get<Claims>(ApiConstants.corsApi + '/access'), true, state);
         } else {
+            console.log(state);
             return this.accessGuard(this.claims$, false, state);
         }
     }
 
     accessGuard(obs: Observable<Claims>, saveClaims: boolean, state: RouterStateSnapshot) {
+        console.log(saveClaims);
         let hasAccess = false;
         return obs.toPromise().then((c: Claims) => {
             if (saveClaims) {
@@ -43,6 +45,7 @@ export class CanActivateService implements CanActivate {
                 hasAccess = true;
             } else {
                 c.access.forEach(a => {
+                    console.log(a);
                     if (state.url.indexOf(a) > -1) {
                         hasAccess = true;
                     }

@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Authentication;
 
 namespace MAP_Web.Controllers
 {
-    [Route("/api/logout")]
+   
     public class LogoutController : Controller
     {
-        [HttpPost]
+         [Route("/api/logout")]
         public IActionResult Execute()
         {
             //TODO: Implement Realistic Implementation

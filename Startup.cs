@@ -114,12 +114,12 @@ namespace MAP_Web
             services.AddScoped<IReturnRemarksService, ReturnRemarksService>();
             services.AddScoped<IMDMHeaderService, MDMHeaderService>();
 
-      /*      services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
-                    {
-                        builder.AllowAnyOrigin()
-                               .AllowAnyMethod()
-                               .AllowAnyHeader();
-                    }));
+        //   services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+        //             {
+        //                 builder.AllowAnyOrigin()
+        //                        .AllowAnyMethod()
+        //                        .AllowAnyHeader();
+        //             }));
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -163,7 +163,7 @@ namespace MAP_Web
                     options.ClaimActions.MapJsonKey("group", "group");
                     options.ClaimActions.MapJsonKey("userId", "userId");
 
-                }); */
+                }); 
 
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
@@ -197,7 +197,7 @@ namespace MAP_Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-           app.UseAuthentication();
+            app.UseAuthentication();
 
             // Enable CORS policy on project level
             // app.UseCors("MyPolicy");
@@ -236,7 +236,7 @@ namespace MAP_Web
                 if (env.IsDevelopment())
                 {
                     // spa.UseAngularCliServer(npmScript: "build");
-                    // spa.UseAngularCliServer(npmScript: "start");
+                    //  spa.UseAngularCliServer(npmScript: "start");
                     // spa.UseAngularCliServer( "ng serve");
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }

@@ -1,5 +1,5 @@
 <div *ngIf="claims$ | async">
-    <div *ngIf="getAccess(claims$.access, 'mauEncoder')">
+    <div *ngIf="testFunc()">
         <app-mau-encoder-dashboard></app-mau-encoder-dashboard>
     </div>
     <div *ngIf="getAccess(claims$.access, 'aoEncoder')">

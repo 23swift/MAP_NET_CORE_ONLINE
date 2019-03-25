@@ -81,6 +81,7 @@ import { NoAccessPageComponent } from './no-access-page/no-access-page.component
 
 const routes: Routes = [
   { path: 'api', redirectTo: '/home'},
+  // { path: 'home', component: HomeScreenComponent, canActivate: [CanActivateService] },
   { path: 'home', component: HomeScreenComponent, canActivate: [CanActivateService] },
   { path: 'pos/:mode', component: PosRequestComponent },
   {
@@ -141,11 +142,17 @@ const routes: Routes = [
   { path: 'na/aoChecker/:id', component: AoCheckerComponent, canActivate: [CanActivateService] },
   { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent, canActivate: [CanActivateService] },
   { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent, canActivate: [CanActivateService] },
+  // { path: 'na/aoEncoder/new', component: AoEncoderComponent },
+  // { path: 'na/aoEncoder/:id', component: AoEncoderComponent },
+  // { path: 'na/aoChecker/:id', component: AoCheckerComponent },
+  // { path: 'na/mdcsEncoder/:id', component: MdcsEncoderComponent },
+  // { path: 'na/mdcsChecker/:id', component: MdcsCheckerComponent },
   { path: 'na/mdm/:id', component: MdmUserComponent },
   { path: 'na/pss/:id', component: PsServicingComponent },
   { path: 'no-access', component: NoAccessPageComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home/:userGroup', component: HomeScreenComponent, canActivate: [CanActivateService] },
+  // { path: 'home/:userGroup', component: HomeScreenComponent, canActivate: [CanActivateService] },
+  { path: 'home/:userGroup', component: HomeScreenComponent },
   { path: 'awr', component: AwrFormComponent },
   { path: 'requestForm', component: RequestFormComponent },
   { path: 'posForm', component: PosFormComponent },
@@ -226,7 +233,7 @@ const routes: Routes = [
   { path: 'custProfile', component: CustomerProfileComponent },
   { path: 'mam', component: MamVerificationScreenFormComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', component: ErrorPageComponent },
+  // { path: '**', component: ErrorPageComponent },
 ];
 
 @NgModule({

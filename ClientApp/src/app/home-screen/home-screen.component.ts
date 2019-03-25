@@ -36,7 +36,46 @@ export class HomeScreenComponent implements OnInit {
     this.service = this._service;
   }
 
-  getDashboard(access: string[], dashboard) {
-    return access.indexOf(dashboard) > -1;
+  getAccess(dashboard) {
+    console.log(this.claims$);
+    // if(this.claims$.(dashboard) > -1){
+
+
+    // }else{
+    //   return false;
+    // }
+    // console.log(claims$.access)
+    return true;
+    // return access.indexOf(dashboard) > -1;
   }
+  accessGuard(dashboard) {
+    console.log(saveClaims);
+    let hasAccess = false;
+    return obs.toPromise().then((c: Claims) => {
+        if (saveClaims) {
+            this.claims$.next(c);
+        }
+
+        if (state.url.indexOf('home') > -1) {
+            hasAccess = true;
+        } else {
+            c.access.forEach(a => {
+                console.log(a);
+                if (state.url.indexOf(a) > -1) {
+                    hasAccess = true;
+                }
+            });
+        }
+
+        if (!hasAccess) {
+            this._router.navigateByUrl('/no-access');
+        }
+
+        return hasAccess;
+    }).catch(e => {
+        console.log(e);
+        this._router.navigateByUrl('/no-access');
+        return hasAccess;
+    });
+}
 }

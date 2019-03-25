@@ -28,28 +28,13 @@ export class CanActivateService implements CanActivate {
         if (this.claims$.getValue() === null) {
             return this.accessGuard(this._http.get<Claims>(ApiConstants.corsApi + '/access'), true, state);
         } else {
-            const claims = this.claims$.getValue();
-            if (state.url.indexOf('home') > -1) {
-                hasAccess = true;
-            } else {
-                claims.access.forEach(a => {
-                    if (state.url.indexOf(a) > -1) {
-                        hasAccess = true;
-                    }
-                });
-            }
-
-            if (!hasAccess) {
-                this._router.navigateByUrl('/no-access');
-            }
-
-            return hasAccess;
-            // this.accessGuard(this.claims$.asObservable(), false, state);
+            console.log(state);
+            return this.accessGuard(this.claims$, false, state);
         }
     }
 
-    accessGuard(obs: Observable<Claims> | BehaviorSubject<Claims>, saveClaims: boolean, state: RouterStateSnapshot) {
-        console.log('qwe');
+    accessGuard(obs: Observable<Claims>, saveClaims: boolean, state: RouterStateSnapshot) {
+        console.log(saveClaims);
         let hasAccess = false;
         return obs.toPromise().then((c: Claims) => {
             if (saveClaims) {
@@ -61,6 +46,7 @@ export class CanActivateService implements CanActivate {
             } else {
                 console.log(c.access);
                 c.access.forEach(a => {
+                    console.log(a);
                     if (state.url.indexOf(a) > -1) {
                         hasAccess = true;
                     }

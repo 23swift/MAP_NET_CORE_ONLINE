@@ -23,8 +23,9 @@ namespace MAP_Web.Controllers
         [HttpGet("{code}")]
         public async Task<IActionResult> GetDropdown(string code)
         {
-            var dropdownvalue = await _service.GetDropdown(code);
-
+             var dropdownvalue = await _service.GetDropdown(code);
+            
+            //var dropdownvalue=new Models.MaintenanceMaster() ;
             if (dropdownvalue == null)
                 return NotFound();
 
@@ -36,6 +37,7 @@ namespace MAP_Web.Controllers
                     Code = item.Code,
                     Value = item.Value
                 }); 
+                System.Console.WriteLine(item.Value);
             }
             // var mapped = mapper.Map<ICollection<MaintenanceDetails>, IEnumerable<DropdownViewModel>>(dropdownvalue.MaintenanceDetails);
 

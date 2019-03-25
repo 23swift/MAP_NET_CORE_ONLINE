@@ -56,6 +56,7 @@ namespace MAP_Web.Controllers
             // var response = userInfoClient.Result.Claims.ToList();
             // var uid = User.Identity.Name;
             // TODO: Your code here
+            
             return Ok(claimsVm);
         }
 

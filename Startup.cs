@@ -16,6 +16,8 @@ using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+
 
 namespace MAP_Web
 {
@@ -163,9 +165,7 @@ namespace MAP_Web
                     options.ClaimActions.MapJsonKey("group", "group");
                     options.ClaimActions.MapJsonKey("userId", "userId");
 
-                });
-
-                services.AddHttpContextAccessor();
+                }); 
 
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
@@ -179,6 +179,8 @@ namespace MAP_Web
                 configuration.RootPath = "ClientApp/dist";
             });
 
+            // services.AddSingleton(Configuration.GetSection("RequestStatus").Get<List<StatusConfiguration>>());
+            services.Configure<List<StatusConfiguration>>(Configuration.GetSection("RequestStatus"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -197,8 +199,7 @@ namespace MAP_Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-           app.UseAuthentication();
-           
+            app.UseAuthentication();
 
             // Enable CORS policy on project level
             app.UseCors("MyPolicy");
@@ -219,7 +220,7 @@ namespace MAP_Web
                     await context.ChallengeAsync("oidc",
                     new AuthenticationProperties { RedirectUri = "/" });
 
-                    // await context.ChallengeAsync("oidc");
+                    await context.ChallengeAsync("oidc");
                 }
                 else
                 {
@@ -237,7 +238,7 @@ namespace MAP_Web
                 if (env.IsDevelopment())
                 {
                     // spa.UseAngularCliServer(npmScript: "build");
-                    // spa.UseAngularCliServer(npmScript: "start");
+                    //  spa.UseAngularCliServer(npmScript: "start");
                     // spa.UseAngularCliServer( "ng serve");
                     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }

@@ -185,6 +185,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { RemarksComponent } from './remarks/remarks.component';
 import { PrintDebitModalComponent } from './modal/print-debit-modal/print-debit-modal.component';
 import { NoAccessPageComponent } from './no-access-page/no-access-page.component';
+import { AlertModalComponent } from './modal/alert-modal/alert-modal.component';
 
 
 //// VALIDATION MESSAGES FOR FORMLY ////
@@ -380,7 +381,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     ErrorPageComponent,
     NoAccessPageComponent,
     RemarksComponent,
-    PrintDebitModalComponent
+    PrintDebitModalComponent,
+    AlertModalComponent
   ],
   imports: [
     BrowserModule,
@@ -515,7 +517,8 @@ export function numericValidatorMessage(err, field: FormlyFieldConfig) {
     ApproveWithExceptReasonMqrDetailsModalComponent,
     ApproveWithReqReasonMqrFormModalComponent,
     ApproveWithExceptReasonAwrDetailsModalComponent,
-    PrintDebitModalComponent],
+    PrintDebitModalComponent,
+    AlertModalComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

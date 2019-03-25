@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar, MatStepper } from '@angular/material';
+import { MatSnackBar, MatStepper, MatDialog } from '@angular/material';
 import { AoCheckerService } from './ao-checker.service';
 import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-request.service';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { RemarksModalComponent } from '../../modal/remarks-modal/remarks-modal.component';
+import { RemarksService } from '../../remarks/remarks.service';
+
 
 @Component({
   selector: 'app-ao-checker',
@@ -26,9 +29,10 @@ export class AoCheckerComponent implements OnInit {
   isOif = false;
   isPos = false;
   isDocumentChecklist = false;
+  dataSource: Object[];
 
   constructor(private _formBuilder: FormBuilder, private _route: ActivatedRoute,
-    private _router: Router, private _snackBar: MatSnackBar, private _newAffiliationService: NewAffiliationRequestService
+    private _router: Router, private _snackBar: MatSnackBar, private _newAffiliationService: NewAffiliationRequestService, private _dialog: MatDialog, private _remarksService: RemarksService
   ) { }
 
   ngOnInit() {
@@ -89,5 +93,6 @@ export class AoCheckerComponent implements OnInit {
       this.isPos = true;
     }
   }
+
 
 }

@@ -23,6 +23,7 @@ export class BdoDefaultHeaderComponent implements OnInit {
     this.systemDate = formatDate(new Date(), 'MMMM dd, yyyy', 'en-US');
     this.systemTime = formatDate(new Date(), 'hh:mm:ss a', 'en-US');
     this.getTime();
+    console.log(this.claims$);
   }
   
   getTime() {

@@ -1,3 +1,4 @@
+import { RemarksService } from './../remarks/remarks.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { IfStmt } from '@angular/compiler';
 import { Router, Route, ActivatedRoute } from '@angular/router';
@@ -8,6 +9,8 @@ import { NewAffiliationRequestService } from '../services/new-affiliation-reques
 import { MaefFormService } from '../forms/maef-form/maef-form.service';
 import { MdcsUserService } from '../new-affiliation/mdcs-user/mdcs-user.service';
 import { PsServicingService } from '../new-affiliation/ps-servicing/ps-servicing.service';
+import { CanActivateService } from '../services/can-activate.service';
+import { AlertModalComponent } from '../modal/alert-modal/alert-modal.component';
 
 
 
@@ -37,6 +40,7 @@ export class BdoFormHeaderComponent implements OnInit {
   newAffiliationId: number;
   requestId: number;
   userCount: number;
+  user: string;
   disableBtn: boolean = false;
   @Input() mode: string;
   @Input() text: string;
@@ -46,11 +50,15 @@ export class BdoFormHeaderComponent implements OnInit {
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _snackBar: MatSnackBar,
     private _dialog: MatDialog, private _newAffiliationService: NewAffiliationRequestService, private _maefFormService: MaefFormService,
-    private _psService: PsServicingService, private _mdcsUserService: MdcsUserService) {
+    private _psService: PsServicingService, private _mdcsUserService: MdcsUserService, private _remarksService: RemarksService, public canActivateService: CanActivateService) {
     this._route.params.subscribe(param => {
       this.newAffiliationId = param['id'];
       this.requestId = param['id'];
     });
+
+    this.canActivateService.claims$.subscribe(dd => {
+      this.user = dd.name;
+    }) 
   }
 
   ngOnInit() {
@@ -71,7 +79,6 @@ export class BdoFormHeaderComponent implements OnInit {
     this.showAOChecker = false;
 
     this.mode = this.mode ? this.mode : 'create';
-
     if (this._router.url.indexOf('/home')) {
       if (this.mode.match(/^approver$/i)) {
         this._maefFormService.getApproveUserCount(this.requestId, 'Approver1').subscribe(data => {
@@ -146,6 +153,30 @@ export class BdoFormHeaderComponent implements OnInit {
   }
 
   reSubmitRequestChecker() {
+    this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
+      console.log(data);
+      if(this.user == data.remarks)
+      {
+        this._maefFormService.ReSubmitRequestChecker(this.newAffiliationId).subscribe(data => {
+          const snackBarRef = this._snackBar.open( 'Re-submit To Checker', 'Saved', {
+            duration: 1000      
+        });
+      });
+      }
+      else
+      {
+        const snackBarRef = this._snackBar.open('Required', 'Remarks', {
+          duration: 1000
+        });
+      } 
+    }); 
+  /*  {
+      const snackBarRef = this._snackBar.open('Submitted To Approver', 'Saved', {
+        duration: 1000
+      });
+      this._router.navigateByUrl('/home/mauEncoder');      
+    });*/
+  /*
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
       data: {
@@ -155,7 +186,7 @@ export class BdoFormHeaderComponent implements OnInit {
     });
 
     dialog.afterClosed().subscribe(d => {
-    });   
+    });   */ 
   }
 
   reSubmitRequestMAMO() {
@@ -232,12 +263,13 @@ export class BdoFormHeaderComponent implements OnInit {
   }
 
   returntoAO() { //ao checker function
+    /*
     const dialog = this._dialog.open(RemarksModalComponent, {
       width: '50%',
       data: {
         newAffiliationId: this.newAffiliationId,
         actionCode: 'Return To AO By AO Checker',
-        requestStatus: 9 //for saving of remarks
+        requestStatus: 26 //for saving of remarks
       }
     });
 
@@ -247,6 +279,26 @@ export class BdoFormHeaderComponent implements OnInit {
       this._router.navigateByUrl('/home/aoChecker');
       }
     });       
+    */
+
+   this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
+    console.log(data);
+    if(this.user == data.remarks)
+    {
+      this._maefFormService.ReturntoAO(this.newAffiliationId).subscribe(data => {
+        const snackBarRef = this._snackBar.open('Return To AO By AO Checker', 'Saved', {
+          duration: 1000
+        });
+        this._router.navigateByUrl('/home');      
+      });
+    }
+    else
+    {
+      const dialog = this._dialog.open(AlertModalComponent, {
+        width: '50%',
+      });      
+    } 
+  }); 
 
   }
 

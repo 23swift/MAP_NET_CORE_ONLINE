@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { RemarksModalService } from './remarks-modal.service';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { MaefFormService } from '../../forms/maef-form/maef-form.service';
+import { CanActivateService } from '../../services/can-activate.service';
 
 
 
@@ -36,12 +37,21 @@ export class RemarksModalComponent implements OnInit {
   buttonName: string;
 
   constructor(private _modalRef: MatDialogRef<RemarksModalComponent>, private _remarksModalService: RemarksModalService, private _maefFormService: MaefFormService, private _remarksService: RemarksService, @Inject(MAT_DIALOG_DATA) public data: any,
-    private _snackBar: MatSnackBar, ) {
+    private _snackBar: MatSnackBar, 
+    public canActivateService: CanActivateService) {
     this.form = new FormGroup({
       remarks: new FormControl('')
     });
     this.date = new Date().toLocaleDateString();
-    this.status = this.data['requestStatus'];
+    //this.canActivateService.claims$.toPromise().then(s => {
+    //this.user = s.name; 
+    //})
+
+    this.canActivateService.claims$.subscribe(dd => {
+      this.user = dd.name;
+    })
+
+
 
     if(!this.data['rtype'])
     {
@@ -75,11 +85,12 @@ export class RemarksModalComponent implements OnInit {
            
   }
 
-  ngOnInit() {
+  ngOnInit() { 
+    this.status = this.data['requestStatus'];  
     this.model = { remarks: '', requestId: this.data['newAffiliationId'], user: '', groupCode: '', action: '', date: '' };
     if (this.data.actionCode == "Return To AO By MAMO" || this.data.actionCode == "Return To AO By Approver" || this.data.actionCode == "Return To AO By AO Checker")
       {
-        this.buttonName = 'Return To AO';
+      //  this.buttonName = 'Return To AO';
       }
     else if (this.data.actionCode == "Decline") 
       {
@@ -94,7 +105,7 @@ export class RemarksModalComponent implements OnInit {
 
      }
      
-   console.log(this.data.actionCode + 'ffde');
+  // console.log(this.data.actionCode + 'ffde');
    // if (this.form.value['remarks'] == '') {
    //   this.form.get('remarks').disable();
    // }
@@ -102,7 +113,7 @@ export class RemarksModalComponent implements OnInit {
 
   save() {
     this.model['remarks'] = this.form.value['remarks'];
-    this.model['user'] = 'user';
+    this.model['user'] = this.user; //
     this.model['groupCode'] = 'mauEncoder';
     this.model['action'] =this.data['actionCode'] + ':Save Remarks';
     this.model['actionCode'] =this.data['actionCode'];
@@ -131,7 +142,7 @@ export class RemarksModalComponent implements OnInit {
     }
     //   
       snackBarRef.afterDismissed().subscribe(s => {
-       // this._modalRef.close(data);
+        this._modalRef.close(data);
       });
     });
 

@@ -4,17 +4,18 @@ using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web.Services
 {
-    public class NewAffiliationService : INewAffiliationService
+    public class NewAffiliationService : UserIdentity, INewAffiliationService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Request> requestRepo;
         private readonly IRepository<POS> posRepo;
         private readonly IRepository<History> historyRepo;
 
-        public NewAffiliationService(IUnitOfWork unitOfWork)
+        public NewAffiliationService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
@@ -54,8 +55,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "Request Submitted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = request.Id,
                 AuditLogGroupId = request.AuditLogGroupId
             });

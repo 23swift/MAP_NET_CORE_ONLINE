@@ -1,12 +1,16 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using MAP_Web.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
-    public class CustomerProfileService : ICustomerProfileService 
+    public class CustomerProfileService : UserIdentity, ICustomerProfileService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<CustomerProfile> customerRepo;
@@ -14,9 +18,10 @@ namespace MAP_Web.Services
         private readonly IRepository<DocumentList> documentListRepo;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
-
         private readonly IRepository<ApprovalMatrix> approvalMatrixRepo;
-        public CustomerProfileService(IUnitOfWork unitOfWork)
+
+        
+        public CustomerProfileService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
@@ -32,7 +37,8 @@ namespace MAP_Web.Services
             request.AuditLogGroupId = Guid.NewGuid();
             request.Status = 1;
             request.MAEF = new MAEF();
-            request.CreatedBy = "Test User";
+            request.MAEF.AuditLogGroupId = request.AuditLogGroupId;
+            request.CreatedBy = this.user;
             request.ApprovalSetup = new ApprovalSetup();
             request.NewAffiliation = new NewAffiliation();
             
@@ -83,8 +89,8 @@ namespace MAP_Web.Services
             request.History.Add(new History{
                 date = DateTime.Now,
                 action = "Request Created",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 AuditLogGroupId = request.AuditLogGroupId
             });
             
@@ -115,8 +121,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Request Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customerProfile.NewAffiliationId,
                 AuditLogGroupId = request.AuditLogGroupId
             });

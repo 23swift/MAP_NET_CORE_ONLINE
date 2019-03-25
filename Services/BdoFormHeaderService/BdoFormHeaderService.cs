@@ -3,10 +3,12 @@ using MAP_Web.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace MAP_Web.Services
 {
-    public class BdoFormHeaderService : IBdoFormHeaderService
+    public class BdoFormHeaderService : UserIdentity, IBdoFormHeaderService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Request> requestRepo;
@@ -18,8 +20,9 @@ namespace MAP_Web.Services
         private readonly IRepository<RequiredApproval> requiredApprovalRepo;
 
         private readonly IRepository<RequestApproval> requestApprovalRepo;
+
         
-        public BdoFormHeaderService(IUnitOfWork unitOfWork)
+        public BdoFormHeaderService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
@@ -51,7 +54,7 @@ namespace MAP_Web.Services
             return approvalCount.Items.Where(a => a.approve == true).Select(a => a.user).Distinct().Count();
         }
 
-        public async Task<int> CheckUserCountAsync(int requestId, string user)
+        public async Task<int> CheckUserCountAsync(int requestId)
         {
             var userCount = await requestApprovalRepo.GetPagedListAsync(predicate: a => a.requestId == requestId && a.user == user);
             return userCount.TotalCount;            

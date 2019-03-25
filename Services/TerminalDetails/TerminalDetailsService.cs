@@ -1,18 +1,19 @@
 using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
 {
-    public class TerminalDetailsService : ITerminalDetailsService
+    public class TerminalDetailsService : UserIdentity, ITerminalDetailsService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<TerminalDetails> terminalRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<POS> posRepo;
         private readonly IRepository<Request> requestRepo;
-        public TerminalDetailsService(IUnitOfWork unitOfWork)
+        public TerminalDetailsService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.terminalRepo = this.unitOfWork.GetRepository<TerminalDetails>();
@@ -31,8 +32,8 @@ namespace MAP_Web.Services
             historyRepo.Insert(new History{
                 date = DateTime.Now,
                 action = "Terminal Details for Branch: " + branch.dbaName + " Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = request.AuditLogGroupId
             });
@@ -58,8 +59,8 @@ namespace MAP_Web.Services
             historyRepo.Insert(new History{
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -75,8 +76,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });

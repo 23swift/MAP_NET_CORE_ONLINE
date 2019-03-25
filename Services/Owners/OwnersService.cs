@@ -4,17 +4,18 @@ using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web.Services
 {
-    public class OwnersService : IOwnersService
+    public class OwnersService : UserIdentity, IOwnersService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Owners> ownersRepo;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<CustomerProfile> customerRepo;
-        public OwnersService(IUnitOfWork unitOfWork)
+        public OwnersService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.ownersRepo = this.unitOfWork.GetRepository<Owners>();
@@ -33,8 +34,8 @@ namespace MAP_Web.Services
             historyRepo.Insert(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + "'s Details Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customer.NewAffiliationId,
                 AuditLogGroupId = customer.AuditLogGroupId
             });
@@ -66,8 +67,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + "'s Details Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customer.NewAffiliationId,
                 AuditLogGroupId = customer.AuditLogGroupId
             });
@@ -84,8 +85,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + " Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customer.NewAffiliationId,
                 AuditLogGroupId = customer.AuditLogGroupId
             });

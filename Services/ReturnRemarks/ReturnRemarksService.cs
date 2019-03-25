@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web.Services
 {
-    public class ReturnRemarksService : IReturnRemarksService
+    public class ReturnRemarksService : UserIdentity, IReturnRemarksService
     {
         private readonly IUnitOfWork unitOfWork;
-        private readonly IRepository<Remark> remarkRepo;    
+        private readonly IRepository<Remark> remarkRepo;            
 
-        public ReturnRemarksService(IUnitOfWork unitOfWork)
+        public ReturnRemarksService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.remarkRepo = this.unitOfWork.GetRepository<Remark>();

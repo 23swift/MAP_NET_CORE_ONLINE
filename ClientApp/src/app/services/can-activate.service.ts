@@ -28,11 +28,28 @@ export class CanActivateService implements CanActivate {
         if (this.claims$.getValue() === null) {
             return this.accessGuard(this._http.get<Claims>(ApiConstants.corsApi + '/access'), true, state);
         } else {
-            return this.accessGuard(this.claims$, false, state);
+            const claims = this.claims$.getValue();
+            if (state.url.indexOf('home') > -1) {
+                hasAccess = true;
+            } else {
+                claims.access.forEach(a => {
+                    if (state.url.indexOf(a) > -1) {
+                        hasAccess = true;
+                    }
+                });
+            }
+
+            if (!hasAccess) {
+                this._router.navigateByUrl('/no-access');
+            }
+
+            return hasAccess;
+            // this.accessGuard(this.claims$.asObservable(), false, state);
         }
     }
 
-    accessGuard(obs: Observable<Claims>, saveClaims: boolean, state: RouterStateSnapshot) {
+    accessGuard(obs: Observable<Claims> | BehaviorSubject<Claims>, saveClaims: boolean, state: RouterStateSnapshot) {
+        console.log('qwe');
         let hasAccess = false;
         return obs.toPromise().then((c: Claims) => {
             if (saveClaims) {
@@ -42,6 +59,7 @@ export class CanActivateService implements CanActivate {
             if (state.url.indexOf('home') > -1) {
                 hasAccess = true;
             } else {
+                console.log(c.access);
                 c.access.forEach(a => {
                     if (state.url.indexOf(a) > -1) {
                         hasAccess = true;
@@ -54,11 +72,12 @@ export class CanActivateService implements CanActivate {
             }
 
             return hasAccess;
-        }).catch(e => {
-            console.log(e);
-            this._router.navigateByUrl('/no-access');
-            return hasAccess;
         });
+        // .catch(e => {
+        //     console.log(e);
+        //     this._router.navigateByUrl('/no-access');
+        //     return hasAccess;
+        // });
     }
 
 }

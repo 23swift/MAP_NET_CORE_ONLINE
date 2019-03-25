@@ -32,4 +32,8 @@ export class RemarksService {
   getRemark(id): Observable<any> {
     return this._http.get(ApiConstants.maefApi + '/remark/' + id); 
   }
+
+  checkUserRemarks(requestId, user): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/checkUserRemarks/' + requestId +'/'+ user);
+  }
 }

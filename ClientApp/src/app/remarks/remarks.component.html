@@ -1,8 +1,15 @@
+<div class="xbtn"><button *ngIf="!dataSource?.length" style="margin-top:3px" mat-button color="primary" (click)="AOreplytoChecker()">Add Remarks
+  <mat-icon color="primary">add</mat-icon>
+</button></div>
+<div class="xbtn" ><button *ngIf="!showComponent" style="margin-top:3px" mat-button color="primary" (click)="ViewComponent()">Show Remarks
+  <mat-icon color="primary">chat</mat-icon>
+</button></div>
+<div *ngIf="showComponent">
 <mat-card class="mat-card-bg" *ngIf="dataSource?.length">
-  <mat-card-title><div class="xbtn"><a href="#"> <i class="material-icons md-18">close</i> </a></div></mat-card-title><br>
+  <mat-card-title><div class="xbtn"><a (click)="HideComponent()"> <i class="material-icons md-18">close</i> </a></div></mat-card-title><br>
   <div *ngFor="let items of dataSource">
   <mat-card-title>{{items.user}}<div class="xbtn">{{items.date | date: 'ddMMMyyyy'}}</div><br>
-    Remarks: {{items.remarks}}<div class="xbtn"><button (click)="AOreplytoChecker()" mat-icon-button color="primary" matTooltip="Add Reply"><mat-icon style="color:white;" *ngIf="showVisible(items.id)">add</mat-icon></button><button (click)="UpdateAOreplytoChecker(items.id)" mat-icon-button color="primary" matTooltip="Edit Reply"><mat-icon style="color:white;" *ngIf="showVisible(items.id)">edit</mat-icon></button></div></mat-card-title>
+    Remarks: {{items.remarks}}<div class="xbtn"><button (click)="AOreplytoChecker()" mat-icon-button color="primary" matTooltip="Add Reply"><mat-icon style="color:white;" *ngIf="!showButton">add</mat-icon></button><button (click)="UpdateAOreplytoChecker(items.id)" mat-icon-button color="primary" matTooltip="Edit Reply"><mat-icon style="color:white;" *ngIf="showButton">edit</mat-icon></button></div></mat-card-title>
   <hr>
   </div>   
   <mat-card-subtitle>
@@ -11,3 +18,8 @@
       </mat-card-actions>
   </mat-card-subtitle>   
 </mat-card><!--08Feb2019  -->     
+</div>
+
+
+<!--<a href="#"> <i class="material-icons md-18">close</i> </a>
+<button style="margin-top:3px" mat-button color="primary" (click)="HideComponent()">close</mat-icon></button>-->

@@ -1,20 +1,26 @@
 using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
-    public class DocumentChecklistService : IDocumentChecklistService
+    public class DocumentChecklistService : UserIdentity, IDocumentChecklistService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<DocumentChecklist> documentRepo;
         private readonly IRepository<History> historyRepo;
-        public DocumentChecklistService(IUnitOfWork unitOfWork)
+
+        public DocumentChecklistService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.documentRepo = this.unitOfWork.GetRepository<DocumentChecklist>();
             this.historyRepo = this.unitOfWork.GetRepository<History>();
+    
         }
         public async Task InsertAsync(DocumentChecklist documentChecklist)
         {
@@ -48,8 +54,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Document: " + documentChecklist.documentName + " Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = documentChecklist.NewAffiliationId,
                 AuditLogGroupId = documentChecklist.AuditLogGroupId
             });
@@ -64,8 +70,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Document: " + documentChecklist.documentName + " Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = documentChecklist.NewAffiliationId,
                 AuditLogGroupId = documentChecklist.AuditLogGroupId
             });

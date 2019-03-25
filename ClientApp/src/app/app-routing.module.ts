@@ -145,7 +145,7 @@ const routes: Routes = [
   { path: 'na/pss/:id', component: PsServicingComponent },
   { path: 'no-access', component: NoAccessPageComponent },
   { path: 'newAffSum', component: NewAffiliationSumComponent },
-  { path: 'home/:userGroup', component: HomeScreenComponent, canActivate: [CanActivateService] },
+  // { path: 'home/:userGroup', component: HomeScreenComponent, canActivate: [CanActivateService] },
   { path: 'awr', component: AwrFormComponent },
   { path: 'requestForm', component: RequestFormComponent },
   { path: 'posForm', component: PosFormComponent },
@@ -180,8 +180,8 @@ const routes: Routes = [
     ]
   },
   { path: 'na/mauOfficer/:id', component: MauOfficerComponent }, // 1
-  { path: 'na/mauEncoder/:id', component: MauOfficerComponent }, // story7
-  { path: 'na/approver/:id', component: MauOfficerComponent }, // story8
+  { path: 'na/mauEncoder/:id', component: MauOfficerComponent, canActivate: [CanActivateService] }, // story7
+  { path: 'na/approver/:id', component: MauOfficerComponent, canActivate: [CanActivateService] }, // story8
   { path: 'na/mdcsUser/:id', component: MdcsUserComponent }, // story10
   { path: 'posForm', component: PosFormComponent },
   { path: 'oif', component: OcularInspectionFormComponent },

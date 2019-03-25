@@ -14,7 +14,8 @@ using MAP_Web.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using IdentityModel;
-
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web
 {
@@ -113,12 +114,14 @@ namespace MAP_Web
             services.AddScoped<IReturnRemarksService, ReturnRemarksService>();
             services.AddScoped<IMDMHeaderService, MDMHeaderService>();
 
-      /*      services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
                     {
                         builder.AllowAnyOrigin()
                                .AllowAnyMethod()
                                .AllowAnyHeader();
                     }));
+
+
 
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -145,14 +148,12 @@ namespace MAP_Web
 
                     options.Scope.Add("api1");
                     options.Scope.Add("access.profile");
-                    // options.Scope.Add("role");
+                    options.Scope.Add("role");
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         NameClaimType = JwtClaimTypes.Name,
                         RoleClaimType = JwtClaimTypes.Role
-                        //NameClaimType = ClaimTypes.Name,
-                        //RoleClaimType = ClaimTypes.Role
                     };
                     options.ClaimActions.MapJsonKey("role", "role");
                     options.ClaimActions.MapJsonKey("access", "access");
@@ -162,7 +163,9 @@ namespace MAP_Web
                     options.ClaimActions.MapJsonKey("group", "group");
                     options.ClaimActions.MapJsonKey("userId", "userId");
 
-                }); */
+                });
+
+                services.AddHttpContextAccessor();
 
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
@@ -194,10 +197,11 @@ namespace MAP_Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-           // app.UseAuthentication();
+           app.UseAuthentication();
+           
 
             // Enable CORS policy on project level
-            // app.UseCors("MyPolicy");
+            app.UseCors("MyPolicy");
 
             app.UseMvc(routes =>
             {
@@ -208,7 +212,7 @@ namespace MAP_Web
 
 
 
-       /*     app.Use(async (context, next) =>
+           app.Use(async (context, next) =>
             {
                 if (!context.User.Identity.IsAuthenticated)
                 {
@@ -221,7 +225,7 @@ namespace MAP_Web
                 {
                     await next();
                 }
-            });  */
+            });
 
             app.UseSpa(spa =>
             {

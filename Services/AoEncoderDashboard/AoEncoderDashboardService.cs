@@ -6,16 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System;
+using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 
 namespace MAP_Web.Services
 {
-    public class AoEncoderDashboardService : IAoEncoderDashboardService
+    public class AoEncoderDashboardService : UserIdentity, IAoEncoderDashboardService
     {
         private readonly IRepository<Request> requestRepo;
         private readonly IUnitOfWork unitOfWork;
         private readonly IStatusService statusService;
 
-        public AoEncoderDashboardService(IUnitOfWork unitOfWork, IStatusService statusService)
+        public AoEncoderDashboardService(IUnitOfWork unitOfWork, IStatusService statusService, IHttpContextAccessor claims): base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.requestRepo = this.unitOfWork.GetRepository<Request>();

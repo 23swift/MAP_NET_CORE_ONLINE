@@ -1,9 +1,13 @@
+<ng-container *ngIf="mode">
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="true" *ngIf="!isDone"></app-bdo-form-header>
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit" [disabled]="false" *ngIf="isDone"></app-bdo-form-header>
+</ng-container>
 <!-- <app-request-header></app-request-header> -->
-<!--<ng-container *ngIf="newAffiliationId">-->
-<app-remarks [requestId]="10"></app-remarks>
-<!--</ng-container>-->
+<ng-container *ngIf="newAffiliationId">
+<app-remarks [requestId]="newAffiliationId"></app-remarks>
+</ng-container>
+
+
 <div class="mat-headline">Please follow the steps:
   <span style="float: right;" *ngIf="newAffiliationId">
     <button mat-button (click)="openHistory()" color="primary" class="no-padding history-btn" matTooltip="Show History">

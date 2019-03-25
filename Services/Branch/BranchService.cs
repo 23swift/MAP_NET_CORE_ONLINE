@@ -5,6 +5,9 @@ using MAP_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Xml;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace MAP_Web.Services
 {
@@ -16,8 +19,12 @@ namespace MAP_Web.Services
         private readonly IRepository<Request> requestRepo;
         private readonly IRepository<CustomerProfile> customerRepo;
         private readonly IRepository<Owners> ownersRepo;
+        private readonly IHttpContextAccessor claims;
+        private readonly IList<Claim> identity;
+        private readonly string user;
+        private readonly string role;
         
-        public BranchService(IUnitOfWork unitOfWork)
+        public BranchService(IUnitOfWork unitOfWork, IHttpContextAccessor claims)
         {
             this.unitOfWork = unitOfWork;
             this.branchRepo = this.unitOfWork.GetRepository<Branch>();
@@ -25,6 +32,14 @@ namespace MAP_Web.Services
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
             this.customerRepo = this.unitOfWork.GetRepository<CustomerProfile>();
             this.ownersRepo = this.unitOfWork.GetRepository<Owners>();
+            this.claims = claims;
+            this.identity = claims.HttpContext.User.Claims.ToList();
+            this.user = identity.SingleOrDefault(c => c.Type == "name").Value;
+           // this.role = identity.SingleOrDefault(c => c.Type == "role").Value;            
+            this.role = " ";
+
+            // var id = new ClaimsIdentity(user.Claims, "Forms", "name", "role");
+            // var claims = id.Claims.ToList();
         }
 
         public async Task InsertAsync(Branch branch)
@@ -116,8 +131,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -133,8 +148,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "Branch: " + branch.dbaName + "'s Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });

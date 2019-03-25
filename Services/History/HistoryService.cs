@@ -42,6 +42,13 @@ namespace MAP_Web.Services
             return detailedHistory;
         }
 
+        public async Task<IEnumerable<ChangeLog>> FindDetailedByHistoryIdAsync(int id)
+        {
+            var detailedHistory =  loggerContext.ChangeLogs.Where(c => c.HistoryId == id);
+
+            return detailedHistory;
+        }
+
         public async Task InsertAsync(History history)
         {
             await historyRepo.InsertAsync(history);

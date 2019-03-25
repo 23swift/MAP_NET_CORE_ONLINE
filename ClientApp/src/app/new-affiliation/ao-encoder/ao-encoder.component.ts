@@ -11,6 +11,7 @@ import { NewAffiliationRequestService } from 'src/app/services/new-affiliation-r
 import { DocumentCheckListService } from 'src/app/document-check-list/document-check-list.service';
 import { HistoryModalComponent } from 'src/app/modal/history-modal/history-modal.component';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { RemarksService } from '../../remarks/remarks.service';
 
 @Component({
   selector: 'app-ao-encoder-step',
@@ -30,6 +31,7 @@ export class AoEncoderComponent implements OnInit {
   isPos = false;
   isDocumentChecklist = false;
   isDone = false;
+  reqStatus: number;
 
   //  completed:boolean=false;
   constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute,
@@ -38,13 +40,41 @@ export class AoEncoderComponent implements OnInit {
     private _posService: PosFormModalService,
     private _newAffiliationService: NewAffiliationRequestService,
     private _documentChecklistService: DocumentCheckListService,
-    private _dialog: MatDialog
-  ) { }
+    private _dialog: MatDialog,
+    private _remarksService: RemarksService
+  ) { 
+    this.newAffiliationId = this.route.snapshot.params['id'] ? +this.route.snapshot.params['id'] : 0;
+  
+  }
 
   ngOnInit() {
-   // this.mode = 'create';
-   this.mode = 'returnRequestChecker';
-   //this.mode = 'returnRequestMAMO';
+    if (this.newAffiliationId == 0 )
+    {
+      this.subTitle ='DRAFT';
+      this.mode = 'create';      
+    }
+    else
+    {
+      this._remarksService.getRequestStatus(this.newAffiliationId).subscribe(data => {
+        console.log(data);
+        this.reqStatus = +data;
+        if (this.reqStatus == 26) {   //returnRequestChecker
+            this.subTitle = 'RETURNED';
+            this.mode = 'returnRequestChecker';
+        }
+        else if (this.reqStatus == 27) {   //returnRequestMAMO
+            this.subTitle = 'RETURNED';
+            this.mode = 'returnRequestMAMO';
+        }
+        else if (this.reqStatus == 1) {   //returnRequestMAMO
+          this.subTitle = 'DRAFT';
+          this.mode = 'create';
+      }
+
+    });      
+    }
+
+
   }
 
   public completed(stepper: MatStepper, form: string) {
@@ -144,7 +174,7 @@ export class AoEncoderComponent implements OnInit {
       });
 
       snackBarSub.afterDismissed().subscribe(() => {
-        this._router.navigateByUrl('/home/aoEncoder');
+        this._router.navigateByUrl('/home');
       });
     });
   }

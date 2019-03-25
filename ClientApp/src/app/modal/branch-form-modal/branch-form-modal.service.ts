@@ -4,6 +4,7 @@ import { ApiConstants } from 'src/app/api-constants';
 import { HttpClient } from '@angular/common/http';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { DropDownService } from 'src/app/services/drop-down.service';
+import { CanActivateService } from '../../services/can-activate.service';
 
 @Injectable()
 export class BranchFormModalService {
@@ -5608,7 +5609,9 @@ export class BranchFormModalService {
   ];
   //#endregion
 
-  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { }
+  constructor(private _http: HttpClient, private _dropDownService: DropDownService) { 
+
+  }
 
   getBranchFields(userGroup): FormlyFieldConfig[] {
     if (userGroup === 'ao') {

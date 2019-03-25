@@ -34,15 +34,7 @@ export class BranchInfoComponent extends AppBaseComponent implements OnInit {
 
     });
 
-   /* this.userGroup = 'mauEncoder';
-    if(this.userGroup == 'mauEncoder')
-    {
-      this.displayMode = false;
-    }
-    else if(this.userGroup == 'approver')
-    {
-      this.displayMode = true;
-    } */
+
   }
 
   trackById(index, branch) {

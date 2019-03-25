@@ -12,7 +12,8 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using System.Xml.Serialization;
 using System.Data;
-
+using System.Security.Claims;
+using System.Linq;
 
 namespace MAP_Web.Controllers
 {
@@ -22,12 +23,16 @@ namespace MAP_Web.Controllers
         private readonly IBranchService branchService;
         private readonly IMapper mapper;
         private IHostingEnvironment hostingEnvironment;
+       // private readonly List<Claim> claims;
 
         public BranchController(IBranchService branchService, IMapper mapper, IHostingEnvironment hostingEnvironment)
         {
             this.mapper = mapper;
             this.branchService = branchService;
             this.hostingEnvironment = hostingEnvironment;
+
+         //   var ci = new ClaimsIdentity(User.Claims, "Forms", "name", "role");
+         //   claims = ci.Claims.ToList();
         }
 
         [HttpGet("{id}")]

@@ -1,0 +1,8 @@
+.alert-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-container > * {
+    width: 100%;
+}

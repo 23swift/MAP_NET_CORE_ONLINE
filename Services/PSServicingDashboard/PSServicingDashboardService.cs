@@ -73,7 +73,7 @@ namespace MAP_Web.Services
                     requestedDate = item.CreatedDate.Value,
                     businessName = item.NewAffiliation.CustomerProfile.legalName,
                     referenceNo = item.TrackingNo,
-                    requestedBy = "Test User",
+                    requestedBy = item.CreatedBy,
                     status = statusService.GetStatus(item.Status),
                     tat = (int)(DateTime.Now - item.CreatedDate.Value).TotalHours
                 });

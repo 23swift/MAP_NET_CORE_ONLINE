@@ -19,6 +19,5 @@ namespace MAP_Web.Models
         public string NewValues { get; set; }
         public DateTime DateLoged { get; set; }
 
-
     }
 }

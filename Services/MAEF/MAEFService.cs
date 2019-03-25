@@ -3,10 +3,11 @@ using MAP_Web.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web.Services
 {
-    public class MAEFService : IMAEFService
+    public class MAEFService : UserIdentity, IMAEFService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<MAEF> maefRepo;
@@ -17,7 +18,7 @@ namespace MAP_Web.Services
 
         private readonly IRepository<RequiredApproval> requiredApprovalRepo;
 
-        public MAEFService(IUnitOfWork unitOfWork)
+        public MAEFService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.maefRepo = this.unitOfWork.GetRepository<MAEF>();
@@ -61,8 +62,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "MAEF Details Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = maefData.Id,
                 AuditLogGroupId = maefData.AuditLogGroupId
             }); 

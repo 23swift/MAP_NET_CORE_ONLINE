@@ -2,11 +2,12 @@ using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
 using MAP_Web.Models.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
 {
-    public class POSService : IPOSService
+    public class POSService : UserIdentity, IPOSService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<POS> posRepo;
@@ -14,7 +15,7 @@ namespace MAP_Web.Services
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<Branch> branchRepo;
         private readonly IRepository<Request> requestRepo;
-        public POSService(IUnitOfWork unitOfWork)
+        public POSService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.posRepo = this.unitOfWork.GetRepository<POS>();
@@ -34,8 +35,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "POS for Branch: " + branch.dbaName + " Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -61,8 +62,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "POS for Branch: " + branch.dbaName + " Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -78,8 +79,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "POS for Branch: " + branch.dbaName + " Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });

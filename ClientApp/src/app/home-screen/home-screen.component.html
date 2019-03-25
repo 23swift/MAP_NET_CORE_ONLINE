@@ -1,35 +1,35 @@
-<div *ngIf="claims$ | async">
-    <div *ngIf="getAccess(claims$.access, 'mauEncoder')">
+<div *ngIf="claims$ | async as user">
+    <div *ngIf="getDashboard(user.access, 'mauEncoderDashboard')">
         <app-mau-encoder-dashboard></app-mau-encoder-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'aoEncoder')">
+    <div *ngIf="getDashboard(user.access, 'aoEncoderDashboard')">
         <app-ao-encoder-dashboard></app-ao-encoder-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'aoChecker')">
+    <div *ngIf="getDashboard(user.access, 'aoCheckerDashboard')">
         <app-ao-checker-dashboard></app-ao-checker-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'mdcsUser')">
+    <div *ngIf="getDashboard(user.access, 'mdcsUserDashboard')">
         <app-mdcs-user-dashboard></app-mdcs-user-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'approver')">
+    <div *ngIf="getDashboard(user.access, 'approverDashboard')">
         <app-approver-dashboard></app-approver-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'mdcsEncoder')">
+    <div *ngIf="getDashboard(user.access, 'mdcsEncoderDashboard')">
         <app-mdcs-encoder-dashboard></app-mdcs-encoder-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'mdcsChecker')">
+    <div *ngIf="getDashboard(user.access, 'mdcsCheckerDashboard')">
         <app-mdcs-checker-dashboard></app-mdcs-checker-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'mauOfficer')">
+    <div *ngIf="getDashboard(user.access, 'mauOfficerDashboard')">
         <app-mau-officer-dashboard></app-mau-officer-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'mdmUser')">
+    <div *ngIf="getDashboard(user.access, 'mdmUserDashboard')">
         <app-mdm-user-dashboard></app-mdm-user-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'pss')">
+    <div *ngIf="getDashboard(user.access, 'pssDashboard')">
         <app-ps-servicing-dashboard></app-ps-servicing-dashboard>
     </div>
-    <div *ngIf="getAccess(claims$.access, 'mqrUser')">
+    <div *ngIf="getDashboard(user.access, 'mqrUserDashboard')">
         <app-mqr-dashboard></app-mqr-dashboard>
     </div>
 </div>

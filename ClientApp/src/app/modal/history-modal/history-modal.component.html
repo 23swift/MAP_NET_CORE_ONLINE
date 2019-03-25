@@ -1,5 +1,6 @@
 <div class="mat-subheading-1" style="margin: 0px;"><i class="material-icons icon-color align-middle">history</i>
   History</div>
+  
 <mat-dialog-content style="overflow-y: auto; overflow-x: hidden;">
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Overview">
@@ -26,4 +27,23 @@
       </ng-template>
     </mat-tab>
   </mat-tab-group>
-</mat-dialog-content>
+</mat-dialog-content> 
+
+<!--
+<mat-accordion>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <div *ngFor="let item of history | async">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+            <h4 mat-line><mat-icon mat-list-icon class="icon-color">error</mat-icon> {{ item.date | date:'ddMMMyy' }} | {{ item.user }} - &lt;{{item.action}}&gt;</h4>
+            <h5 mat-line *ngIf="item.remarks">Remarks: {{ item.remarks }}</h5>
+            <mat-divider></mat-divider>          
+      </mat-panel-title>
+    </mat-expansion-panel-header> -->
+   <!--   <div *ng-container>
+
+      </ng-container> -->
+<!--      
+  </div>
+  </mat-expansion-panel>
+</mat-accordion>  -->

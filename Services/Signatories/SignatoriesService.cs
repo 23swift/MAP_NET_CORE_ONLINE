@@ -1,17 +1,18 @@
 using System;
 using System.Threading.Tasks;
 using MAP_Web.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace MAP_Web.Services
 {
-    public class SignatoriesService : ISignatoriesService
+    public class SignatoriesService : UserIdentity, ISignatoriesService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<Signatories> signatoriesRepo;
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<CustomerProfile> customerRepo;
-        public SignatoriesService(IUnitOfWork unitOfWork)
+        public SignatoriesService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.signatoriesRepo = this.unitOfWork.GetRepository<Signatories>();
@@ -28,8 +29,8 @@ namespace MAP_Web.Services
             historyRepo.Insert(new History{
                 date = DateTime.Now,
                 action = "Signatory: " + signatory.name + "'s Details Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customer.NewAffiliationId,
                 AuditLogGroupId = customer.AuditLogGroupId
             });
@@ -61,8 +62,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Signatory: " + signatory.name + "'s Details Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customer.NewAffiliationId,
                 AuditLogGroupId = customer.AuditLogGroupId
             });
@@ -79,8 +80,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Signatory: " + signatory.name + "'s Details Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = customer.NewAffiliationId,
                 AuditLogGroupId = customer.AuditLogGroupId
             });

@@ -133,6 +133,15 @@ namespace MAP_Web.Services
                 case 25:
                     stat = "SUBMIT FOR MAR APPROVAL";
                     break;
+                case 26:
+                    stat = "RETURNED TO AO BY CHECKER";
+                    break;
+                case 27:
+                    stat = "RETURNED TO AO BY MAMO";
+                    break;
+                case 28:
+                    stat = "RETURNED TO AO BY APPROVER";
+                    break;  
 
             }
             return stat;

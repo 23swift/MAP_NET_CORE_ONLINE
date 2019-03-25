@@ -3,10 +3,11 @@ using MAP_Web.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web.Services
 {
-    public class OIFService : IOIFService
+    public class OIFService : UserIdentity, IOIFService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<OIF> oifRepo;
@@ -15,7 +16,7 @@ namespace MAP_Web.Services
         private readonly IRepository<History> historyRepo;
         private readonly IRepository<Request> requestRepo;
 
-        public OIFService(IUnitOfWork unitOfWork)
+        public OIFService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.oifRepo = this.unitOfWork.GetRepository<OIF>();
@@ -34,8 +35,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "OIF for Branch: " + oif.dbaName + " Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = oif.AuditLogGroupId
             });
@@ -61,8 +62,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "OIF for Branch: " + oif.dbaName + " Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -77,8 +78,8 @@ namespace MAP_Web.Services
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "OIF for Branch: " + oif.dbaName + " Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Collections.Generic;
 using AutoMapper;
 using System.Collections.ObjectModel;
+using Microsoft.AspNetCore.Http;
 
 namespace MAP_Web.Services
 {
-    public class MIDService : IMIDService
+    public class MIDService : UserIdentity, IMIDService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<MID> midRepo;
@@ -18,7 +19,7 @@ namespace MAP_Web.Services
         private readonly IRepository<History> historyRepo;
         private readonly IMapper mapper;
         private readonly IDropdownService dropdownService;
-        public MIDService(IUnitOfWork unitOfWork, IMapper mapper, IDropdownService dropdownService)
+        public MIDService(IUnitOfWork unitOfWork, IMapper mapper, IDropdownService dropdownService, IHttpContextAccessor claims) : base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.midRepo = this.unitOfWork.GetRepository<MID>();
@@ -36,8 +37,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -81,8 +82,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Updated",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -99,8 +100,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "MID for Branch: " + branch.dbaName + " Deleted",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -197,8 +198,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "MID -" + "''" + value + "''" + "for Branch: " + branch.dbaName + " Has been Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });
@@ -216,8 +217,8 @@ namespace MAP_Web.Services
             {
                 date = DateTime.Now,
                 action = "DebitTID -" + "''" + value + "''" + "for Branch: " + branch.dbaName + " Has been Added",
-                groupCode = "Test Group Code",
-                user = "Test User",
+                groupCode = role,
+                user = user,
                 RequestId = branch.NewAffiliationId,
                 AuditLogGroupId = branch.AuditLogGroupId
             });

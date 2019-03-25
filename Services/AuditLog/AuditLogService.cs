@@ -4,6 +4,7 @@ using MAP_Web.Models;
 using MAP_Web.DataAccess;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MAP_Web.Services
 {
@@ -19,6 +20,9 @@ namespace MAP_Web.Services
         async Task IAuditLogService.Save(List<Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry> changes)
         {
             var now = DateTime.UtcNow;
+
+            int historyId = (int)changes.SingleOrDefault(s => s.Entity.GetType().Name=="History").CurrentValues[propertyName: "Id"];
+
             foreach (var change in changes)
             {
                 var entityName = change.Entity.GetType().Name;
@@ -27,11 +31,14 @@ namespace MAP_Web.Services
                 var DatabaseValues = change.GetDatabaseValues();
                 var auditLogId = Guid.NewGuid();
 
+                
+
                 foreach (var prop in change.CurrentValues.Properties)
                 {
                     if (prop.Name == "AuditLogGroupId")
                     {
-                        auditLogId = new Guid(change.CurrentValues[property: prop].ToString());
+                        // auditLogId = new Guid(change.CurrentValues[property: prop] == null ? Guid.NewGuid() : change.CurrentValues[property: prop].ToString());
+                        auditLogId = new Guid(change.CurrentValues[property: prop].ToString()); //
                         break;
                     }
                 }
@@ -72,11 +79,12 @@ namespace MAP_Web.Services
                             NewValue = currentValue == null ? "" : currentValue.ToString(),
                             DateChanged = now,
                             AuditLogGroupId = new Guid(auditLogId.ToString()),
-                            Action = action
+                            Action = action,
+                            HistoryId = historyId
                         };
 
                         await _loggerContext.ChangeLogs.AddAsync(log);
-                        await _loggerContext.SaveChangesAsync();
+                        await _loggerContext.SaveChangesAsync(); //xcx
                     }
                 }
             }

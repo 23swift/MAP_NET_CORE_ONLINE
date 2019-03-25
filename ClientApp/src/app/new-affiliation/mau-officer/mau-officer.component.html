@@ -1,6 +1,11 @@
+<ng-container *ngIf="mode">
 <app-bdo-form-header [text]="title" [sub_text]="subTitle" [mode]="mode" [submit]="Submit"></app-bdo-form-header>
-<app-remarks [requestId]="10"></app-remarks>
+</ng-container>
+<ng-container *ngIf="reqId">
+  <app-remarks [requestId]="reqId"></app-remarks>
+  </ng-container>
 <app-request-header></app-request-header>
+
 <mat-tab-group *ngIf="this.mode=='mauEncoder'">
   <mat-tab label="MAM Verification Screen">
     <app-verification-screen [mode]="this.mode"></app-verification-screen>

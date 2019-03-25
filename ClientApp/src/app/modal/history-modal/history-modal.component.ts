@@ -12,10 +12,12 @@ import { Observable } from 'rxjs';
 export class HistoryModalComponent implements OnInit {
   history: Observable<any>;
   historyDetailed: Observable<any>;
+  historyId: number;
   constructor(private _modalRef: MatDialogRef<HistoryModalComponent>, private _service: HistoryModalService,
     @Inject(MAT_DIALOG_DATA)public modalData: any) {
       this.history = this._service.getByRequest(modalData['requestId']);
-      this.historyDetailed = this._service.getDetailedByRequest(modalData['requestId']);
+      this.historyDetailed = this._service.getDetailedByRequest(this.historyId);
+      console.log(this.history);
     }
 
   ngOnInit() {

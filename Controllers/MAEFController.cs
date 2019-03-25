@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using MAP_Web.Models;
 using MAP_Web.Models.ViewModels;
 using MAP_Web.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,13 +22,28 @@ namespace MAP_Web.Controllers {
 
         private readonly IReturnRemarksService returnRemarksService;
 
+      //  private readonly ClaimsViewModel claimsVm;
+        private readonly string name;
+
         private readonly IMapper mapper;
-        public MAEFController (IMAEFService maefService, IBdoFormHeaderService bdoFormHeaderService, ICustomerProfileService customerProfileService, IMapper mapper, IReturnRemarksService returnRemarksService) {
+        public MAEFController (IMAEFService maefService, IBdoFormHeaderService bdoFormHeaderService, ICustomerProfileService customerProfileService, IMapper mapper, IReturnRemarksService returnRemarksService, IHttpContextAccessor claims) {
             this.mapper = mapper;
             this.maefService = maefService;
             this.bdoFormHeaderService = bdoFormHeaderService;
             this.customerProfileService = customerProfileService;
             this.returnRemarksService = returnRemarksService;
+
+        /*    var id = new ClaimsIdentity(User.Claims, "Forms", "name", "role");
+            var claims = id.Claims.ToList();
+            claimsVm = new ClaimsViewModel {
+                name = claims.Where(c => c.Type == "name").SingleOrDefault().Value,
+                rank = claims.Where(c => c.Type == "rank").SingleOrDefault().Value,
+                role = claims.Where(c => c.Type == "role").Select(s => s.Value),
+                access = claims.Where(c => c.Type == "access").Select(s => s.Value)
+            }; */
+            var name = claims.HttpContext.User.Claims.ToList().SingleOrDefault(c => c.Type == "name").Value;
+           // var role = claims.HttpContext.User.Claims.ToList().SingleOrDefault(c => c.Type == "role").Value;    
+
         }
 
         [HttpGet ("{id}")]
@@ -115,7 +132,7 @@ namespace MAP_Web.Controllers {
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
-            bdoFormHeaderService.Update (request, 9);
+            bdoFormHeaderService.Update (request, 26);
             await bdoFormHeaderService.SaveChangesAsync ();
             return Ok ();
         }
@@ -137,7 +154,7 @@ namespace MAP_Web.Controllers {
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
-            bdoFormHeaderService.Update (request, 23);
+            bdoFormHeaderService.Update (request, 27);
             await bdoFormHeaderService.SaveChangesAsync ();
             return Ok ();
         }
@@ -159,7 +176,7 @@ namespace MAP_Web.Controllers {
             await maefService.InsertRemarksAsync (history);
             await maefService.SaveChangesAsync ();
 
-            bdoFormHeaderService.Update (request, 24);
+            bdoFormHeaderService.Update (request, 28);
             await bdoFormHeaderService.SaveChangesAsync ();
             return Ok ();
         }
@@ -189,7 +206,7 @@ namespace MAP_Web.Controllers {
 
         [HttpPut ("decline/{id}")]
         public async Task<IActionResult> Decline (int id) {
-            var request = new RequestApproval { user = "Approver8", requestId = id, approve = false };
+            var request = new RequestApproval { user = name, requestId = id, approve = false };
             var finalApprover = true;
             var appIfFinalCount = await bdoFormHeaderService.CheckRequestApproveCount (id);
             await bdoFormHeaderService.InsertAsync (request);
@@ -238,14 +255,14 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ReSubmitRequestChecker (int id) {
             var request = await bdoFormHeaderService.FindAsync (id);
             var actionsCode = "Re-submit To Checker";
-            var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
+            //var currentHistory = await maefService.FindRemarksAsync (id, actionsCode);
             var history = new History {
             RequestId = id,
-            actionCode = currentHistory.actionCode,
-            remarks = currentHistory.remarks,
+            actionCode = actionsCode,
+            remarks = "",
             action = "Re-submit To Checker: Submitted",
-            user = currentHistory.user,
-            groupCode = currentHistory.groupCode,
+            user = name,
+            groupCode = "",
             date = DateTime.Now,
             };
             await maefService.InsertRemarksAsync (history);
@@ -328,7 +345,7 @@ namespace MAP_Web.Controllers {
             var request = await bdoFormHeaderService.FindAsync (id);
             bdoFormHeaderService.Update (request, 8);
             var currentMaef = await maefService.FindAsync(id);
-            currentMaef.processedBy = "Approver3";
+            currentMaef.processedBy = name;
             currentMaef.processedDate = DateTime.Now;
             await maefService.Update (currentMaef); 
             var customerProfile = await customerProfileService.FindAsync (id);
@@ -338,7 +355,7 @@ namespace MAP_Web.Controllers {
                await maefService.InsertRequiredApprovalAsync(new RequiredApproval{
                     approvalCount = item.approvalCount,
                     rank = item.rank,
-                    user = "Test User",
+                    user = name,
                     requestId = id,
                     finalApprover = item.finalApprover,
                 });
@@ -350,10 +367,9 @@ namespace MAP_Web.Controllers {
 
         [HttpPut ("approve/{id}")]
         public async Task<IActionResult> Approve (int id) {
-            var tempUser = "Approver1";
             var finalApprover = true;
             var appIfFinalCount = await bdoFormHeaderService.CheckRequestApproveCount (id);
-            var request = new RequestApproval { user = tempUser, requestId = id, approve = true };
+            var request = new RequestApproval { user = name, requestId = id, approve = true };
             await bdoFormHeaderService.InsertAsync (request);
             await bdoFormHeaderService.SaveChangesAsync ();
 
@@ -361,7 +377,7 @@ namespace MAP_Web.Controllers {
             var history = new History {
             RequestId = id,
             actionCode = actionsCode,
-            user = tempUser,
+            user = name,
             groupCode = "mauEncoder",
             date = DateTime.Now,
             action = "Approve: Approve Count 1",
@@ -375,15 +391,15 @@ namespace MAP_Web.Controllers {
                 return NotFound ();
 
             if (maef.approver1 == null) {
-                maef.approver1 = tempUser;
+                maef.approver1 = name;
                 maef.decisionDate1 = DateTime.Now;
                 maef.approverDecision1 = actionsCode;
             } else if (maef.approver2 == null) {
-                maef.approver2 = tempUser;
+                maef.approver2 = name;
                 maef.decisionDate2 = DateTime.Now;
                 maef.approverDecision2 = actionsCode;
             } else if (maef.approver3 == null) {
-                maef.approver3 = tempUser;
+                maef.approver3 = name;
                 maef.decisionDate3 = DateTime.Now;
                 maef.approverDecision3 = actionsCode;
             }
@@ -488,28 +504,19 @@ namespace MAP_Web.Controllers {
         public async Task<IActionResult> ApprovalCount (int id) {
             var appCount = await bdoFormHeaderService.ApproveCountAsync (id);
 
-            //if (appCount == null)
-            //    return Ok(false);
-
             return Ok (appCount);
         }
 
-        [HttpGet ("userCount/{id}/{user}")]
-        public async Task<IActionResult> UserCount (int id, string user) {
-            var appCount = await bdoFormHeaderService.CheckUserCountAsync (id, user);
-
-            //if (appCount == null)
-            //    return Ok(false);
+        [HttpGet ("userCount/{id}")]
+        public async Task<IActionResult> UserCount (int id) {
+            var appCount = await bdoFormHeaderService.CheckUserCountAsync(id);
 
             return Ok (appCount);
         }      
 
         [HttpGet ("userSetup/{id}")]
-        public async Task<IActionResult> GetApproveCount (int id, string user) {
+        public async Task<IActionResult> GetApproveCount (int id) {
             var appCount = await bdoFormHeaderService.GetApproveCount (id);
-
-            //if (appCount == null)
-            //    return Ok(false);
 
             return Ok (appCount);
         }
@@ -562,11 +569,12 @@ namespace MAP_Web.Controllers {
             return Ok (remark);
         }
 
-        [HttpGet("ccc/{id}/{user}")]
-        public async Task<IActionResult> test(int id, string user)
+        [HttpGet("checkUserRemarks/{id}/{user}")]
+        public async Task<IActionResult> CheckUserRemarks(int id, string user)
         {
          var remark = await returnRemarksService.CheckRemarkAsync(id, user);
-         return Ok (remark);
+         
+         return Ok (new { remarks = remark });
         }
     }
 }

@@ -29,12 +29,18 @@ namespace MAP_Web.Services
             return await remarkRepo.GetPagedListAsync(predicate: x => x.RequestId == id && x.status == status);
         }
 
-        public async Task<int> FindLastRemarksAsync(int id, int status)
+      //  public async Task<int> FindLastRemarksAsync(int id, int status)
+      //  {
+      //       var remarks = await remarkRepo.GetFirstOrDefaultAsync(orderBy:d => d.OrderByDescending(dd => dd.id), predicate: d => d.RequestId == id && d.status == status);// GetPagedListAsync(orderBy:d => d.OrderByDescending(dd => dd.id), predicate: d => d.RequestId == id && d.status == status);
+      //       return remarks == null ? 0 : remarks.id;
+      //  }
+
+        public async Task<Remark> FindLastRemarksAsync(int id, int status)
         {
              var remarks = await remarkRepo.GetFirstOrDefaultAsync(orderBy:d => d.OrderByDescending(dd => dd.id), predicate: d => d.RequestId == id && d.status == status);// GetPagedListAsync(orderBy:d => d.OrderByDescending(dd => dd.id), predicate: d => d.RequestId == id && d.status == status);
 
-             return remarks == null ? 0 : remarks.id;
-        }
+             return remarks == null ? null : remarks;
+        }        
 
         public async Task InsertRemarksAsync(Remark remark)
         {
@@ -56,6 +62,12 @@ namespace MAP_Web.Services
             var remarks = await remarkRepo.GetFirstOrDefaultAsync(orderBy:c => c.OrderByDescending(dd => dd.id), predicate: c => c.RequestId == id && c.user == user);
             return remarks == null ? "0" : remarks.user;
         }     
+
+        public async Task<Remark>GetAnyLastRemarkAsync(int id, int status)
+        {
+            var remarks = await remarkRepo.GetFirstOrDefaultAsync(orderBy:c => c.OrderByDescending(dd => dd.id), predicate: c => c.RequestId == id && c.status == status);
+            return remarks == null ? null : remarks;
+        }         
 
     }
 }

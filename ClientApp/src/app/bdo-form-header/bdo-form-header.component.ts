@@ -42,6 +42,9 @@ export class BdoFormHeaderComponent implements OnInit {
   userCount: number;
   user: string;
   disableBtn: boolean = false;
+  remarksData: Object[];
+  lastAnyRemarksData: Object[];
+
   @Input() mode: string;
   @Input() text: string;
   @Input() sub_text: string;
@@ -81,7 +84,7 @@ export class BdoFormHeaderComponent implements OnInit {
     this.mode = this.mode ? this.mode : 'create';
     if (this._router.url.indexOf('/home')) {
       if (this.mode.match(/^approver$/i)) {
-        this._maefFormService.getApproveUserCount(this.requestId, 'Approver1').subscribe(data => {
+        this._maefFormService.getApproveUserCount(this.requestId).subscribe(data => {
           this.userCount = data;
           if (this.userCount != 0)
             {
@@ -213,7 +216,9 @@ export class BdoFormHeaderComponent implements OnInit {
 
     dialog.afterClosed().subscribe(d => {
     });   
-  }
+  } 
+
+
 
   reSubmitRequestMQR() {
     const dialog = this._dialog.open(RemarksModalComponent, {
@@ -229,37 +234,104 @@ export class BdoFormHeaderComponent implements OnInit {
   }
 
   returnToAOByMAMO() {
-    const dialog = this._dialog.open(RemarksModalComponent, {
-      width: '50%',
-      data: {
-      newAffiliationId : this.newAffiliationId,
-      actionCode : 'Return To AO By MAMO'
-    }
-    });
 
-    dialog.afterClosed().subscribe(d => {
-      if(d === null)
+
+    this._remarksService.GetAnyLastRemark(this.requestId, 27).subscribe(data => {
+      this.lastAnyRemarksData = data; 
+      if( this.lastAnyRemarksData == null ||this.user != this.lastAnyRemarksData['user'])
       {
-        this._router.navigateByUrl('/home/mauEncoder');
-      }      
-    });   
+        const dialog = this._dialog.open(AlertModalComponent, {
+          width: '50%',
+        }); 
+      }
+      else
+      {
+        this._maefFormService.ReturntoAOByMAMO(this.newAffiliationId).subscribe(data => {
+          const snackBarRef = this._snackBar.open('Return To AO By MAMO', 'Saved', {
+            duration: 1000
+          });
+          this._router.navigateByUrl('/home');      
+        });    
+      } 
+    }); 
   }
 
   returnToAOByApprover() {
-    const dialog = this._dialog.open(RemarksModalComponent, {
-      width: '50%',
-      data: {
-      newAffiliationId : this.newAffiliationId,
-      actionCode : 'Return To AO By Approver'
-    }
-    });
 
-    dialog.afterClosed().subscribe(d => {
-      if(d === null)
+    this._remarksService.GetAnyLastRemark(this.requestId, 28).subscribe(data => {
+      this.lastAnyRemarksData = data;
+        if( this.lastAnyRemarksData == null || this.user != this.lastAnyRemarksData['user']) {
+          this._remarksService.GetAnyLastRemark(this.requestId, 8).subscribe(data => {
+            this.lastAnyRemarksData = data; 
+            if(this.user != this.lastAnyRemarksData['user']) {
+              const dialog = this._dialog.open(AlertModalComponent, {
+                width: '50%',
+              });   
+            } else { 
+              this._maefFormService.ReturntoAOByApprover(this.newAffiliationId).subscribe(data => {
+                this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+                  this.remarksData = data;
+                  this.remarksData['status'] = 28;
+                  this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+                  });            
+                }); 
+      
+                const snackBarRef = this._snackBar.open('Return To AO By Approver', 'Saved', {
+                  duration: 1000
+                });
+                this._router.navigateByUrl('/home');      
+              });
+             }
+          });           
+        }
+        else
+        {
+          this._maefFormService.ReturntoAOByApprover(this.newAffiliationId).subscribe(data => {
+            this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+              this.remarksData = data;
+              this.remarksData['status'] = 28;
+              this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+              });            
+            }); 
+  
+            const snackBarRef = this._snackBar.open('Return To AO By Approver', 'Saved', {
+              duration: 1000
+            });
+            this._router.navigateByUrl('/home');      
+          });        
+        }
+
+    });           
+
+    /*
+    this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
+      console.log(data);
+      if(this.user == data.remarks)
       {
-      this._router.navigateByUrl('/home/approver');
+        this._maefFormService.ReturntoAOByApprover(this.newAffiliationId).subscribe(data => {
+          this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+            this.remarksData = data;
+            this.remarksData['status'] = 28;
+            this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+            });            
+          }); 
+
+          const snackBarRef = this._snackBar.open('Return To AO By Approver', 'Saved', {
+            duration: 1000
+          });
+          this._router.navigateByUrl('/home');      
+        });
       }
-    });   
+      else
+      {
+        const dialog = this._dialog.open(AlertModalComponent, {
+          width: '50%',
+        });      
+      } 
+    });    
+    
+    */
+
   }
 
   returntoAO() { //ao checker function
@@ -281,22 +353,22 @@ export class BdoFormHeaderComponent implements OnInit {
     });       
     */
 
-   this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
-    console.log(data);
-    if(this.user == data.remarks)
+   this._remarksService.GetAnyLastRemark(this.requestId, 26).subscribe(data => {
+    this.lastAnyRemarksData = data; 
+    if( this.lastAnyRemarksData == null ||this.user != this.lastAnyRemarksData['user'])
+    {
+      const dialog = this._dialog.open(AlertModalComponent, {
+        width: '50%',
+      });  
+    }
+    else
     {
       this._maefFormService.ReturntoAO(this.newAffiliationId).subscribe(data => {
         const snackBarRef = this._snackBar.open('Return To AO By AO Checker', 'Saved', {
           duration: 1000
         });
         this._router.navigateByUrl('/home');      
-      });
-    }
-    else
-    {
-      const dialog = this._dialog.open(AlertModalComponent, {
-        width: '50%',
-      });      
+      });          
     } 
   }); 
 
@@ -315,37 +387,156 @@ export class BdoFormHeaderComponent implements OnInit {
 
 
   returntoMAMO(): void {
-    const dialog = this._dialog.open(RemarksModalComponent, {
-      width: '50%',
-      data: {
-        newAffiliationId: this.newAffiliationId,
-        actionCode: 'Return To MAMO'
-      }
-    });
 
-    dialog.afterClosed().subscribe(d => {
-      if(d === null)
+    this._remarksService.GetAnyLastRemark(this.requestId, 29).subscribe(data => {
+      this.lastAnyRemarksData = data; 
+        if(this.lastAnyRemarksData == null || this.user != this.lastAnyRemarksData['user']) {
+          this._remarksService.GetAnyLastRemark(this.requestId, 8).subscribe(data => {
+            this.lastAnyRemarksData = data; 
+            if(this.user != this.lastAnyRemarksData['user']) {
+              const dialog = this._dialog.open(AlertModalComponent, {
+                width: '50%',
+              });   
+            } else { 
+              this._maefFormService.ReturntoMAMO(this.newAffiliationId).subscribe(data => {
+                this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+                  this.remarksData = data;
+                  this.remarksData['status'] = 29;
+                  this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+                  });            
+                }); 
+      
+                const snackBarRef = this._snackBar.open('Return To MAMO By Approver', 'Saved', {
+                  duration: 1000
+                });
+                this._router.navigateByUrl('/home');      
+              });
+             }
+          });           
+        }
+        else
+        {
+          this._maefFormService.ReturntoMAMO(this.newAffiliationId).subscribe(data => {
+            this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+              this.remarksData = data;
+              this.remarksData['status'] = 29;
+              this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+              });            
+            }); 
+  
+            const snackBarRef = this._snackBar.open('Return To MAMO By Approver', 'Saved', {
+              duration: 1000
+            });
+            this._router.navigateByUrl('/home');      
+          });        
+        }
+
+    });  
+
+/*
+    this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
+      console.log(data);
+      if(this.user == data.remarks)
       {
-      this._router.navigateByUrl('/home/approver');
+        this._maefFormService.ReturntoMAMO(this.newAffiliationId).subscribe(data => {
+
+          this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+            this.remarksData = data;
+            this.remarksData['status'] = 29;
+            this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+            });            
+          });  
+          const snackBarRef = this._snackBar.open('Return To MAMO By Approver', 'Saved', {
+            duration: 1000
+          });
+          this._router.navigateByUrl('/home');      
+        });
       }
-    });
+      else
+      {
+        const dialog = this._dialog.open(AlertModalComponent, {
+          width: '50%',
+        });      
+      } 
+    });   */
   }
 
   decline(): void {
-    const dialog = this._dialog.open(RemarksModalComponent, {
-      width: '50%',
-      data: {
-        newAffiliationId: this.newAffiliationId,
-        actionCode: 'Decline'
-      }
-    });
 
-    dialog.afterClosed().subscribe(d => {
-      if(d === null)
+    this._remarksService.GetAnyLastRemark(this.requestId, 12).subscribe(data => {
+      this.lastAnyRemarksData = data;
+        if( this.lastAnyRemarksData == null || this.user != this.lastAnyRemarksData['user']) {
+          this._remarksService.GetAnyLastRemark(this.requestId, 8).subscribe(data => {
+            this.lastAnyRemarksData = data; 
+            if( this.lastAnyRemarksData == null|| this.user != this.lastAnyRemarksData['user']) {
+              const dialog = this._dialog.open(AlertModalComponent, {
+                width: '50%',
+              });   
+            } else { 
+              this._maefFormService.Decline(this.newAffiliationId).subscribe(data => {
+                this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+                  this.remarksData = data;
+                  this.remarksData['status'] = 12;
+                  this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+                  });            
+                }); 
+      
+                const snackBarRef = this._snackBar.open('Decline', 'Saved', {
+                  duration: 1000
+                });
+                this._router.navigateByUrl('/home');      
+              });
+             }
+          });           
+        }
+        else
+        {
+          this._maefFormService.Decline(this.newAffiliationId).subscribe(data => {
+            this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+              this.remarksData = data;
+              this.remarksData['status'] = 12;
+              this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+              });            
+            }); 
+  
+            const snackBarRef = this._snackBar.open('Decline', 'Saved', {
+              duration: 1000
+            });
+            this._router.navigateByUrl('/home');      
+          });        
+        }
+
+    });  
+
+    
+/*
+    this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
+      console.log(data);
+      if(this.user == data.remarks)
       {
-      this._router.navigateByUrl('/home/approver');
+        this._maefFormService.Decline(this.newAffiliationId).subscribe(data => {
+
+          this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+            this.remarksData = data;
+            this.remarksData['status'] = 12;
+            this._remarksService.update(this.remarksData['id'], this.remarksData).subscribe(data => {      
+            });            
+          }); 
+
+          const snackBarRef = this._snackBar.open('Decline', 'Saved', {
+            duration: 1000
+          });
+          this._router.navigateByUrl('/home');      
+        });
       }
-    });   
+      else
+      {
+        const dialog = this._dialog.open(AlertModalComponent, {
+          width: '50%',
+        });      
+      } 
+    });   */  
+
   }
 
   approve(): void {

@@ -1,4 +1,4 @@
-<div class="xbtn"><button *ngIf="!dataSource?.length" style="margin-top:3px" mat-button color="primary" (click)="AOreplytoChecker()">Add Remarks
+<div class="xbtn"><button *ngIf="!dataSource?.length" style="margin-top:3px" mat-button color="primary" (click)="AddReply()">Add Remarks
   <mat-icon color="primary">add</mat-icon>
 </button></div>
 <div class="xbtn" ><button *ngIf="!showComponent" style="margin-top:3px" mat-button color="primary" (click)="ViewComponent()">Show Remarks
@@ -9,7 +9,7 @@
   <mat-card-title><div class="xbtn"><a (click)="HideComponent()"> <i class="material-icons md-18">close</i> </a></div></mat-card-title><br>
   <div *ngFor="let items of dataSource">
   <mat-card-title>{{items.user}}<div class="xbtn">{{items.date | date: 'ddMMMyyyy'}}</div><br>
-    Remarks: {{items.remarks}}<div class="xbtn"><button (click)="AOreplytoChecker()" mat-icon-button color="primary" matTooltip="Add Reply"><mat-icon style="color:white;" *ngIf="!showButton">add</mat-icon></button><button (click)="UpdateAOreplytoChecker(items.id)" mat-icon-button color="primary" matTooltip="Edit Reply"><mat-icon style="color:white;" *ngIf="showButton">edit</mat-icon></button></div></mat-card-title>
+    Remarks: {{items.remarks}}<div *ngIf="this.lastId == items.id"><div class="xbtn"><button (click)="AddReply()" mat-icon-button color="primary" matTooltip="Add Reply"><mat-icon style="color:white;" *ngIf="!showButton">add</mat-icon></button><button (click)="UpdateReply(items.id)" mat-icon-button color="primary" matTooltip="Edit Reply"><mat-icon style="color:white;" *ngIf="showButton">edit</mat-icon></button></div></div></mat-card-title>
   <hr>
   </div>   
   <mat-card-subtitle>

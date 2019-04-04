@@ -167,6 +167,8 @@ namespace MAP_Web
 
                 }); 
 
+                services.AddHttpContextAccessor();
+
             // TO BE DELETED
             services.AddScoped<IStatusService, StatusService>();
             services.AddDbContext<DataAccess.AuditLog_Context>(options =>

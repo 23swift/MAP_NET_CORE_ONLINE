@@ -1,7 +1,8 @@
-<div *ngIf="claims$ | async">
-    <div *ngIf="testFunc()">
+<div *ngIf="claims$ | async as user">
+    <div *ngIf="getDashboard(user.access, 'mauEncoderDashboard')">
         <app-mau-encoder-dashboard></app-mau-encoder-dashboard>
-    </div>
+    </div>    
+  
     <div *ngIf="getDashboard(user.access, 'aoEncoderDashboard')">
         <app-ao-encoder-dashboard></app-ao-encoder-dashboard>
     </div>

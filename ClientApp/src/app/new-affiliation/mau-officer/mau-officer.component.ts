@@ -26,7 +26,7 @@ export class MauOfficerComponent extends AppBaseComponent implements OnInit {
     ngOnInit() {
         this._remarksService.getRequestStatus(this.reqId).subscribe(data => {
             this.reqStatus = data;
-            if (this.reqStatus == "8") {   //approver
+            if (this.reqStatus == "8" || this.reqStatus == "30" || this.reqStatus == "31" ) {   //approver
                 this.title = 'Merchant Affiliation & Maintenance Approval';
                 this.displayMode = true;
                 this.mode = "approver"

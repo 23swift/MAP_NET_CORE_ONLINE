@@ -1056,8 +1056,8 @@ export class  MaefFormService {
     return this._http.put(ApiConstants.maefApi + '/reSubmitRequestMQR/' + id, {});
   }  
 
-  getApproveUserCount(id, user): Observable<any> {
-    return this._http.get(ApiConstants.maefApi + '/userCount/' + id + '/' + user);
+  getApproveUserCount(id): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/userCount/' + id);
   }
 
 

@@ -16,11 +16,13 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
   @Input() requestId: number;
   dataSource: Object[];
   lastId: number;
+  lastUserRemarks: Object[];
   requestStatus: number;
   user: string;
   showButton: boolean;
   showComponent: boolean = true;
   actionCode: string;
+  status2: number;
   constructor(public route: ActivatedRoute, private _router: Router, private _dialog: MatDialog, private _snackBar: MatSnackBar, 
     public router: Router, private _remarksService: RemarksService, public canActivateService: CanActivateService) { 
     super(route, router);
@@ -32,7 +34,7 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
   ngOnInit() {
 
     this.getDatasource();  
-    this.AddorEdit();
+    //this.AddorEdit();
   }
 
 
@@ -67,6 +69,18 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
           this.actionCode = 'mau';
           this.requestStatus = 27;
       }
+      else if (this.requestStatus === 28 || this.requestStatus === 30) {
+        this.actionCode = 'approver';
+        this.requestStatus = 28;
+      }
+    else if (this.requestStatus === 29 || this.requestStatus === 31) {
+      this.actionCode = 'approver';
+      this.requestStatus = 29;
+      }
+      else if (this.requestStatus === 8) {
+          this.actionCode = 'approver'
+          this.requestStatus = 8;
+      }
 
       const dialog = this._dialog.open(RemarksModalComponent, {
         width: '50%',
@@ -95,6 +109,15 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
       else if (this.requestStatus === 27 || this.requestStatus === 7) {
           this.requestStatus = 27;
       }
+      else if (this.requestStatus === 28 || this.requestStatus === 30) {
+        this.requestStatus = 28;
+      }
+    else if (this.requestStatus === 29 || this.requestStatus === 31) {
+      this.requestStatus = 29;
+      }
+      else if (this.requestStatus === 8) {
+          this.requestStatus = 8;
+      }      
 
       const dialog = this._dialog.open(RemarksModalComponent, {
         width: '50%',
@@ -138,9 +161,13 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
       this._remarksService.getByRequestId(this.requestId, 26).subscribe(data => {
         this.dataSource = data;
       });
-      this._remarksService.getLastRemarks(this.requestId, 26).subscribe(data => {
-        this.lastId = data;
-      })
+        this._remarksService.getLastRemarks(this.requestId, 26).subscribe(data => {
+          this.lastUserRemarks = data;
+          if(this.lastUserRemarks != null){
+          this.lastId = this.lastUserRemarks['id'];
+          this.AddorEdit(this.lastUserRemarks['user']);
+          }
+        }) 
       }
       else if (this.requestStatus === 27 || this.requestStatus === 7)
       {
@@ -148,9 +175,65 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
           this.dataSource = data;
         });
         this._remarksService.getLastRemarks(this.requestId, 27).subscribe(data => {
-          this.lastId = data;
-        })
+          this.lastUserRemarks = data;
+          if(this.lastUserRemarks != null){
+          this.lastId = this.lastUserRemarks['id'];
+          this.AddorEdit(this.lastUserRemarks['user']);
+          }
+        }) 
       }
+      else if (this.requestStatus === 28 || this.requestStatus === 30 )
+      {
+        this._remarksService.getByRequestId(this.requestId, 28).subscribe(data => {
+          this.dataSource = data;
+        });
+        this._remarksService.getLastRemarks(this.requestId, 28).subscribe(data => {
+          this.lastUserRemarks = data;
+          if(this.lastUserRemarks != null){
+          this.lastId = this.lastUserRemarks['id'];
+          this.AddorEdit(this.lastUserRemarks['user']);
+          }
+        })        
+      }
+      else if (this.requestStatus === 29 || this.requestStatus === 31 )
+      {
+        this._remarksService.getByRequestId(this.requestId, 29).subscribe(data => {
+          this.dataSource = data;
+        });
+        this._remarksService.getLastRemarks(this.requestId, 29).subscribe(data => {
+          this.lastUserRemarks = data;
+          if(this.lastUserRemarks != null){
+          this.lastId = this.lastUserRemarks['id'];
+          this.AddorEdit(this.lastUserRemarks['user']);
+          }
+        })         
+      }
+      else if (this.requestStatus === 8)
+      {
+        this._remarksService.getByRequestId(this.requestId, 8).subscribe(data => {
+          this.dataSource = data;
+        });
+        this._remarksService.getLastRemarks(this.requestId, 8).subscribe(data => {
+          this.lastUserRemarks = data;
+          if(this.lastUserRemarks != null){
+          this.lastId = this.lastUserRemarks['id'];
+          this.AddorEdit(this.lastUserRemarks['user']);
+          }
+        })        
+      }  
+      else if (this.requestStatus === 12)
+      {
+        this._remarksService.getByRequestId(this.requestId, 12).subscribe(data => {
+          this.dataSource = data;
+        });
+        this._remarksService.getLastRemarks(this.requestId, 12).subscribe(data => {
+          this.lastUserRemarks = data;
+          if(this.lastUserRemarks != null){          
+          this.lastId = this.lastUserRemarks['id'];
+          this.AddorEdit(this.lastUserRemarks['user']);
+          }
+        })        
+      }                      
     else
     {
       this.dataSource = null;
@@ -161,10 +244,8 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
     })
   }
 
-  private AddorEdit() {
-    this._remarksService.checkUserRemarks(this.requestId, this.user).subscribe(data => {
-      console.log(data);
-      if(this.user == data.remarks)
+  private AddorEdit(user) {
+      if(this.user == user)
       {
             this.showButton = true
       }
@@ -172,7 +253,6 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
       {
             this.showButton = false
       } 
-    }); 
   }
 
   private HideComponent(){

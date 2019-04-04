@@ -10,9 +10,11 @@ export class RemarksService {
 
   constructor(private _http: HttpClient) { }
   getByRequestId(requestId, status): Observable<any> {
-    return this._http.get(ApiConstants.maefApi + '/returnRemarks/' + requestId +'/'+ status);
+    return this._http.get(ApiConstants.maefApi + '/returnRemarks/' + requestId +'/'+ status);    
   }
-
+  getByRequestIdStatus2(requestId, status): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/returnRemarksStatus2/' + requestId +'/'+ status);    
+  }
   getLastRemarks(requestId, status): Observable<any> {
     return this._http.get(ApiConstants.maefApi + '/lastRemarks/' + requestId +'/'+ status);    
   }
@@ -36,4 +38,9 @@ export class RemarksService {
   checkUserRemarks(requestId, user): Observable<any> {
     return this._http.get(ApiConstants.maefApi + '/checkUserRemarks/' + requestId +'/'+ user);
   }
+
+  GetAnyLastRemark(requestId, status): Observable<any> {
+    return this._http.get(ApiConstants.maefApi + '/GetAnyLastRemark/' + requestId +'/'+ status);
+  }  
+
 }

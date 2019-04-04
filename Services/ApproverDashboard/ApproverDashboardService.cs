@@ -26,7 +26,7 @@ namespace MAP_Web.Services
         public async Task<List<DashboardViewModel>> FindAsync()
         {
             var dashboardContainer = new List<DashboardViewModel>();
-            var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile).Include(m => m.MAEF), orderBy: x => x.OrderByDescending(y => y.Id), predicate: r => r.Status == 8);
+            var requests = await this.requestRepo.GetPagedListAsync(include: r => r.Include(rr => rr.NewAffiliation).ThenInclude(n => n.CustomerProfile).Include(m => m.MAEF), orderBy: x => x.OrderByDescending(y => y.Id), predicate: r => r.Status == 8 || r.Status == 30 || r.Status == 31);
 
             foreach (var item in requests.Items)
             {

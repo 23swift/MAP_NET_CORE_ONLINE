@@ -45,6 +45,8 @@ namespace MAP_Web.Models
 
         public virtual ICollection<RequiredApproval> RequiredApproval { get; set;}
         public virtual ICollection<History> History { get; set; }
+
+        public Nullable<Guid> HistoryGroupId { get; set; } 
     }
 
 }

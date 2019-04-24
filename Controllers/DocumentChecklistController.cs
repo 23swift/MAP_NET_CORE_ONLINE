@@ -7,6 +7,13 @@ using AutoMapper;
 using MAP_Web.Models.ViewModels;
 using System;
 
+
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+
 namespace MAP_Web.Controllers
 {
     [Route("/api/documentChecklist")]
@@ -14,11 +21,13 @@ namespace MAP_Web.Controllers
     {
         private readonly IDocumentChecklistService documentChecklistService;
         private readonly IMapper mapper;
-
-        public DocumentChecklistController(IDocumentChecklistService documentChecklistService, IMapper mapper)
+        private readonly string name;
+        public DocumentChecklistController(IDocumentChecklistService documentChecklistService, IMapper mapper, IHttpContextAccessor claims)
         {
             this.mapper = mapper;
             this.documentChecklistService = documentChecklistService;
+
+            name = claims.HttpContext.User.Claims.ToList().SingleOrDefault(c => c.Type == "name").Value;            
         }
 
         [HttpGet("{id}")]
@@ -81,7 +90,7 @@ namespace MAP_Web.Controllers
                 return BadRequest(ModelState);
 
             var doc = await documentChecklistService.FindAsync(id);
-            document.submittedBy = document.submitted ? "Test User" : "";
+            document.submittedBy = document.submitted ? name : "";
 
             if (doc == null)
                 return NotFound();

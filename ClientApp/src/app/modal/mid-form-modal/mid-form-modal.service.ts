@@ -98,7 +98,6 @@ export class MidFormModalService {
             className: 'flex-4',
             key: 'currencyUsd',
             type: 'checkbox',
-            defaultValue: false,
             templateOptions: {
               label: 'USD',
               indeterminate: false

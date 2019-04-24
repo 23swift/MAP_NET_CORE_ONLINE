@@ -25,5 +25,7 @@ namespace MAP_Web.Models
         public virtual ICollection<DocumentChecklist> DocumentChecklists { get; set; }
 
         public virtual Request Request { get; set; }
+        
+        public Nullable<Guid> HistoryGroupId { get; set; }
     }
 }

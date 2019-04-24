@@ -2,26 +2,43 @@ using System.Threading.Tasks;
 using MAP_Web.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System;
+
 namespace MAP_Web.Services
 {
-    public class ApproveWithReqReasonService : IApproveWithReqReasonService
+    public class ApproveWithReqReasonService : UserIdentity, IApproveWithReqReasonService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IRepository<ApproveWithReqReason> approveWithReqReasonRepo;
         private readonly IRepository<MAEF> maefRepo;
-
         private readonly IRepository<Request> requestRepo;
+        private readonly IRepository<History> historyRepo;
 
-        public ApproveWithReqReasonService(IUnitOfWork unitOfWork)
+        public ApproveWithReqReasonService(IUnitOfWork unitOfWork, IHttpContextAccessor claims) :  base(claims)
         {
             this.unitOfWork = unitOfWork;
             this.approveWithReqReasonRepo = this.unitOfWork.GetRepository<ApproveWithReqReason>();
             this.maefRepo = this.unitOfWork.GetRepository<MAEF>();
             this.requestRepo = this.unitOfWork.GetRepository<Request>();
+            this.historyRepo = this.unitOfWork.GetRepository<History>();
         }
 
         public async Task InsertAsync(ApproveWithReqReason approveWithReqReason)
         {
+            var awrrData = await maefRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == approveWithReqReason.MAEFId);
+            approveWithReqReason.AuditLogGroupId = awrrData.AuditLogGroupId;
+            approveWithReqReason.HistoryGroupId = Guid.NewGuid();
+
+           await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Approved With Requirement Details Added",
+                groupCode = role,
+                user = user,
+                RequestId = awrrData.Id,
+                AuditLogGroupId = awrrData.AuditLogGroupId,
+                HistoryGroupId = approveWithReqReason.HistoryGroupId
+            });             
             await approveWithReqReasonRepo.InsertAsync(approveWithReqReason);
         }
 
@@ -41,13 +58,39 @@ namespace MAP_Web.Services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public void Update(ApproveWithReqReason approveWithReqReason)
+        public async Task Update(ApproveWithReqReason approveWithReqReason)
         {
+            var awrrData = await maefRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == approveWithReqReason.MAEFId);
+            approveWithReqReason.AuditLogGroupId = awrrData.AuditLogGroupId;
+            approveWithReqReason.HistoryGroupId = Guid.NewGuid();
+
+           await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Approved With Requirement Details Modified",
+                groupCode = role,
+                user = user,
+                RequestId = awrrData.Id,
+                AuditLogGroupId = awrrData.AuditLogGroupId,
+                HistoryGroupId = approveWithReqReason.HistoryGroupId
+            });             
             approveWithReqReasonRepo.Update(approveWithReqReason);
         }
 
-        public void Delete(ApproveWithReqReason approveWithReqReason)
+        public async Task Delete(ApproveWithReqReason approveWithReqReason)
         {
+            var awrrData = await maefRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == approveWithReqReason.MAEFId);
+            approveWithReqReason.AuditLogGroupId = awrrData.AuditLogGroupId;
+            approveWithReqReason.HistoryGroupId = Guid.NewGuid();
+
+           await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Approved With Requirement Details Deleted",
+                groupCode = role,
+                user = user,
+                RequestId = awrrData.Id,
+                AuditLogGroupId = awrrData.AuditLogGroupId,
+                HistoryGroupId = approveWithReqReason.HistoryGroupId
+            });             
             approveWithReqReasonRepo.Delete(approveWithReqReason);
         }
 

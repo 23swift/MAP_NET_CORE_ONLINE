@@ -18,5 +18,6 @@ namespace MAP_Web.Models
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public Nullable<int> POSId { get; set; }
         public POS POS { get; set; }
+        public Nullable<Guid> HistoryGroupId { get; set; }         
     }
 }

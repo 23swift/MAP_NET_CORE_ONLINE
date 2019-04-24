@@ -66,6 +66,7 @@ namespace MAP_Web.Controllers
 
             mapper.Map<ApproveWithReqReasonMqrViewModel, ApproveWithReqReasonMqr>(appReq, currentAppReq);
 
+            await appReqMqrService.Update(currentAppReq);
             await appReqMqrService.SaveChangesAsync();
 
             return Ok(currentAppReq);
@@ -79,7 +80,7 @@ namespace MAP_Web.Controllers
             if (currentAppReq == null)
                 return NotFound();
 
-            appReqMqrService.Delete(currentAppReq);
+            await appReqMqrService.Delete(currentAppReq);
             await appReqMqrService.SaveChangesAsync();
 
             return Ok();

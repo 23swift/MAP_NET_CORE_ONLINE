@@ -22,5 +22,6 @@ namespace MAP_Web.Models
         public NewAffiliation NewAffiliation { get; set; }
         public ICollection<Owners> Owners { get; set; }
         public ICollection<Signatories> Signatories { get; set; }
+        public Nullable<Guid> HistoryGroupId { get; set; }
     }
 }

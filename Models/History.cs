@@ -25,6 +25,8 @@ namespace MAP_Web.Models
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public int RequestId { get; set; }
         public virtual Request Request { get; set; }
+        public Nullable<Guid> HistoryGroupId { get; set; }
+
     }
 }
 

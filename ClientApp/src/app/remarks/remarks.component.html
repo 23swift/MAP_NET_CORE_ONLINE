@@ -1,7 +1,7 @@
-<div class="xbtn"><button *ngIf="!dataSource?.length" style="margin-top:3px" mat-button color="primary" (click)="AddReply()">Add Remarks
+<div class="xbtn"><div *ngIf="this.requestStatus != 1"><button *ngIf="!dataSource?.length" style="margin-top:3px" mat-button color="primary" (click)="AddReply()">Add Remarks 
   <mat-icon color="primary">add</mat-icon>
-</button></div>
-<div class="xbtn" ><button *ngIf="!showComponent" style="margin-top:3px" mat-button color="primary" (click)="ViewComponent()">Show Remarks
+</button></div></div>
+<div class="xbtn" ><button *ngIf="!showComponent" style="margin-top:3px" mat-button color="primary" (click)="ViewComponent()">Show Remarks 
   <mat-icon color="primary">chat</mat-icon>
 </button></div>
 <div *ngIf="showComponent">

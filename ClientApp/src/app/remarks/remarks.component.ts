@@ -33,8 +33,13 @@ export class RemarksComponent extends AppBaseComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getDatasource();  
-    //this.AddorEdit();
+    this.getDatasource(); 
+    
+    this._remarksService.getRequestStatus(this.requestId).subscribe(data => {
+      this.requestStatus = data;
+    })
+
+
   }
 
 

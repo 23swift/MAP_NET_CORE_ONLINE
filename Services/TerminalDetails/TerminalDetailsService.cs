@@ -27,6 +27,7 @@ namespace MAP_Web.Services
             var branch = pos.Branch;
             var request = await requestRepo.FindAsync(branch.NewAffiliationId);
             terminalDetails.AuditLogGroupId = request.AuditLogGroupId;
+            terminalDetails.HistoryGroupId = Guid.NewGuid();            
             // POS.Branch.NewAffiliationId is the same with Request.Id
 
             historyRepo.Insert(new History{
@@ -35,7 +36,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = terminalDetails.HistoryGroupId
             });
             await terminalRepo.InsertAsync(terminalDetails);
         }
@@ -54,6 +56,7 @@ namespace MAP_Web.Services
         {
             var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
             var branch = pos.Branch;
+            terminalDetails.HistoryGroupId = Guid.NewGuid();
             // POS.Branch.NewAffiliationId is the same with Request.Id
 
             historyRepo.Insert(new History{
@@ -62,7 +65,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = terminalDetails.HistoryGroupId
             });
             terminalRepo.Update(terminalDetails);
         }
@@ -71,6 +75,7 @@ namespace MAP_Web.Services
         {
             var pos = await posRepo.GetFirstOrDefaultAsync(predicate: p => p.Id == terminalDetails.POSId, include: p => p.Include(pp => pp.Branch));
             var branch = pos.Branch;
+            terminalDetails.HistoryGroupId = Guid.NewGuid();            
             // POS.Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -79,7 +84,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = terminalDetails.HistoryGroupId
             });
             terminalRepo.Delete(terminalDetails);
         }

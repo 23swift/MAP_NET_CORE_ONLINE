@@ -13,8 +13,8 @@ namespace MAP_Web.Services
          Task<ApproveWithExceptDetails> FindAsyncSpecific(int id);         
 
          Task SaveChangesAsync();
-         void Update(ApproveWithExceptDetails approveWithExceptDetails);
-         void Delete(ApproveWithExceptDetails approveWithExceptDetails);
+         Task Update(ApproveWithExceptDetails approveWithExceptDetails);
+         Task Delete(ApproveWithExceptDetails approveWithExceptDetails);
 
         Task<MAEF> GetMaefIdByNewAffId(int id);
     }

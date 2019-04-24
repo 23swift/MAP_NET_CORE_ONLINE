@@ -15,6 +15,8 @@ namespace MAP_Web.Models
         public Request Request { get; set; }
         public string user { get; set; }
 
-        public bool finalApprover { get; set; }        
+        public bool finalApprover { get; set; }    
+        public Nullable<Guid> HistoryGroupId { get; set; }   
+        public Nullable<Guid> AuditLogGroupId { get; set; }              
     }
 }

@@ -128,5 +128,7 @@ namespace MAP_Web.Models
 
         public AwrMaef AwrMaef { get; set; }
 
+       public Nullable<Guid> HistoryGroupId { get; set; }          
+
     }
 }

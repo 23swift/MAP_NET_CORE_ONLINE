@@ -31,6 +31,7 @@ namespace MAP_Web.Services
             var request = await requestRepo.FindAsync(branch.NewAffiliationId);
             oif.AuditLogGroupId = request.AuditLogGroupId;
             // Branch.NewAffiliationId is the same with Request.Id
+            oif.HistoryGroupId = Guid.NewGuid();
 
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
@@ -38,7 +39,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = oif.AuditLogGroupId
+                AuditLogGroupId = oif.AuditLogGroupId,
+                HistoryGroupId = oif.HistoryGroupId
             });
 
             await oifRepo.InsertAsync(oif);
@@ -58,6 +60,7 @@ namespace MAP_Web.Services
         {
             var branch = await branchRepo.FindAsync(oif.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
+            oif.HistoryGroupId = Guid.NewGuid();
 
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
@@ -65,7 +68,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = oif.HistoryGroupId
             });
             oifRepo.Update(oif);
         }
@@ -73,6 +77,7 @@ namespace MAP_Web.Services
         public async void Delete(OIF oif)
         {
             var branch = await branchRepo.FindAsync(oif.BranchId);
+            oif.HistoryGroupId = Guid.NewGuid();
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -81,7 +86,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = oif.HistoryGroupId
             });
             oifRepo.Delete(oif);
         }

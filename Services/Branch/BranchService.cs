@@ -46,6 +46,7 @@ namespace MAP_Web.Services
         {
             var request = await requestRepo.FindAsync(branch.NewAffiliationId);
             branch.AuditLogGroupId = request.AuditLogGroupId;
+            branch.HistoryGroupId = Guid.NewGuid();
 
             branch.MIDs = new Collection<MID>();
             branch.MIDs.Add(new MID
@@ -56,7 +57,8 @@ namespace MAP_Web.Services
                 majorPurchase = false,
                 serviceFeeRate = 99.99M,
                 status = 1,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -66,7 +68,8 @@ namespace MAP_Web.Services
                 majorPurchase = true,
                 serviceFeeRate = 0.00M,
                 status = 1,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -76,7 +79,8 @@ namespace MAP_Web.Services
                 majorPurchase = true,
                 serviceFeeRate = 0.00M,
                 status = 1,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -86,7 +90,8 @@ namespace MAP_Web.Services
                 majorPurchase = true,
                 serviceFeeRate = 0.00M,
                 status = 1,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
             branch.MIDs.Add(new MID
             {
@@ -96,7 +101,8 @@ namespace MAP_Web.Services
                 majorPurchase = true,
                 serviceFeeRate = 0.00M,
                 status = 1,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
 
             // Branch.NewAffiliationId is the same with Request.Id
@@ -108,7 +114,8 @@ namespace MAP_Web.Services
                 groupCode = "Test Group Code",
                 user = "Test User",
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
             await branchRepo.InsertAsync(branch);
         }
@@ -126,7 +133,7 @@ namespace MAP_Web.Services
         public async Task Update(Branch branch)
         {
             // Branch.NewAffiliationId is the same with Request.Id
-
+            branch.HistoryGroupId = Guid.NewGuid();
             await historyRepo.InsertAsync(new History
             {
                 date = DateTime.Now,
@@ -134,7 +141,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
 
             branchRepo.Update(branch);
@@ -143,7 +151,7 @@ namespace MAP_Web.Services
         public async Task Delete(Branch branch)
         {
             // Branch.NewAffiliationId is the same with Request.Id
-
+            branch.HistoryGroupId = Guid.NewGuid();
             await historyRepo.InsertAsync(new History
             {
                 date = DateTime.Now,
@@ -151,7 +159,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = branch.HistoryGroupId
             });
             branchRepo.Delete(branch);
         }

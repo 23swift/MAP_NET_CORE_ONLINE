@@ -343,5 +343,6 @@ namespace MAP_Web.Models
         public int NewAffiliationId { get; set; }
         public virtual NewAffiliation NewAffiliation { get; set; }
         public virtual ICollection<MID> MIDs { get; set; }
+        public Nullable<Guid> HistoryGroupId { get; set; }        
     }
 }

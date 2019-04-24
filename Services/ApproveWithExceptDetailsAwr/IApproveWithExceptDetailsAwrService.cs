@@ -11,8 +11,8 @@ namespace MAP_Web.Services
         Task<IPagedList<ApproveWithExceptDetailsAwr>> FindByMAEF(int id);
         Task<ApproveWithExceptDetailsAwr> FindAsyncSpecific(int id);
         Task InsertAsync(ApproveWithExceptDetailsAwr appExAwr);
-        void Update(ApproveWithExceptDetailsAwr appExAwr);
-        void Delete(ApproveWithExceptDetailsAwr appExAwr);
+        Task Update(ApproveWithExceptDetailsAwr appExAwr);
+        Task Delete(ApproveWithExceptDetailsAwr appExAwr);
         Task SaveChangesAsync();
     }
 }

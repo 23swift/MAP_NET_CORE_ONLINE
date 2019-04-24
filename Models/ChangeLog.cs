@@ -14,5 +14,6 @@ namespace MAP_Web.Models
         public string Action { get; set; }
         public DateTime DateChanged { get; set; }        
         public int HistoryId { get; set; }
+        public Nullable<Guid> HistoryGroupId { get; set; }
     }
 }

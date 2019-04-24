@@ -11,8 +11,8 @@ namespace MAP_Web.Services
         Task<IPagedList<ApproveWithReqReasonMqr>> FindByMAEF(int id);
         Task<ApproveWithReqReasonMqr> FindAsyncSpecific(int id);
         Task InsertAsync(ApproveWithReqReasonMqr appReqMqr);
-        void Update(ApproveWithReqReasonMqr appReqMqr);
-        void Delete(ApproveWithReqReasonMqr appReqMqr);
+        Task Update(ApproveWithReqReasonMqr appReqMqr);
+        Task Delete(ApproveWithReqReasonMqr appReqMqr);
         Task SaveChangesAsync();
     }
 }

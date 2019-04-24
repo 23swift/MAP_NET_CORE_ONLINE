@@ -29,10 +29,25 @@ namespace MAP_Web.Services
 
         public async Task InsertToRequestAsync(int id, int documentId)
         {
+            var docu = await documentRepo.GetFirstOrDefaultAsync(predicate: c => c.NewAffiliationId == id);
+            var HistoryGroupId = Guid.NewGuid();
             var document = new DocumentChecklist {
                 NewAffiliationId = id,
-                documentName = documentId
+                documentName = documentId,
+                AuditLogGroupId = docu.AuditLogGroupId,
+                HistoryGroupId = HistoryGroupId
             };
+            await historyRepo.InsertAsync(new History{
+                date = DateTime.Now,
+                action = "Document: " + id + " Added",   //documentChecklist.documentName
+                groupCode = role,
+                user = user,
+                RequestId = docu.NewAffiliationId,
+                AuditLogGroupId = docu.AuditLogGroupId,
+                HistoryGroupId = HistoryGroupId
+            });            
+
+
 
             await documentRepo.InsertAsync(document);
         }
@@ -50,14 +65,15 @@ namespace MAP_Web.Services
         public async Task Update(DocumentChecklist documentChecklist)
         {
             // DocumentChecklist.NewAffiliationId is the same with Request.Id
-
+            documentChecklist.HistoryGroupId = Guid.NewGuid();
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Document: " + documentChecklist.documentName + " Updated",
                 groupCode = role,
                 user = user,
                 RequestId = documentChecklist.NewAffiliationId,
-                AuditLogGroupId = documentChecklist.AuditLogGroupId
+                AuditLogGroupId = documentChecklist.AuditLogGroupId,
+                HistoryGroupId = documentChecklist.HistoryGroupId
             });
 
             documentRepo.Update(documentChecklist);
@@ -66,14 +82,15 @@ namespace MAP_Web.Services
         public async Task Delete(DocumentChecklist documentChecklist)
         {
             // DocumentChecklist.NewAffiliationId is the same with Request.Id
-
+            documentChecklist.HistoryGroupId = Guid.NewGuid();
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Document: " + documentChecklist.documentName + " Deleted",
                 groupCode = role,
                 user = user,
                 RequestId = documentChecklist.NewAffiliationId,
-                AuditLogGroupId = documentChecklist.AuditLogGroupId
+                AuditLogGroupId = documentChecklist.AuditLogGroupId,
+                HistoryGroupId = documentChecklist.HistoryGroupId
             });
 
             documentRepo.Delete(documentChecklist);

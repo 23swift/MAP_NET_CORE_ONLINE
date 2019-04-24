@@ -29,6 +29,7 @@ namespace MAP_Web.Services
             var branch = await branchRepo.FindAsync(pos.BranchId);
             var request = await requestRepo.FindAsync(branch.NewAffiliationId);
             pos.AuditLogGroupId = request.AuditLogGroupId;
+            pos.HistoryGroupId = Guid.NewGuid();
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History
@@ -38,7 +39,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = pos.HistoryGroupId
             });
             await posRepo.InsertAsync(pos);
         }
@@ -56,6 +58,7 @@ namespace MAP_Web.Services
         public async Task Update(POS pos)
         {
             var branch = await branchRepo.FindAsync(pos.BranchId);
+            pos.HistoryGroupId = Guid.NewGuid();            
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History
@@ -65,7 +68,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = pos.HistoryGroupId
             });
             posRepo.Update(pos);
         }
@@ -73,6 +77,7 @@ namespace MAP_Web.Services
         public async Task Delete(POS pos)
         {
             var branch = await branchRepo.FindAsync(pos.BranchId);
+            pos.HistoryGroupId = Guid.NewGuid();            
             // Branch.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History
@@ -82,7 +87,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = pos.HistoryGroupId
             });
             posRepo.Delete(pos);
         }

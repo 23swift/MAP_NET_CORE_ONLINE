@@ -23,7 +23,7 @@ namespace MAP_Web.Services
         {
             var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == signatory.CustomerProfileId);
             signatory.AuditLogGroupId = customer.AuditLogGroupId;
-
+            signatory.HistoryGroupId = Guid.NewGuid();
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
             historyRepo.Insert(new History{
@@ -32,7 +32,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = customer.NewAffiliationId,
-                AuditLogGroupId = customer.AuditLogGroupId
+                AuditLogGroupId = customer.AuditLogGroupId,
+                HistoryGroupId = signatory.HistoryGroupId
             });
 
             await signatoriesRepo.InsertAsync(signatory);
@@ -56,7 +57,7 @@ namespace MAP_Web.Services
         public async Task Update(Signatories signatory)
         {
             var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == signatory.CustomerProfileId);
-
+            signatory.HistoryGroupId = Guid.NewGuid();
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -65,7 +66,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = customer.NewAffiliationId,
-                AuditLogGroupId = customer.AuditLogGroupId
+                AuditLogGroupId = customer.AuditLogGroupId,
+                HistoryGroupId = signatory.HistoryGroupId
             });
             
             signatoriesRepo.Update(signatory);
@@ -74,7 +76,7 @@ namespace MAP_Web.Services
         public async Task Delete(Signatories signatory)
         {
             var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == signatory.CustomerProfileId);
-
+            signatory.HistoryGroupId = Guid.NewGuid();
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -83,7 +85,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = customer.NewAffiliationId,
-                AuditLogGroupId = customer.AuditLogGroupId
+                AuditLogGroupId = customer.AuditLogGroupId,
+                HistoryGroupId = signatory.HistoryGroupId
             });
 
             signatoriesRepo.Delete(signatory);

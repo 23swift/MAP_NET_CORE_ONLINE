@@ -28,16 +28,18 @@ namespace MAP_Web.Services
         {
             var customer = customerRepo.GetFirstOrDefault(predicate: c => c.Id == owner.CustomerProfileId);
             owner.AuditLogGroupId = customer.AuditLogGroupId;
+            owner.HistoryGroupId = Guid.NewGuid();
 
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            historyRepo.Insert(new History{
+           historyRepo.Insert(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + "'s Details Added",
                 groupCode = role,
                 user = user,
                 RequestId = customer.NewAffiliationId,
-                AuditLogGroupId = customer.AuditLogGroupId
+                AuditLogGroupId = customer.AuditLogGroupId,
+                HistoryGroupId = owner.HistoryGroupId
             });
 
             await ownersRepo.InsertAsync(owner);
@@ -61,7 +63,7 @@ namespace MAP_Web.Services
         public async Task Update(Owners owner)
         {
             var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == owner.CustomerProfileId);
-
+            owner.HistoryGroupId = Guid.NewGuid();
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -70,7 +72,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = customer.NewAffiliationId,
-                AuditLogGroupId = customer.AuditLogGroupId
+                AuditLogGroupId = customer.AuditLogGroupId,
+                HistoryGroupId = owner.HistoryGroupId
             });
             ownersRepo.Update(owner);
         }
@@ -79,16 +82,17 @@ namespace MAP_Web.Services
         {
             
             var customer = await customerRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == owner.CustomerProfileId);
-
+            owner.HistoryGroupId = Guid.NewGuid();
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
-            await historyRepo.InsertAsync(new History{
+           await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
                 action = "Owner: " + owner.name + " Deleted",
                 groupCode = role,
                 user = user,
                 RequestId = customer.NewAffiliationId,
-                AuditLogGroupId = customer.AuditLogGroupId
+                AuditLogGroupId = customer.AuditLogGroupId,
+                HistoryGroupId = owner.HistoryGroupId
             });
 
             ownersRepo.Delete(owner);

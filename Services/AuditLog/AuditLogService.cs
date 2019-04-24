@@ -21,7 +21,9 @@ namespace MAP_Web.Services
         {
             var now = DateTime.UtcNow;
 
-            int historyId = (int)changes.SingleOrDefault(s => s.Entity.GetType().Name=="History").CurrentValues[propertyName: "Id"];
+          // int historyId = (int)changes.SingleOrDefault(s => s.Entity.GetType().Name=="History").CurrentValues[propertyName: "Id"];
+
+          //   Guid historyGroupId =  new Guid(changes.SingleOrDefault(h => h.Entity.GetType().Name=="History").CurrentValues[propertyName: "HistoryGroupId"].ToString());
 
             foreach (var change in changes)
             {
@@ -29,18 +31,26 @@ namespace MAP_Web.Services
 
                 // var primaryKey = GetPrimaryKeyValue(change);
                 var DatabaseValues = change.GetDatabaseValues();
-                var auditLogId = Guid.NewGuid();
+                Guid auditLogId = new Guid();
+                Guid historyGroupId = new Guid();
 
                 
 
-                foreach (var prop in change.CurrentValues.Properties)
+                foreach (var prop in change.CurrentValues.Properties)  //insert auditlogId on history
                 {
                     if (prop.Name == "AuditLogGroupId")
                     {
-                        // auditLogId = new Guid(change.CurrentValues[property: prop] == null ? Guid.NewGuid() : change.CurrentValues[property: prop].ToString());
-                        auditLogId = new Guid(change.CurrentValues[property: prop].ToString()); //
-                        break;
+                      // auditLogId = new Guid(change.CurrentValues[property: prop] == null ? Guid.NewGuid() : change.CurrentValues[property: prop].ToString());
+                      auditLogId = new Guid(change.CurrentValues[property: prop].ToString()); 
+                       //break;
                     }
+
+                    if(prop.Name == "HistoryGroupId")
+                    {
+                      historyGroupId = new Guid(change.CurrentValues[property: prop].ToString());  
+                      // break;        
+                    }
+
                 }
 
                 string action = "";
@@ -52,17 +62,17 @@ namespace MAP_Web.Services
                         case EntityState.Added:
                             originalValue = "";
                             currentValue = change.CurrentValues[property: prop] ?? "";
-                            action = "ADDED";
+                            action = "ADDED";                            
                         break;
                         case EntityState.Modified:
                             originalValue = DatabaseValues.GetValue<object>(prop) ?? "";
                             currentValue = change.CurrentValues[property: prop] ?? "";
-                            action = "MODIFIED";
+                            action = "MODIFIED";                            
                             break;
                         case EntityState.Deleted:
                             originalValue = DatabaseValues.GetValue<object>(prop) ?? "";
                             currentValue = "";
-                            action = "DELETED";
+                            action = "DELETED";                            
                             break;
                         default:
                         break;
@@ -73,18 +83,17 @@ namespace MAP_Web.Services
                         ChangeLog log = new ChangeLog()
                         {
                             EntityName = entityName,
-                            // PrimaryKeyValue = prop.IsPrimaryKey,
                             PropertyName = prop.Name,
                             OldValue = originalValue == null ? "" : originalValue.ToString(),
                             NewValue = currentValue == null ? "" : currentValue.ToString(),
                             DateChanged = now,
-                            AuditLogGroupId = new Guid(auditLogId.ToString()),
+                            AuditLogGroupId = auditLogId,
                             Action = action,
-                            HistoryId = historyId
+                            HistoryGroupId = historyGroupId
                         };
 
                         await _loggerContext.ChangeLogs.AddAsync(log);
-                        await _loggerContext.SaveChangesAsync(); //xcx
+                        await _loggerContext.SaveChangesAsync(); 
                     }
                 }
             }

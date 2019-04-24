@@ -13,5 +13,6 @@ namespace MAP_Web.Models
         public Nullable<Guid> AuditLogGroupId { get; set; }
         public int CustomerProfileId { get; set; }
         public CustomerProfile CustomerProfile { get; set; }
+        public Nullable<Guid> HistoryGroupId { get; set; }
     }
 }

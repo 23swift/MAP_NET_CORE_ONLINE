@@ -1,6 +1,7 @@
-<div class="mat-subheading-1" style="margin: 0px;"><i class="material-icons icon-color align-middle">history</i>
+<div md-dialog-content>
+  <div class="mat-subheading-1" style="margin: 0px;"><i class="material-icons icon-color align-middle">history</i>
   History</div>
-  
+<!--  
 <mat-dialog-content style="overflow-y: auto; overflow-x: hidden;">
   <mat-tab-group animationDuration="0ms">
     <mat-tab label="Overview">
@@ -28,22 +29,26 @@
     </mat-tab>
   </mat-tab-group>
 </mat-dialog-content> 
+-->
 
-<!--
-<mat-accordion>
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-    <div *ngFor="let item of history | async">
+  <mat-accordion>
+  <mat-expansion-panel (closed)="panelOpenState = false" *ngFor="let item of history | async" (opened)="getDetailed(item.id)">
+
     <mat-expansion-panel-header>
       <mat-panel-title>
             <h4 mat-line><mat-icon mat-list-icon class="icon-color">error</mat-icon> {{ item.date | date:'ddMMMyy' }} | {{ item.user }} - &lt;{{item.action}}&gt;</h4>
             <h5 mat-line *ngIf="item.remarks">Remarks: {{ item.remarks }}</h5>
             <mat-divider></mat-divider>          
       </mat-panel-title>
-    </mat-expansion-panel-header> -->
-   <!--   <div *ng-container>
-
-      </ng-container> -->
-<!--      
-  </div>
+    </mat-expansion-panel-header> 
+            <div *ngFor="let item2 of historyDetailed | async">
+                <h4 mat-line>{{ item2.action }} on {{ item2.entityName }} with property {{ item2.propertyName }} - <span *ngIf="item2.oldValue">OLD
+                    VALUE:
+                    "{{ item2.oldValue }}" |</span> NEW VALUE: "{{ item2.newValue }}" </h4>   
+                <mat-divider></mat-divider>             
+            </div>              
   </mat-expansion-panel>
-</mat-accordion>  -->
+</mat-accordion>  
+</div>
+
+

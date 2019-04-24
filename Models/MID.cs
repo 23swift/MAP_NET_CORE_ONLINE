@@ -31,5 +31,7 @@ namespace MAP_Web.Models
         public string tid { get; set; }
         public int BranchId { get; set; }
         public Branch Branch { get; set; }
+
+        public Nullable<Guid> HistoryGroupId { get; set; }
     }
 }

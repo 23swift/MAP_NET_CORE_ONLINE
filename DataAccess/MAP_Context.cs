@@ -92,10 +92,15 @@ namespace MAP_Web.DataAccess
             var modifiedEntities = ChangeTracker.Entries()
             .Where(p => p.State == EntityState.Added ||
             p.State == EntityState.Modified ||
-            p.State == EntityState.Deleted).ToList();
+            p.State == EntityState.Deleted).ToList();   
+
+
+           //->
+            await _AuditLogService.Save(modifiedEntities);           
             int result = await base.SaveChangesAsync();
-          //  await _AuditLogService.Save(modifiedEntities);
-           // int result = await base.SaveChangesAsync();
+
+
+            
             return result;
         }
     }

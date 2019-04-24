@@ -12,6 +12,9 @@ namespace MAP_Web.Models
         public int requestType { get; set; }
         public Nullable<bool> withRequirements { get; set; }
         public Nullable<bool> withException { get; set; }  
-        public Request Request { get; set; }   
+        public Request Request { get; set; } 
+        public Nullable<Guid> HistoryGroupId { get; set; }
+        public Nullable<Guid> AuditLogGroupId { get; set; }
+          
     }
 }

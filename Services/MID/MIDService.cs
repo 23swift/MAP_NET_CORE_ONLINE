@@ -32,6 +32,7 @@ namespace MAP_Web.Services
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
+            mid.HistoryGroupId = Guid.NewGuid();
 
             await historyRepo.InsertAsync(new History
             {
@@ -40,7 +41,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = mid.HistoryGroupId
             });
             await midRepo.InsertAsync(mid);
         }
@@ -77,6 +79,7 @@ namespace MAP_Web.Services
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
+            mid.HistoryGroupId = Guid.NewGuid();
 
             await historyRepo.InsertAsync(new History
             {
@@ -85,7 +88,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = mid.HistoryGroupId
             });
 
             midRepo.Update(mid);
@@ -95,6 +99,7 @@ namespace MAP_Web.Services
         {
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == mid.BranchId);
             // Branch.NewAffiliationId is the same with Request.Id
+            mid.HistoryGroupId = Guid.NewGuid();            
 
             await historyRepo.InsertAsync(new History
             {
@@ -103,7 +108,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = mid.HistoryGroupId
             });
             midRepo.Delete(mid);
         }
@@ -193,6 +199,7 @@ namespace MAP_Web.Services
         {
             var currentMid = midRepo.Find(id);
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == currentMid.BranchId);
+            currentMid.HistoryGroupId = Guid.NewGuid();   
 
             await historyRepo.InsertAsync(new History
             {
@@ -201,7 +208,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = currentMid.HistoryGroupId
             });
 
             currentMid.merchId = value;
@@ -212,7 +220,7 @@ namespace MAP_Web.Services
         {
             var currentTid = midRepo.Find(id);
             var branch = await branchRepo.GetFirstOrDefaultAsync(predicate: b => b.Id == currentTid.BranchId);
-
+            currentTid.HistoryGroupId = Guid.NewGuid();  
             await historyRepo.InsertAsync(new History
             {
                 date = DateTime.Now,
@@ -220,7 +228,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = branch.NewAffiliationId,
-                AuditLogGroupId = branch.AuditLogGroupId
+                AuditLogGroupId = branch.AuditLogGroupId,
+                HistoryGroupId = currentTid.HistoryGroupId
             });
 
             currentTid.tid = value;

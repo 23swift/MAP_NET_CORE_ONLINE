@@ -20,5 +20,7 @@ namespace MAP_Web.Models
         public Nullable<bool> original { get; set; }
         public int NewAffiliationId { get; set; }
         public NewAffiliation NewAffiliation { get; set; }
+        
+        public Nullable<Guid> HistoryGroupId { get; set; }
     }
 }

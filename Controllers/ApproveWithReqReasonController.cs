@@ -45,8 +45,6 @@ namespace MAP_Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateApproveWithReqReason([FromBody] ApproveWithReqReason approveWithReqReason)
         {
-            if (approveWithReqReason.MAEF == null)
-                return BadRequest(ModelState);
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -68,7 +66,7 @@ namespace MAP_Web.Controllers
                 return NotFound();
 
             mapper.Map<ApproveWithReqReasonViewModel, ApproveWithReqReason>(appReq, currentAppReq);
-
+            await approveWithReqReasonService.Update(currentAppReq);
             await approveWithReqReasonService.SaveChangesAsync();
 
             return Ok(currentAppReq);
@@ -82,7 +80,7 @@ namespace MAP_Web.Controllers
             if (currentAppReq == null)
                 return NotFound();
 
-            approveWithReqReasonService.Delete(currentAppReq);
+            await approveWithReqReasonService.Delete(currentAppReq);
             await approveWithReqReasonService.SaveChangesAsync();
 
             return Ok();

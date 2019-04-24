@@ -195,7 +195,7 @@ export class AoEncoderComponent implements OnInit {
   openHistory() {
     this._dialog.open(HistoryModalComponent, {
       width: '60%',
-      height: 'auto',
+      height: '60%',
       data: {
         requestId: this.newAffiliationId
       }

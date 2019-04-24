@@ -29,11 +29,6 @@ namespace MAP_Web.Services
 
         public async Task InsertAsync(MAEF maef)
         {
-           /* var request = await requestRepo.GetFirstOrDefaultAsync(predicate: r => r.Id == maef.RequestId, include:r => r.Include(rr => rr.MAEF));
-            maef.RequestId = 0;
-            request.MAEF = maef;
-            requestRepo.Update(request); */
-
              await maefRepo.InsertAsync(maef);
         }
 
@@ -57,7 +52,8 @@ namespace MAP_Web.Services
         public async Task Update(MAEF maef)
         {
             var maefData = await requestRepo.GetFirstOrDefaultAsync(predicate: c => c.Id == maef.RequestId);
-            maefData.AuditLogGroupId = maef.AuditLogGroupId;
+            maef.AuditLogGroupId = maefData.AuditLogGroupId;
+            maef.HistoryGroupId = Guid.NewGuid();
 
             await historyRepo.InsertAsync(new History{
                 date = DateTime.Now,
@@ -65,7 +61,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = maefData.Id,
-                AuditLogGroupId = maefData.AuditLogGroupId
+                AuditLogGroupId = maefData.AuditLogGroupId,
+                HistoryGroupId = maef.HistoryGroupId
             }); 
 
             maefRepo.Update(maef);

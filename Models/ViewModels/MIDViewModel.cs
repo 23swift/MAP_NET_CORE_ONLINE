@@ -33,5 +33,7 @@ namespace MAP_Web.Models.ViewModels
 
         public string merchId { get; set; }
         public string tid { get; set; }
+
+        public Nullable<Guid> HistoryGroupId { get; set; }        
     }
 }

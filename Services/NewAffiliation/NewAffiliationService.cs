@@ -51,6 +51,7 @@ namespace MAP_Web.Services
 
         public async Task UpdateRequest(Request request, int status)
         {
+            request.HistoryGroupId = Guid.NewGuid();
             await historyRepo.InsertAsync(new History
             {
                 date = DateTime.Now,
@@ -58,7 +59,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = request.Id,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = request.HistoryGroupId
             });
 
             request.Status = status;

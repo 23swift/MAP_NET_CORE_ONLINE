@@ -13,6 +13,8 @@ namespace MAP_Web.Models
         public int requestId { get; set; }    
         public string user { get; set; }     
         public string rank {get; set;}   
-        public Request Request { get; set; }       
+        public Request Request { get; set; }    
+        public Nullable<Guid> HistoryGroupId { get; set; }   
+        public Nullable<Guid> AuditLogGroupId { get; set; }             
     }
 }

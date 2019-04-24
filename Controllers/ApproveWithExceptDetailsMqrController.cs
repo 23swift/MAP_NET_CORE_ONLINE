@@ -67,7 +67,7 @@ namespace MAP_Web.Controllers
                 return NotFound();
 
             mapper.Map<ApproveWithExceptDetailsMqrViewModel, ApproveWithExceptDetailsMqr>(appEx, currentAppEx);
-
+            await _service.Update(currentAppEx);
             await _service.SaveChangesAsync();
 
             return Ok(currentAppEx);
@@ -81,7 +81,7 @@ namespace MAP_Web.Controllers
             if (currentAppEx == null)
                 return NotFound();
 
-            _service.Delete(currentAppEx);
+            await _service.Delete(currentAppEx);
             await _service.SaveChangesAsync();
 
             return Ok();

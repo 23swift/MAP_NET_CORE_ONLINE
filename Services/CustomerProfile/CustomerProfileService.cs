@@ -35,11 +35,15 @@ namespace MAP_Web.Services
         {
             Request request = new Request();
             request.AuditLogGroupId = Guid.NewGuid();
+            request.HistoryGroupId = Guid.NewGuid();
             request.Status = 1;
             request.MAEF = new MAEF();
             request.MAEF.AuditLogGroupId = request.AuditLogGroupId;
+            request.MAEF.HistoryGroupId = request.HistoryGroupId;
             request.CreatedBy = this.user;
             request.ApprovalSetup = new ApprovalSetup();
+            request.ApprovalSetup.AuditLogGroupId = request.AuditLogGroupId;
+            request.ApprovalSetup.HistoryGroupId = request.HistoryGroupId;            
             request.NewAffiliation = new NewAffiliation();
             
             /*for testing insert approvalsetup after saving customer profile 
@@ -73,8 +77,10 @@ namespace MAP_Web.Services
            // test end           
 
             request.NewAffiliation.AuditLogGroupId = request.AuditLogGroupId;
+            request.NewAffiliation.HistoryGroupId = request.HistoryGroupId; 
             request.NewAffiliation.CustomerProfile = customerProfile;
             request.NewAffiliation.CustomerProfile.AuditLogGroupId = request.AuditLogGroupId;
+            request.NewAffiliation.CustomerProfile.HistoryGroupId = request.HistoryGroupId;           
 
             var documents = await this.documentListRepo.GetPagedListAsync(predicate: d => d.Code == customerProfile.ownership);
 
@@ -82,7 +88,8 @@ namespace MAP_Web.Services
             {
                 request.NewAffiliation.DocumentChecklists.Add(new DocumentChecklist {
                     documentName = item.Id,
-                    AuditLogGroupId = request.AuditLogGroupId
+                    AuditLogGroupId = request.AuditLogGroupId,
+                    HistoryGroupId = request.HistoryGroupId
                 });
             }
 
@@ -91,7 +98,8 @@ namespace MAP_Web.Services
                 action = "Request Created",
                 groupCode = role,
                 user = user,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = request.HistoryGroupId
             });
             
             await requestRepo.InsertAsync(request);
@@ -116,6 +124,7 @@ namespace MAP_Web.Services
         {
             var request = await requestRepo.FindAsync(customerProfile.NewAffiliationId);
             customerProfile.AuditLogGroupId = request.AuditLogGroupId;
+            customerProfile.HistoryGroupId = Guid.NewGuid();
             // CustomerProfile.NewAffiliationId is the same with Request.Id
 
             await historyRepo.InsertAsync(new History{
@@ -124,7 +133,8 @@ namespace MAP_Web.Services
                 groupCode = role,
                 user = user,
                 RequestId = customerProfile.NewAffiliationId,
-                AuditLogGroupId = request.AuditLogGroupId
+                AuditLogGroupId = request.AuditLogGroupId,
+                HistoryGroupId = customerProfile.HistoryGroupId
             });
 
             customerRepo.Update(customerProfile);
